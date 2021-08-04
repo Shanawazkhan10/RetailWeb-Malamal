@@ -1,45 +1,47 @@
-import {useEffect,useRef} from "react";
+import { useEffect } from "react";
 import * as React from "react";
 import { CIQ } from "chartiq/js/componentUI";
+import 'chartiq/css/normalize.css';
+import 'chartiq/css/page-defaults.css';
+import 'chartiq/css/stx-chart.css';
+import 'chartiq/css/chartiq.css';
 
-function Chart() {  
-  let container = React.useRef<HTMLDivElement>(null);  
-  //let container = React.createRef();  
-  //let container = React.createRef<HTMLDivElement>();
-  //let  container = useRef(document.createElement("div"))
-  //let container = React.createRef<HTMLDivElement>();  
-  useEffect(() => {            
-    const constcontainer = container.current;
-    const stx = new CIQ.ChartEngine({constcontainer});
-      stx.loadChart("SPY", {
-        masterData: getMasterData(),
-        periodicity: {
-          period: 1,
-          interval: 5,
-          timeUnit: "minute"
-        }
-      },[]);    
-  });
-  
-  return (    
-    <div style={{ margin: "20px" }}>      
-				<h2>Hello world static chart example</h2>
-				<div
-					ref={container}
-					className="chartContainer"
-					style={{
-						width: "800px",
-						height: "460px",
-						position: "relative",
-						border: "solid 1px #aaa",
-           
-					}}
-				></div>
-			</div>
+const Chart = () => {
+  let container = React.useRef<HTMLDivElement>() as  React.RefObject<HTMLDivElement>;
+  let stx= CIQ.ChartEngine; 
+ 
+  useEffect(() => {
+    container = container.current as unknown as React.RefObject<HTMLDivElement>;
+    
+    stx = new CIQ.ChartEngine({ container });
+    stx.loadChart("SPY", {
+      masterData: getMasterData(),
+      periodicity: {
+        period: 1,
+        interval: 5,
+        timeUnit: "minute"
+      }
+    });
+  }, []);
+
+  return (
+    <div style={{ margin: "20px" }}>
+      <h2>Hello world static ts Chartiq example</h2>
+      <div
+        ref={container}
+        className="chartContainer"
+        style={{
+          width: "800px",
+          height: "460px",
+          position: "relative",
+          border: "solid 1px #aaa"
+        }}
+      ></div>
+    </div>
   );
 }
 
-function 	getMasterData() {
+const getMasterData = () => {
   const masterData = [
     {
       Date: "20200331144000000",

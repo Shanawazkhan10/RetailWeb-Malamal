@@ -1,0 +1,15 @@
+.order_window {
+    background: white;
+    z-index: 99;
+    top: auto;
+    bottom: 0px;
+    margin-top: 0em;
+    width: 500px;
+    position: fixed;
+    left: calc(50% - 275px);
+}
+
+.submit {
+    color: #fff;
+    min-width: 75px;
+}

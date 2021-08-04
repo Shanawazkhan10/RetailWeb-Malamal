@@ -1,3 +1,4 @@
 export interface IOrderEntryprops{
-    nBuySell:number,
+  isOrderEntryOpen : boolean,
+  nBuySell:number,
   }

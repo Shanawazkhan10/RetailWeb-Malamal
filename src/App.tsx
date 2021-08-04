@@ -1,6 +1,5 @@
-import Amplify from "aws-amplify";
-import awsConfig from "./aws-exports";
-import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
+// import Amplify from "aws-amplify";
+// import awsConfig from "./aws-exports";
 import "./App.css";
 import Login from "./features/Login/Login";
 import Home from "./features/Home/Home";
@@ -20,8 +19,9 @@ import Chart from "./features/Home/Chart/Chart";
 import ForgotPassword from "./features/Login/ForgotPassword";
 import MPIN from "./features/Login/MPIN";
 import ChartJS from "./features/Home/Chart/Chartjs";
+import AdvancedChart from "./features/Home/Chart/AdvancedChart";
 
-Amplify.configure(awsConfig);
+// Amplify.configure(awsConfig);
 
 function App() {
   return (
@@ -35,6 +35,9 @@ function App() {
         </Route>
         <Route path="/Chart">
           <Chart />
+        </Route>
+        <Route path="/AdvancedChart">
+          <AdvancedChart />
         </Route>
         <Route path="/login">
           <Login />

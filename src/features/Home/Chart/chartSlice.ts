@@ -5,6 +5,7 @@ import { CIQ } from "chartiq/js/componentUI";
 const initialState = {
   chart: new CIQ.UI.Chart(),
   stx: null,
+  uiContext: null,
 };
 
 export const chartSlice = createSlice({
@@ -14,10 +15,16 @@ export const chartSlice = createSlice({
     chartInitialized: (state) => {
         state.stx= null;
     },
+    setStxState:(state,action:PayloadAction<any>)=>{
+      state.stx = action.payload;      
+    },
+    setUIContext:(state,action:PayloadAction<any>)=>{
+      state.uiContext = action.payload;      
+    },    
   },
 });
 
-export const{ chartInitialized } = chartSlice.actions;
+export const{ chartInitialized,setStxState,setUIContext } = chartSlice.actions;
 
 export const selectChart = (state: RootState) => state.chart;
 

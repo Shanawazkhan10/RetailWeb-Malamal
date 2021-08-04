@@ -6,17 +6,23 @@ import NetPosition from "../features/Home/MainContainer/NetPosition/NetPositionS
 import Holding from "../features/Home/MainContainer/Holding/HoldingSlice";
 import OrderViewSlice from "../features/Home/MainContainer/OrderView/OrderViewSlice";
 import TradeVIewSlice from "../features/Home/MainContainer/TradeView/TradeVIewSlice";
+import orderEntrySlice from '../features/Home/OrderEntry/orderEntrySlice';
 
 const store = configureStore({
     reducer: {
         user: userReducer,
         forgotPassword:forgotpasswordReducer,
         chart: chartReducer,
-    netposition: NetPosition,
-    holding: Holding,
-    OrderView: OrderViewSlice,
-    TradeView: TradeVIewSlice,
-    }
+        netposition: NetPosition,
+        holding: Holding,
+        OrderView: OrderViewSlice,
+        TradeView: TradeVIewSlice,
+        orderEntry:orderEntrySlice,
+    },
+    middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),    
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

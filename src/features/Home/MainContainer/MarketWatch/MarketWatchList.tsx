@@ -1,8 +1,16 @@
-import BuyOrderEntry from "../../OrderEntry/BuyOrderEntry";
-import SellOrderEntry from "../../OrderEntry/SellOrderEntry";
+import { useAppDispatch } from "../../../../app/hooks";
+import { openBuyOrderEntry,openSellOrderEntry } from "../../OrderEntry/orderEntrySlice";
+
 import "../../style.css";
 
-const MarketWatchList = () => {
+const MarketWatchList = () => {  
+  const dispatch = useAppDispatch();
+  function onBuyOrderEntryClick(){
+    dispatch(openBuyOrderEntry());
+  };
+  function onSellOrderEntryClick(){
+    dispatch(openSellOrderEntry());
+  };
   return (
     <div className="mw_content" id="mw_content">
       <div
@@ -118,14 +126,14 @@ const MarketWatchList = () => {
 
             <div id="divLeftV" className="container_mw mw_team1">
               <div className="overlay_mw">
-                {/* <button className="btn_mw_overlay_2 btn_buy" title="BUY">
+                <button className="btn_mw_overlay_2 btn_buy" title="BUY" onClick={onBuyOrderEntryClick}>
                   B
                 </button>
-                <button className="btn_mw_overlay_3 btn_sell" title="SELL">
+                <button className="btn_mw_overlay_3 btn_sell" title="SELL" onClick={onSellOrderEntryClick}>
                   S
-                </button> */}
-                <BuyOrderEntry/>
-                <SellOrderEntry/>
+                </button>
+                {/* <BuyOrderEntry/>
+                <SellOrderEntry/> */}
                 <button
                   className="btn_mw_overlay_1 btn_detail"
                   title="Market Depth"
