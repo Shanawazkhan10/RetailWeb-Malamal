@@ -3,8 +3,8 @@ import { useEffect } from "react";
 // import 'chartiq/css/normalize.css';
 // import 'chartiq/css/page-defaults.css';
 // If for some reason you are not including base-styles.css add these here.
-import 'chartiq/css/stx-chart.css'; // Chart API
-import 'chartiq/css/chartiq.css'; // Chart UI
+// import 'chartiq/css/stx-chart.css'; // Chart API
+// import 'chartiq/css/chartiq.css'; // Chart UI
 import defaultConfig from 'chartiq/js/defaultConfiguration';
 import quoteFeed from "chartiq/examples/feeds/quoteFeedSimulator.js";
 // Uncomment the following for the forecasting simulator (required for the forecasting sample).
@@ -15,6 +15,7 @@ import marker from 'chartiq/examples/markers/markersSample.js';
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import { setStxState, setUIContext } from './chartSlice';
 import ChartTemplate from "./Template";
+import "./resources"
 
 declare global {
     namespace JSX {

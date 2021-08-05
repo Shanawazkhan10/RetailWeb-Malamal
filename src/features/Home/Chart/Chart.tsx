@@ -1,10 +1,7 @@
 import { useEffect } from "react";
 import * as React from "react";
 import { CIQ } from "chartiq/js/componentUI";
-import 'chartiq/css/normalize.css';
-import 'chartiq/css/page-defaults.css';
-import 'chartiq/css/stx-chart.css';
-import 'chartiq/css/chartiq.css';
+import "./resources" 
 
 const Chart = () => {
   let container = React.useRef<HTMLDivElement>() as  React.RefObject<HTMLDivElement>;
