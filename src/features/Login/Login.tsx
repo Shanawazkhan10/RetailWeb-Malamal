@@ -65,7 +65,7 @@ const Login = () => {
         <div className="wrap-login-main">
           <div className="wrap-login-in">
             <div className="loginform">
-              {user.isPasswordCheked == false ? (
+              {user.isPasswordCheked === false ? (
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <span className="login-main-form-title">Sign in</span>
                   <div className="wrap-input100 m-b-20">

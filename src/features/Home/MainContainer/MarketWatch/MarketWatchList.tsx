@@ -2,6 +2,7 @@ import { useAppDispatch } from "../../../../app/hooks";
 import { openBuyOrderEntry,openSellOrderEntry } from "../../OrderEntry/orderEntrySlice";
 
 import "../../style.css";
+import { chartContainer } from "../mainContainerSlice";
 
 const MarketWatchList = () => {  
   const dispatch = useAppDispatch();
@@ -10,6 +11,9 @@ const MarketWatchList = () => {
   };
   function onSellOrderEntryClick(){
     dispatch(openSellOrderEntry());
+  };
+  function onChartClick(){
+    dispatch(chartContainer());
   };
   return (
     <div className="mw_content" id="mw_content">
@@ -126,6 +130,9 @@ const MarketWatchList = () => {
 
             <div id="divLeftV" className="container_mw mw_team1">
               <div className="overlay_mw">
+                <button className="btn_mw_overlay_2 btn_buy" title="Chart(C )" onClick={onChartClick}>
+                  C
+                </button>
                 <button className="btn_mw_overlay_2 btn_buy" title="BUY" onClick={onBuyOrderEntryClick}>
                   B
                 </button>
