@@ -150,3 +150,35 @@ export const getOrderData: any = () => {
   ];
   return getOrderData;
 };
+
+export const getWatchList: any = () => {
+  const WatchListData = [
+    {
+      mwName: "nifty",
+      scrips: "bse_cm|16082,bse_fo|68822,bse_cm|16082,bse_fo|68822",
+      id: 1,
+    },
+    {
+      mwName: "nifty1",
+      scrips: "nse_cm|15083,nse_fo|58824",
+      id: 2,
+    },
+    {
+      mwName: "nifty2",
+      scrips: "bse_cm|16082,bse_fo|68822,bse_cm|16082,bse_fo|68822",
+      id: 3,
+    },
+    {
+      mwName: "nifty3",
+      scrips: "nse_cm|15083",
+      id: 4,
+    },
+    {
+      mwName: "nifty4",
+      scrips:
+        "nse_cm|15083,nse_fo|58824,bse_cm|16082,bse_fo|68822,bse_cm|16082,bse_fo|68822",
+      id: 5,
+    },
+  ];
+  return WatchListData;
+};

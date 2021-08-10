@@ -125,7 +125,7 @@ const NetPositionList = () => {
       </div>
     </div>
   ) : (
-    <div>Emptry......</div>
+    <div>Empty......</div>
   );
 };
 

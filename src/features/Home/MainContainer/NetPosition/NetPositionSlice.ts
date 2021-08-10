@@ -61,7 +61,7 @@ const netposition = createSlice({
 
 export default netposition.reducer;
 
-export const { NetpositionSuccess } = netposition.actions;
+export const { NetpositionSuccess, NetpositionUpdate } = netposition.actions;
 
 export const fetchNetposition = () => async (dispatch: any) => {
   try {

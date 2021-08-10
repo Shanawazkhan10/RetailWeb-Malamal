@@ -7,13 +7,13 @@ import "./style.css";
 import OrderEntryComp from "./OrderEntry/OrderEntry";
 
 const Home = () => {
-  const orderEntryState = useAppSelector((state)=>state.orderEntry);
+  const orderEntryState = useAppSelector((state) => state.orderEntry);
   return (
     <div id="MasterSearchDiv">
       <div id="wrapper">
         <Header />
-        <MainContainer />        
-        {orderEntryState.isOrderEntryOpen && <OrderEntryComp/>}
+        <MainContainer nWatchList={1} />
+        {orderEntryState.isOrderEntryOpen && <OrderEntryComp />}
         {/* <Footer /> */}
       </div>
     </div>

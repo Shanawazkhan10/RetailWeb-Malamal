@@ -5,7 +5,7 @@ import { INetPosition } from "../../../../types/INetposition";
 
 const NetPositionV = (props: { netposition: INetPosition }) => {
   const { netposition } = props;
-  const dispatch = useAppDispatch();
+  //const dispatch = useAppDispatch();
   //const dispatch = useAppDispatch();
 
   return (

@@ -1,7 +1,37 @@
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { getWatchList } from "../../../../app/api";
+import { useAppDispatch } from "../../../../app/hooks";
+import { RootState } from "../../../../store/store";
+import { IMarketWatch } from "../../../../types/IMarketWatch";
+import { IWatchListProps } from "../../../../types/IWatchListProps";
 import "../../style.css";
+import { ChangeWatchList, getMarketWatchSuccess } from "./MarketWatchSlice";
+import MarketWatchTabLayout from "./MarketWatchTabLayout";
 
-const MarketWatchPortfolio = () => {
-  return (
+const MarketWatchPortfolio = (props: IWatchListProps) => {
+  //const [appState, changeState] = useState(0);
+  const dispatch = useAppDispatch();
+  //const [Flag, setFlag] = props;
+  let WatchListData: any[];
+  let selectedList: number;
+  const WatchList = useSelector((state: RootState) => state.marketwatch);
+  selectedList = Number(WatchList.marketWatch.nSelectedWatchList);
+  WatchListData = WatchList.marketWatch.MarketWatchList;
+
+  useEffect(() => {
+    if (!WatchList.marketWatch.bIsBind)
+      dispatch(getMarketWatchSuccess(getWatchList()));
+  }, []);
+
+  const handleChange = (event: any) => {
+    event.preventDefault();
+    //event.stopPropagation();
+    dispatch(ChangeWatchList(Number(event.currentTarget.id)));
+  };
+
+  return WatchListData && WatchListData.length > 0 ? (
+    // !WatchList.marketWatch.bIsBind ? (
     <div className="mw_head" id="mw_head">
       <ul id="ulTab" className="scroll_tabs_container">
         <div
@@ -26,63 +56,25 @@ const MarketWatchPortfolio = () => {
             right: "0px",
           }}
         >
-          <span
-            className="scroll_tab_left_finisher"
-            style={{ display: "inline-block" }}
-          >
-            &nbsp;
-          </span>
-          <li
-            id="65"
-            className="tab_selected scroll_tab_first"
-            style={{ display: "inline-block", zoom: "1" }}
-          >
-            <a href="" id="tabItemAnchorText">
-              W1GSH
-            </a>
-          </li>
-          <li
-            id="66"
-            style={{ display: "inline-block", zoom: "1" }}
-            className=""
-          >
-            <a href="" id="tabItemAnchorText">
-              W2
-            </a>
-          </li>
-          <li
-            id="67"
-            style={{ display: "inline-block", zoom: "1" }}
-            className=""
-          >
-            <a href="" id="tabItemAnchorText">
-              W3
-            </a>
-          </li>
-          <li
-            id="68"
-            style={{ display: "inline-block", zoom: "1" }}
-            className=""
-          >
-            <a href="" id="tabItemAnchorText">
-              W4_NSECD
-            </a>
-          </li>
-          <li
-            id="69"
-            className="scroll_tab_last"
-            style={{ display: "inline-block", zoom: "1" }}
-          >
-            <a href="" id="tabItemAnchorText">
-              W5
-            </a>
-          </li>
-          <span
-            className="scroll_tab_right_finisher"
-            style={{ display: "inline-block" }}
-          >
-            &nbsp;
-          </span>
+          {WatchListData.map((WatchList: any) => (
+            // <MarketWatchTabLayout
+            //   key={WatchList.id}
+            //   MarketWatchProps={WatchList}
+            // />
+            <li
+              key={WatchList.id}
+              className={
+                WatchList.id === selectedList
+                  ? "scroll_tab_first tab_selected"
+                  : "scroll_tab_first"
+              }
+              style={{ display: "inline-block", zoom: "1" }}
+            >
+              <a href="" id={WatchList.id} onClick={handleChange}>
+                {WatchList.mwName}
+              </a>
+            </li>
+          ))}
         </div>
         <div
           className="scroll_tab_right_button"
@@ -97,6 +89,8 @@ const MarketWatchPortfolio = () => {
         ></div>
       </ul>
     </div>
+  ) : (
+    <div>Empty Watch List</div>
   );
 };
 
