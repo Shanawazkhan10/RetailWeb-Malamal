@@ -22,7 +22,7 @@ export const ForgotPasswordOTP = () => {
   };
   return (
     <>
-      {forgotpassword.isOTPVerified == false ? (
+      {forgotpassword.isOTPVerified === false ? (
         <form onSubmit={handleSubmit(onSubmit)}>
           <span className="login-main-form-title">Forgot Password OTP</span>
           <div className="wrap-input100 m-b-20">

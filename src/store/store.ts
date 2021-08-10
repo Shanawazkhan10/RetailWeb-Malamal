@@ -7,6 +7,7 @@ import Holding from "../features/Home/MainContainer/Holding/HoldingSlice";
 import OrderViewSlice from "../features/Home/MainContainer/OrderView/OrderViewSlice";
 import TradeVIewSlice from "../features/Home/MainContainer/TradeView/TradeVIewSlice";
 import orderEntrySlice from '../features/Home/OrderEntry/orderEntrySlice';
+import mainContainerSlice from '../features/Home/MainContainer/mainContainerSlice';
 
 const store = configureStore({
     reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
         OrderView: OrderViewSlice,
         TradeView: TradeVIewSlice,
         orderEntry:orderEntrySlice,
+        mainContainer:mainContainerSlice,
     },
     middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

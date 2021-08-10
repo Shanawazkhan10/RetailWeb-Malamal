@@ -28,7 +28,7 @@ const ForgotPassword = () => {
         <div className="wrap-login-main">
           <div className="wrap-login-in">
             <div className="loginform">              
-            {forgotpassword.isUserAuthenticated == false ? (
+            {forgotpassword.isUserAuthenticated === false ? (
               <form onSubmit={handleSubmit(onSubmit)}>
                 <span className="login-main-form-title">Forgot Password</span>
                 <div className="wrap-input100 m-b-20">

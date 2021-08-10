@@ -3,25 +3,24 @@ import { IOrderEntryprops } from "../../../types/IOrderEntryprops";
 
 const initialState = {
     isOrderEntryOpen: false,
-    nBuySell:1,
-
+    isBuy:false,
 } as IOrderEntryprops;
 
 export const orderEntrySlice = createSlice({
     name :'OrderEntry',
     initialState,
-    reducers:{
+    reducers:{        
         openBuyOrderEntry:(state)=>{
             state.isOrderEntryOpen=true;
-            state.nBuySell=1;
+            state.isBuy=true;
         },
         openSellOrderEntry:(state)=>{
             state.isOrderEntryOpen=true;
-            state.nBuySell=2;
+            state.isBuy=false;
         },
         closeOrderEntry:(state)=>{
             state.isOrderEntryOpen=false;
-            state.nBuySell=1;
+            state.isBuy=false;
         },
     }
 });

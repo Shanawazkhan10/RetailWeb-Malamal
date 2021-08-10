@@ -32,7 +32,7 @@ const MPIN = () => {
             minLength:{value:6,message:"Invalid PIN."}
           })}
           className="input100 userIdCls inputFP"
-          type="text"
+          type="password"
           name="PIN"
           placeholder="PIN"
           id="userIDFP"
