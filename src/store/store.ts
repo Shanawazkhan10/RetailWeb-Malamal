@@ -8,6 +8,8 @@ import OrderViewSlice from "../features/Home/MainContainer/OrderView/OrderViewSl
 import TradeVIewSlice from "../features/Home/MainContainer/TradeView/TradeVIewSlice";
 import orderEntrySlice from "../features/Home/OrderEntry/orderEntrySlice";
 import MarketWatchSlice from "../features/Home/MainContainer/MarketWatch/MarketWatchSlice";
+import mainContainerSlice from "../features/Home/MainContainer/mainContainerSlice";
+
 const store = configureStore({
   reducer: {
     user: userReducer,
@@ -19,6 +21,7 @@ const store = configureStore({
     TradeView: TradeVIewSlice,
     orderEntry: orderEntrySlice,
     marketwatch: MarketWatchSlice,
+    mainContainer: mainContainerSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
