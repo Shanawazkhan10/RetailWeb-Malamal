@@ -7,7 +7,6 @@ import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IWatchListProps } from "../../../../types/IWatchListProps";
 import "../../style.css";
 import { ChangeWatchList, getMarketWatchSuccess } from "./MarketWatchSlice";
-import MarketWatchTabLayout from "./MarketWatchTabLayout";
 
 const MarketWatchPortfolio = (props: IWatchListProps) => {
   //const [appState, changeState] = useState(0);
