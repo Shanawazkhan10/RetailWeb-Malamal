@@ -15,6 +15,7 @@ import AdvancedChart from "../Chart/AdvancedChart";
 import OrderView from "./OrderView/Order";
 import OrderList from "./OrderView/OrderList";
 import TradeList from "./TradeView/TradeList";
+import Menu from "../Menu/Menu";
 
 const MainContainer = (props: any) => {
   const MenuClick = props;
@@ -61,7 +62,7 @@ const MainContainer = (props: any) => {
   }
   return (
     <div id="content">
-      <div className="hdivided">
+      <div className="hdivided" style={{display:"flex"}}>
         <div className="mw_main mw_ver" id="mw_main">
           <MarketWatch></MarketWatch>
           <MarketWatchPortfolio nWatchList={1}></MarketWatchPortfolio>

@@ -1,6 +1,7 @@
 import Footer from "./Footer/Footer";
 import Header from "./Header/Header";
 import MainContainer from "./MainContainer/MainContainer";
+import Menu from "./Menu/Menu";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 
 import "./style.css";
@@ -15,6 +16,7 @@ const Home = () => {
         <MainContainer nWatchList={1} />
         {orderEntryState.isOrderEntryOpen && <OrderEntryComp />}
         {/* <Footer /> */}
+        <Menu></Menu>
       </div>
     </div>
   );
