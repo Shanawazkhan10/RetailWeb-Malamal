@@ -93,6 +93,40 @@ const OrderEntryComp = () => {
             </div>
           </div>
         </div>
+
+        
+        <span>
+          <input type="radio" name="producttype" value="Intraday MIS" />
+          <input type="radio" name="producttype" value="LongTerm CNC" />
+        </span>
+        <span>
+          <input
+            {...register("quantity", {
+              required: "QTY is required.",
+            })}
+            id="quantity"
+            name="quantity"
+            placeholder="Qty."
+            type="number"
+            maxLength={5}
+          />
+        </span>
+        <span>
+          <input
+            {...register("price", {
+              required: "Price is required.",
+            })}
+            id="price"
+            name="price"
+            placeholder="Price"
+            type="number"
+            maxLength={9}
+          />
+        </span>
+        <span>
+          <input type="radio" name="ordertype" value="Market" />
+          <input type="radio" name="ordertype" value="Limit" />
+        </span>
         <span>
           <input type="radio" name="producttype" value="Intraday MIS" />
           <input type="radio" name="producttype" value="LongTerm CNC" />

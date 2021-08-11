@@ -12,6 +12,9 @@ import NetPositionList from "./NetPosition/NetPositionList";
 
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import AdvancedChart from "../Chart/AdvancedChart";
+import OrderView from "./OrderView/Order";
+import OrderList from "./OrderView/OrderList";
+import TradeList from "./TradeView/TradeList";
 
 const MainContainer = (props: any) => {
   const MenuClick = props;
@@ -32,6 +35,26 @@ const MainContainer = (props: any) => {
             <AdvancedChart></AdvancedChart>
           </div>
         );
+      case 2:
+        return (
+          <div className="con_bottom">
+            <HoldingList></HoldingList>
+          </div>
+        );
+      case 3:
+        return (
+          <div className="con_bottom">
+            <HoldingList></HoldingList>
+          </div>
+        );
+      case 4:
+        return (
+          <div className="con_bottom">
+            <OrderList></OrderList>
+            <TradeList></TradeList>
+          </div>
+        );
+
       default:
         return null;
     }
