@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
-import { chartContainer } from "../mainContainerSlice";
 import { useAppDispatch } from "../../../../app/hooks";
-import { openBuyOrderEntry,openSellOrderEntry } from "../../OrderEntry/orderEntrySlice";
+import {
+  openBuyOrderEntry,
+  openSellOrderEntry,
+} from "../../OrderEntry/orderEntrySlice";
+import { chartContainer } from "../mainContainerSlice";
 
 const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
   const { propMarketWatch } = props;
   const dispatch = useAppDispatch();
-  function onBuyOrderEntryClick(){
+  function onBuyOrderEntryClick() {
     dispatch(openBuyOrderEntry());
-  };
-  function onSellOrderEntryClick(){
+  }
+  function onSellOrderEntryClick() {
     dispatch(openSellOrderEntry());
-  };
-  function onChartClick(){
+  }
+  function onChartClick() {
     dispatch(chartContainer());
-  };
+  }
   let itemExcArray = propMarketWatch.scrips.split(",");
   useEffect(() => {
     //dispatch(NetpositionSuccess(getNetpositionData()));
@@ -53,13 +56,25 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
 
           <div id="divLeftV" className="container_mw mw_team1">
             <div className="overlay_mw">
-            <button className="btn_mw_overlay_2 btn_buy" title="Chart(C )" onClick={onChartClick}>
-                  C
-                </button>
-              <button className="btn_mw_overlay_2 btn_buy" title="BUY" onClick={onBuyOrderEntryClick}>
+              <button
+                className="btn_mw_overlay_2 btn_buy"
+                title="Chart(C )"
+                onClick={onChartClick}
+              >
+                C
+              </button>
+              <button
+                className="btn_mw_overlay_2 btn_buy"
+                title="BUY"
+                onClick={onBuyOrderEntryClick}
+              >
                 B
               </button>
-              <button className="btn_mw_overlay_3 btn_sell" title="SELL" onClick={onSellOrderEntryClick}>
+              <button
+                className="btn_mw_overlay_3 btn_sell"
+                title="SELL"
+                onClick={onSellOrderEntryClick}
+              >
                 S
               </button>
               <button
