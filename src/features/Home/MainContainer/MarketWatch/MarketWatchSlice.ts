@@ -33,9 +33,10 @@ const marketwatchSlice = createSlice({
       state.marketWatch.MarketWatchList.concat(action.payload);
     },
     RenameWatchList(state, action) {
-      // state.marketWatch.MarketWatchList = state.marketWatch.MarketWatchList.filter(
-      //   (row) => row.id == action.payload
-      // );
+      state.marketWatch.MarketWatchList =
+        state.marketWatch.MarketWatchList.filter(
+          (row) => row.id == action.payload
+        );
     },
   },
 });
