@@ -4,6 +4,8 @@ import { IOrderEntryprops } from "../../../types/IOrderEntryprops";
 const initialState = {
     isOrderEntryOpen: false,
     isBuy:false,
+    productCode:0,
+    orderType:0,
 } as IOrderEntryprops;
 
 export const orderEntrySlice = createSlice({

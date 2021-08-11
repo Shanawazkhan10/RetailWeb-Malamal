@@ -27,7 +27,7 @@
     padding: 15px 20px;
 }
 
-.order-window .drag-handle {
+.order_window .drag-handle {
     position: absolute;
     top: 0;
     left: 0;
@@ -36,15 +36,15 @@
     cursor: move;
 }
 
-.order-window.buy .actions .submit {
+.order_window.buy .actions .submit {
     background-color: #4184f3;
     border-color: #4184f3;
 }
-.order-window.sell .actions .submit {
+.order_window.sell .actions .submit {
     background-color: #fd2e3f;
     border-color: #fd2e3f;
 }
-.order-window .footer .submit {
+.order_window .footer .submit {
     color: #fff;
     min-width: 75px;
 }
@@ -129,4 +129,37 @@
     -moz-transition: box-shadow 0.3s ease-in-out;
     -o-transition: box-shadow 0.3s ease-in-out;
     transition: box-shadow 0.3s ease-in-out;
+}
+
+.order_window .variety {
+  background-color: var(--color-bg-1);
+  border-bottom: 2px solid var(--color-border-default);
+  color: var(--color-text-1);
+}
+
+.order_window .variety {
+  background-color: #f9f9f9;
+  border-bottom: 2px solid #eee;
+  color: #9b9b9b;
+}
+
+.order_window .variety .su-radio-wrap {
+  margin: 0;
+  display: inline-block;
+}
+
+.su-radio-group .su-radio {
+  opacity: 0;
+  position: absolute;
+}
+
+.su-radio-group .su-radio, .su-radio-group .su-radio-label {
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+[data-balloon] {
+  position: relative;
+  opacity: 1!important;
 }
