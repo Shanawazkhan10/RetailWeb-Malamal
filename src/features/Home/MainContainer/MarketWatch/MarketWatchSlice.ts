@@ -44,7 +44,13 @@ const marketwatchSlice = createSlice({
     },
     UpdateSymbolDetails(state, action) {
       let TokenInfo: IMarketWatchTokenInfo[] = action.payload;
-      state.marketWatch.MarketWatchList[1].SymbolList = TokenInfo;
+      if (TokenInfo != undefined)
+        state.marketWatch.MarketWatchList[TokenInfo[0].mwId - 1].SymbolList =
+          TokenInfo;
+      // state.marketWatch.MarketWatchList[2].SymbolList = TokenInfo;
+      // state.marketWatch.MarketWatchList[3].SymbolList = TokenInfo;
+      // state.marketWatch.MarketWatchList[4].SymbolList = TokenInfo;
+      // state.marketWatch.MarketWatchList[5].SymbolList = TokenInfo;
     },
   },
 });

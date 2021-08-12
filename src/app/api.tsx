@@ -159,27 +159,32 @@ export const getWatchList: any = () => {
       mwName: "nifty",
       scrips: "bse_cm|16082,bse_fo|68822,bse_cm|16082,bse_fo|68822",
       id: 1,
+      SymbolList: null,
     },
     {
       mwName: "nifty1",
       scrips: "nse_cm|15083,nse_fo|58824",
       id: 2,
+      SymbolList: null,
     },
     {
       mwName: "nifty2",
       scrips: "bse_cm|16082,bse_fo|68822,bse_cm|16082,bse_fo|68822",
       id: 3,
+      SymbolList: null,
     },
     {
       mwName: "nifty3",
       scrips: "nse_cm|15083",
       id: 4,
+      SymbolList: null,
     },
     {
       mwName: "nifty4",
       scrips:
         "nse_cm|15083,nse_fo|58824,bse_cm|16082,bse_fo|68822,bse_cm|16082,bse_fo|68822",
       id: 5,
+      SymbolList: null,
     },
   ];
   return WatchListData;
