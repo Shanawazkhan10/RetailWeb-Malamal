@@ -1,4 +1,6 @@
 import axios from "axios";
+import { UpdateSymbolDetails } from "../features/Home/MainContainer/MarketWatch/MarketWatchSlice";
+import { useAppDispatch } from "./hooks";
 //import parseLink, { Links } from 'parse-link-header';
 
 // export async function getComments(url: string) {
@@ -182,3 +184,230 @@ export const getWatchList: any = () => {
   ];
   return WatchListData;
 };
+
+export function GetWatchListSymbolDetails(i: number, scripArr: string) {
+  //const dispatch = useAppDispatch();
+  let SymbolListData;
+  switch (i) {
+    case 1:
+      SymbolListData = [
+        {
+          mwId: 1,
+          mwName: "nifty",
+          scrips: "ACC",
+          cmpName: "ACC LIMITED",
+          exch: "NSE",
+          seg: "CASH",
+          sym: "ACC",
+          exEndDt: "NA",
+        },
+        {
+          mwId: 2,
+          mwName: "nifty",
+          scrips: "ACC",
+          cmpName: "ACC LIMITED",
+          exch: "NSE",
+          seg: "CASH",
+          sym: "ACC",
+          exEndDt: "NA",
+        },
+        {
+          mwId: 3,
+          mwName: "nifty",
+          scrips: "ACC",
+          cmpName: "ACC LIMITED",
+          exch: "NSE",
+          seg: "CASH",
+          sym: "ACC",
+          exEndDt: "NA",
+        },
+        {
+          mwId: 4,
+          mwName: "nifty",
+          scrips: "ACC",
+          cmpName: "ACC LIMITED",
+          exch: "NSE",
+          seg: "CASH",
+          sym: "ACC",
+          exEndDt: "NA",
+        },
+        {
+          mwId: 5,
+          mwName: "nifty",
+          scrips: "ACC",
+          cmpName: "ACC LIMITED",
+          exch: "NSE",
+          seg: "CASH",
+          sym: "ACC",
+          exEndDt: "NA",
+        },
+      ];
+      break;
+
+    case 2:
+      SymbolListData = [
+        {
+          mwId: 2,
+          mwName: "nifty",
+          scrips: "ACC",
+          cmpName: "ACC LIMITED",
+          exch: "NSE",
+          seg: "CASH",
+          sym: "ACC",
+          exEndDt: "NA",
+        },
+        {
+          mwId: 2,
+          mwName: "nifty",
+          scrips: "ACC",
+          cmpName: "ACC LIMITED",
+          exch: "NSE",
+          seg: "CASH",
+          sym: "ACC",
+          exEndDt: "NA",
+        },
+        {
+          mwId: 2,
+          mwName: "nifty",
+          scrips: "ACC",
+          cmpName: "ACC LIMITED",
+          exch: "NSE",
+          seg: "CASH",
+          sym: "ACC",
+          exEndDt: "NA",
+        },
+      ];
+      break;
+    case 3:
+      SymbolListData = [
+        {
+          mwId: 3,
+          mwName: "nifty",
+          scrips: "ACC",
+          cmpName: "ACC LIMITED",
+          exch: "NSE",
+          seg: "CASH",
+          sym: "ACC",
+          exEndDt: "NA",
+        },
+      ];
+      break;
+    case 1:
+      SymbolListData = [
+        {
+          mwId: 3,
+          mwName: "nifty",
+          scrips: "ACC",
+          cmpName: "ACC LIMITED",
+          exch: "NSE",
+          seg: "CASH",
+          sym: "ACC",
+          exEndDt: "NA",
+        },
+        {
+          mwId: 3,
+          mwName: "nifty",
+          scrips: "ACC",
+          cmpName: "ACC LIMITED",
+          exch: "NSE",
+          seg: "CASH",
+          sym: "ACC",
+          exEndDt: "NA",
+        },
+        {
+          mwId: 3,
+          mwName: "nifty",
+          scrips: "ACC",
+          cmpName: "ACC LIMITED",
+          exch: "NSE",
+          seg: "CASH",
+          sym: "ACC",
+          exEndDt: "NA",
+        },
+        {
+          mwId: 3,
+          mwName: "nifty",
+          scrips: "ACC",
+          cmpName: "ACC LIMITED",
+          exch: "NSE",
+          seg: "CASH",
+          sym: "ACC",
+          exEndDt: "NA",
+        },
+      ];
+      break;
+    case 4:
+      SymbolListData = [
+        {
+          mwId: 4,
+          mwName: "nifty",
+          scrips: "ACC",
+          cmpName: "ACC LIMITED",
+          exch: "NSE",
+          seg: "CASH",
+          sym: "ACC",
+          exEndDt: "NA",
+        },
+        {
+          mwId: 4,
+          mwName: "nifty",
+          scrips: "ACC",
+          cmpName: "ACC LIMITED",
+          exch: "NSE",
+          seg: "CASH",
+          sym: "ACC",
+          exEndDt: "NA",
+        },
+        {
+          mwId: 4,
+          mwName: "nifty",
+          scrips: "ACC",
+          cmpName: "ACC LIMITED",
+          exch: "NSE",
+          seg: "CASH",
+          sym: "ACC",
+          exEndDt: "NA",
+        },
+      ];
+      break;
+
+    case 3:
+      SymbolListData = [
+        {
+          mwId: 5,
+          mwName: "nifty",
+          scrips: "ACC",
+          cmpName: "ACC LIMITED",
+          exch: "NSE",
+          seg: "CASH",
+          sym: "ACC",
+          exEndDt: "NA",
+        },
+        {
+          mwId: 5,
+          mwName: "nifty",
+          scrips: "ACC",
+          cmpName: "ACC LIMITED",
+          exch: "NSE",
+          seg: "CASH",
+          sym: "ACC",
+          exEndDt: "NA",
+        },
+        {
+          mwId: 5,
+          mwName: "nifty",
+          scrips: "ACC",
+          cmpName: "ACC LIMITED",
+          exch: "NSE",
+          seg: "CASH",
+          sym: "ACC",
+          exEndDt: "NA",
+        },
+      ];
+      break;
+    default:
+      break;
+  }
+  //dispatch(UpdateSymbolDetails(SymbolListData));
+  return SymbolListData;
+}
