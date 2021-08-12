@@ -22,7 +22,7 @@ const ContainerStyle: CSS.Properties = {
 
 const WatchStyle: CSS.Properties = {
   float: "left",
-  margin: "0px 400px 0px 0px",
+  margin: "0px 100px 0px 0px",
 };
 
 const Header = () => {
@@ -90,7 +90,7 @@ const Header = () => {
           className="hrnavmenu"
           style={{
             fontFamily: "sans-serif",
-            fontSize: "medium",
+            fontSize: "small",
             marginTop: "20px",
           }}
         >
@@ -124,7 +124,7 @@ const Header = () => {
 
             <li
               className="positions"
-              style={{ float: "left", marginRight: "30rem" }}
+              style={{ float: "left", marginRight: "5rem" }}
             >
               <a href="#" onClick={onPositions} style={{ color: "orange" }}>
                 <span id="spnPositions">Positions</span>

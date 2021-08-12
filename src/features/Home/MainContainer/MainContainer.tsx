@@ -16,6 +16,9 @@ import OrderView from "./OrderView/Order";
 import OrderList from "./OrderView/OrderList";
 import TradeList from "./TradeView/TradeList";
 import Menu from "../Menu/Menu";
+import ProfiePhoto from "../PersonalDetails/ProflePhoto";
+import PersonalDetails from "../PersonalDetails/PersonalDetails";
+import DematDetails from "../PersonalDetails/DematDetails";
 
 const MainContainer = (props: any) => {
   const MenuClick = props;
@@ -55,6 +58,18 @@ const MainContainer = (props: any) => {
             <TradeList></TradeList>
           </div>
         );
+      case 6:
+        return (
+          <div className="con_bottom">
+            <PersonalDetails></PersonalDetails>
+          </div>
+        );
+      case 7:
+        return (
+          <div className="con_bottom">
+            <DematDetails></DematDetails>
+          </div>
+        );
 
       default:
         return null;
@@ -62,13 +77,16 @@ const MainContainer = (props: any) => {
   }
   return (
     <div id="content">
-      <div className="hdivided" style={{display:"flex"}}>
+      <div className="hdivided" style={{ display: "flex" }}>
         <div className="mw_main mw_ver" id="mw_main">
           <MarketWatch></MarketWatch>
           <MarketWatchPortfolio nWatchList={1}></MarketWatchPortfolio>
           <MarketWatchListContainer></MarketWatchListContainer>
         </div>
         {renderRightContainer()}
+        {/* <div className="con_bottom">
+          <PersonalDetails></PersonalDetails>
+        </div> */}
       </div>
     </div>
   );

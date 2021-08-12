@@ -3,10 +3,15 @@ import { loggedout } from "../../Login/userSlice";
 import {
   holdingContainer,
   orderContainer,
+  myprofileContainer,
 } from "../MainContainer/mainContainerSlice";
 
 const Menu = () => {
   const dispatch = useAppDispatch();
+
+  function OnMenu() {
+    dispatch(myprofileContainer());
+  }
 
   function OnOrder() {
     dispatch(orderContainer());
@@ -41,7 +46,7 @@ const Menu = () => {
           </li>
           <li>
             {" "}
-            <a id="menuMyProfile">
+            <a id="menuMyProfile" onClick={OnMenu}>
               <span></span>My Profile
             </a>
           </li>
