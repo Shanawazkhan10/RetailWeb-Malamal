@@ -39,27 +39,17 @@ const AccountSummary = () => {
             </div>
             <div className="profile-name">
               <label>Name</label>
+              <span></span>
               <h3>Deep Amit Mehta</h3>
             </div>
           </div>
           <div id="profile_client_id" className="two columns">
             <label>Client ID</label>
+            <span></span>
             <h3>PF7937</h3>
           </div>
-          <div id="profile_zpin" className="two columns">
-            <label data-balloon="Telephone support code" data-balloon-pos="up">
-              Support code
-            </label>{" "}
-            <div>
-              <h3>
-                ••••
-                <a href="#" data-balloon="View code" data-balloon-pos="up">
-                  View
-                </a>
-              </h3>
-            </div>
-          </div>{" "}
-          <div className="two columns">
+          <span></span>
+          <div className="two columns" style={{ marginLeft: "30px" }}>
             <label>CKYC no.</label>
             <h3>10095635008625</h3>
           </div>
