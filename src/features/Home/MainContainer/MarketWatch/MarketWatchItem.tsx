@@ -30,6 +30,9 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
   function onChartClick() {
     dispatch(chartContainer());
   }
+  function onDepthClick() {
+    //dispatch(chartContainer());
+  }
 
   function bindList() {
     console.log("calling bindList");
@@ -178,6 +181,13 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
 
               <div id="divLeftV" className="container_mw mw_team1">
                 <div className="overlay_mw">
+                  <button
+                    className="btn_mw_overlay_2 btn_buy"
+                    title="Chart(C )"
+                    onClick={onDepthClick}
+                  >
+                    D
+                  </button>
                   <button
                     className="btn_mw_overlay_2 btn_buy"
                     title="Chart(C )"
