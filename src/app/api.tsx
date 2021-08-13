@@ -182,3 +182,15 @@ export const getWatchList: any = () => {
   ];
   return WatchListData;
 };
+
+export const getProfileSummary: any = () => {
+  const MyData = {
+    fullname: "Deep Amit Mehta",
+    email: "mdeep859@gmail.com",
+    pan: "*554L",
+    phone: "*4140",
+    dematNo: "1208160035816401",
+    segments: "NSE,NFO,BSE,MF",
+  };
+  return MyData;
+};

@@ -1,15 +1,45 @@
 import ProfiePhoto from "./ProflePhoto";
 import { useAppDispatch } from "../../../app/hooks";
-import { dematDetailsContainer } from "../MainContainer/mainContainerSlice";
+import { dashboardContainer } from "../MainContainer/mainContainerSlice";
+import {
+  DematDetailsContainer,
+  accountmanageContainer,
+} from "./PersonalDetailsSlice";
+import backImage from "../../../assets/back reverse.png";
 
-const PersonalDetails = () => {
+const ProfileSummaryOld = () => {
   const dispatch = useAppDispatch();
   function onDematClick() {
-    dispatch(dematDetailsContainer());
+    dispatch(DematDetailsContainer());
+  }
+  function OnBack() {
+    dispatch(dashboardContainer());
+  }
+
+  function OnManage() {
+    dispatch(accountmanageContainer());
   }
 
   return (
     <div className="oth-sidebar-rght">
+      <span
+        className="back"
+        style={{
+          position: "relative",
+          display: "inline-block",
+          marginTop: "30px",
+          marginLeft: "500px",
+        }}
+      >
+        <a
+          href="#"
+          onClick={OnBack}
+          className="back"
+          style={{ marginTop: "30px" }}
+        >
+          <img src={backImage} style={{}}></img>
+        </a>
+      </span>
       <ProfiePhoto></ProfiePhoto>
       <div
         className="AccountContainer"
@@ -19,17 +49,32 @@ const PersonalDetails = () => {
           className="leftSection"
           style={{ width: "500px", height: "750px" }}
         >
-          <div
-            className="seven columns"
-            style={{ marginBottom: "10px", fontSize: "30px", width: "120px" }}
-          >
+          <div className="seven columns" style={{ width: "120px" }}>
+            <a
+              href="#"
+              onClick={OnManage}
+              className="manage"
+              style={{
+                marginLeft: "300px",
+                marginBottom: "10px",
+                display: "inline-block",
+                color: "orange",
+              }}
+            >
+              Manage
+            </a>
             <h3
               className="page-title small section-header"
-              style={{ fontSize: "20px" }}
+              style={{
+                fontSize: "20px",
+                marginBottom: "10px",
+                display: "inline-block",
+              }}
             >
               Account
             </h3>
           </div>
+
           <div className="profile-main" style={{ height: "500px" }}>
             <div className="row">
               <div
@@ -44,6 +89,14 @@ const PersonalDetails = () => {
                 }}
               >
                 E-mail :
+                <div
+                  className="seven columns value"
+                  style={{
+                    position: "relative",
+                    display: "inline-block",
+                    marginBottom: 10,
+                  }}
+                ></div>
               </div>
               <div
                 className="seven columns value"
@@ -149,7 +202,7 @@ const PersonalDetails = () => {
                 </span>
               </div>
             </div>
-            <div className="row">
+            <div className="row" style={{ width: "250px" }}>
               <div
                 className="five columns label"
                 style={{
@@ -187,7 +240,7 @@ const PersonalDetails = () => {
             <br />
             <br />
             <br />
-            <div className="row">
+            {/* <div className="row">
               <div
                 className="seven columns"
                 style={{
@@ -203,8 +256,8 @@ const PersonalDetails = () => {
                   Settings
                 </h3>
               </div>
-            </div>
-            <div className="row" style={{ width: "600px" }}>
+            </div> */}
+            {/* <div className="row" style={{ width: "600px" }}>
               <div
                 className="five columns label"
                 style={{
@@ -256,8 +309,8 @@ const PersonalDetails = () => {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="row" style={{ marginTop: "30px" }}>
+            </div> */}
+            {/* <div className="row" style={{ marginTop: "30px" }}>
               <div
                 className="five columns label"
                 style={{
@@ -278,7 +331,7 @@ const PersonalDetails = () => {
                 </div>
                 <div className="wrg-toggle-circle"></div>
               </div>
-            </div>
+            </div> */}
           </div>
         </section>
         <section className="rightSection" style={{ width: "400px" }}>
@@ -301,9 +354,21 @@ const PersonalDetails = () => {
               </span>
             </span>
           </p>
+          <div
+            className="seven columns"
+            style={{
+              marginBottom: "10px",
+              fontSize: "18px",
+              color: "blue",
+              width: "150px",
+            }}
+          >
+            Add Bank
+          </div>
         </section>
       </div>
     </div>
   );
 };
-export default PersonalDetails;
+
+export default ProfileSummaryOld;

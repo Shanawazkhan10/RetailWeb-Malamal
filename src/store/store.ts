@@ -10,6 +10,7 @@ import orderEntrySlice from "../features/Home/OrderEntry/orderEntrySlice";
 import MarketWatchSlice from "../features/Home/MainContainer/MarketWatch/MarketWatchSlice";
 import mainContainerSlice from "../features/Home/MainContainer/mainContainerSlice";
 import MenuBarSlice from "../features/Home/Menu/MenuBarSlice";
+import PersonalDetailsSlice from "../features/Home/PersonalDetails/PersonalDetailsSlice";
 
 const store = configureStore({
   reducer: {
@@ -23,7 +24,8 @@ const store = configureStore({
     orderEntry: orderEntrySlice,
     marketwatch: MarketWatchSlice,
     mainContainer: mainContainerSlice,
-    menuContainer:MenuBarSlice
+    personalContaner: PersonalDetailsSlice,
+    menuContainer: MenuBarSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

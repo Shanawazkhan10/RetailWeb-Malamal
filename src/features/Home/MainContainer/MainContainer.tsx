@@ -17,12 +17,40 @@ import OrderList from "./OrderView/OrderList";
 import TradeList from "./TradeView/TradeList";
 import Menu from "../Menu/Menu";
 import ProfiePhoto from "../PersonalDetails/ProflePhoto";
-import PersonalDetails from "../PersonalDetails/PersonalDetails";
+import PersonalDetails from "../PersonalDetails/ProfileSummary";
 import DematDetails from "../PersonalDetails/DematDetails";
+import NetPositionV from "./NetPosition/NetPosition";
+import AccountSummary from "../PersonalDetails/AccountSummary";
 
 const MainContainer = (props: any) => {
   const MenuClick = props;
   const mainContainer = useAppSelector((state) => state.mainContainer);
+
+  const personalContainer = useAppSelector((state) => state.personalContaner);
+
+  function rendertempAccount() {
+    switch (personalContainer.rightContainer) {
+      case 0:
+        return (
+          <div className="con_bottom">
+            <PersonalDetails></PersonalDetails>
+          </div>
+        );
+      case 1:
+        return (
+          <div className="con_bottom">
+            <DematDetails></DematDetails>
+          </div>
+        );
+      case 2:
+        return (
+          <div className="con_bottom">
+            <AccountSummary></AccountSummary>
+          </div>
+        );
+    }
+  }
+
   function renderRightContainer() {
     switch (mainContainer.rightContainer) {
       case 0:
@@ -48,7 +76,7 @@ const MainContainer = (props: any) => {
       case 3:
         return (
           <div className="con_bottom">
-            <HoldingList></HoldingList>
+            <NetPositionList></NetPositionList>
           </div>
         );
       case 4:
@@ -83,7 +111,8 @@ const MainContainer = (props: any) => {
           <MarketWatchPortfolio nWatchList={1}></MarketWatchPortfolio>
           <MarketWatchListContainer></MarketWatchListContainer>
         </div>
-        {renderRightContainer()}
+        {/* {renderRightContainer()} */}
+        {rendertempAccount()}
         {/* <div className="con_bottom">
           <PersonalDetails></PersonalDetails>
         </div> */}

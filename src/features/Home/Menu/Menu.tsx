@@ -1,23 +1,35 @@
+import { $CombinedState } from "redux";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import { loggedout } from "../../Login/userSlice";
 import {
   holdingContainer,
   orderContainer,
-  myprofileContainer,
 } from "../MainContainer/mainContainerSlice";
+import { myprofileContainer } from "../PersonalDetails/PersonalDetailsSlice";
 
 const Menu = () => {
+  const menuContainer = useAppSelector((state) => state.menuContainer);
+
   const dispatch = useAppDispatch();
 
-  function OnMenu() {
+  function OnProfileMenu() {
+    //To do changes for menu opening and closing
+
+    const output = document.getElementById("menu");
+    if (output) output.style.width = "0px";
+
     dispatch(myprofileContainer());
   }
 
   function OnOrder() {
+    const output = document.getElementById("menu");
+    if (output) output.style.width = "0px";
     dispatch(orderContainer());
   }
 
   function OnHoldings() {
+    const output = document.getElementById("menu");
+    if (output) output.style.width = "0px";
     dispatch(holdingContainer());
   }
 
@@ -25,11 +37,9 @@ const Menu = () => {
     dispatch(loggedout());
   }
 
-  const menuContainer = useAppSelector((state) => state.menuContainer);
-
   if (menuContainer.toggleflag) {
     return (
-      <div className="pushy" id="menu" style={{ right: "0px" }}>
+      <div className="pushy" id="menu" style={{ width: "500px" }}>
         <ul>
           <li>
             <div className="profile_info">
@@ -46,7 +56,7 @@ const Menu = () => {
           </li>
           <li>
             {" "}
-            <a id="menuMyProfile" onClick={OnMenu}>
+            <a id="menuMyProfile" onClick={OnProfileMenu}>
               <span></span>My Profile
             </a>
           </li>
