@@ -39,20 +39,19 @@ const OrderEntryHeader = () => {
             <div className="nudge"></div>
             <div>
               <span data-balloon="Toggle Buy / Sell" data-balloon-pos="up">
-                <div className="su-switch-group tx-toggle">
+                <div className="su-switch-group tx-toggle"  onClick={toggleBuySell} >
                   <input
                     id="switch-197"
-                    type="checkbox"
-                    data-stateon="SELL"
-                    data-stateoff="BUY"
-                    data-label=""
+                    type="checkbox"                    
                     className="su-switch"
-                    value="BUY"
+                    value={orderEntryState.isBuy? "Buy":"Sell"}                                                           
+                    checked={!orderEntryState.isBuy}
+                    onChange={()=>{}}
                   />
                   <label
                     data-for="switch-197"
                     className="su-switch-control"
-                  ></label>{" "}
+                  ></label>
                 </div>
               </span>
               <a

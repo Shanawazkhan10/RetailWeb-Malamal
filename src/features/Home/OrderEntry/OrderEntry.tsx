@@ -1,8 +1,13 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { closeOrderEntry, selectProductCode } from "./orderEntrySlice";
+import {
+  closeOrderEntry,
+  selectProductCode,
+  selectVariety,
+} from "./orderEntrySlice";
 import "./orderEntry.css";
 import OrderEntryHeader from "./OrderEntryHeader";
+import "balloon-css";
 
 interface IOrderentryInput {
   token: number;
@@ -26,9 +31,14 @@ const OrderEntryComp = () => {
     console.log(data);
   };
 
+  function onVarietychange(value: any) {
+    dispatch(selectVariety(value));
+  }
+
   function onProductCodechange(value: any) {
     dispatch(selectProductCode(value));
   }
+
   return (
     <form
       className={"order_window " + (orderEntryState.isBuy ? "buy" : "sell")}
@@ -42,11 +52,11 @@ const OrderEntryComp = () => {
             <div
               className={
                 "type su-radio-wrap" +
-                (orderEntryState.productCode === 0 ? " checked" : "")
+                (orderEntryState.variety === 0 ? " checked" : "")
               }
-              data-balloon="Regular order"
+              aria-label="Regular order"
               data-balloon-pos="up"
-              onClick={() => onProductCodechange(0)}
+              onClick={() => onVarietychange(0)}
             >
               <input
                 id="radio-181"
@@ -56,46 +66,52 @@ const OrderEntryComp = () => {
                 data-label="Regular"
                 className="su-radio"
                 value="0"
+                checked={orderEntryState.variety === 0 ? true : false}
+                onChange={() => {}}
               />
               <label className="su-radio-label">Regular</label>
             </div>
             <div
               className={
                 "type su-radio-wrap" +
-                (orderEntryState.productCode === 1 ? " checked" : "")
+                (orderEntryState.variety === 1 ? " checked" : "")
               }
-              data-balloon="Cover order"
+              aria-label="Cover order"
               data-balloon-pos="up"
-              onClick={() => onProductCodechange(1)}
+              onClick={() => onVarietychange(1)}
             >
               <input
-                id="radio-181"
+                id="radio-182"
                 type="radio"
                 name="variety"
                 title="Cover order"
                 data-label="Cover"
                 className="su-radio"
                 value="1"
+                checked={orderEntryState.variety === 1 ? true : false}
+                onChange={() => {}}
               />
               <label className="su-radio-label">Cover</label>
             </div>
             <div
               className={
                 "type su-radio-wrap" +
-                (orderEntryState.productCode === 2 ? " checked" : "")
+                (orderEntryState.variety === 2 ? " checked" : "")
               }
-              data-balloon="AMO order"
+              aria-label="AMO order"
               data-balloon-pos="up"
-              onClick={() => onProductCodechange(2)}
+              onClick={() => onVarietychange(2)}
             >
               <input
-                id="radio-181"
+                id="radio-183"
                 type="radio"
                 name="variety"
                 title="AMO order"
                 data-label="Cover"
                 className="su-radio"
                 value="2"
+                checked={orderEntryState.variety === 2 ? true : false}
+                onChange={() => {}}
               />
               <label className="su-radio-label">AMO</label>
             </div>
@@ -106,43 +122,53 @@ const OrderEntryComp = () => {
           <div className="product_row">
             <div className="su-radio-group">
               <div
-                className="type four columns su-radio-wrap checked"
-                data-balloon="Margin Intraday Squareoff: Requires lower margin. Has to be exited before market close."
+                className={
+                  "type four columns su-radio-wrap" +
+                  (orderEntryState.variety === 1 ? " disabled" : "")
+                }
+                aria-label="Margin Intraday Squareoff: Requires lower margin. Has to be exited before market close."
                 data-balloon-pos="up"
                 data-balloon-length="large"
+                onClick={()=>onProductCodechange(0)}
               >
                 <input
                   id="radio-206"
                   type="radio"
                   name="product"
-                  title="Margin Intraday Squareoff: Requires lower margin. Has to be exited before market close."
                   data-label="Intraday <span>MIS</span>"
                   className="su-radio"
-                  value="MIS"
+                  value={0}
+                  checked={orderEntryState.productCode === 0 ? true : false}
+                  onChange={() => {}}
                 />
                 <label data-for="radio-206" className="su-radio-label">
                   Intraday <span>MIS</span>
                 </label>
               </div>
-              <div
-                className="type four columns su-radio-wrap"
-                data-balloon="CashNCarry: Longterm investment. Requires full upfront margin."
-                data-balloon-pos="up"
-                data-balloon-length="large"
-              >
-                <input
-                  id="radio-259"
-                  type="radio"
-                  name="product"
-                  title="CashNCarry: Longterm investment. Requires full upfront margin."
-                  data-label="Longterm <span>CNC</span>"
-                  className="su-radio"
-                  value="CNC"
-                />
-                <label data-for="radio-259" className="su-radio-label">
-                  Longterm <span>CNC</span>
-                </label>
-              </div>
+              {orderEntryState.variety !== 1 && (
+                <div
+                  className="type four columns su-radio-wrap"
+                  aria-label="CashNCarry: Longterm investment. Requires full upfront margin."
+                  data-balloon-pos="up"
+                  data-balloon-length="large"
+                  onClick={()=>onProductCodechange(1)}
+                >
+                  <input
+                    id="radio-259"
+                    type="radio"
+                    name="product"
+                    title="CashNCarry: Longterm investment. Requires full upfront margin."
+                    data-label="Longterm <span>CNC</span>"
+                    className="su-radio"
+                    value={1}
+                    checked={orderEntryState.productCode === 1 ? true : false}
+                    onChange={() => {}}
+                  />
+                  <label data-for="radio-259" className="su-radio-label">
+                    Longterm <span>CNC</span>
+                  </label>
+                </div>
+              )}
             </div>
           </div>
           <div className="fields">
@@ -208,7 +234,7 @@ const OrderEntryComp = () => {
             <div className="row">
               <div className="four columns">
                 <a href="#" className="text-xsmall more-options">
-                  <span data-balloon="More options" data-balloon-pos="up">
+                  <span aria-label="More options" data-balloon-pos="up">
                     More <span className="icon icon-chevron-down"></span>
                   </span>
                 </a>
@@ -216,9 +242,9 @@ const OrderEntryComp = () => {
               <div className="four columns price">
                 <div className="su-radio-group order-type">
                   <div
-                    className="su-radio-wrap checked"
+                    className="su-radio-wrap"
                     tooltip-pos="down"
-                    data-balloon="Buy at market price"
+                    aria-label="Buy at market price"
                     data-balloon-pos="down"
                   >
                     <input
@@ -237,7 +263,7 @@ const OrderEntryComp = () => {
                   <div
                     className="su-radio-wrap"
                     tooltip-pos="down"
-                    data-balloon="Buy at a preferred price"
+                    aria-label="Buy at a preferred price"
                     data-balloon-pos="down"
                   >
                     <input
@@ -261,7 +287,7 @@ const OrderEntryComp = () => {
                   <div
                     className="su-radio-wrap"
                     tooltip-pos="down"
-                    data-balloon="Buy at a preferred price with a stoploss"
+                    aria-label="Buy at a preferred price with a stoploss"
                     data-balloon-pos="down"
                   >
                     <input
@@ -280,7 +306,7 @@ const OrderEntryComp = () => {
                   <div
                     className="su-radio-wrap"
                     tooltip-pos="down"
-                    data-balloon="Buy at market price with stoploss"
+                    aria-label="Buy at market price with stoploss"
                     data-balloon-pos="down"
                   >
                     <input
@@ -312,28 +338,28 @@ const OrderEntryComp = () => {
                     target="_blank"
                     href="#"
                     className="info"
-                    data-balloon="Margin calculation explained"
+                    aria-label="Margin calculation explained"
                     data-balloon-pos="up"
                   >
                     <span className="icon icon-info"></span>
                   </a>
-                </span>{" "}
+                </span>
                 <span className="margin-value">₹299.95</span>
-                <a href="#" data-balloon="Refresh" data-balloon-pos="up">
+                <a href="#" aria-label="Refresh" data-balloon-pos="up">
                   <span className="reload-margin icon icon-reload"></span>
                 </a>
               </div>
-            </div>{" "}
+            </div>
             <div className="six columns text-right actions">
               <button type="submit" className="submit">
-                <span>Buy</span>
+                <span>{orderEntryState.isBuy === true ? "Buy" : "Sell"}</span>
               </button>
               <button
                 type="button"
                 className="button-outline cancel"
                 onClick={onCancelClick}
               >
-                Cancel{" "}
+                Cancel
               </button>
             </div>
           </div>
