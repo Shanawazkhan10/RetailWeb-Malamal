@@ -19,8 +19,10 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
   WatchListData = WatchList.marketWatch.MarketWatchList;
 
   useEffect(() => {
-    if (!WatchList.marketWatch.bIsBind)
-      dispatch(getMarketWatchSuccess(getWatchList()));
+    //if (!WatchList.marketWatch.bIsBind) {
+    dispatch(getMarketWatchSuccess(getWatchList()));
+    console.log("getMarketWatchSuccess useEffect");
+    //}
   }, []);
 
   const handleChange = (event: any) => {
