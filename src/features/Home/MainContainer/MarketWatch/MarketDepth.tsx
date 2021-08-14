@@ -1,8 +1,11 @@
 import React from "react";
+import Collapsible from "react-collapsible";
 
-function MarketDepth() {
+const MarketDepth = (props: any) => {
+  const expanded = props.activeItem === props.index;
   return (
-    <div className="market-depth">
+    // <Collapsible open="true">
+    <div className="market-depth" style={{ display: "" }}>
       <div className="depth-table">
         <div className="row">
           <table className="six columns buy">
@@ -22,7 +25,7 @@ function MarketDepth() {
                   className="text-right quantity"
                   style={{
                     background:
-                      "linear-gradient(to left, rgba(65, 132, 243, 0.1) 1.46199%, transparent 1.46199%);",
+                      "linear-gradient(to left, rgba(65, 132, 243, 0.1) 1.46199%, transparent 1.46199%)",
                   }}
                 >
                   6
@@ -46,7 +49,7 @@ function MarketDepth() {
                   className="text-right quantity"
                   style={{
                     background:
-                      "linear-gradient(to left, rgba(65, 132, 243, 0.1) 60.8187%, transparent 60.8187%);",
+                      "linear-gradient(to left, rgba(65, 132, 243, 0.1) 60.8187%, transparent 60.8187%)",
                   }}
                 >
                   209
@@ -58,7 +61,7 @@ function MarketDepth() {
                   className="text-right quantity"
                   style={{
                     background:
-                      "linear-gradient(to left, rgba(65, 132, 243, 0.1) 5%, transparent 5%);",
+                      "linear-gradient(to left, rgba(65, 132, 243, 0.1) 5%, transparent 5%)",
                   }}
                 >
                   1
@@ -70,7 +73,7 @@ function MarketDepth() {
                   className="text-right quantity"
                   style={{
                     background:
-                      "linear-gradient(to left, rgba(65, 132, 243, 0.1) 8.18713%, transparent 8.18713%);",
+                      "linear-gradient(to left, rgba(65, 132, 243, 0.1) 8.18713%, transparent 8.18713%)",
                   }}
                 >
                   29
@@ -104,7 +107,7 @@ function MarketDepth() {
                   className="text-right quantity"
                   style={{
                     background:
-                      "linear-gradient(to left, rgba(255, 87, 34, 0.1) 20.9302%, transparent 20.9302%);",
+                      "linear-gradient(to left, rgba(255, 87, 34, 0.1) 20.9302%, transparent 20.9302%)",
                   }}
                 >
                   28
@@ -116,7 +119,7 @@ function MarketDepth() {
                   className="text-right quantity"
                   style={{
                     background:
-                      "linear-gradient(to left, rgba(255, 87, 34, 0.1) 8.52713%, transparent 8.52713%);",
+                      "linear-gradient(to left, rgba(255, 87, 34, 0.1) 8.52713%, transparent 8.52713%)",
                   }}
                 >
                   12
@@ -128,7 +131,7 @@ function MarketDepth() {
                   className="text-right quantity"
                   style={{
                     background:
-                      "linear-gradient(to left, rgba(255, 87, 34, 0.1) 100%, transparent 100%);",
+                      "linear-gradient(to left, rgba(255, 87, 34, 0.1) 100%, transparent 100%)",
                   }}
                 >
                   130
@@ -140,7 +143,7 @@ function MarketDepth() {
                   className="text-right quantity"
                   style={{
                     background:
-                      "linear-gradient(to left, rgba(255, 87, 34, 0.1) 87.5969%, transparent 87.5969%);",
+                      "linear-gradient(to left, rgba(255, 87, 34, 0.1) 87.5969%, transparent 87.5969%)",
                   }}
                 >
                   114
@@ -152,7 +155,7 @@ function MarketDepth() {
                   className="text-right quantity"
                   style={{
                     background:
-                      "linear-gradient(to left, rgba(255, 87, 34, 0.1) 5%, transparent 5%);",
+                      "linear-gradient(to left, rgba(255, 87, 34, 0.1) 5%, transparent 5%)",
                   }}
                 >
                   1
@@ -220,7 +223,8 @@ function MarketDepth() {
         </div>
       </div>
     </div>
+    // </Collapsible>
   );
-}
+};
 
 export default MarketDepth;
