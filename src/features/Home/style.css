@@ -1800,8 +1800,8 @@ select[multiple] option[selected] {
 :root input[type="radio"] + span::before,
 :root input[type="checkbox"] + span::before {
   content: "";
-  width: 14px;
-  height: 14px;
+  width: 2px;
+  height: 2px;
   margin: -2px 4px 0 0;
   border: solid 1px #4a4a48;
   line-height: 14px;

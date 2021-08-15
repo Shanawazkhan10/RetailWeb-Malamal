@@ -33,9 +33,6 @@ const mainContainerSlice = createSlice({
     myprofileContainer: (state) => {
       state.rightContainer = 6;
     },
-    dematDetailsContainer: (state) => {
-      state.rightContainer = 7;
-    },
   },
 });
 
@@ -47,7 +44,6 @@ export const {
   orderContainer,
   fundContainer,
   myprofileContainer,
-  dematDetailsContainer,
 } = mainContainerSlice.actions;
 
 export default mainContainerSlice.reducer;

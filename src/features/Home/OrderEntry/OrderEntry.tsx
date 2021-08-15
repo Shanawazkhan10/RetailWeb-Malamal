@@ -94,7 +94,6 @@ const OrderEntryComp = () => {
           </div>
         </div>
 
-        
         <span>
           <input type="radio" name="producttype" value="Intraday MIS" />
           <input type="radio" name="producttype" value="LongTerm CNC" />

@@ -21,35 +21,36 @@ import PersonalDetails from "../PersonalDetails/ProfileSummary";
 import DematDetails from "../PersonalDetails/DematDetails";
 import NetPositionV from "./NetPosition/NetPosition";
 import AccountSummary from "../PersonalDetails/AccountSummary";
+import ProfileSummaryOld from "../PersonalDetails/ProfileSummary";
 
 const MainContainer = (props: any) => {
   const MenuClick = props;
   const mainContainer = useAppSelector((state) => state.mainContainer);
 
-  const personalContainer = useAppSelector((state) => state.personalContaner);
+  const personalContainer = useAppSelector((state) => state.personalContainer);
 
-  function rendertempAccount() {
-    switch (personalContainer.rightContainer) {
-      case 0:
-        return (
-          <div className="con_bottom">
-            <PersonalDetails></PersonalDetails>
-          </div>
-        );
-      case 1:
-        return (
-          <div className="con_bottom">
-            <DematDetails></DematDetails>
-          </div>
-        );
-      case 2:
-        return (
-          <div className="con_bottom">
-            <AccountSummary></AccountSummary>
-          </div>
-        );
-    }
-  }
+  // function rendertempAccount() {
+  //   switch (personalContainer.rightContainer) {
+  //     case 0:
+  //       return (
+  //         <div className="con_bottom">
+  //           <PersonalDetails></PersonalDetails>
+  //         </div>
+  //       );
+  //     case 1:
+  //       return (
+  //         <div className="con_bottom">
+  //           <DematDetails></DematDetails>
+  //         </div>
+  //       );
+  //     case 2:
+  //       return (
+  //         <div className="con_bottom">
+  //           <AccountSummary></AccountSummary>
+  //         </div>
+  //       );
+  //   }
+  // }
 
   function renderRightContainer() {
     switch (mainContainer.rightContainer) {
@@ -89,16 +90,9 @@ const MainContainer = (props: any) => {
       case 6:
         return (
           <div className="con_bottom">
-            <PersonalDetails></PersonalDetails>
+            <ProfileSummaryOld></ProfileSummaryOld>
           </div>
         );
-      case 7:
-        return (
-          <div className="con_bottom">
-            <DematDetails></DematDetails>
-          </div>
-        );
-
       default:
         return null;
     }
@@ -111,11 +105,8 @@ const MainContainer = (props: any) => {
           <MarketWatchPortfolio nWatchList={1}></MarketWatchPortfolio>
           <MarketWatchListContainer></MarketWatchListContainer>
         </div>
-        {/* {renderRightContainer()} */}
-        {rendertempAccount()}
-        {/* <div className="con_bottom">
-          <PersonalDetails></PersonalDetails>
-        </div> */}
+        {renderRightContainer()}
+        {/* {rendertempAccount()} */}
       </div>
     </div>
   );

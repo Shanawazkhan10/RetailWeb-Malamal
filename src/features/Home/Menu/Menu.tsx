@@ -4,8 +4,8 @@ import { loggedout } from "../../Login/userSlice";
 import {
   holdingContainer,
   orderContainer,
+  myprofileContainer,
 } from "../MainContainer/mainContainerSlice";
-import { myprofileContainer } from "../PersonalDetails/PersonalDetailsSlice";
 
 const Menu = () => {
   const menuContainer = useAppSelector((state) => state.menuContainer);
