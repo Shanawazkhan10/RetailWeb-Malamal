@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { api } from "../../../../app/api";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { api, GetWatchListSymbolDetails } from "../../../../app/api";
 import { IMarketWatchList } from "../../../../types/IMarketWatchList";
+import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 
 const InitialMarketWatch: IMarketWatchList = {
   MarketWatchList: [],
@@ -18,23 +19,38 @@ const marketwatchSlice = createSlice({
       state.marketWatch.MarketWatchList = action.payload;
       state.marketWatch.bIsBind = true;
       state.marketWatch.nSelectedWatchList = 1;
+      // state.marketWatch.MarketWatchList.map(
+      //   (row, i) => GetWatchListSymbolDetails(i + 1, row.scrips) //DUmmy Call for actual call send token info
+      // );
     },
     ChangeWatchList(state, action) {
       state.marketWatch.nSelectedWatchList = action.payload;
       // state.marketWatch.bIsBind = true;
     },
     DeleteWatchList(state, action) {
-      state.marketWatch.MarketWatchList = state.marketWatch.MarketWatchList.filter(
-        (row) => row.id != action.payload
-      );
+      state.marketWatch.MarketWatchList =
+        state.marketWatch.MarketWatchList.filter(
+          (row) => row.id != action.payload
+        );
     },
     AddToWatchList(state, action) {
       state.marketWatch.MarketWatchList.concat(action.payload);
     },
     RenameWatchList(state, action) {
-      state.marketWatch.MarketWatchList = state.marketWatch.MarketWatchList.filter(
-        (row) => row.id == action.payload
-      );
+      state.marketWatch.MarketWatchList =
+        state.marketWatch.MarketWatchList.filter(
+          (row) => row.id == action.payload
+        );
+    },
+    UpdateSymbolDetails(state, action) {
+      let TokenInfo: IMarketWatchTokenInfo[] = action.payload;
+      if (TokenInfo != undefined)
+        state.marketWatch.MarketWatchList[TokenInfo[0].mwId - 1].SymbolList =
+          TokenInfo;
+      // state.marketWatch.MarketWatchList[2].SymbolList = TokenInfo;
+      // state.marketWatch.MarketWatchList[3].SymbolList = TokenInfo;
+      // state.marketWatch.MarketWatchList[4].SymbolList = TokenInfo;
+      // state.marketWatch.MarketWatchList[5].SymbolList = TokenInfo;
     },
   },
 });
@@ -46,6 +62,7 @@ export const {
   DeleteWatchList,
   AddToWatchList,
   RenameWatchList,
+  UpdateSymbolDetails,
 } = marketwatchSlice.actions;
 
 export const fetchmarketWatch = () => async (dispatch: any) => {
