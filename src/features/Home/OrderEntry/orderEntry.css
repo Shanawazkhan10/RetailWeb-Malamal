@@ -118,8 +118,8 @@ label {
 
 .order_window .wrap .variety {
   background-color: #fff;
-  border-bottom: 2px solid  #fff;
-  color:#9b9b9b;
+  border-bottom: 2px solid #fff;
+  color: #9b9b9b;
 }
 
 .order_window .wrap .variety {
@@ -218,41 +218,49 @@ label {
 }
 
 .order-window .su-input-group input {
-    font-size: 1.5em;
+  font-size: 1.5em;
 }
-.su-input-group input, .su-input-group textarea {
-    border: 1px solid #eee;
-    border-radius: 3px;
-    padding: 10px 15px;
-    color: #444;
-    width: 100%;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+.su-input-group input,
+.su-input-group textarea {
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 10px 15px;
+  color: #444;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-.animated, .su-input-group .su-input-label.su-visible, .su-input-group .su-message {
+.animated,
+.su-input-group .su-input-label.su-visible,
+.su-input-group .su-message {
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
-  -webkit-animation-duration: .25s;
-  animation-duration: .25s;
+  -webkit-animation-duration: 0.25s;
+  animation-duration: 0.25s;
 }
 
-.marketwatch-sidebar .instruments .instrument .info .price, .marketwatch-sidebar .instruments .instrument .info .price span, .text-right {
+.marketwatch-sidebar .instruments .instrument .info .price,
+.marketwatch-sidebar .instruments .instrument .info .price span,
+.text-right {
   text-align: right;
 }
 
-.button, .hopscotch-bubble .hopscotch-nav-button, .profile .vue-image-crop-upload .vicp-wrap .vicp-operate a, button {
-  background-color:#9b9b9b;
+.button,
+.hopscotch-bubble .hopscotch-nav-button,
+.profile .vue-image-crop-upload .vicp-wrap .vicp-operate a,
+button {
+  background-color: #9b9b9b;
   color: #fff;
   padding: 8px 20px;
   border-radius: 3px;
   border: 1px solid #9b9b9b;
   font-weight: 400;
-  font-size: .925rem;
+  font-size: 0.925rem;
   display: inline-block;
 }
 
-.su-radio-group .su-radio+.su-radio-label:before {
+.su-radio-group .su-radio + .su-radio-label:before {
   content: "";
   background-color: #fff;
   border: 2px solid #9b9b9b;
@@ -266,24 +274,25 @@ label {
   border-radius: 50%;
 }
 
-.su-radio-group .su-radio:checked+.su-radio-label:before {
+.su-radio-group .su-radio:checked + .su-radio-label:before {
   padding: 4px;
   background-color: #4184f3;
-  -webkit-box-shadow: inset 0 0 0 2px  #fff;
-  box-shadow: inset 0 0 0 2px  #fff;
+  -webkit-box-shadow: inset 0 0 0 2px #fff;
+  box-shadow: inset 0 0 0 2px #fff;
   border: 1px solid #4184f3;
 }
 
-.order_window.sell .su-radio:checked+.su-radio-label:before {
+.order_window.sell .su-radio:checked + .su-radio-label:before {
   background-color: red;
   border-color: #ff0000;
 }
 
-.su-switch-group .su-switch[type=checkbox] {
+.su-switch-group .su-switch[type="checkbox"] {
   display: none;
 }
 
-input[type=checkbox], input[type=radio] {
+input[type="checkbox"],
+input[type="radio"] {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 0;
@@ -297,8 +306,8 @@ input[type=checkbox], input[type=radio] {
   left: 4px;
   width: 10px;
   height: 10px;
-  -webkit-transition: .2s;
-  transition: .2s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
   border-radius: 90px;
 }
 
@@ -322,22 +331,27 @@ input[type=checkbox], input[type=radio] {
   left: 4px;
   width: 10px;
   height: 10px;
-  -webkit-transition: .2s;
-  transition: .2s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
   border-radius: 90px;
 }
 
-.su-switch-group .su-switch:checked+.su-switch-control:after {
+.su-switch-group .su-switch:checked + .su-switch-control:after {
   left: calc(100% - 5px);
   -webkit-transform: translateX(-100%);
   transform: translateX(-100%);
 }
 
-.order_window header .tx-toggle .su-switch-control, .order-window header .tx-toggle .su-switch:checked+.su-switch-control {
-  background-color: rgba(#fff,.3);
+.order_window header .tx-toggle .su-switch-control,
+.order-window header .tx-toggle .su-switch:checked + .su-switch-control {
+  background-color: rgba(#fff, 0.3);
 }
 
-.order_window.sell .variety .su-radio-group .su-radio:checked+.su-radio-label {
+.order_window.sell
+  .variety
+  .su-radio-group
+  .su-radio:checked
+  + .su-radio-label {
   color: #ff5722;
   border-bottom: 2px solid #ff5722;
 }
@@ -351,9 +365,10 @@ input[type=checkbox], input[type=radio] {
 
 .su-radio-group .su-radio-label {
   position: relative;
-  border-bottom: 1px solid rgba(var(--color-border-4--rgb),0);
+  border-bottom: 1px solid rgba(var(--color-border-4--rgb), 0);
 }
-.su-radio-group .su-radio, .su-radio-group .su-radio-label {
+.su-radio-group .su-radio,
+.su-radio-group .su-radio-label {
   display: inline-block;
   vertical-align: middle;
   cursor: pointer;
@@ -366,7 +381,7 @@ input[type=checkbox], input[type=radio] {
   display: inline-block;
 }
 
-.su-radio-group .su-radio+.su-radio-label:before {
+.su-radio-group .su-radio + .su-radio-label:before {
   content: "";
   background-color: #fff;
   border: 2px solid #9b9b9b;
@@ -389,6 +404,10 @@ div {
   display: block;
 }
 
+div[disabled] {
+  pointer-events: none;
+  opacity: 0.7;
+}
 
 .order_window .body .product_row {
   margin-bottom: 20px;
@@ -396,7 +415,7 @@ div {
 }
 
 .su-radio-group {
-    display: flex;
+  display: flex;
 }
 
 .su-radio-group .su-radio-wrap {
@@ -404,8 +423,64 @@ div {
   margin-right: 20px;
 }
 
-.container:after, .row:after, .u-cf {
+.container:after,
+.row:after,
+.u-cf {
   content: "";
   display: table;
   clear: both;
+}
+
+.su-input-group input:disabled,
+.su-input-group textarea:disabled {
+  background-color: #fff;
+  background-image: #ccc;
+  color: #ccc;
+  cursor: not-allowed;
+  border-color: #00000000;
+}
+
+.order_window .body .more {
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 1px solid #fff;
+}
+
+.su-input-group.disabled .su-input-label {
+  color: #ccc;
+}
+
+@media (min-width: 550px) {
+  .eight.columns {
+    width: 65.33333%;
+  }
+}
+
+.icon-chevron-up:before {
+  content: "\e8f3";
+}
+
+.icon-chevron-down:before {
+  content: "\e8f0";
+}
+
+[class*=" icon-"]:before, [class^=icon-]:before {
+  font-family: kiteicons;
+  font-style: normal;
+  font-weight: 400;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1em;
+  margin-left: .2em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
 }

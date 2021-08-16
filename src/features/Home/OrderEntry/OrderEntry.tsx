@@ -3,16 +3,23 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   closeOrderEntry,
   selectProductCode,
-  selectVariety,
+  setQty,
+  setPrice,
+  setTriggerPrice,
+  setValidityWindow,
 } from "./orderEntrySlice";
 import "./orderEntry.css";
 import OrderEntryHeader from "./OrderEntryHeader";
 import "balloon-css";
+import OrderEntryVariety from "./OrderEntryVariety";
+import OrderEntryType from "./OrderEntryType";
+import OrderEntryValidity from "./OrderEntryValidity";
 
 interface IOrderentryInput {
   token: number;
   quantity: number;
   price: number;
+  triggerprice: number;
 }
 
 const OrderEntryComp = () => {
@@ -31,12 +38,21 @@ const OrderEntryComp = () => {
     console.log(data);
   };
 
-  function onVarietychange(value: any) {
-    dispatch(selectVariety(value));
-  }
-
   function onProductCodechange(value: any) {
     dispatch(selectProductCode(value));
+  }
+  function onQtyChange(e: any) {
+    dispatch(setQty(e.target.value));
+  }
+  function onPriceChange(e: any) {
+    dispatch(setPrice(e.target.value));
+  }
+  function onTriggerPriceChange(e: any) {
+    dispatch(setTriggerPrice(e.target.value));
+  }
+  function onMoreClick(e:any) {
+    e.preventDefault();
+    dispatch(setValidityWindow());
   }
 
   return (
@@ -47,77 +63,7 @@ const OrderEntryComp = () => {
       <OrderEntryHeader />
 
       <section className="wrap">
-        <div className="variety">
-          <div className="su-radio-group">
-            <div
-              className={
-                "type su-radio-wrap" +
-                (orderEntryState.variety === 0 ? " checked" : "")
-              }
-              aria-label="Regular order"
-              data-balloon-pos="up"
-              onClick={() => onVarietychange(0)}
-            >
-              <input
-                id="radio-181"
-                type="radio"
-                name="variety"
-                title="Regular order"
-                data-label="Regular"
-                className="su-radio"
-                value="0"
-                checked={orderEntryState.variety === 0 ? true : false}
-                onChange={() => {}}
-              />
-              <label className="su-radio-label">Regular</label>
-            </div>
-            <div
-              className={
-                "type su-radio-wrap" +
-                (orderEntryState.variety === 1 ? " checked" : "")
-              }
-              aria-label="Cover order"
-              data-balloon-pos="up"
-              onClick={() => onVarietychange(1)}
-            >
-              <input
-                id="radio-182"
-                type="radio"
-                name="variety"
-                title="Cover order"
-                data-label="Cover"
-                className="su-radio"
-                value="1"
-                checked={orderEntryState.variety === 1 ? true : false}
-                onChange={() => {}}
-              />
-              <label className="su-radio-label">Cover</label>
-            </div>
-            <div
-              className={
-                "type su-radio-wrap" +
-                (orderEntryState.variety === 2 ? " checked" : "")
-              }
-              aria-label="AMO order"
-              data-balloon-pos="up"
-              onClick={() => onVarietychange(2)}
-            >
-              <input
-                id="radio-183"
-                type="radio"
-                name="variety"
-                title="AMO order"
-                data-label="Cover"
-                className="su-radio"
-                value="2"
-                checked={orderEntryState.variety === 2 ? true : false}
-                onChange={() => {}}
-              />
-              <label className="su-radio-label">AMO</label>
-            </div>
-          </div>
-        </div>
-
+        <OrderEntryVariety />
         <div className="body">
           <div className="product_row">
             <div className="su-radio-group">
@@ -129,14 +75,17 @@ const OrderEntryComp = () => {
                 aria-label="Margin Intraday Squareoff: Requires lower margin. Has to be exited before market close."
                 data-balloon-pos="up"
                 data-balloon-length="large"
-                onClick={()=>onProductCodechange(0)}
+                onClick={() => onProductCodechange(0)}
               >
                 <input
                   id="radio-206"
                   type="radio"
                   name="product"
                   data-label="Intraday <span>MIS</span>"
-                  className="su-radio"
+                  className={
+                    "su-radio" +
+                    (orderEntryState.variety === 1 ? " disabled" : "")
+                  }
                   value={0}
                   checked={orderEntryState.productCode === 0 ? true : false}
                   onChange={() => {}}
@@ -151,7 +100,7 @@ const OrderEntryComp = () => {
                   aria-label="CashNCarry: Longterm investment. Requires full upfront margin."
                   data-balloon-pos="up"
                   data-balloon-length="large"
-                  onClick={()=>onProductCodechange(1)}
+                  onClick={() => onProductCodechange(1)}
                 >
                   <input
                     id="radio-259"
@@ -177,18 +126,16 @@ const OrderEntryComp = () => {
                 <div className="no su-input-group su-static-label">
                   <label className="su-input-label su-visible">Qty.</label>
                   <input
+                    {...register('quantity', { required: true, maxLength: 8,min:1,max:999999 })}
                     type="number"
                     placeholder=""
                     data-autocorrect="off"
                     min="1"
                     step="1"
-                    data-autofocus="autofocus"
-                    data-nativeerror="true"
-                    data-staticlabel="true"
-                    data-animate="true"
-                    data-label="Qty."
-                    data-rules="[object Object],[object Object],[object Object]"
-                    data-dynamicwidthsize="8"
+                    value={orderEntryState.qty}
+                    onChange={(e) => {
+                      onQtyChange(e);
+                    }}
                   />
                 </div>
               </div>
@@ -196,18 +143,18 @@ const OrderEntryComp = () => {
                 <div className="no su-input-group su-static-label disabled">
                   <label className="su-input-label su-visible">Price</label>
                   <input
+                    {...register('price', { required: true, maxLength: 8,min:1,max:999999 })}
                     type="number"
                     placeholder=""
                     data-autocorrect="off"
                     min="0.05"
                     step="0.05"
-                    data-nativeerror="true"
-                    data-staticlabel="true"
-                    data-animate="true"
-                    data-label="Price"
-                    data-rules="[object Object]"
-                    data-dynamicwidthsize="8"
-                    data-disabled="disabled"
+                    size={8}
+                    disabled={!orderEntryState.isPriceEnabled}
+                    value={orderEntryState.price}
+                    onChange={(e) => {
+                      onPriceChange(e);
+                    }}
                   />
                 </div>
               </div>
@@ -215,119 +162,36 @@ const OrderEntryComp = () => {
                 <div className="no su-input-group su-static-label disabled">
                   <label className="su-input-label">Trigger price</label>
                   <input
+                    {...register('triggerprice', { required: true, maxLength: 8,min:1,max:999999 })}
                     type="number"
                     placeholder=""
                     data-autocorrect="off"
                     min="0"
                     step="0.05"
-                    data-nativeerror="true"
-                    data-staticlabel="true"
-                    data-animate="true"
-                    data-label="Trigger price"
-                    data-rules="[object Object],[object Object]"
-                    data-dynamicwidthsize="8"
-                    data-disabled="disabled"
+                    size={8}
+                    disabled={!orderEntryState.isTriggerPriceEnabled}
+                    value={orderEntryState.triggerprice}
+                    onChange={(e) => {
+                      onTriggerPriceChange(e);
+                    }}
                   />
                 </div>
               </div>
             </div>
             <div className="row">
               <div className="four columns">
-                <a href="#" className="text-xsmall more-options">
+                <a href="" onClick={onMoreClick} className="text-xsmall more-options">
                   <span aria-label="More options" data-balloon-pos="up">
-                    More <span className="icon icon-chevron-down"></span>
+                    {orderEntryState.isValidityOpen ? "Hide": "More"}
+                     <span className={"icon" + (orderEntryState.isValidityOpen? " icon-chevron-up": " icon-chevron-down")}></span>
                   </span>
                 </a>
               </div>
-              <div className="four columns price">
-                <div className="su-radio-group order-type">
-                  <div
-                    className="su-radio-wrap"
-                    tooltip-pos="down"
-                    aria-label="Buy at market price"
-                    data-balloon-pos="down"
-                  >
-                    <input
-                      id="radio-212"
-                      type="radio"
-                      name="orderType"
-                      title="Buy at market price"
-                      data-label="Market"
-                      className="su-radio"
-                      value="MARKET"
-                    />
-                    <label data-for="radio-212" className="su-radio-label">
-                      Market
-                    </label>
-                  </div>
-                  <div
-                    className="su-radio-wrap"
-                    tooltip-pos="down"
-                    aria-label="Buy at a preferred price"
-                    data-balloon-pos="down"
-                  >
-                    <input
-                      id="radio-213"
-                      type="radio"
-                      name="orderType"
-                      title="Buy at a preferred price"
-                      data-label="Limit"
-                      className="su-radio"
-                      value="LIMIT"
-                    />
-                    <label data-for="radio-213" className="su-radio-label">
-                      Limit
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div className="four columns trigger">
-                <div className="su-radio-group text-right order-type">
-                  <div
-                    className="su-radio-wrap"
-                    tooltip-pos="down"
-                    aria-label="Buy at a preferred price with a stoploss"
-                    data-balloon-pos="down"
-                  >
-                    <input
-                      id="radio-215"
-                      type="radio"
-                      name="orderType"
-                      title="Buy at a preferred price with a stoploss"
-                      data-label="SL"
-                      className="su-radio"
-                      value="SL"
-                    />
-                    <label data-for="radio-215" className="su-radio-label">
-                      SL
-                    </label>
-                  </div>
-                  <div
-                    className="su-radio-wrap"
-                    tooltip-pos="down"
-                    aria-label="Buy at market price with stoploss"
-                    data-balloon-pos="down"
-                  >
-                    <input
-                      id="radio-216"
-                      type="radio"
-                      name="orderType"
-                      title="Buy at market price with stoploss"
-                      data-label="SL-M"
-                      className="su-radio"
-                      value="SL-M"
-                    />
-                    <label data-for="radio-216" className="su-radio-label">
-                      SL-M
-                    </label>
-                  </div>
-                </div>
-              </div>
+              <OrderEntryType />
             </div>
           </div>
+          {orderEntryState.isValidityOpen && <OrderEntryValidity />}
         </div>
-
         <footer className="footer">
           <div className="row">
             <div className="six columns">
