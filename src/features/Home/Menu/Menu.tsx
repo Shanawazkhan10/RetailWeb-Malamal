@@ -6,6 +6,7 @@ import {
   orderContainer,
   myprofileContainer,
 } from "../MainContainer/mainContainerSlice";
+import { profileContainer } from "../PersonalDetails/PersonalDetailsSlice";
 
 const Menu = () => {
   const menuContainer = useAppSelector((state) => state.menuContainer);
@@ -19,6 +20,7 @@ const Menu = () => {
     if (output) output.style.width = "0px";
 
     dispatch(myprofileContainer());
+    dispatch(profileContainer());
   }
 
   function OnOrder() {

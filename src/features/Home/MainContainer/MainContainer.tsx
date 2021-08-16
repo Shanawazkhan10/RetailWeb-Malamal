@@ -15,13 +15,12 @@ import AdvancedChart from "../Chart/AdvancedChart";
 import OrderView from "./OrderView/Order";
 import OrderList from "./OrderView/OrderList";
 import TradeList from "./TradeView/TradeList";
-import Menu from "../Menu/Menu";
-import ProfiePhoto from "../PersonalDetails/ProflePhoto";
-import PersonalDetails from "../PersonalDetails/ProfileSummary";
-import DematDetails from "../PersonalDetails/DematDetails";
-import NetPositionV from "./NetPosition/NetPosition";
+import ProfileSummary from "../PersonalDetails/ProfileSummary";
+import { ChangePassword } from "../../Login/ChangePassword";
 import AccountSummary from "../PersonalDetails/AccountSummary";
-import ProfileSummaryOld from "../PersonalDetails/ProfileSummary";
+import { PasswordSecurity } from "../PersonalDetails/PasswordSecurity";
+import DematDetails from "../Account/DematDetails";
+import UpdateMobileEmail from "../Account/UpdateMobileEmail";
 
 const MainContainer = (props: any) => {
   const MenuClick = props;
@@ -53,48 +52,90 @@ const MainContainer = (props: any) => {
   // }
 
   function renderRightContainer() {
-    switch (mainContainer.rightContainer) {
-      case 0:
-        return (
-          <div className="con_bottom">
-            <NetPositionList></NetPositionList>
-            <HoldingList></HoldingList>
-            {/* <MarketPicture></MarketPicture> */}
-          </div>
-        );
-      case 1:
-        return (
-          <div className="con_bottom">
-            <AdvancedChart></AdvancedChart>
-          </div>
-        );
-      case 2:
-        return (
-          <div className="con_bottom">
-            <HoldingList></HoldingList>
-          </div>
-        );
-      case 3:
-        return (
-          <div className="con_bottom">
-            <NetPositionList></NetPositionList>
-          </div>
-        );
-      case 4:
-        return (
-          <div className="con_bottom">
-            <OrderList></OrderList>
-            <TradeList></TradeList>
-          </div>
-        );
-      case 6:
-        return (
-          <div className="con_bottom">
-            <ProfileSummaryOld></ProfileSummaryOld>
-          </div>
-        );
-      default:
-        return null;
+    if (mainContainer.IsPersonal) {
+      switch (personalContainer.initialState.rightContainer) {
+        case 0:
+          return (
+            <div className="con_bottom">
+              <ProfileSummary></ProfileSummary>
+            </div>
+          );
+        case 1:
+          return (
+            <div className="con_bottom">
+              <AccountSummary></AccountSummary>
+            </div>
+          );
+        case 2:
+          return (
+            <div className="con_bottom">
+              <PasswordSecurity></PasswordSecurity>
+            </div>
+          );
+        case 3:
+          return (
+            <div className="con_bottom">
+              <DematDetails></DematDetails>
+            </div>
+          );
+        case 4:
+          return (
+            <div className="con_bottom">
+              <UpdateMobileEmail></UpdateMobileEmail>
+            </div>
+          );
+        default:
+          return (
+            <div className="con_bottom">
+              <ProfileSummary></ProfileSummary>
+            </div>
+          );
+      }
+    } else {
+      switch (mainContainer.rightContainer) {
+        case 0:
+          return (
+            <div className="con_bottom">
+              <NetPositionList></NetPositionList>
+              <HoldingList></HoldingList>
+              {/* <MarketPicture></MarketPicture> */}
+            </div>
+          );
+        case 1:
+          return (
+            <div className="con_bottom">
+              <AdvancedChart></AdvancedChart>
+            </div>
+          );
+        case 2:
+          return (
+            <div className="con_bottom">
+              <HoldingList></HoldingList>
+            </div>
+          );
+        case 3:
+          return (
+            <div className="con_bottom">
+              <NetPositionList></NetPositionList>
+            </div>
+          );
+        case 4:
+          return (
+            <div className="con_bottom">
+              <OrderList></OrderList>
+              <TradeList></TradeList>
+            </div>
+          );
+        case 6:
+          return (
+            <div className="con_bottom">
+              if(mainContainer.profi)
+              <ProfileSummary></ProfileSummary>
+            </div>
+          );
+        default:
+          return null;
+      }
     }
   }
   return (
@@ -105,6 +146,7 @@ const MainContainer = (props: any) => {
           <MarketWatchPortfolio nWatchList={1}></MarketWatchPortfolio>
           <MarketWatchListContainer></MarketWatchListContainer>
         </div>
+
         {renderRightContainer()}
         {/* {rendertempAccount()} */}
       </div>

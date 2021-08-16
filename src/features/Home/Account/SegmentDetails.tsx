@@ -1,6 +1,31 @@
 import "./SegmentDetailsStyle.css";
+import { getProfileSummary } from "../../../app/api";
+import { OnProfileSummarySuccess } from "../PersonalDetails/PersonalDetailsSlice";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useEffect } from "react";
+import { RootState } from "../../../store/store";
 
 const SegmentDetails = () => {
+  const dispatch = useAppDispatch();
+
+  const enumSegments = {
+    NSE: false,
+    BSE: false,
+    NFO: false,
+    BFO: false,
+    NCD: false,
+    BCD: false,
+  };
+
+  const UserDetails = useAppSelector(
+    (state: RootState) => state.personalContainer
+  );
+
+  const userSegments = UserDetails.userDetailsState.Segments.split(",");
+
+  useEffect(() => {
+    dispatch(OnProfileSummarySuccess(getProfileSummary()));
+  }, []);
   return (
     <div
       className="profile-info segment-activation"
@@ -17,7 +42,7 @@ const SegmentDetails = () => {
                   <div className="manage-segment-box">
                     <label
                       className="segment-name"
-                      style={{ marginRight: "150px" }}
+                      style={{ marginRight: "250px", fontSize: "20px" }}
                     >
                       NSE - Equity
                     </label>
@@ -27,15 +52,10 @@ const SegmentDetails = () => {
                         type="checkbox"
                         title="NSE-EQ"
                         placeholder="NSEEQ"
+                        checked={enumSegments.NSE}
                         style={{ width: "5px" }}
                       />
-                      <div
-                        className="slider"
-                        style={{
-                          height: "35px",
-                          borderRadius: "10px",
-                        }}
-                      ></div>
+                      <div className="slider round"></div>
                     </label>
                   </div>
                 </div>
@@ -46,54 +66,20 @@ const SegmentDetails = () => {
                   <div className="manage-segment-box">
                     <label
                       className="segment-name"
-                      style={{ marginRight: "150px" }}
+                      style={{ marginRight: "250px", fontSize: "20px" }}
                     >
                       BSE - Equity
                     </label>
                     <label className="switch">
                       <input
+                        className="switch"
                         type="checkbox"
                         title="BSE-EQ"
                         placeholder="BSEEQ"
+                        checked={enumSegments.BSE}
                         style={{ width: "5px" }}
                       />
-                      <div
-                        className="slider"
-                        style={{
-                          height: "35px",
-                          borderRadius: "10px",
-                        }}
-                      ></div>
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br />
-            <div className="segments-active">
-              <div className="edit-segment-fields">
-                <div className="edit-bank-fields">
-                  <div className="manage-segment-box">
-                    <label
-                      className="segment-name"
-                      style={{ marginRight: "80px" }}
-                    >
-                      NSE - Futures &amp; Options
-                    </label>
-                    <label className="switch">
-                      <input
-                        type="checkbox"
-                        title="NSE-EQ"
-                        placeholder="NSEEQ"
-                        style={{ width: "5px" }}
-                      />
-                      <div
-                        className="slider"
-                        style={{
-                          height: "35px",
-                          borderRadius: "10px",
-                        }}
-                      ></div>
+                      <div className="slider round"></div>
                     </label>
                   </div>
                 </div>
@@ -104,54 +90,65 @@ const SegmentDetails = () => {
                   <div className="manage-segment-box">
                     <label
                       className="segment-name"
-                      style={{ marginRight: "80px" }}
+                      style={{ marginRight: "145px", fontSize: "20px" }}
                     >
-                      BSE - Futures &amp; Options
+                      NSE - Futures & Options
                     </label>
                     <label className="switch">
                       <input
+                        className="switch"
                         type="checkbox"
-                        title="BSE-EQ"
-                        placeholder="BSEEQ"
+                        title="NSE-FO"
+                        placeholder="NSEFO"
                         style={{ width: "5px" }}
                       />
-                      <div
-                        className="slider"
-                        style={{
-                          height: "35px",
-                          borderRadius: "10px",
-                        }}
-                      ></div>
+                      <div className="slider round"></div>
                     </label>
                   </div>
                 </div>
               </div>
-            </div>
-            <br />
-            <div className="segments-active">
+              <br />
               <div className="edit-segment-fields">
                 <div className="edit-bank-fields">
                   <div className="manage-segment-box">
                     <label
                       className="segment-name"
-                      style={{ marginRight: "70px" }}
+                      style={{ marginRight: "150px", fontSize: "20px" }}
+                    >
+                      BSE - Futures & Options
+                    </label>
+                    <label className="switch">
+                      <input
+                        className="switch"
+                        type="checkbox"
+                        title="BSE-FO"
+                        placeholder="BSEFO"
+                        style={{ width: "5px" }}
+                      />
+                      <div className="slider round"></div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div className="edit-segment-fields">
+                <div className="edit-bank-fields">
+                  <div className="manage-segment-box">
+                    <label
+                      className="segment-name"
+                      style={{ marginRight: "137px", fontSize: "20px" }}
                     >
                       NSE - Currency Exchange
                     </label>
                     <label className="switch">
                       <input
+                        className="switch"
                         type="checkbox"
                         title="NSE-CD"
                         placeholder="NSECD"
                         style={{ width: "5px" }}
                       />
-                      <div
-                        className="slider"
-                        style={{
-                          height: "35px",
-                          borderRadius: "10px",
-                        }}
-                      ></div>
+                      <div className="slider round"></div>
                     </label>
                   </div>
                 </div>
@@ -162,56 +159,24 @@ const SegmentDetails = () => {
                   <div className="manage-segment-box">
                     <label
                       className="segment-name"
-                      style={{ marginRight: "70px" }}
+                      style={{ marginRight: "140px", fontSize: "20px" }}
                     >
                       BSE - Currency Exchange
                     </label>
                     <label className="switch">
                       <input
+                        className="switch"
                         type="checkbox"
                         title="BSE-CD"
                         placeholder="BSECD"
                         style={{ width: "5px" }}
                       />
-                      <div
-                        className="slider"
-                        style={{
-                          height: "35px",
-                          borderRadius: "10px",
-                        }}
-                      ></div>
+                      <div className="slider round"></div>
                     </label>
                   </div>
                 </div>
               </div>
             </div>
-            <br />
-            <div className="segments-active">
-              <div className="edit-segment-fields">
-                <label className="segment-name" style={{ marginRight: "50px" }}>
-                  Commodity account
-                </label>
-                <div className="su-switch-group">
-                  <input id="MCX" type="checkbox" className="su-switch" />
-                  <label className="switch">
-                    <input
-                      type="checkbox"
-                      title="MCX"
-                      placeholder="MCX"
-                      style={{ width: "5px" }}
-                    />
-                    <div
-                      className="slider"
-                      style={{
-                        height: "35px",
-                        borderRadius: "10px",
-                      }}
-                    ></div>
-                  </label>
-                </div>
-              </div>
-            </div>
-            <br />
           </div>
         </div>
         <button type="button" className="btn btn-blue">

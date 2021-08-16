@@ -185,12 +185,14 @@ export const getWatchList: any = () => {
 
 export const getProfileSummary: any = () => {
   const MyData = {
-    fullname: "Deep Amit Mehta",
-    email: "mdeep859@gmail.com",
-    pan: "*554L",
-    phone: "*4140",
-    dematNo: "1208160035816401",
-    segments: "NSE,NFO,BSE,MF",
+    FullName: "Deep Amit Mehta",
+    ClientId: "PF7937",
+    CKYCNO: "10095635008625",
+    Email: "mdeep859@gmail.com",
+    PanNumber: "*554L",
+    MobileNumber: "*4140",
+    DematNo: "1208160035816401",
+    Segments: "NSE,NFO,BSE,MF",
   };
   return MyData;
 };

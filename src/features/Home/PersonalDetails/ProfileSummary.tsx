@@ -1,17 +1,40 @@
 import ProfiePhoto from "./ProflePhoto";
-import { useAppDispatch } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { dashboardContainer } from "../MainContainer/mainContainerSlice";
 import {
-  DematDetailsContainer,
   accountmanageContainer,
+  OnProfileSummarySuccess,
 } from "./PersonalDetailsSlice";
+import {
+  DematDetailsContainer,
+  SegmentContainer,
+} from "../Account/AccountSummaryDetailsSlice";
+import { getProfileSummary } from "../../../app/api";
 import backImage from "../../../assets/back reverse.png";
+import { useEffect } from "react";
+import { RootState } from "../../../store/store";
 
 const ProfileSummaryOld = () => {
   const dispatch = useAppDispatch();
+
+  const UserDetails = useAppSelector(
+    (state: RootState) => state.personalContainer
+  );
+
+  useEffect(() => {
+    dispatch(OnProfileSummarySuccess(getProfileSummary()));
+  }, []);
+
   function onDematClick() {
+    dispatch(accountmanageContainer());
     dispatch(DematDetailsContainer());
   }
+
+  function OnSegmentClick(value: any) {
+    dispatch(accountmanageContainer());
+    dispatch(SegmentContainer());
+  }
+
   function OnBack() {
     dispatch(dashboardContainer());
   }
@@ -109,7 +132,7 @@ const ProfileSummaryOld = () => {
                   marginBottom: 10,
                 }}
               >
-                mdeep859@gmail.com
+                {UserDetails.userDetailsState.Email}
               </div>
             </div>
             <div className="row">
@@ -137,7 +160,7 @@ const ProfileSummaryOld = () => {
                   marginBottom: 10,
                 }}
               >
-                *554L
+                {UserDetails.userDetailsState.PanNumber}
               </div>
             </div>
             <div className="row">
@@ -165,7 +188,7 @@ const ProfileSummaryOld = () => {
                   marginBottom: 10,
                 }}
               >
-                *4140
+                {UserDetails.userDetailsState.MobileNumber}
               </div>
             </div>
             <div className="row">
@@ -196,7 +219,7 @@ const ProfileSummaryOld = () => {
                 <span className="value dp-ids-list">
                   <span className="value">
                     <a href="#" onClick={onDematClick} className="value">
-                      1208160035816401
+                      {UserDetails.userDetailsState.DematNo}
                     </a>
                   </span>
                 </span>
@@ -227,19 +250,11 @@ const ProfileSummaryOld = () => {
                   marginBottom: 10,
                 }}
               >
-                <a
-                  target="_blank"
-                  href="https://console.zerodha.com/account/segment-activation"
-                >
-                  NSE, NFO, BSE, MF
+                <a href="#" onClick={OnSegmentClick}>
+                  {UserDetails.userDetailsState.Segments}
                 </a>
               </div>
             </div>{" "}
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
             {/* <div className="row">
               <div
                 className="seven columns"

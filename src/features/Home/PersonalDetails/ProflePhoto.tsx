@@ -1,9 +1,60 @@
-import React, { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import {
+  passwordChangeContainer,
+  OnProfileSummarySuccess,
+} from "./PersonalDetailsSlice";
+import { RootState } from "../../../store/store";
+import { useEffect } from "react";
+import { getProfileSummary } from "../../../app/api";
 
 const ProfilePhoto = () => {
+  const dispatch = useAppDispatch();
+
+  const UserDetails = useAppSelector(
+    (state: RootState) => state.personalContainer
+  );
+
+  useEffect(() => {
+    dispatch(OnProfileSummarySuccess(getProfileSummary()));
+  }, []);
+
+  function OnOpenPassword() {
+    dispatch(passwordChangeContainer());
+  }
   return (
     <div className="profile-pic" style={{ width: "650px", height: "250px" }}>
-      <h3 className="mt-5 mb-5"> Profile</h3>
+      <h3
+        className="mt-5 mb-5"
+        style={{
+          float: "left",
+          marginBottom: "30px",
+          marginRight: "400px",
+          marginLeft: "15px",
+          fontSize: "20px",
+        }}
+      >
+        Profile
+      </h3>
+
+      <div
+        className="Password"
+        style={{
+          marginBottom: "10px",
+          marginTop: "30px",
+        }}
+      >
+        <a
+          href="#"
+          className="passwordsecurity"
+          onClick={OnOpenPassword}
+          style={{
+            display: "inline-block",
+            color: "orange",
+          }}
+        >
+          Password & Security
+        </a>
+      </div>
       <div
         className="avatar-upload"
         style={{
@@ -34,7 +85,7 @@ const ProfilePhoto = () => {
             fontSize: "15px",
           }}
         >
-          Deep Amit Mehta
+          {UserDetails.userDetailsState.FullName}
         </h2>
       </div>
     </div>

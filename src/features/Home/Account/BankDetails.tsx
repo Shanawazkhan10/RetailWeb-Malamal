@@ -28,7 +28,11 @@ const BankDetails = () => {
         <br />
       </div>
       <p>
-        <button type="button" className="btn btn-blue">
+        <button
+          type="button"
+          className="btn btn-blue"
+          style={{ color: "blue" }}
+        >
           Add bank account
         </button>
       </p>

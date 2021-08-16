@@ -1,33 +1,15 @@
 import { useAppDispatch } from "../../../app/hooks";
-import { myprofileContainer } from "../PersonalDetails/PersonalDetailsSlice";
+import { profileContainer } from "../PersonalDetails/PersonalDetailsSlice";
 import backImage from "../../../assets/back reverse.png";
 
 const DematDetails = () => {
   const dispatch = useAppDispatch();
   function OnBack() {
-    dispatch(myprofileContainer());
+    dispatch(profileContainer());
   }
 
   return (
-    <div className="active profile-info demat" style={{ width: "500px" }}>
-      <span
-        className="back"
-        style={{
-          position: "relative",
-          display: "inline-block",
-          marginTop: "30px",
-          marginLeft: "500px",
-        }}
-      >
-        <a
-          href="#"
-          onClick={OnBack}
-          className="back"
-          style={{ marginTop: "30px" }}
-        >
-          <img src={backImage} style={{}}></img>
-        </a>
-      </span>
+    <div className="active profile-info demat">
       <h1>Demat</h1>
 
       <label>

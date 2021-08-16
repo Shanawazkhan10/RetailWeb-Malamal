@@ -5,10 +5,23 @@ import {
   AccountDetailsContainer,
   BankContainer,
   SegmentContainer,
+  DematDetailsContainer,
+  DocumentContainer,
 } from "../Account/AccountSummaryDetailsSlice";
 import BankDetails from "../Account/BankDetails";
 import SegmentDetails from "../Account/SegmentDetails";
 import { MouseEvent } from "react";
+import backImage from "../../../assets/back reverse.png";
+import { myprofileContainer } from "../MainContainer/mainContainerSlice";
+import {
+  profileContainer,
+  OnProfileSummarySuccess,
+} from "./PersonalDetailsSlice";
+import { RootState } from "../../../store/store";
+import { useEffect } from "react";
+import { getProfileSummary } from "../../../app/api";
+import DematDetails from "../Account/DematDetails";
+import DocumentDetails from "../Account/DocumentDetails";
 
 // font-weight: "300"; color: "rgb(156, 39, 176)""; line-height: "26px"}}
 
@@ -48,6 +61,21 @@ const sliderBeforeStyle: CSS.Properties = {
 
 const AccountSummary = () => {
   const dispatch = useAppDispatch();
+
+  const UserDetails = useAppSelector(
+    (state: RootState) => state.personalContainer
+  );
+
+  useEffect(() => {
+    dispatch(OnProfileSummarySuccess(getProfileSummary()));
+  }, []);
+
+  const middleName = UserDetails.userDetailsState.FullName.split(" ")[1]; //Logo
+
+  var firstchar = UserDetails.userDetailsState.FullName.charAt(0);
+  var secondchar = middleName.charAt(0);
+  var logoname = firstchar + secondchar;
+
   const AccountContainer = useAppSelector((state) => state.accountContainer);
 
   const OnPersonalClick = (event: MouseEvent<HTMLDivElement>) => {
@@ -59,7 +87,7 @@ const AccountSummary = () => {
   };
 
   const OnDematClick = (event: MouseEvent<HTMLDivElement>) => {
-    dispatch(BankContainer());
+    dispatch(DematDetailsContainer());
   };
 
   const OnSegmentClick = (event: MouseEvent<HTMLDivElement>) => {
@@ -67,12 +95,17 @@ const AccountSummary = () => {
   };
 
   const OnDocumentClick = (event: MouseEvent<HTMLDivElement>) => {
-    dispatch(BankContainer());
+    dispatch(DocumentContainer());
   };
 
   const OnCommodityClick = (event: MouseEvent<HTMLDivElement>) => {
     dispatch(BankContainer());
   };
+
+  function OnBack() {
+    dispatch(myprofileContainer());
+    dispatch(profileContainer());
+  }
 
   function renderDetailContainer() {
     switch (AccountContainer.rightContainer) {
@@ -82,6 +115,10 @@ const AccountSummary = () => {
         return <BankDetails></BankDetails>;
       case 2:
         return <SegmentDetails></SegmentDetails>;
+      case 3:
+        return <DematDetails></DematDetails>;
+      case 4:
+        return <DocumentDetails></DocumentDetails>;
       default:
         return <AccountDetails></AccountDetails>;
     }
@@ -93,6 +130,24 @@ const AccountSummary = () => {
       style={{ width: "1100px", height: "1500px", marginLeft: "20px" }}
     >
       <h1>Account</h1>
+      <span
+        className="back"
+        style={{
+          position: "relative",
+          display: "inline-block",
+          marginTop: "30px",
+          marginLeft: "500px",
+        }}
+      >
+        <a
+          href="#"
+          onClick={OnBack}
+          className="back"
+          style={{ marginTop: "30px" }}
+        >
+          <img src={backImage} style={{}}></img>
+        </a>
+      </span>
       <br />
       <br />
       <div className="section">
@@ -117,7 +172,7 @@ const AccountSummary = () => {
                   marginRight: "30px",
                 }}
               >
-                <span>DA</span>
+                <span>{logoname.toUpperCase()}</span>
               </div>
             </div>
             <div
@@ -132,7 +187,9 @@ const AccountSummary = () => {
             >
               <label>Name</label>
               <span></span>
-              <h3 style={{ marginTop: "2px" }}>Deep Amit Mehta</h3>
+              <h3 style={{ marginTop: "2px" }}>
+                {UserDetails.userDetailsState.FullName}
+              </h3>
             </div>
 
             <div
@@ -147,7 +204,9 @@ const AccountSummary = () => {
             >
               <label>Client ID</label>
               <span></span>
-              <h3 style={{ marginTop: "2px" }}>PF7937</h3>
+              <h3 style={{ marginTop: "2px" }}>
+                {UserDetails.userDetailsState.ClientId}
+              </h3>
             </div>
             <span></span>
             <div
@@ -155,7 +214,9 @@ const AccountSummary = () => {
               style={{ float: "left", clear: "none", marginTop: "15px" }}
             >
               <label>CKYC no.</label>
-              <h3 style={{ marginTop: "2px" }}>10095635008625</h3>
+              <h3 style={{ marginTop: "2px" }}>
+                {UserDetails.userDetailsState.CKYCNO}
+              </h3>
             </div>
           </div>
         </div>
@@ -203,13 +264,6 @@ const AccountSummary = () => {
               onClick={OnDocumentClick}
             >
               Documents
-            </div>
-            <div
-              className="profile-list comm-clasify"
-              style={profileListStyle}
-              onClick={OnCommodityClick}
-            >
-              Commodity declaration
             </div>
           </div>
         </div>

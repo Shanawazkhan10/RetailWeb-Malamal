@@ -22,10 +22,21 @@ const accountSummarySlice = createSlice({
     SegmentContainer: (state) => {
       state.rightContainer = 2;
     },
+    DematDetailsContainer: (state) => {
+      state.rightContainer = 3;
+    },
+    DocumentContainer: (state) => {
+      state.rightContainer = 4;
+    },
   },
 });
 
-export const { AccountDetailsContainer, BankContainer, SegmentContainer } =
-  accountSummarySlice.actions;
+export const {
+  AccountDetailsContainer,
+  BankContainer,
+  SegmentContainer,
+  DematDetailsContainer,
+  DocumentContainer,
+} = accountSummarySlice.actions;
 
 export default accountSummarySlice.reducer;

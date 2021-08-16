@@ -17,12 +17,16 @@
   left: 0;
   right: 0;
   bottom: 0;
+  height: "5px";
   background-color: #ccc;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
-[type="checkbox"] {
+.switch {
+  height: "5px";
+}
+/* [type="checkbox"] {
   height: "3px";
   width: "3px";
-}
+} */
