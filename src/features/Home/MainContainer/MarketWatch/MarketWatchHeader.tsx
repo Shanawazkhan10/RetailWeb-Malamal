@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { RenameWatchlist } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
+import { IRenameWatchlist } from "../../../../types/IRenameWatchlist";
 import "../../style.css";
 import {
   AddToWatchList,
@@ -29,8 +31,14 @@ const MarketWatchHeader = () => {
   }
 
   function EditWatchList() {
-    //setName("12345");
-    //dispatch(RenameWatchList(setName)); //API Call
+    const Input: IRenameWatchlist = {
+      oldmwName: sName,
+      newmwName: sName, //from input control
+      id: selectedList,
+      userId: "Test User",
+    };
+    //API Call TO rename watch list
+    dispatch(RenameWatchList(RenameWatchlist(Input))); //API Call
   }
   return (
     <div className="mw_headnew">

@@ -7,7 +7,7 @@ const MarketDepth = (props: any) => {
   //const expanded = props.activeItem === props.index;
 
   let symbolInfo = props.tokenInfo;
-  let Depth = props.depth[0];
+  let Depth = props.depth;
   return Depth != undefined ? (
     <div className="market-depth" style={{ display: "" }}>
       <div className="depth-table">

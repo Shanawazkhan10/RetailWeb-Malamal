@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { api, GetWatchListSymbolDetails } from "../../../../app/api";
 import { IMarketDepth } from "../../../../types/IMarketDepth";
+import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchList } from "../../../../types/IMarketWatchList";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
+import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
 
 const InitialMarketWatch: IMarketWatchList = {
   MarketWatchList: [],
@@ -55,10 +57,15 @@ const marketwatchSlice = createSlice({
       // state.marketWatch.MarketWatchList[5].SymbolList = TokenInfo;
     },
     getMarketDepthSuccess(state, action) {
-      let MarketDepth: IMarketDepth[] = action.payload;
+      let MarketDepth: IMarketDepth = action.payload;
       if (MarketDepth != undefined)
-        state.marketWatch.MarketWatchList[0].SymbolList[0].marketDepth =
-          action.payload;
+        state.marketWatch.MarketWatchList[MarketDepth.id - 1].SymbolList[
+          MarketDepth.index
+        ].marketDepth = action.payload;
+    },
+    RemoveSymbolFromWatchlist(state, action: PayloadAction<IRemoveFromWatch>) {
+      state.marketWatch.MarketWatchList[action.payload.id].scrips =
+        action.payload.scrips;
     },
   },
 });
@@ -72,6 +79,7 @@ export const {
   RenameWatchList,
   UpdateSymbolDetails,
   getMarketDepthSuccess,
+  RemoveSymbolFromWatchlist,
 } = marketwatchSlice.actions;
 
 export const fetchmarketWatch = () => async (dispatch: any) => {

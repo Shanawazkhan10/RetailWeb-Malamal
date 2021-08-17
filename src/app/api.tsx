@@ -1,5 +1,7 @@
 import axios from "axios";
 import { UpdateSymbolDetails } from "../features/Home/MainContainer/MarketWatch/MarketWatchSlice";
+import { IRemoveFromWatch } from "../types/IRemoveFromWatch";
+import { IRenameWatchlist } from "../types/IRenameWatchlist";
 import { useAppDispatch } from "./hooks";
 //import parseLink, { Links } from 'parse-link-header';
 
@@ -199,7 +201,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
         {
           mwId: 1,
           mwName: "nifty",
-          scrips: "ACC",
+          scrips: "bse_cm|16082",
           cmpName: "ACC LIMITED",
           exch: "NSE",
           seg: "CASH",
@@ -220,7 +222,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
         {
           mwId: 1,
           mwName: "nifty",
-          scrips: "BAJAJ",
+          scrips: "bse_fo|68822",
           cmpName: "BAJAJ Finance LIMITED",
           exch: "NSE",
           seg: "CASH",
@@ -241,7 +243,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
         {
           mwId: 1,
           mwName: "nifty",
-          scrips: "HDFC",
+          scrips: "bse_fo|68822",
           cmpName: "HDFC LIMITED",
           exch: "NSE",
           seg: "CASH",
@@ -832,46 +834,60 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
   return SymbolListData;
 }
 
-export const SubscribeMarketDepth: any = () => {
-  const DepthData = [
-    {
-      tk: "11536",
-      e: "nse_cm",
-      name: "dp",
-      bp: "1905.70",
-      bp1: "1905.75",
-      bp2: "1905.85",
-      bp3: "1905.90",
-      bp4: "1906.00",
-      sp: "1907.00",
-      sp1: "1907.50",
-      sp2: "1907.90",
-      sp3: "1908.00",
-      sp4: "1908.50",
-      bq: "5212",
-      bq1: "2100",
-      bq2: "553",
-      bq3: "1000",
-      bq4: "10543",
-      bs: "500",
-      bs1: "1200",
-      bs2: "1250",
-      bs3: "500",
-      bs4: "1525",
-      bno1: "110",
-      bno2: "91",
-      bno3: "80",
-      bno4: "76",
-      bno5: "55",
-      sno1: "122",
-      sno2: "102",
-      sno3: "89",
-      sno4: "66",
-      sno5: "25",
-      mul: "1",
-      prec: "2",
-      ts: "TCS-EQ",
-    },
-  ];
+export const SubscribeMarketDepth: any = (id: number, index: number) => {
+  const DepthData = {
+    id: id,
+    index: index,
+    tk: "11536",
+    e: "nse_cm",
+    name: "dp",
+    bp: "1905.70",
+    bp1: "1905.75",
+    bp2: "1905.85",
+    bp3: "1905.90",
+    bp4: "1906.00",
+    sp: "1907.00",
+    sp1: "1907.50",
+    sp2: "1907.90",
+    sp3: "1908.00",
+    sp4: "1908.50",
+    bq: "5212",
+    bq1: "2100",
+    bq2: "553",
+    bq3: "1000",
+    bq4: "10543",
+    bs: "500",
+    bs1: "1200",
+    bs2: "1250",
+    bs3: "500",
+    bs4: "1525",
+    bno1: "110",
+    bno2: "91",
+    bno3: "80",
+    bno4: "76",
+    bno5: "55",
+    sno1: "122",
+    sno2: "102",
+    sno3: "89",
+    sno4: "66",
+    sno5: "25",
+    mul: "1",
+    prec: "2",
+    ts: "TCS-EQ",
+  };
+
   return DepthData;
 };
+export async function RemoveTokenfromWatchlist(data: IRemoveFromWatch) {
+  //const url = `https://api.github.com/repos/${org}/${repo}/issues/${number}`
+  //const { data } = await axios.get<Issue>(url)
+  //return data
+  return null;
+}
+
+export async function RenameWatchlist(data: IRenameWatchlist) {
+  //const url = `https://api.github.com/repos/${org}/${repo}/issues/${number}`
+  //const { data } = await axios.get<Issue>(url)
+  //return data
+  return null;
+}

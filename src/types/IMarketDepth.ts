@@ -1,4 +1,6 @@
 export interface IMarketDepth {
+  id: number;
+  index: number;
   tk: string;
   e: string;
   name: string;
