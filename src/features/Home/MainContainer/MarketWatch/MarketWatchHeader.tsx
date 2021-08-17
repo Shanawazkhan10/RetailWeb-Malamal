@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { RenameWatchlist } from "../../../../app/api";
+import { DeleteWatchlist, RenameWatchlist } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
+import { IDeleteWatchlist } from "../../../../app/IDeleteWatchlist";
 import { RootState } from "../../../../store/store";
 import { IRenameWatchlist } from "../../../../types/IRenameWatchlist";
 import "../../style.css";
@@ -20,6 +21,13 @@ const MarketWatchHeader = () => {
   function RemoveWatchList() {
     dispatch(DeleteWatchList(selectedList)); //API Call
     WatchList.marketWatch.nSelectedWatchList = 1;
+
+    // const Input: IDeleteWatchlist = {
+    //   mwName: sName,
+    //   id: selectedList,
+    //   userId: "Test User",
+    // };
+    // DeleteWatchlist(Input);
   }
 
   function handleChange(event: any) {

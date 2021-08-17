@@ -101,10 +101,10 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
           (symbolInfo: IMarketWatchTokenInfo, nIncreament) => (
             <div>
               <div
-                key={nIncreament}
+                key={symbolInfo.scrips}
                 id={String(nIncreament + 1)}
                 className="mw_block"
-                style={{ width: "455px" }}
+                style={{ width: "378px" }}
               >
                 <div className="popupCloseButton" title="Delete"></div>
                 <div style={{ display: "none" }} className="mw_status">

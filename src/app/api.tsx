@@ -3,6 +3,7 @@ import { UpdateSymbolDetails } from "../features/Home/MainContainer/MarketWatch/
 import { IRemoveFromWatch } from "../types/IRemoveFromWatch";
 import { IRenameWatchlist } from "../types/IRenameWatchlist";
 import { useAppDispatch } from "./hooks";
+import { IDeleteWatchlist } from "./IDeleteWatchlist";
 //import parseLink, { Links } from 'parse-link-header';
 
 // export async function getComments(url: string) {
@@ -226,7 +227,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           cmpName: "BAJAJ Finance LIMITED",
           exch: "NSE",
           seg: "CASH",
-          sym: "ACC",
+          sym: "BAJAJ",
           exEndDt: "NA",
           op: "656",
           c: "566",
@@ -886,6 +887,20 @@ export async function RemoveTokenfromWatchlist(data: IRemoveFromWatch) {
 }
 
 export async function RenameWatchlist(data: IRenameWatchlist) {
+  //const url = `https://api.github.com/repos/${org}/${repo}/issues/${number}`
+  //const { data } = await axios.get<Issue>(url)
+  //return data
+  return null;
+}
+
+export async function DeleteWatchlist(data: IDeleteWatchlist) {
+  //const url = `https://api.github.com/repos/${org}/${repo}/issues/${number}`
+  //const { data } = await axios.get<Issue>(url)
+  //return data
+  return null;
+}
+
+export async function PredifinedWatchlist() {
   //const url = `https://api.github.com/repos/${org}/${repo}/issues/${number}`
   //const { data } = await axios.get<Issue>(url)
   //return data
