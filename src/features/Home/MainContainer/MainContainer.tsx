@@ -11,7 +11,7 @@ import NetPositionList from "./NetPosition/NetPositionList";
 //const MainContainer = (props: IWatchListProps) => {
 
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
-import AdvancedChart from "../Chart/AdvancedChart";
+// import AdvancedChart from "../Chart/AdvancedChart";
 import OrderView from "./OrderView/Order";
 import OrderList from "./OrderView/OrderList";
 import TradeList from "./TradeView/TradeList";
@@ -32,7 +32,7 @@ const MainContainer = (props: any) => {
       case 1:
         return (
           <div className="con_bottom">
-            <AdvancedChart></AdvancedChart>
+            {/* <AdvancedChart></AdvancedChart> */}
           </div>
         );
       case 2:
