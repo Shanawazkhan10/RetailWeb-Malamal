@@ -1,0 +1,32 @@
+export interface ITokenUpdate {
+  tk: string;
+  e: string;
+  name: string;
+  lo: string;
+  op: string;
+  c: string;
+  cng: string;
+  yh: string;
+  yl: string;
+  ltp: string;
+  ltq: string;
+  oi: string;
+  v: string;
+  ap: string;
+  to: string;
+  tbq: string;
+  tsq: string;
+  ltt: string;
+  lcl: string;
+  ucl: string;
+  h: string;
+  fdtm: string;
+  nc: string;
+  bp: string;
+  sp: string;
+  bq: string;
+  bs: string;
+  mul: string;
+  prec: string;
+  ts: string;
+}

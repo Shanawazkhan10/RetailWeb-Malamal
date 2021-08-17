@@ -1,23 +1,23 @@
-import { useEffect,useRef } from "react";
+import { useEffect, useRef } from "react";
 import * as React from "react";
-import { CIQ } from "chartiq/js/componentUI";
+//import { CIQ } from "chartiq/js/componentUI";
 
 const ChartJS = () => {
- let container = React.createRef();
- //let refcontainer = useRef();
+  let container = React.createRef();
+  //let refcontainer = useRef();
   useEffect(() => {
     container = container.current;
-    const stx = new CIQ.ChartEngine({ container });
-    //refcontainer= refcontainer.current;
-    //const stx = new CIQ.ChartEngine({ refcontainer });    
-    stx.loadChart("SPY", {
-      masterData: getMasterData(),
-      periodicity: {
-        period: 1,
-        interval: 5,
-        timeUnit: "minute",
-      },
-    });
+    // const stx = new CIQ.ChartEngine({ container });
+    // //refcontainer= refcontainer.current;
+    // //const stx = new CIQ.ChartEngine({ refcontainer });
+    // stx.loadChart("SPY", {
+    //   masterData: getMasterData(),
+    //   periodicity: {
+    //     period: 1,
+    //     interval: 5,
+    //     timeUnit: "minute",
+    //   },
+    // });
   }, []);
 
   return (
