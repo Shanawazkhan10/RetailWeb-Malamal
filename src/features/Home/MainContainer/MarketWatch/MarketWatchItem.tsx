@@ -310,11 +310,12 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
   }, []);
 
   function getSymbol() {
+    //API call to bind Token info
     dispatch(
       UpdateSymbolDetails(
         GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
       )
-    ); //DUmmy Call for actual call send token info
+    );
   }
 
   return (
