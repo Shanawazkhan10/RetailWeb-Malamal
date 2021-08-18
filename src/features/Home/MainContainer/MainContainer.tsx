@@ -104,7 +104,7 @@ const MainContainer = (props: any) => {
         case 1:
           return (
             <div className="con_bottom">
-              <AdvancedChart></AdvancedChart>
+              {/* <AdvancedChart></AdvancedChart> */}
             </div>
           );
         case 2:

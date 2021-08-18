@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { getProfileSummary } from "../../../app/api";
 import Popup from "reactjs-popup";
 import UpdateMobileEmail from "./UpdateMobileEmail";
+import UpdateSegment from "./UpdateSegment";
 
 const AccountDetails = () => {
   const dispatch = useAppDispatch();

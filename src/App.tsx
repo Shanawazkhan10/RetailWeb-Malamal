@@ -18,8 +18,8 @@ import history from "./util/History";
 import Chart from "./features/Home/Chart/Chart";
 import ForgotPassword from "./features/Login/ForgotPassword";
 import MPIN from "./features/Login/MPIN";
-import ChartJS from "./features/Home/Chart/Chartjs";
-import AdvancedChart from "./features/Home/Chart/AdvancedChart";
+//import ChartJS from "./features/Home/Chart/Chartjs";
+//import AdvancedChart from "./features/Home/Chart/AdvancedChart";
 
 // Amplify.configure(awsConfig);
 
@@ -28,9 +28,9 @@ function App() {
     <Router history={history}>
       <Switch>
         <Route exact path="/">
-          <Login/>
+          <Login />
         </Route>
-        <Route path="/ChartJS">
+        {/* <Route path="/ChartJS">
           <ChartJS />
         </Route>
         <Route path="/Chart">
@@ -38,7 +38,7 @@ function App() {
         </Route>
         <Route path="/AdvancedChart">
           <AdvancedChart />
-        </Route>
+        </Route> */}
         <Route path="/login">
           <Login />
         </Route>
