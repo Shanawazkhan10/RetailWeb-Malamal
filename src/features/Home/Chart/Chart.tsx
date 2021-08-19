@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import * as React from "react";
-import { CIQ } from "chartiq/js/componentUI";
+//import { CIQ } from "chartiq/js/componentUI";
 import "./resources";
 
 const Chart = () => {
   // let container =
   //   React.useRef<HTMLDivElement>() as React.RefObject<HTMLDivElement>;
-  // let stx = CIQ.ChartEngine;
+  // let stx = null; //CIQ.ChartEngine;
   // useEffect(() => {
   //   container = container.current as unknown as React.RefObject<HTMLDivElement>;
   //   stx = new CIQ.ChartEngine({ container });

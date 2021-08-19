@@ -8,6 +8,8 @@ import {
 } from "../MainContainer/mainContainerSlice";
 import { profileContainer } from "../PersonalDetails/PersonalDetailsSlice";
 
+//import { closemenuContainer } from "./MenuBarSlice";
+
 const Menu = () => {
   const menuContainer = useAppSelector((state) => state.menuContainer);
 
@@ -15,9 +17,6 @@ const Menu = () => {
 
   function OnProfileMenu() {
     //To do changes for menu opening and closing
-
-    const output = document.getElementById("menu");
-    if (output) output.style.width = "0px";
 
     dispatch(myprofileContainer());
     dispatch(profileContainer());

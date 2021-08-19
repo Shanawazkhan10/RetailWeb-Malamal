@@ -1,20 +1,14 @@
 import { MouseEvent } from "react";
 import CSS from "csstype";
-import Menu from "../Menu/Menu";
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   dashboardContainer,
   orderContainer,
-  chartContainer,
-  fundContainer,
   holdingContainer,
   positionContainer,
 } from "../MainContainer/mainContainerSlice";
-import * as logo from "../../../assets/menu-ico.png";
-import { showmenuContainer, closemenuContainer } from "../Menu/MenuBarSlice";
-
-var flag: boolean;
-flag = true;
+import { showmenuContainer } from "../Menu/MenuBarSlice";
 
 const ContainerStyle: CSS.Properties = {
   display: "flex",
@@ -27,18 +21,10 @@ const WatchStyle: CSS.Properties = {
 
 const Header = () => {
   const dispatch = useAppDispatch();
-  const menuContainer = useAppSelector((state) => state.menuContainer);
 
-  const onMenuClick = (e: MouseEvent<HTMLButtonElement>) => {
-    //menuContainer.toggleflag = !flag;
-    flag = !flag;
+  const [flag, SetMenuflag] = useState(false);
 
-    if (flag) {
-      dispatch(showmenuContainer());
-    } else {
-      dispatch(closemenuContainer());
-    }
-  };
+  dispatch(showmenuContainer(flag));
 
   function onDashBoard() {
     dispatch(dashboardContainer());
@@ -142,7 +128,7 @@ const Header = () => {
                 width: "30px",
                 marginRight: "15rem",
               }}
-              onClick={onMenuClick}
+              onClick={() => SetMenuflag(!flag)}
             ></button>
           </ul>
         </div>
