@@ -9,6 +9,7 @@ import TradeVIewSlice from "../features/Home/MainContainer/TradeView/TradeVIewSl
 import orderEntrySlice from "../features/Home/OrderEntry/orderEntrySlice";
 import MarketWatchSlice from "../features/Home/MainContainer/MarketWatch/MarketWatchSlice";
 import mainContainerSlice from "../features/Home/MainContainer/mainContainerSlice";
+import SmartSearchSlice from "../features/Home/MainContainer/SmartSearch/SmartSearchSlice";
 
 const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
     orderEntry: orderEntrySlice,
     marketwatch: MarketWatchSlice,
     mainContainer: mainContainerSlice,
+    smartSearch: SmartSearchSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

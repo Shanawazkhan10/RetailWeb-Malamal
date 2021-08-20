@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { api, GetWatchListSymbolDetails } from "../../../../app/api";
+import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
+import { IDepthReq } from "../../../../types/IDepthReq";
 import { IMarketDepth } from "../../../../types/IMarketDepth";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchList } from "../../../../types/IMarketWatchList";
@@ -8,7 +10,8 @@ import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
 
 const InitialMarketWatch: IMarketWatchList = {
   MarketWatchList: [],
-  nSelectedWatchList: 0,
+  nSelectedWatchList: 1,
+  sSelectedWatchList: "",
   bIsBind: false,
 };
 
@@ -26,8 +29,9 @@ const marketwatchSlice = createSlice({
       //   (row, i) => GetWatchListSymbolDetails(i + 1, row.scrips) //DUmmy Call for actual call send token info
       // );
     },
-    ChangeWatchList: (state, action) => {
-      state.marketWatch.nSelectedWatchList = action.payload;
+    ChangeWatchList: (state, action: PayloadAction<IChangeWatchlist>) => {
+      state.marketWatch.nSelectedWatchList = action.payload.id;
+      state.marketWatch.sSelectedWatchList = action.payload.mwname;
       // state.marketWatch.bIsBind = true;
     },
     DeleteWatchList: (state, action) => {
@@ -63,6 +67,15 @@ const marketwatchSlice = createSlice({
           MarketDepth.index
         ].marketDepth = action.payload;
     },
+    ShowMarketDepth: (state, action: PayloadAction<IDepthReq>) => {
+      state.marketWatch.MarketWatchList[action.payload.id - 1].SymbolList[
+        action.payload.index
+      ].showDepth =
+        !state.marketWatch.MarketWatchList[action.payload.id - 1].SymbolList[
+          action.payload.index
+        ].showDepth;
+    },
+
     RemoveSymbolFromWatchlist(state, action: PayloadAction<IRemoveFromWatch>) {
       state.marketWatch.MarketWatchList[action.payload.id].scrips =
         action.payload.scrips;
@@ -80,6 +93,7 @@ export const {
   UpdateSymbolDetails,
   getMarketDepthSuccess,
   RemoveSymbolFromWatchlist,
+  ShowMarketDepth,
 } = marketwatchSlice.actions;
 
 export const fetchmarketWatch = () => async (dispatch: any) => {

@@ -17,17 +17,17 @@ import {
 import {
   getMarketDepthSuccess,
   RemoveSymbolFromWatchlist,
+  ShowMarketDepth,
   UpdateSymbolDetails,
 } from "./MarketWatchSlice";
 import MarketDepth from "./MarketDepth";
 
 import { Collapse, Button, CardBody, Card } from "reactstrap";
 import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
+import { IDepthReq } from "../../../../types/IDepthReq";
+import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
 
 const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
-  const [activeItem, setActiveItem] = React.useState(false);
-  const [activeIndex, setActiveIndex] = React.useState(0);
-  const [depth, setDepth] = React.useState(null);
   const { propMarketWatch } = props;
   const dispatch = useAppDispatch();
 
@@ -45,7 +45,6 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
   function onChartClick() {
     dispatch(chartContainer());
   }
-
   function RemoveSymbol(tokenInfo: IMarketWatchTokenInfo) {
     //API Call update List & on success call dispatch
     const RemoveFromWatch: IRemoveFromWatch = {
@@ -56,8 +55,18 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
     };
 
     dispatch(RemoveSymbolFromWatchlist(RemoveFromWatch));
-  }
 
+    //Unsubscribe Depth API Call
+    // if (symbol.showDepth) {
+    //   const SubscribeDepth: ISubscribeDepth = {
+    //     type: "dpu",
+    //     scrips: symbol.scrips,
+    //     id: propMarketWatch.id,
+    //     channelnum: propMarketWatch.id,
+    //   };
+    //   UnsubscribeMarketDepth(SubscribeDepth);
+    // }
+  }
   function removeValue(list: string, value: string, separator: string) {
     separator = ",";
     var values = list.split(separator);
@@ -69,30 +78,44 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
     }
     return list;
   }
+  function onDepthClick(index: number, symbol: IMarketWatchTokenInfo) {
+    const DepthReq: IDepthReq = {
+      id: propMarketWatch.id,
+      index: index,
+    };
+    dispatch(ShowMarketDepth(DepthReq));
 
-  function onDepthClick(index: number) {
-    setActiveItem(!activeItem);
-    setActiveIndex(index);
-    if (!activeItem) {
+    if (!symbol.showDepth) {
+      //subscribe Depth API Call
+      // const SubscribeDepth: ISubscribeDepth = {
+      //   type: "dps",
+      //   scrips: symbol.scrips,
+      //   id: propMarketWatch.id,
+      //   channelnum: propMarketWatch.id,
+      // };
       dispatch(
-        getMarketDepthSuccess(
-          SubscribeMarketDepth(propMarketWatch.id, activeIndex)
-        )
+        getMarketDepthSuccess(SubscribeMarketDepth(propMarketWatch.id, index))
       );
     } else {
       //Unsubscribe Depth API Call
+      // const SubscribeDepth: ISubscribeDepth = {
+      //   type: "dpu",
+      //   scrips: symbol.scrips,
+      //   id: propMarketWatch.id,
+      //   channelnum: propMarketWatch.id,
+      // };
+      // UnsubscribeMarketDepth(SubscribeDepth);
     }
   }
-
   function getSymbol() {
-    //API call to bind Token info
+    //API call to bind Token info (Scrip Info Request)
+
     dispatch(
       UpdateSymbolDetails(
         GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
       )
     );
   }
-
   return (
     <div>
       {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
@@ -102,7 +125,7 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
             <div>
               <div
                 key={symbolInfo.scrips}
-                id={String(nIncreament + 1)}
+                id={String(nIncreament)}
                 className="mw_block"
                 style={{ width: "378px" }}
               >
@@ -127,7 +150,7 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
                     <button
                       className="btn_mw_overlay_2 btn_buy"
                       title="Depth"
-                      onClick={() => onDepthClick(nIncreament + 1)}
+                      onClick={() => onDepthClick(nIncreament, symbolInfo)}
                     >
                       Depth
                     </button>
@@ -210,15 +233,12 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
                   </span>
                 </div>
               </div>
-              {activeItem &&
-              activeIndex == nIncreament + 1 &&
+              {symbolInfo.showDepth &&
               symbolInfo.marketDepth != null &&
               symbolInfo.marketDepth != undefined ? (
-                <Collapse in={activeItem}>
+                <Collapse in={symbolInfo.showDepth}>
                   <MarketDepth
-                    setActiveItem={setActiveItem}
-                    index={nIncreament + 1}
-                    activeItem={activeItem}
+                    index={nIncreament}
                     depth={symbolInfo.marketDepth}
                     tokenInfo={symbolInfo}
                   ></MarketDepth>
@@ -235,7 +255,6 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
       ) : (
         <div>No Data 2</div>
       )}
-      {/* <MarketDepth></MarketDepth> */}
     </div>
   );
 };

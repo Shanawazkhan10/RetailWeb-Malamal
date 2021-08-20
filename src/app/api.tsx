@@ -1,7 +1,9 @@
 import axios from "axios";
 import { UpdateSymbolDetails } from "../features/Home/MainContainer/MarketWatch/MarketWatchSlice";
+import { IContractSearchReq } from "../types/IContractSearchReq";
 import { IRemoveFromWatch } from "../types/IRemoveFromWatch";
 import { IRenameWatchlist } from "../types/IRenameWatchlist";
+import { ISubscribeDepth } from "../types/ISubscribeDepth";
 import { useAppDispatch } from "./hooks";
 import { IDeleteWatchlist } from "./IDeleteWatchlist";
 //import parseLink, { Links } from 'parse-link-header';
@@ -219,6 +221,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 1,
@@ -240,6 +243,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 1,
@@ -261,6 +265,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 1,
@@ -282,6 +287,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 1,
@@ -303,6 +309,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 1,
@@ -324,6 +331,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 1,
@@ -345,6 +353,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 1,
@@ -366,6 +375,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
       ];
       break;
@@ -392,6 +402,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 2,
@@ -413,6 +424,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 2,
@@ -434,6 +446,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
       ];
       break;
@@ -459,6 +472,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 3,
@@ -480,6 +494,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 3,
@@ -501,6 +516,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 3,
@@ -522,6 +538,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
       ];
       break;
@@ -547,6 +564,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 4,
@@ -568,6 +586,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 4,
@@ -589,6 +608,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 4,
@@ -610,6 +630,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 4,
@@ -631,6 +652,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 4,
@@ -652,6 +674,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 4,
@@ -673,6 +696,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
       ];
       break;
@@ -699,6 +723,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 5,
@@ -720,6 +745,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 5,
@@ -741,6 +767,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 5,
@@ -762,6 +789,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 5,
@@ -783,6 +811,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 5,
@@ -804,6 +833,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
         {
           mwId: 5,
@@ -825,6 +855,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          showDepth: false,
         },
       ];
       break;
@@ -879,6 +910,13 @@ export const SubscribeMarketDepth: any = (id: number, index: number) => {
 
   return DepthData;
 };
+// export async function UnsubscribeMarketDepth(data: ISubscribeDepth) {
+//   //const url = `https://api.github.com/repos/${org}/${repo}/issues/${number}`
+//   //const { data } = await axios.get<Issue>(url)
+//   //return data
+//   return null;
+// }
+
 export async function RemoveTokenfromWatchlist(data: IRemoveFromWatch) {
   //const url = `https://api.github.com/repos/${org}/${repo}/issues/${number}`
   //const { data } = await axios.get<Issue>(url)
@@ -906,3 +944,58 @@ export async function PredifinedWatchlist() {
   //return data
   return null;
 }
+
+export async function GetScriptInfo() {
+  //const url = `https://api.github.com/repos/${org}/${repo}/issues/${number}`
+  //const { data } = await axios.get<Issue>(url)
+  //return data
+  return null;
+}
+
+export const ContractSearch: any = (ContractSearchReq: IContractSearchReq) => {
+  const DepthData = [
+    {
+      omexs: "84959_nse_fo",
+      omtkn: "84959",
+      cnam: "",
+      tsym: "TCS20NOV1350CE",
+      exseg: "nse_fo",
+      uomtkn: "11536",
+      expry: "2020-11-26 14:30:00",
+      optyp: "CE",
+      strikprc: "1350.0",
+      stktyp: "option",
+      seris: "OPTSTK",
+      symdes: "26NOV20 1350.0 CE",
+      usym: "TCS",
+      wgt: "14",
+      last: "",
+      pchng: "",
+      chng: "",
+      time: "",
+      vol: "",
+    },
+    {
+      omexs: "84960_nse_fo",
+      omtkn: "84960",
+      cnam: "",
+      tsym: "TCS20NOV1350PE",
+      exseg: "nse_fo",
+      uomtkn: "11536",
+      expry: "2020-11-26 14:30:00",
+      optyp: "PE",
+      strikprc: "1350.0",
+      stktyp: "option",
+      seris: "OPTSTK",
+      symdes: "26NOV20 1350.0 PE",
+      usym: "TCS",
+      wgt: "14",
+      last: "",
+      pchng: "",
+      chng: "",
+      time: "",
+      vol: "",
+    },
+  ];
+  return DepthData;
+};

@@ -6,6 +6,7 @@ import { IDeleteWatchlist } from "../../../../app/IDeleteWatchlist";
 import { RootState } from "../../../../store/store";
 import { IRenameWatchlist } from "../../../../types/IRenameWatchlist";
 import "../../style.css";
+import Search from "../SmartSearch/Search";
 import {
   AddToWatchList,
   DeleteWatchList,
@@ -56,13 +57,14 @@ const MarketWatchHeader = () => {
           SORT
         </button> 
       </h1>*/}
-      <input
+      {/* <input
         type="text"
         id="txtWatchlist"
         placeholder="Search for a symbol"
         onChange={(e) => handleChange}
         value={sName}
-      ></input>
+      ></input> */}
+      <Search></Search>
       <div className="mw-head-btns">
         <button id="btnEditMode" title="Edit" onClick={(e) => EditWatchList()}>
           Edit
