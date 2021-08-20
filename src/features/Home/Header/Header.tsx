@@ -16,7 +16,7 @@ const ContainerStyle: CSS.Properties = {
 
 const WatchStyle: CSS.Properties = {
   float: "left",
-  margin: "0px 100px 0px 0px",
+  margin: "0px 0px 0px 0px",
 };
 
 const Header = () => {
@@ -47,13 +47,13 @@ const Header = () => {
       <div className="wegas-logo">
         <a id="ancLogo"></a>
       </div>
-      <div id="SearchBarIndex">
+      {/* <div id="SearchBarIndex">
         <div className="sec-search">
           <div className="sec-search-in">
-            {/* <input id="srchname" type="text" autocomplete="off" placeholder="Search eg: gold mcx, infy bse, nifty fut" className="ui-autocomplete-input"></input> */}
+            {/* <input id="srchname" type="text" autocomplete="off" placeholder="Search eg: gold mcx, infy bse, nifty fut" className="ui-autocomplete-input"></input> 
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div id="container" style={ContainerStyle}>
         <div id="hrwatch_id" className="hrwatch" style={WatchStyle}>

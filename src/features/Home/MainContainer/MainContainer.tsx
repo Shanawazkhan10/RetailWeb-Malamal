@@ -21,13 +21,13 @@ import AccountSummary from "../PersonalDetails/AccountSummary";
 import { PasswordSecurity } from "../PersonalDetails/PasswordSecurity";
 import DematDetails from "../Account/DematDetails";
 import UpdateMobileEmail from "../Account/UpdateMobileEmail";
+import IPODetails from "../IPO/IPODetails";
 
 const MainContainer = (props: any) => {
   const MenuClick = props;
   const mainContainer = useAppSelector((state) => state.mainContainer);
 
   const personalContainer = useAppSelector((state) => state.personalContainer);
-
 
   function renderRightContainer() {
     if (mainContainer.IsPersonal) {
@@ -62,6 +62,7 @@ const MainContainer = (props: any) => {
               <UpdateMobileEmail></UpdateMobileEmail>
             </div>
           );
+
         default:
           return (
             <div className="con_bottom">
@@ -108,6 +109,12 @@ const MainContainer = (props: any) => {
           return (
             <div className="con_bottom">
               <ProfileSummary></ProfileSummary>
+            </div>
+          );
+        case 7:
+          return (
+            <div className="con_bottom">
+              <IPODetails></IPODetails>
             </div>
           );
         default:

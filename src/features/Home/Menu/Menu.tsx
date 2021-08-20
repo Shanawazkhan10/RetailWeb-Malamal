@@ -5,6 +5,7 @@ import {
   holdingContainer,
   orderContainer,
   myprofileContainer,
+  ipoContainer,
 } from "../MainContainer/mainContainerSlice";
 import { profileContainer } from "../PersonalDetails/PersonalDetailsSlice";
 
@@ -22,10 +23,10 @@ const Menu = () => {
     dispatch(profileContainer());
   }
 
-  function OnOrder() {
-    const output = document.getElementById("menu");
-    if (output) output.style.width = "0px";
-    dispatch(orderContainer());
+  function OnIPO() {
+    // const output = document.getElementById("menu");
+    // if (output) output.style.width = "0px";
+    dispatch(ipoContainer());
   }
 
   function OnHoldings() {
@@ -56,21 +57,18 @@ const Menu = () => {
             </div>
           </li>
           <li>
-            {" "}
             <a id="menuMyProfile" onClick={OnProfileMenu}>
               <span></span>My Profile
             </a>
           </li>
 
           <li>
-            {" "}
-            <a id="menuOrderBook" onClick={OnOrder}>
-              <span></span>Order Book
+            <a id="menuIPO" onClick={OnIPO}>
+              <span></span>IPO
             </a>
           </li>
 
           <li>
-            {" "}
             <a id="menuHoldings" onClick={OnHoldings}>
               <span></span>Holdings
             </a>
