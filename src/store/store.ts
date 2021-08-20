@@ -9,12 +9,15 @@ import TradeVIewSlice from "../features/Home/MainContainer/TradeView/TradeVIewSl
 import orderEntrySlice from "../features/Home/OrderEntry/orderEntrySlice";
 import MarketWatchSlice from "../features/Home/MainContainer/MarketWatch/MarketWatchSlice";
 import mainContainerSlice from "../features/Home/MainContainer/mainContainerSlice";
+import MenuBarSlice from "../features/Home/Menu/MenuBarSlice";
+import PersonalDetailsSlice from "../features/Home/PersonalDetails/PersonalDetailsSlice";
+import AccountSummaryDetailsSlice from "../features/Home/Account/AccountSummaryDetailsSlice";
 
 const store = configureStore({
   reducer: {
     user: userReducer,
     forgotPassword: forgotpasswordReducer,
-    chart: chartReducer,
+
     netposition: NetPosition,
     holding: Holding,
     OrderView: OrderViewSlice,
@@ -22,6 +25,9 @@ const store = configureStore({
     orderEntry: orderEntrySlice,
     marketwatch: MarketWatchSlice,
     mainContainer: mainContainerSlice,
+    personalContainer: PersonalDetailsSlice,
+    accountContainer: AccountSummaryDetailsSlice,
+    menuContainer: MenuBarSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
