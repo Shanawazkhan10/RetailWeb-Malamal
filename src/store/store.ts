@@ -17,7 +17,7 @@ const store = configureStore({
   reducer: {
     user: userReducer,
     forgotPassword: forgotpasswordReducer,
-
+    chart: chartReducer,
     netposition: NetPosition,
     holding: Holding,
     OrderView: OrderViewSlice,
