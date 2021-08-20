@@ -93,25 +93,27 @@
 // 	});
 // }
 
-const AdvancedChart = () => {
-  //     const stateChart = useAppSelector((state) => state.chart);
-  //     const dispatch= useAppDispatch();
-  //     //let container = React.useRef<HTMLDivElement>() as  React.RefObject<HTMLDivElement>;
-  //     let container = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
-  //     useEffect(() => {
-  //         container = container.current as unknown as React.RefObject<HTMLDivElement>
-  // 		portalizeContextDialogs(container);
-  //         const config = getCustomConfig();
-  //         const uiContext = stateChart.chart.createChartAndUI({ container, config });
-  //         const chartEngine = uiContext.stx;
-  // 		dispatch(setStxState(chartEngine));
-  //         dispatch(setUIContext(uiContext));
-  //     },[]);
-  //     return (
-  //         <cq-context ref={container}>
-  //               <ChartTemplate/>
-  //         </cq-context>
-  //     )
-};
+// const AdvancedChart = () => {
+//     const stateChart = useAppSelector((state) => state.chart);
+//     const dispatch= useAppDispatch();   
+//     //let container = React.useRef<HTMLDivElement>() as  React.RefObject<HTMLDivElement>;
+//     let container = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
+//     useEffect(() => {
+//         container = container.current as unknown as React.RefObject<HTMLDivElement>
+// 		portalizeContextDialogs(container);
+//         const config = getCustomConfig();
+//         const uiContext = stateChart.chart.createChartAndUI({ container, config });
+//         const chartEngine = uiContext.stx;
+// 		dispatch(setStxState(chartEngine));			           
+//         dispatch(setUIContext(uiContext));			           
+//     },[]);
+//     return (
+//         <cq-context ref={container}>
+//               <ChartTemplate/>
+//         </cq-context>
+//     )
+// }
 
-export default AdvancedChart;
+// export default AdvancedChart;
+
+export{}

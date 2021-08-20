@@ -11,7 +11,7 @@ import NetPositionList from "./NetPosition/NetPositionList";
 //const MainContainer = (props: IWatchListProps) => {
 
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
-import AdvancedChart from "../Chart/AdvancedChart";
+// import AdvancedChart from "../Chart/AdvancedChart";
 import OrderView from "./OrderView/Order";
 import OrderList from "./OrderView/OrderList";
 import TradeList from "./TradeView/TradeList";
@@ -28,28 +28,6 @@ const MainContainer = (props: any) => {
 
   const personalContainer = useAppSelector((state) => state.personalContainer);
 
-  // function rendertempAccount() {
-  //   switch (personalContainer.rightContainer) {
-  //     case 0:
-  //       return (
-  //         <div className="con_bottom">
-  //           <PersonalDetails></PersonalDetails>
-  //         </div>
-  //       );
-  //     case 1:
-  //       return (
-  //         <div className="con_bottom">
-  //           <DematDetails></DematDetails>
-  //         </div>
-  //       );
-  //     case 2:
-  //       return (
-  //         <div className="con_bottom">
-  //           <AccountSummary></AccountSummary>
-  //         </div>
-  //       );
-  //   }
-  // }
 
   function renderRightContainer() {
     if (mainContainer.IsPersonal) {
@@ -129,7 +107,6 @@ const MainContainer = (props: any) => {
         case 6:
           return (
             <div className="con_bottom">
-              if(mainContainer.profi)
               <ProfileSummary></ProfileSummary>
             </div>
           );

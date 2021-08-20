@@ -53,7 +53,7 @@ const HoldingList = () => {
                 </th>
                 <th
                   className="tblHeaderNP right"
-                  data-value="Net-Qty"
+                  data-value="NetQty"
                   title="Net Qty"
                 >
                   <span>Net Qty</span>

@@ -1,39 +1,40 @@
-// import { useEffect, useRef } from "react";
+// import { useEffect,useRef } from "react";
 // import * as React from "react";
 // import { CIQ } from "chartiq/js/componentUI";
 
 // const ChartJS = () => {
-//   //  let container = React.createRef();
-//   //  //let refcontainer = useRef();
-//   //   useEffect(() => {
-//   //     container = container.current;
-//   //     const stx = new CIQ.ChartEngine({ container });
-//   //     //refcontainer= refcontainer.current;
-//   //     //const stx = new CIQ.ChartEngine({ refcontainer });
-//   //     stx.loadChart("SPY", {
-//   //       masterData: getMasterData(),
-//   //       periodicity: {
-//   //         period: 1,
-//   //         interval: 5,
-//   //         timeUnit: "minute",
-//   //       },
-//   //     });
-//   //   }, []);
-//   //   return (
-//   //     <div style={{ margin: "20px" }}>
-//   //       <h2>Hello world static chart example</h2>
-//   //       <div
-//   //         ref={container}
-//   //         className="chartContainer"
-//   //         style={{
-//   //           width: "800px",
-//   //           height: "460px",
-//   //           position: "relative",
-//   //           border: "solid 1px #aaa",
-//   //         }}
-//   //       ></div>
-//   //     </div>
-//   //   );
+//  let container = React.createRef();
+//  //let refcontainer = useRef();
+//   useEffect(() => {
+//     container = container.current;
+//     const stx = new CIQ.ChartEngine({ container });
+//     //refcontainer= refcontainer.current;
+//     //const stx = new CIQ.ChartEngine({ refcontainer });    
+//     stx.loadChart("SPY", {
+//       masterData: getMasterData(),
+//       periodicity: {
+//         period: 1,
+//         interval: 5,
+//         timeUnit: "minute",
+//       },
+//     });
+//   }, []);
+
+//   return (
+//     <div style={{ margin: "20px" }}>
+//       <h2>Hello world static chart example</h2>
+//       <div
+//         ref={container}
+//         className="chartContainer"
+//         style={{
+//           width: "800px",
+//           height: "460px",
+//           position: "relative",
+//           border: "solid 1px #aaa",
+//         }}
+//       ></div>
+//     </div>
+//   );
 // };
 
 // function getMasterData() {

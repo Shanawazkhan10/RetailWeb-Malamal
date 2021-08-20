@@ -17,6 +17,7 @@ const MarketWatchHeader = () => {
   const dispatch = useAppDispatch();
   function RemoveWatchList() {
     dispatch(DeleteWatchList(selectedList)); //API Call
+    WatchList.marketWatch.nSelectedWatchList = 1;
   }
 
   function handleChange(event: any) {
@@ -28,24 +29,25 @@ const MarketWatchHeader = () => {
   }
 
   function EditWatchList() {
-    setName("12345");
+    //setName("12345");
     //dispatch(RenameWatchList(setName)); //API Call
   }
   return (
     <div className="mw_headnew">
-      <h1>
+      {/*<h1>
         <span>market Watch</span>
-        {/* <button id="mw_sort" title="Sort Market Watch">
+         <button id="mw_sort" title="Sort Market Watch">
           SORT
-        </button> */}
-      </h1>
-      <div className="mw_opt">
-        <input
-          type="text"
-          id="txtWatchlist"
-          onChange={(e) => handleChange}
-          value={sName}
-        ></input>
+        </button> 
+      </h1>*/}
+      <input
+        type="text"
+        id="txtWatchlist"
+        placeholder="Search for a symbol"
+        onChange={(e) => handleChange}
+        value={sName}
+      ></input>
+      <div className="mw-head-btns">
         <button id="btnEditMode" title="Edit" onClick={(e) => EditWatchList()}>
           Edit
         </button>
@@ -62,6 +64,12 @@ const MarketWatchHeader = () => {
         <button id="btnCancelMode" title="Close" style={{ display: "none" }}>
           Cancel
         </button>
+        <div className="dot-menu">
+          <input id="dot-menu" type="checkbox" className="dot-menu__checkbox" />
+          <label htmlFor="dot-menu" className="dot-menu__label">
+            <span>Menu</span>
+          </label>
+        </div>
       </div>
     </div>
   );

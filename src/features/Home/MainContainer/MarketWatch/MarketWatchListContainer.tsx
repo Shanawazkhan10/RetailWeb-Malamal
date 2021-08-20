@@ -4,6 +4,7 @@ import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
 import "../../style.css";
+import MarketDepth from "./MarketDepth";
 import MarketWatchItem from "./MarketWatchItem";
 import SingleLayout from "./MarketWatchItem";
 
@@ -18,12 +19,14 @@ const MarketWatchListContainer = (props: any) => {
 
   useEffect(() => {
     //dispatch(getMarketWatchSuccess(getNetpositionData()));
+    console.log(" MarketWatchListContainer useEffect");
   }, []);
   return WatchListData && WatchListData.length > 0 ? (
     <div>
       {WatchListData.map((row: IMarketWatch, i) => (
         <div
           className="mw_content"
+          key={i}
           id={String(i + 1)}
           style={selectedList == i + 1 ? {} : { display: "none" }}
         >

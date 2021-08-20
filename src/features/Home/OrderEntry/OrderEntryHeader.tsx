@@ -21,27 +21,50 @@ const OrderEntryHeader = () => {
               {orderEntryState.isBuy ? "BUY" : "SELL"}
             </span>
             <span className="tradingsymbol">
-              <span className="name"> RELIANCE </span>
-              <span className="exchange"> NSE </span>
+              <span className="name">RELIANCE</span>
+              <span className="exchange">NSE</span>
             </span>
             ×<span className="qty">1 Qty</span>
           </div>
         </div>
-        <div>
-          <label className="switch">
-            <input
-              type="checkbox"
-              onClick={toggleBuySell}
-              checked={!orderEntryState.isBuy}
-            />
-            <span className="slider round"></span>
-          </label>
+        {/* <div>
+            <label className="switch">
+                <input type="checkbox" onClick={toggleBuySell} checked={!orderEntryState.isBuy}/>
+                <span className="slider round"></span>
+            </label>
+        </div> */}
 
-          {/* <label className="switch">
-            <input type="checkbox"/>
-            <span className="slider"></span>
-            
-          </label> */}
+        <div className="four columns text-right">
+          <div className="wrap-right">
+            <div className="nudge"></div>
+            <div>
+              <span data-balloon="Toggle Buy / Sell" data-balloon-pos="up">
+                <div className="su-switch-group tx-toggle"  onClick={toggleBuySell} >
+                  <input
+                    id="switch-197"
+                    type="checkbox"                    
+                    className="su-switch"
+                    value={orderEntryState.isBuy? "Buy":"Sell"}                                                           
+                    checked={!orderEntryState.isBuy}
+                    onChange={()=>{}}
+                  />
+                  <label
+                    data-for="switch-197"
+                    className="su-switch-control"
+                  ></label>
+                </div>
+              </span>
+              <a
+                target="_blank"
+                href="#"
+                className="info"
+                data-balloon="Help"
+                data-balloon-pos="up"
+              >
+                <span className="icon icon-info"></span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
