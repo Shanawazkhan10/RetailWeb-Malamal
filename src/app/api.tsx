@@ -874,6 +874,7 @@ export const SubscribeMarketDepth: any = () => {
     },
   ];
   return DepthData;
+};
 export const getProfileSummary: any = () => {
   const MyData = {
     FullName: "Deep Amit Mehta",

@@ -25,66 +25,43 @@ import UpdateMobileEmail from "../Account/UpdateMobileEmail";
 const MainContainer = (props: any) => {
   const MenuClick = props;
   const mainContainer = useAppSelector((state) => state.mainContainer);
-  function renderRightContainer() {
-    switch (mainContainer.rightContainer) {
-      case 0:
-        return (
-          <div className="con_bottom">
-            <NetPositionList></NetPositionList>
-            <HoldingList></HoldingList>
-            {/* <MarketPicture></MarketPicture> */}
-          </div>
-        );
-      case 1:
-        return (
-          <div className="con_bottom">
-            {/* <AdvancedChart></AdvancedChart> */}
-          </div>
-        );
-      case 2:
-        return (
-          <div className="con_bottom">
-            <HoldingList></HoldingList>
-          </div>
-        );
-      case 3:
-        return (
-          <div className="con_bottom">
-            <HoldingList></HoldingList>
-          </div>
-        );
-      case 4:
-        return (
-          <div className="con_bottom">
-            <OrderList></OrderList>
-            <TradeList></TradeList>
-          </div>
-        );
-
-  const personalContainer = useAppSelector((state) => state.personalContainer);
-
-  // function rendertempAccount() {
-  //   switch (personalContainer.rightContainer) {
+  // function renderRightContainer() {
+  //   switch (mainContainer.rightContainer) {
   //     case 0:
   //       return (
   //         <div className="con_bottom">
-  //           <PersonalDetails></PersonalDetails>
+  //           <NetPositionList></NetPositionList>
+  //           <HoldingList></HoldingList>
+  //           {/* <MarketPicture></MarketPicture> */}
   //         </div>
   //       );
   //     case 1:
   //       return (
   //         <div className="con_bottom">
-  //           <DematDetails></DematDetails>
+  //           {/* <AdvancedChart></AdvancedChart> */}
   //         </div>
   //       );
   //     case 2:
   //       return (
   //         <div className="con_bottom">
-  //           <AccountSummary></AccountSummary>
+  //           <HoldingList></HoldingList>
   //         </div>
   //       );
-  //   }
-  // }
+  //     case 3:
+  //       return (
+  //         <div className="con_bottom">
+  //           <HoldingList></HoldingList>
+  //         </div>
+  //       );
+  //     case 4:
+  //       return (
+  //         <div className="con_bottom">
+  //           <OrderList></OrderList>
+  //           <TradeList></TradeList>
+  //         </div>
+  //       );
+
+  const personalContainer = useAppSelector((state) => state.personalContainer);
 
   function renderRightContainer() {
     if (mainContainer.IsPersonal) {
@@ -164,7 +141,6 @@ const MainContainer = (props: any) => {
         case 6:
           return (
             <div className="con_bottom">
-              if(mainContainer.profi)
               <ProfileSummary></ProfileSummary>
             </div>
           );
