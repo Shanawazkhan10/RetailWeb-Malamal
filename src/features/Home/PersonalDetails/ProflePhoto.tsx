@@ -14,10 +14,6 @@ const ProfilePhoto = () => {
     (state: RootState) => state.personalContainer
   );
 
-  useEffect(() => {
-    dispatch(OnProfileSummarySuccess(getProfileSummary()));
-  }, []);
-
   function OnOpenPassword() {
     dispatch(passwordChangeContainer());
   }

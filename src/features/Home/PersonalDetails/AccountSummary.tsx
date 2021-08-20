@@ -66,10 +66,6 @@ const AccountSummary = () => {
     (state: RootState) => state.personalContainer
   );
 
-  useEffect(() => {
-    dispatch(OnProfileSummarySuccess(getProfileSummary()));
-  }, []);
-
   const middleName = UserDetails.userDetailsState.FullName.split(" ")[1]; //Logo
 
   var firstchar = UserDetails.userDetailsState.FullName.charAt(0);
@@ -96,10 +92,6 @@ const AccountSummary = () => {
 
   const OnDocumentClick = (event: MouseEvent<HTMLDivElement>) => {
     dispatch(DocumentContainer());
-  };
-
-  const OnCommodityClick = (event: MouseEvent<HTMLDivElement>) => {
-    dispatch(BankContainer());
   };
 
   function OnBack() {

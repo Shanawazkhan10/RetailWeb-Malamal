@@ -6,6 +6,7 @@ import {
   OnProfileSummarySuccess,
 } from "./PersonalDetailsSlice";
 import {
+  BankContainer,
   DematDetailsContainer,
   SegmentContainer,
 } from "../Account/AccountSummaryDetailsSlice";
@@ -30,7 +31,7 @@ const ProfileSummaryOld = () => {
     dispatch(DematDetailsContainer());
   }
 
-  function OnSegmentClick(value: any) {
+  function OnSegmentClick() {
     dispatch(accountmanageContainer());
     dispatch(SegmentContainer());
   }
@@ -41,6 +42,11 @@ const ProfileSummaryOld = () => {
 
   function OnManage() {
     dispatch(accountmanageContainer());
+  }
+
+  function OnAddBank() {
+    dispatch(accountmanageContainer());
+    dispatch(BankContainer());
   }
 
   return (
@@ -378,7 +384,18 @@ const ProfileSummaryOld = () => {
               width: "150px",
             }}
           >
-            Add Bank
+            <a
+              href="#"
+              onClick={OnAddBank}
+              className="addbank"
+              style={{
+                marginBottom: "10px",
+                display: "inline-block",
+                color: "purple",
+              }}
+            >
+              Add Bank
+            </a>
           </div>
         </section>
       </div>

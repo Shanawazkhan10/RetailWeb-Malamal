@@ -15,10 +15,6 @@ const AccountDetails = () => {
     (state: RootState) => state.personalContainer
   );
 
-  useEffect(() => {
-    dispatch(OnProfileSummarySuccess(getProfileSummary()));
-  }, []);
-
   return (
     <div className="active profile-info personal">
       <h1>Personal</h1>

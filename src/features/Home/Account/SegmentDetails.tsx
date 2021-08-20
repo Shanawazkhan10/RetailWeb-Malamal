@@ -1,22 +1,22 @@
 import "./SegmentDetailsStyle.css";
-import { getProfileSummary } from "../../../app/api";
-import { OnProfileSummarySuccess } from "../PersonalDetails/PersonalDetailsSlice";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useEffect, useReducer, useState } from "react";
 import { RootState } from "../../../store/store";
 import Popup from "reactjs-popup";
 import UpdateSegment from "./UpdateSegment";
-import { SetSegmentCheck } from "./SegmentDetailsSlice";
+import {
+  SetSegmentCheck,
+  SetSegmentDetails,
+  GetEnumName,
+} from "./SegmentDetailsSlice";
+import { enumSegments } from "../../../constants/enumSegments";
+import { act } from "react-dom/test-utils";
 
 const SegmentDetails = () => {
   const [btnflag, Setbtnflag] = useState(false);
+  const [btndisableflag, Setdisableflag] = useState(true);
 
   const dispatch = useAppDispatch();
-
-  function GetStatus(value: string) {
-    var flag = dispatch(() => SetSegmentCheck(value));
-    return flag;
-  }
 
   const UserDetails = useAppSelector(
     (state: RootState) => state.personalContainer
@@ -24,18 +24,40 @@ const SegmentDetails = () => {
 
   const userSegments = UserDetails.userDetailsState.Segments.split(",");
 
-  var newSegments: Array<string> = [];
+  dispatch(() => SetSegmentDetails(userSegments));
+
+  function GetStatus(value: string) {
+    var flag = dispatch(() => SetSegmentCheck(value));
+    return flag;
+  }
+
+  var activateSegments: Array<string> = [];
+  var deActivateSegments: Array<string> = [];
+
   function handleChange(e: any) {
+    var segmentName = GetEnumName(e.target.value);
+
     if (e.target.checked) {
-      newSegments.push(e.target.value);
+      if (userSegments.some((element) => element == segmentName)) {
+        deActivateSegments.splice(deActivateSegments.indexOf(segmentName), 1);
+      } else {
+        activateSegments.push(segmentName);
+      }
     } else {
-      newSegments.splice(newSegments.indexOf(e.target.value), 1);
+      if (userSegments.some((element) => element == segmentName)) {
+        deActivateSegments.push(segmentName);
+      } else {
+        activateSegments.splice(activateSegments.indexOf(segmentName), 1);
+      }
+    }
+
+    if (activateSegments.length > 0 || deActivateSegments.length > 0) {
+      Setdisableflag(false);
+    } else {
+      Setdisableflag(true);
     }
   }
 
-  useEffect(() => {
-    dispatch(OnProfileSummarySuccess(getProfileSummary()));
-  }, []);
   return (
     <div
       className="profile-info segment-activation"
@@ -64,7 +86,7 @@ const SegmentDetails = () => {
                         placeholder="NSEEQ"
                         value="NSE - Equity"
                         onChange={handleChange}
-                        checked={GetStatus("NSE")}
+                        defaultChecked={GetStatus("NSE")}
                         style={{ width: "5px" }}
                       />
                       <div className="slider round"></div>
@@ -90,7 +112,7 @@ const SegmentDetails = () => {
                         placeholder="BSEEQ"
                         value="BSE - Equity"
                         onChange={handleChange}
-                        checked={GetStatus("BSE")}
+                        defaultChecked={GetStatus("BSE")}
                         style={{ width: "5px" }}
                       />
                       <div className="slider round"></div>
@@ -114,9 +136,9 @@ const SegmentDetails = () => {
                         type="checkbox"
                         title="NSE-FO"
                         placeholder="NSEFO"
-                        value="NSE - Future & Options "
+                        value="NSE - Future & Options"
                         onChange={handleChange}
-                        checked={GetStatus("NFO")}
+                        defaultChecked={GetStatus("NFO")}
                         style={{ width: "5px" }}
                       />
                       <div className="slider round"></div>
@@ -139,10 +161,10 @@ const SegmentDetails = () => {
                         className="switch"
                         type="checkbox"
                         title="BSE-FO"
-                        value="BSE -  Future & Options "
+                        value="BSE - Future & Options"
                         onChange={handleChange}
                         placeholder="BSEFO"
-                        checked={GetStatus("BFO")}
+                        defaultChecked={GetStatus("BFO")}
                         style={{ width: "5px" }}
                       />
                       <div className="slider round"></div>
@@ -168,7 +190,7 @@ const SegmentDetails = () => {
                         placeholder="NSECD"
                         value="NSE - Currency"
                         onChange={handleChange}
-                        checked={GetStatus("NCD")}
+                        defaultChecked={GetStatus("NCD")}
                         style={{ width: "5px" }}
                       />
                       <div className="slider round"></div>
@@ -192,7 +214,7 @@ const SegmentDetails = () => {
                         type="checkbox"
                         title="BSE-CD"
                         placeholder="BSECD"
-                        checked={GetStatus("BCD")}
+                        defaultChecked={GetStatus("BCD")}
                         value="BSE - Currency"
                         onChange={handleChange}
                         style={{ width: "5px" }}
@@ -211,9 +233,11 @@ const SegmentDetails = () => {
           trigger={
             <button
               type="button"
+              id="btnUpdateSegments"
               className="btn btn-blue"
               onClick={() => Setbtnflag(true)}
               style={{ color: "blue" }}
+              disabled={btndisableflag}
             >
               Continue
             </button>
@@ -223,7 +247,7 @@ const SegmentDetails = () => {
           <div
             className="modal-container"
             style={{
-              width: "700px",
+              width: "800px",
               height: "300px",
               color: "#444",
               margin: "0 auto",
@@ -237,7 +261,10 @@ const SegmentDetails = () => {
               boxSizing: "border-box",
             }}
           >
-            <UpdateSegment addsegments={newSegments} />
+            <UpdateSegment
+              addsegments={activateSegments}
+              removesegments={deActivateSegments}
+            />
           </div>
         </Popup>
       </div>
