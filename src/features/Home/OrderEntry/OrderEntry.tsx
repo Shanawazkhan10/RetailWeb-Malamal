@@ -14,27 +14,21 @@ import "balloon-css";
 import OrderEntryVariety from "./OrderEntryVariety";
 import OrderEntryType from "./OrderEntryType";
 import OrderEntryValidity from "./OrderEntryValidity";
-
-interface IOrderentryInput {
-  token: number;
-  quantity: number;
-  price: number;
-  triggerprice: number;
-}
+import { IOrderEntryProps } from "../../../types/IOrderEntryProps";
 
 const OrderEntryComp = () => {
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<IOrderentryInput>();
+  } = useForm<IOrderEntryProps>();
 
   const dispatch = useAppDispatch();
   function onCancelClick() {
     dispatch(closeOrderEntry());
   }
   const orderEntryState = useAppSelector((state) => state.orderEntry);
-  const onSubmit: SubmitHandler<IOrderentryInput> = (data) => {
+  const onSubmit: SubmitHandler<IOrderEntryProps> = (data) => {
     console.log(data);
   };
 
@@ -90,7 +84,7 @@ const OrderEntryComp = () => {
                   checked={orderEntryState.productCode === 0 ? true : false}
                   onChange={() => {}}
                 />
-                <label data-for="radio-206" className="su-radio-label">
+                <label htmlFor="radio-206" className="su-radio-label">
                   Intraday <span>MIS</span>
                 </label>
               </div>
@@ -113,7 +107,7 @@ const OrderEntryComp = () => {
                     checked={orderEntryState.productCode === 1 ? true : false}
                     onChange={() => {}}
                   />
-                  <label data-for="radio-259" className="su-radio-label">
+                  <label htmlFor="radio-259" className="su-radio-label">
                     Longterm <span>CNC</span>
                   </label>
                 </div>
@@ -132,7 +126,7 @@ const OrderEntryComp = () => {
                     data-autocorrect="off"
                     min="1"
                     step="1"
-                    value={orderEntryState.qty}
+                    value={orderEntryState.quantity}
                     onChange={(e) => {
                       onQtyChange(e);
                     }}
@@ -209,7 +203,7 @@ const OrderEntryComp = () => {
                   </a>
                 </span>
                 <span className="margin-value">₹299.95</span>
-                <a href="#" aria-label="Refresh" data-balloon-pos="up">
+                <a href="" aria-label="Refresh" data-balloon-pos="up">
                   <span className="reload-margin icon icon-reload"></span>
                 </a>
               </div>

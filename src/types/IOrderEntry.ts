@@ -1,14 +1,13 @@
-export interface IOrderEntryprops {
+import { IOrderEntryProps } from "./IOrderEntryProps";
+
+export interface IOrderEntry extends IOrderEntryProps {
   isOrderEntryOpen: boolean;
   isBuy: boolean;
   variety: number;
   productCode: number;
   orderType: number;
   isPriceEnabled: boolean;
-  isTriggerPriceEnabled: boolean;
-  price:number;
-  triggerprice:number;
-  qty:number;
+  isTriggerPriceEnabled: boolean;  
   isValidityOpen:boolean;
   validity:number;
   disclosedQty:number;

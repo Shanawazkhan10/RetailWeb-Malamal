@@ -54,7 +54,7 @@ const Header = () => {
                                 <small className="name">Authentication Required</small> <small className="content-text">Please verify your password to continue using cloud services</small>
                             </div>
                         </div>
-                        <div className="dropdown-footer"><a href="#">View All</a></div>
+                        <div className="dropdown-footer"><a href="">View All</a></div>
                     </div>
                 </li>
                 <li className="nav-item dropdown">

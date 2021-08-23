@@ -216,6 +216,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 1,
@@ -237,6 +239,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 1,
@@ -258,6 +262,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 1,
@@ -279,6 +285,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 1,
@@ -300,6 +308,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 1,
@@ -321,6 +331,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 1,
@@ -342,6 +354,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 1,
@@ -363,6 +377,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
       ];
       break;
@@ -389,6 +405,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 2,
@@ -410,6 +428,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 2,
@@ -431,6 +451,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
       ];
       break;
@@ -456,6 +478,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 3,
@@ -477,6 +501,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 3,
@@ -498,6 +524,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 3,
@@ -519,6 +547,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
       ];
       break;
@@ -544,6 +574,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 4,
@@ -565,6 +597,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 4,
@@ -586,6 +620,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 4,
@@ -607,6 +643,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 4,
@@ -628,6 +666,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 4,
@@ -649,6 +689,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 4,
@@ -670,6 +712,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
       ];
       break;
@@ -696,6 +740,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 5,
@@ -717,6 +763,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 5,
@@ -738,6 +786,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 5,
@@ -759,6 +809,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 5,
@@ -780,6 +832,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 5,
@@ -801,6 +855,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
         {
           mwId: 5,
@@ -822,6 +878,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ap: "78",
           ltq: "78",
           v: "45",
+          tk:"15083",
+          ltp:"78"
         },
       ];
       break;

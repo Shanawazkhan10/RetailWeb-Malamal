@@ -7,7 +7,7 @@ import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 const InitialMarketWatch: IMarketWatchList = {
   MarketWatchList: [],
   nSelectedWatchList: 0,
-  bIsBind: false,
+  bIsBind: false,  
 };
 
 const marketwatchSlice = createSlice({
@@ -60,8 +60,14 @@ const marketwatchSlice = createSlice({
         state.marketWatch.MarketWatchList[0].SymbolList[0].marketDepth =
           action.payload;
     },
+    showMore:(state,action:PayloadAction<number>)=>{
+      state.marketWatch.MarketWatchList[state.marketWatch.nSelectedWatchList-1].SymbolList[action.payload].showMore = true;//Temp Watchlist Id -1 need to change
+    },
+    hideMore:(state,action:PayloadAction<number>)=>{
+      state.marketWatch.MarketWatchList[state.marketWatch.nSelectedWatchList-1].SymbolList[action.payload].showMore = false;//Temp Watchlist Id -1 need to change
+    },
   },
-});
+}); 
 
 export default marketwatchSlice.reducer;
 export const {
@@ -72,6 +78,8 @@ export const {
   RenameWatchList,
   UpdateSymbolDetails,
   getMarketDepthSuccess,
+  showMore,
+  hideMore
 } = marketwatchSlice.actions;
 
 export const fetchmarketWatch = () => async (dispatch: any) => {
@@ -83,3 +91,5 @@ export const fetchmarketWatch = () => async (dispatch: any) => {
     return console.error(e.message);
   }
 };
+
+

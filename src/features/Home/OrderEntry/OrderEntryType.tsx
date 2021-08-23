@@ -31,7 +31,7 @@ const OrderEntryType = () => {
               checked={orderEntryState.orderType === 0 ? true : false}
               onChange={()=>{}}
             />
-            <label data-for="radio-212" className="su-radio-label">
+            <label htmlFor="radio-212" className="su-radio-label">
               Market
             </label>
           </div>
@@ -53,7 +53,7 @@ const OrderEntryType = () => {
               checked={orderEntryState.orderType === 1 ? true : false}
               onChange={()=>{}}
             />
-            <label data-for="radio-213" className="su-radio-label">
+            <label htmlFor="radio-213" className="su-radio-label">
               Limit
             </label>
           </div>
@@ -79,7 +79,7 @@ const OrderEntryType = () => {
               checked={orderEntryState.orderType === 2 ? true : false}
               onChange={()=>{}}
             />
-            <label data-for="radio-215" className="su-radio-label">
+            <label htmlFor="radio-215" className="su-radio-label">
               SL
             </label>
           </div>
@@ -101,7 +101,7 @@ const OrderEntryType = () => {
               checked={orderEntryState.orderType === 3 ? true : false}
               onChange={()=>{}}
             />
-            <label data-for="radio-216" className="su-radio-label">
+            <label htmlFor="radio-216" className="su-radio-label">
               SL-M
             </label>
           </div>

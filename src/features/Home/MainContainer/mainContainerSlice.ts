@@ -30,6 +30,7 @@ const mainContainerSlice = createSlice({
     fundContainer: (state) => {
       state.rightContainer = 5;
     },
+    
   },
 });
 

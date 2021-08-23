@@ -57,7 +57,7 @@ const OrderEntryValidity = () => {
                 checked={orderEntryState.validity === 1 ? true : false}
                 onChange={() => {}}
               />
-              <label data-for="radio-274" className="su-radio-label">
+              <label htmlFor="radio-274" className="su-radio-label">
                 Immediate or Cancel <span>IOC</span>
               </label>
             </div>
