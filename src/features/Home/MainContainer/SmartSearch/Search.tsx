@@ -10,8 +10,14 @@ import AutoSuggest from "react-autosuggest";
 import ReactDOM from "react-dom";
 import { IContractSearch } from "../../../../types/IContractSearch";
 import "../../style.css";
+import {
+  openBuyOrderEntry,
+  openSellOrderEntry,
+} from "../../OrderEntry/orderEntrySlice";
+import { chartContainer } from "../mainContainerSlice";
 
 const Search = () => {
+  const dispatch = useAppDispatch();
   const [value, setValue] = useState("");
   const [suggestions, setSuggestions] = useState<IContractSearch[]>([]);
   let test: IContractSearch[];
@@ -101,7 +107,7 @@ const Search = () => {
     return (
       <div id="divLeftV" className="container_mw mw_team1">
         <div className="overlay_mw">
-          <button className=" btn_buy" title="Delete">
+          <button className=" btn_buy" title="Add">
             A
           </button>
           <button className=" btn_buy" title="Chart(C )">
@@ -128,6 +134,20 @@ const Search = () => {
         ></span>
       </div>
     );
+  }
+
+  function onBuyOrderEntryClick() {
+    dispatch(openBuyOrderEntry());
+  }
+  function onSellOrderEntryClick() {
+    dispatch(openSellOrderEntry());
+  }
+  function onChartClick() {
+    dispatch(chartContainer());
+  }
+
+  function onAddToWatchlist() {
+    dispatch(openBuyOrderEntry());
   }
 
   return (

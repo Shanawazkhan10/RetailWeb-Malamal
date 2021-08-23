@@ -42,7 +42,9 @@ const marketwatchSlice = createSlice({
         );
     },
     AddToWatchList: (state, action) => {
-      state.marketWatch.MarketWatchList.concat(action.payload);
+      state.marketWatch.MarketWatchList[
+        state.marketWatch.nSelectedWatchList
+      ].SymbolList.push(action.payload);
     },
     RenameWatchList: (state, action) => {
       state.marketWatch.MarketWatchList =
