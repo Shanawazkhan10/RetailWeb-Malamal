@@ -11,10 +11,14 @@ import {
   twofaError,
 } from "./userSlice";
 import MPIN from "./MPIN";
+import md5 from "md5";
+import { postLoginRequest } from "../../app/api";
 
 interface ILoginInput {
   clientid: string;
   password: string;
+  brokerId: string;
+  source: string;
   pin: number;
 }
 
@@ -33,28 +37,14 @@ const Login = () => {
   const onSubmit: SubmitHandler<ILoginInput> = (data) => {
     dispatch(logging());
     console.log(data);
-
     dispatch(loggedInSuccess("User"));
-    // var querystring = require("querystring");
-    // axios
-    //   .post(
-    //     "http://localhost/Gateway" + "/token",
-    //     querystring.stringify({
-    //       grant_type: "password",
-    //       username: data.clientid,
-    //       password: data.password,
-    //       //loginTPIN: data.pin,
-    //     }),
-    //     {
-    //       headers: {
-    //         "Content-Type": "application/x-www-form-urlencoded",
-    //       },
-    //     }
-    //   )
-    //   .then(function (response) {
-    //     dispatch(loggedInSuccess(response.data));
-    //     history.push("/home");
-    //   });
+    var querystring = JSON.stringify({
+      uid: data.clientid + "-TECXLABS",
+      pwd: md5(data.password),
+      brokerId: "TECXLABS",
+      source: "Web",
+    });
+    postLoginRequest(querystring);
   };
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -87,18 +77,12 @@ const Login = () => {
                     <input
                       {...register("password", {
                         required: "Password is required",
-                        minLength: {
-                          value: 8,
-                          message:
-                            "Password must be at least 8 characters long.",
-                        },
                       })}
                       className="input100 txtLofinPasss"
                       id="password"
                       name="password"
                       placeholder="Password"
                       type={passwordShown ? "text" : "password"}
-                      maxLength={8}
                     />
                     <span className="input-ico pswd"></span>
                     <span

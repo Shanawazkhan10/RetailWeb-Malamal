@@ -22,6 +22,7 @@ import { PasswordSecurity } from "../PersonalDetails/PasswordSecurity";
 import DematDetails from "../Account/DematDetails";
 import UpdateMobileEmail from "../Account/UpdateMobileEmail";
 import IPODetails from "../IPO/IPODetails";
+import UpcomingIPODetails from "../IPO/UpcomingIPODetails";
 
 const MainContainer = (props: any) => {
   const MenuClick = props;
@@ -115,6 +116,12 @@ const MainContainer = (props: any) => {
           return (
             <div className="con_bottom">
               <IPODetails></IPODetails>
+            </div>
+          );
+        case 8:
+          return (
+            <div className="con_bottom">
+              <UpcomingIPODetails></UpcomingIPODetails>
             </div>
           );
         default:

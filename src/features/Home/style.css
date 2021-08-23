@@ -225,19 +225,6 @@ input[type="password"]::-ms-reveal {
   display: none;
 }
 
-input[type="button"],
-button,
-#btnPlaceOrder {
-  /*Atul: For submit btn in BuySellEntry*/
-  background-image: rgba(0, 0, 0, 0.5);
-  color: orange;
-  border-radius: 3px;
-  border: none;
-  font-size: 12px;
-  padding: 8px 20px;
-  cursor: pointer;
-}
-
 textarea:focus,
 input:focus {
   outline: none;
@@ -532,23 +519,6 @@ th {
 
 .in-block {
   display: inline-block;
-}
-
-*,
-*:after,
-*:before {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-overflow-scrolling: touch;
-  -webkit-touch-callout: none;
-  -moz-user-select: text;
-}
-
-div,
-span,
-input:disabled {
-  -webkit-touch-callout: none;
-  -moz-user-select: none;
 }
 
 /*------------------- Basic Styling ------------------------------------*/
@@ -13075,7 +13045,6 @@ tr.sticky th {
 }
 
 .avatar-upload {
-  position: relative;
   max-width: 150px;
   margin: 0 auto;
 }
@@ -13120,7 +13089,7 @@ tr.sticky th {
 .avatar-upload .avatar-preview {
   width: 150px;
   height: 150px;
-  position: relative;
+  position: inherit;
   border-radius: 100%;
   border: 6px solid #f8f8f8;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);

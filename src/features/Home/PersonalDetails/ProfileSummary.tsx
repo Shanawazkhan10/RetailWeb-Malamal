@@ -50,14 +50,16 @@ const ProfileSummaryOld = () => {
   }
 
   return (
-    <div className="oth-sidebar-rght">
+    <div
+      className="Profile-Summary"
+      style={{ marginLeft: "30px", width: "100%", left: "0px" }}
+    >
       <span
         className="back"
         style={{
-          position: "relative",
           display: "inline-block",
-          marginTop: "30px",
-          marginLeft: "500px",
+          float: "right",
+          marginRight: "250px",
         }}
       >
         <a
@@ -66,7 +68,7 @@ const ProfileSummaryOld = () => {
           className="back"
           style={{ marginTop: "30px" }}
         >
-          <img src={backImage} style={{}}></img>
+          <img src={backImage}></img>
         </a>
       </span>
       <ProfiePhoto></ProfiePhoto>

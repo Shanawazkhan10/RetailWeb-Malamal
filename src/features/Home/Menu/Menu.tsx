@@ -1,13 +1,13 @@
-import { $CombinedState } from "redux";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import { loggedout } from "../../Login/userSlice";
 import {
   holdingContainer,
-  orderContainer,
   myprofileContainer,
   ipoContainer,
 } from "../MainContainer/mainContainerSlice";
 import { profileContainer } from "../PersonalDetails/PersonalDetailsSlice";
+import { ToggleMenuContainer } from "./MenuBarSlice";
+import "./Menu.css";
 
 //import { closemenuContainer } from "./MenuBarSlice";
 
@@ -18,7 +18,7 @@ const Menu = () => {
 
   function OnProfileMenu() {
     //To do changes for menu opening and closing
-
+    dispatch(ToggleMenuContainer(false));
     dispatch(myprofileContainer());
     dispatch(profileContainer());
   }
@@ -26,22 +26,23 @@ const Menu = () => {
   function OnIPO() {
     // const output = document.getElementById("menu");
     // if (output) output.style.width = "0px";
+    dispatch(ToggleMenuContainer(false));
     dispatch(ipoContainer());
   }
 
   function OnHoldings() {
-    const output = document.getElementById("menu");
-    if (output) output.style.width = "0px";
+    dispatch(ToggleMenuContainer(false));
     dispatch(holdingContainer());
   }
 
   function OnLogout() {
+    dispatch(ToggleMenuContainer(false));
     dispatch(loggedout());
   }
 
   if (menuContainer.toggleflag) {
     return (
-      <div className="pushy" id="menu" style={{ width: "500px" }}>
+      <div className="pushy" id="menu" style={{ width: "500px", zIndex: 9999 }}>
         <ul>
           <li>
             <div className="profile_info">

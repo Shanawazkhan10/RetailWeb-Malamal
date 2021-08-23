@@ -46,6 +46,10 @@ const mainContainerSlice = createSlice({
       state.rightContainer = 7;
       state.IsPersonal = false;
     },
+    upcomingipoContainer: (state) => {
+      state.rightContainer = 8;
+      state.IsPersonal = false;
+    },
   },
 });
 
@@ -58,6 +62,7 @@ export const {
   fundContainer,
   myprofileContainer,
   ipoContainer,
+  upcomingipoContainer,
 } = mainContainerSlice.actions;
 
 export default mainContainerSlice.reducer;

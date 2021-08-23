@@ -12,12 +12,12 @@ const MenuBarSlice = createSlice({
   name: "MenuContainer",
   initialState,
   reducers: {
-    showmenuContainer: (state, action) => {
+    ToggleMenuContainer: (state, action) => {
       state.toggleflag = action.payload;
     },
   },
 });
 
-export const { showmenuContainer } = MenuBarSlice.actions;
+export const { ToggleMenuContainer } = MenuBarSlice.actions;
 
 export default MenuBarSlice.reducer;

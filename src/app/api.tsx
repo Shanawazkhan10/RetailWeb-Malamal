@@ -1,5 +1,6 @@
 import axios from "axios";
 import { UpdateSymbolDetails } from "../features/Home/MainContainer/MarketWatch/MarketWatchSlice";
+import { ILogin } from "../types/ILogin";
 import { useAppDispatch } from "./hooks";
 //import parseLink, { Links } from 'parse-link-header';
 
@@ -9,11 +10,35 @@ import { useAppDispatch } from "./hooks";
 // }
 
 export const api = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com",
+  baseURL: "https://uathsauth.hypertrade.in/",
   headers: {
     "Content-Type": "application/json",
   },
 });
+
+export const postLoginRequest = (LoginData: string) => {
+  // var querystring = JSON.stringify({
+  //   uid: LoginData.clientid,
+  //   pwd: LoginData.password,
+  //   brokerId: LoginData.brokerId,
+  //   source: LoginData.source,
+  // });
+
+  var res = axios
+    .post("https://uathsauth.hypertrade.in/api/login", LoginData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+};
 
 export const getNetpositionData: any = () => {
   const NetPositionData = {
@@ -895,13 +920,39 @@ export const getIPODetails: any = () => {
     StartDate: "12-08-2021",
     EndDate: "17-08-2021",
     PriceRange: "65-65",
-    MinimumQty: "200",
+    MinQty: "200",
     Status: "Closed",
-    AllotmentFinalization: "20-08-2021",
-    RefundInitialization: "23-08-2021",
-    DematTransfer: "24-08-2021",
-    Listing: "25-08-2021",
-    MandateEnd: "01-09-2021",
+    AllotmentFinalizationDate: "20-08-2021",
+    RefundInitializationDate: "23-08-2021",
+    DematTransferDate: "24-08-2021",
+    ListingDate: "25-08-2021",
+    MandateEndDate: "01-09-2021",
+  };
+  return IPODetails;
+};
+
+export const getUpcomingIPODetails: any = () => {
+  const IPODetails = {
+    InstrumentName: "DUDIGITAL",
+    StartDate: "12-08-2021",
+    EndDate: "17-08-2021",
+    PriceRange: "65-65",
+    MinQty: "200",
+    Status: "Upcoming",
+    RHP: "",
+  };
+  return IPODetails;
+};
+
+export const getClosingIPODetails: any = () => {
+  const IPODetails = {
+    InstrumentName: "DUDIGITAL",
+    StartDate: "12-08-2021",
+    EndDate: "17-08-2021",
+    PriceRange: "65-65",
+    MinQty: "200",
+    Status: "Closed",
+    RHP: "https://www1.nseindia.com/content/equities/IPO_RHP_NUVOCO.pdf",
   };
   return IPODetails;
 };

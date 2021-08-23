@@ -1,17 +1,19 @@
-import { MouseEvent } from "react";
 import CSS from "csstype";
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppDispatch } from "../../../app/hooks";
 import {
   dashboardContainer,
   orderContainer,
   holdingContainer,
   positionContainer,
 } from "../MainContainer/mainContainerSlice";
-import { showmenuContainer } from "../Menu/MenuBarSlice";
+import { ToggleMenuContainer } from "../Menu/MenuBarSlice";
+import "./Header.css";
+import MenuImage from "../../../assets/menu-ico.png";
 
 const ContainerStyle: CSS.Properties = {
   display: "flex",
+  width: "100%",
 };
 
 const WatchStyle: CSS.Properties = {
@@ -24,7 +26,7 @@ const Header = () => {
 
   const [flag, SetMenuflag] = useState(false);
 
-  dispatch(showmenuContainer(flag));
+  dispatch(ToggleMenuContainer(flag));
 
   function onDashBoard() {
     dispatch(dashboardContainer());
@@ -81,6 +83,9 @@ const Header = () => {
             fontFamily: "sans-serif",
             fontSize: "small",
             marginTop: "20px",
+
+            marginLeft: "450px",
+            marginRight: "10px",
           }}
         >
           <ul>
@@ -119,22 +124,30 @@ const Header = () => {
                 <span id="spnPositions">Positions</span>
               </a>
             </li>
-            <button
-              id="btnMenu"
-              title="Menu"
-              style={{
-                float: "right",
-                height: "30px",
-                width: "30px",
-                marginRight: "15rem",
-              }}
-              onClick={() => SetMenuflag(!flag)}
-            ></button>
           </ul>
+        </div>
+        <div
+          id="right-nav"
+          className="right-nav"
+          style={{
+            marginTop: "10px",
+            marginLeft: "50px",
+          }}
+        >
+          <button
+            id="btnMenu"
+            title="Menu"
+            style={{
+              width: "30px",
+              height: "30px",
+              backgroundImage: "url(" + MenuImage + ")",
+            }}
+            onClick={() => SetMenuflag(!flag)}
+          ></button>
         </div>
       </div>
 
-      <ul id="ml-auto_id" className="nav ml-auto">
+      {/* <ul id="ml-auto_id" className="nav ml-auto">
         <li className="nav-item dropdown nw_note">
           <a className="nav-link msg_panel">
             <i></i>
@@ -181,7 +194,7 @@ const Header = () => {
             <i></i>
           </a>
         </li>
-      </ul>
+      </ul> */}
     </header>
   );
 };

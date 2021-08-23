@@ -1,4 +1,10 @@
 import CSS from "csstype";
+import { useAppSelector, useAppDispatch } from "../../../app/hooks";
+import { useEffect } from "react";
+import { RootState } from "../../../store/store";
+import { OnIPODetailsFetch } from "./IPODetailsSlice";
+import { getIPODetails } from "../../../app/api";
+import { upcomingipoContainer } from "../MainContainer/mainContainerSlice";
 
 const TimeLineStyle: CSS.Properties = {
   display: "flex",
@@ -19,13 +25,25 @@ const SpanPastStyle: CSS.Properties = {
 };
 
 const IPODetails = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(OnIPODetailsFetch(getIPODetails()));
+  }, []);
+
+  const IPOContainer = useAppSelector((state: RootState) => state.ipoContainer);
+
+  function OnUpcomingIPOS() {
+    dispatch(upcomingipoContainer());
+  }
+
   return (
     <div className="page-container challenge-content">
       <h1>
         <span className="icon icon-file-text"></span>
         IPO
         <p className="text-right float-right">
-          <a href="https://zerodha.com/ipo" target="_blank">
+          <a href="#" onClick={OnUpcomingIPOS}>
             Check upcoming IPOs
           </a>
         </p>
@@ -72,17 +90,19 @@ const IPODetails = () => {
             <br />
             <tbody className="">
               <tr>
-                <td className="text-left">DUDIGITAL</td>
                 <td className="text-left">
-                  <span>2021-08-12</span>
+                  {IPOContainer.ipoDetails.InstrumentName}
                 </td>
                 <td className="text-left">
-                  <span>2021-08-17</span>
+                  <span> {IPOContainer.ipoDetails.StartDate}</span>
+                </td>
+                <td className="text-left">
+                  <span> {IPOContainer.ipoDetails.EndDate}</span>
                 </td>
                 <td>
-                  <span>65 - 65</span>
+                  <span>{IPOContainer.ipoDetails.PriceRange}</span>
                 </td>
-                <td>2000</td>
+                <td>{IPOContainer.ipoDetails.MinQty}</td>
                 <td>
                   <span
                     className="closed-flag"
@@ -145,7 +165,7 @@ const IPODetails = () => {
                         className="value"
                         style={{ marginBottom: "10px", marginTop: "5px" }}
                       >
-                        2021-08-12
+                        {IPOContainer.ipoDetails.StartDate}
                       </p>
                     </div>
                     <div className="span past" style={SpanPastStyle}>
@@ -174,7 +194,7 @@ const IPODetails = () => {
                         className="value"
                         style={{ marginBottom: "10px", marginTop: "5px" }}
                       >
-                        2021-08-17
+                        {IPOContainer.ipoDetails.EndDate}
                       </p>
                     </div>
                     <div className="span" style={SpanPastStyle}>
@@ -203,7 +223,7 @@ const IPODetails = () => {
                         className="value"
                         style={{ marginBottom: "10px", marginTop: "5px" }}
                       >
-                        2021-08-20
+                        {IPOContainer.ipoDetails.AllotmentFinalizationDate}
                       </p>
                     </div>
                     <div className="span" style={SpanPastStyle}>
@@ -232,7 +252,7 @@ const IPODetails = () => {
                         className="value"
                         style={{ marginBottom: "10px", marginTop: "5px" }}
                       >
-                        2021-08-23
+                        {IPOContainer.ipoDetails.RefundInitializationDate}
                       </p>
                     </div>
                     <div className="span" style={SpanPastStyle}>
@@ -261,7 +281,7 @@ const IPODetails = () => {
                         className="value"
                         style={{ marginBottom: "10px", marginTop: "5px" }}
                       >
-                        2021-08-24
+                        {IPOContainer.ipoDetails.DematTransferDate}
                       </p>
                     </div>
                     <div className="span" style={SpanPastStyle}>
@@ -290,7 +310,7 @@ const IPODetails = () => {
                         className="value"
                         style={{ marginBottom: "10px", marginTop: "5px" }}
                       >
-                        2021-08-25
+                        {IPOContainer.ipoDetails.ListingDate}
                       </p>
                     </div>
                     <div className="span" style={SpanPastStyle}>
@@ -319,7 +339,7 @@ const IPODetails = () => {
                         className="value"
                         style={{ marginBottom: "10px", marginTop: "5px" }}
                       >
-                        2021-09-01
+                        {IPOContainer.ipoDetails.MandateEndDate}
                       </p>
                     </div>
                   </div>
