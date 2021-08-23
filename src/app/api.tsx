@@ -888,3 +888,20 @@ export const getProfileSummary: any = () => {
   };
   return MyData;
 };
+
+export const getIPODetails: any = () => {
+  const IPODetails = {
+    InstrumentName: "DUDIGITAL",
+    StartDate: "12-08-2021",
+    EndDate: "17-08-2021",
+    PriceRange: "65-65",
+    MinimumQty: "200",
+    Status: "Closed",
+    AllotmentFinalization: "20-08-2021",
+    RefundInitialization: "23-08-2021",
+    DematTransfer: "24-08-2021",
+    Listing: "25-08-2021",
+    MandateEnd: "01-09-2021",
+  };
+  return IPODetails;
+};
