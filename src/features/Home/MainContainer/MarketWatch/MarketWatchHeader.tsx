@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { DeleteWatchlist, RenameWatchlist } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
+import { IDeleteWatchlist } from "../../../../app/IDeleteWatchlist";
 import { RootState } from "../../../../store/store";
+import { IRenameWatchlist } from "../../../../types/IRenameWatchlist";
 import "../../style.css";
+import Search from "../SmartSearch/Search";
 import {
   AddToWatchList,
   DeleteWatchList,
@@ -18,6 +22,13 @@ const MarketWatchHeader = () => {
   function RemoveWatchList() {
     dispatch(DeleteWatchList(selectedList)); //API Call
     WatchList.marketWatch.nSelectedWatchList = 1;
+
+    // const Input: IDeleteWatchlist = {
+    //   mwName: sName,
+    //   id: selectedList,
+    //   userId: "Test User",
+    // };
+    // DeleteWatchlist(Input);
   }
 
   function handleChange(event: any) {
@@ -29,8 +40,14 @@ const MarketWatchHeader = () => {
   }
 
   function EditWatchList() {
-    //setName("12345");
-    //dispatch(RenameWatchList(setName)); //API Call
+    const Input: IRenameWatchlist = {
+      oldmwName: sName,
+      newmwName: sName, //from input control
+      id: selectedList,
+      userId: "Test User",
+    };
+    //API Call TO rename watch list
+    dispatch(RenameWatchList(RenameWatchlist(Input))); //API Call
   }
   return (
     <div className="mw_headnew">
@@ -40,13 +57,14 @@ const MarketWatchHeader = () => {
           SORT
         </button> 
       </h1>*/}
-      <input
+      {/* <input
         type="text"
         id="txtWatchlist"
         placeholder="Search for a symbol"
         onChange={(e) => handleChange}
         value={sName}
-      ></input>
+      ></input> */}
+      <Search></Search>
       <div className="mw-head-btns">
         <button id="btnEditMode" title="Edit" onClick={(e) => EditWatchList()}>
           Edit

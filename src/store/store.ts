@@ -12,6 +12,7 @@ import mainContainerSlice from "../features/Home/MainContainer/mainContainerSlic
 import MenuBarSlice from "../features/Home/Menu/MenuBarSlice";
 import PersonalDetailsSlice from "../features/Home/PersonalDetails/PersonalDetailsSlice";
 import AccountSummaryDetailsSlice from "../features/Home/Account/AccountSummaryDetailsSlice";
+import SmartSearchSlice from "../features/Home/MainContainer/SmartSearch/SmartSearchSlice";
 
 const store = configureStore({
   reducer: {
@@ -28,6 +29,7 @@ const store = configureStore({
     personalContainer: PersonalDetailsSlice,
     accountContainer: AccountSummaryDetailsSlice,
     menuContainer: MenuBarSlice,
+    smartSearch: SmartSearchSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

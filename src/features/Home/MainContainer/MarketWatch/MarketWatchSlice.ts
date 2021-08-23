@@ -1,12 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { api, GetWatchListSymbolDetails } from "../../../../app/api";
+import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
+import { IDepthReq } from "../../../../types/IDepthReq";
 import { IMarketDepth } from "../../../../types/IMarketDepth";
+import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchList } from "../../../../types/IMarketWatchList";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
+import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
 
 const InitialMarketWatch: IMarketWatchList = {
   MarketWatchList: [],
-  nSelectedWatchList: 0,
+  nSelectedWatchList: 1,
+  sSelectedWatchList: "",
   bIsBind: false,
 };
 
@@ -16,7 +21,7 @@ const marketwatchSlice = createSlice({
     marketWatch: InitialMarketWatch,
   },
   reducers: {
-    getMarketWatchSuccess(state, action) {
+    getMarketWatchSuccess: (state, action) => {
       state.marketWatch.MarketWatchList = action.payload;
       state.marketWatch.bIsBind = true;
       state.marketWatch.nSelectedWatchList = 1;
@@ -24,27 +29,30 @@ const marketwatchSlice = createSlice({
       //   (row, i) => GetWatchListSymbolDetails(i + 1, row.scrips) //DUmmy Call for actual call send token info
       // );
     },
-    ChangeWatchList(state, action) {
-      state.marketWatch.nSelectedWatchList = action.payload;
+    ChangeWatchList: (state, action: PayloadAction<IChangeWatchlist>) => {
+      state.marketWatch.nSelectedWatchList = action.payload.id;
+      state.marketWatch.sSelectedWatchList = action.payload.mwname;
       // state.marketWatch.bIsBind = true;
     },
-    DeleteWatchList(state, action) {
+    DeleteWatchList: (state, action) => {
       //state.marketWatch.nSelectedWatchList = 1;
       state.marketWatch.MarketWatchList =
         state.marketWatch.MarketWatchList.filter(
           (row) => row.id != action.payload
         );
     },
-    AddToWatchList(state, action) {
-      state.marketWatch.MarketWatchList.concat(action.payload);
+    AddToWatchList: (state, action) => {
+      state.marketWatch.MarketWatchList[
+        state.marketWatch.nSelectedWatchList
+      ].SymbolList.push(action.payload);
     },
-    RenameWatchList(state, action) {
+    RenameWatchList: (state, action) => {
       state.marketWatch.MarketWatchList =
         state.marketWatch.MarketWatchList.filter(
           (row) => row.id == action.payload
         );
     },
-    UpdateSymbolDetails(state, action) {
+    UpdateSymbolDetails: (state, action) => {
       let TokenInfo: IMarketWatchTokenInfo[] = action.payload;
       if (TokenInfo != undefined)
         state.marketWatch.MarketWatchList[TokenInfo[0].mwId - 1].SymbolList =
@@ -54,11 +62,25 @@ const marketwatchSlice = createSlice({
       // state.marketWatch.MarketWatchList[4].SymbolList = TokenInfo;
       // state.marketWatch.MarketWatchList[5].SymbolList = TokenInfo;
     },
-    getMarketDepthSuccess(state, action) {
-      let MarketDepth: IMarketDepth[] = action.payload;
+    getMarketDepthSuccess: (state, action) => {
+      let MarketDepth: IMarketDepth = action.payload;
       if (MarketDepth != undefined)
-        state.marketWatch.MarketWatchList[0].SymbolList[0].marketDepth =
-          action.payload;
+        state.marketWatch.MarketWatchList[MarketDepth.id - 1].SymbolList[
+          MarketDepth.index
+        ].marketDepth = action.payload;
+    },
+    ShowMarketDepth: (state, action: PayloadAction<IDepthReq>) => {
+      state.marketWatch.MarketWatchList[action.payload.id - 1].SymbolList[
+        action.payload.index
+      ].showDepth =
+        !state.marketWatch.MarketWatchList[action.payload.id - 1].SymbolList[
+          action.payload.index
+        ].showDepth;
+    },
+
+    RemoveSymbolFromWatchlist(state, action: PayloadAction<IRemoveFromWatch>) {
+      state.marketWatch.MarketWatchList[action.payload.id].scrips =
+        action.payload.scrips;
     },
   },
 });
@@ -72,6 +94,8 @@ export const {
   RenameWatchList,
   UpdateSymbolDetails,
   getMarketDepthSuccess,
+  RemoveSymbolFromWatchlist,
+  ShowMarketDepth,
 } = marketwatchSlice.actions;
 
 export const fetchmarketWatch = () => async (dispatch: any) => {
