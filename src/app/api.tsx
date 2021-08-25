@@ -4,6 +4,7 @@ import { IContractSearchReq } from "../types/IContractSearchReq";
 import { IRemoveFromWatch } from "../types/IRemoveFromWatch";
 import { IRenameWatchlist } from "../types/IRenameWatchlist";
 import { ISubscribeDepth } from "../types/ISubscribeDepth";
+import { IOrderEntryRequest } from "../types/Request/IOrderEntryRequest";
 import { useAppDispatch } from "./hooks";
 import { IDeleteWatchlist } from "./IDeleteWatchlist";
 //import parseLink, { Links } from 'parse-link-header';
@@ -222,6 +223,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 1,
@@ -244,6 +247,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 1,
@@ -266,6 +271,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 1,
@@ -288,6 +295,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 1,
@@ -310,6 +319,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 1,
@@ -332,6 +343,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 1,
@@ -354,6 +367,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 1,
@@ -376,6 +391,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
       ];
       break;
@@ -403,6 +420,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 2,
@@ -425,6 +444,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          ltp: "78",
         },
         {
           mwId: 2,
@@ -447,6 +467,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          ltp: "78",
         },
       ];
       break;
@@ -473,6 +494,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          ltp: "78",
         },
         {
           mwId: 3,
@@ -495,6 +517,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 3,
@@ -517,6 +541,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          ltp: "78",
         },
         {
           mwId: 3,
@@ -539,6 +564,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
       ];
       break;
@@ -565,6 +592,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 4,
@@ -587,6 +616,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 4,
@@ -609,6 +640,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 4,
@@ -631,6 +664,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 4,
@@ -653,6 +688,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 4,
@@ -675,6 +712,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 4,
@@ -697,6 +736,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
       ];
       break;
@@ -724,6 +765,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 5,
@@ -746,6 +789,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          ltp: "78",
         },
         {
           mwId: 5,
@@ -768,6 +812,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 5,
@@ -790,6 +836,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          ltp: "78",
         },
         {
           mwId: 5,
@@ -812,6 +859,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 5,
@@ -834,6 +883,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 5,
@@ -856,6 +907,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
       ];
       break;
@@ -1012,3 +1065,15 @@ export const getProfileSummary: any = () => {
   };
   return MyData;
 };
+
+export async function sendOrderEntryRequest(
+  orderentryrequest: IOrderEntryRequest
+): Promise<any> {
+  return await api
+    .post(
+      "https://uathsint.hypertrade.in/quick/order/place?sId=server1",
+      orderentryrequest
+    )
+    .then((response) => response.data)
+    .catch((error) => {throw(error)});
+}

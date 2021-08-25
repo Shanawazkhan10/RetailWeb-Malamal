@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
-import { useAppDispatch } from "../../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
+  setOrderEntryProps
 } from "../../OrderEntry/orderEntrySlice";
+import { openGTTEntry, setGTTEntryProps } from "../../GTTOrderEntry/gttEntrySlice";
 import { chartContainer } from "../mainContainerSlice";
 
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
@@ -19,6 +21,9 @@ import {
   RemoveSymbolFromWatchlist,
   ShowMarketDepth,
   UpdateSymbolDetails,
+  UpdateSymbolDetails,
+  hideMore,
+  showMore,
 } from "./MarketWatchSlice";
 import MarketDepth from "./MarketDepth";
 
@@ -28,18 +33,66 @@ import { IDepthReq } from "../../../../types/IDepthReq";
 import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
 
 const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
+import { IOrderEntryProps } from "../../../../types/IOrderEntryProps";
+import { IGTTEntryProps } from "../../../../types/IGTTEntryProps";
+
+
+const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
+  const marketWatchState = useAppSelector(
+    (state) => state.marketwatch.marketWatch
+  );
+  const OrderEntryState = useAppSelector(
+    (state) => state.orderEntry
+  );
+  const [activeItem, setActiveItem] = React.useState(false);
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const [depth, setDepth] = React.useState(null);
   const { propMarketWatch } = props;
   const dispatch = useAppDispatch();
+  const options = ["one", "two", "three"];
 
   useEffect(() => {
     getSymbol();
     console.log(" MarketWatchItem useEffect");
   }, []);
 
-  function onBuyOrderEntryClick() {
+  const OrderEntryProp ={
+    token:"",
+    exchange:"",
+    quantity:0,
+    price:"",    
+    triggerprice:"",
+    symbol:"",
+  }as IOrderEntryProps;
+
+  const GTTEntryProp ={
+    token:"",
+    exchange:"",
+    quantity:0,
+    price:"",    
+    triggerprice:"",
+    symbol:"",
+  }as IGTTEntryProps;
+
+
+  function onBuyOrderEntryClick(symbolInfo:IMarketWatchTokenInfo) {
+    OrderEntryProp.token = symbolInfo.tk;
+    OrderEntryProp.price = symbolInfo.ltp;
+    OrderEntryProp.quantity =1;
+    OrderEntryProp.symbol = symbolInfo.sym;
+    OrderEntryProp.exchange=symbolInfo.exch;
+    OrderEntryProp.ltp = symbolInfo.ltp;
+    dispatch(setOrderEntryProps(OrderEntryProp))
     dispatch(openBuyOrderEntry());
   }
-  function onSellOrderEntryClick() {
+  function onSellOrderEntryClick(symbolInfo:IMarketWatchTokenInfo) {
+    OrderEntryProp.token = symbolInfo.tk;
+    OrderEntryProp.price = symbolInfo.ltp;
+    OrderEntryProp.quantity =1;
+    OrderEntryProp.symbol = symbolInfo.sym;
+    OrderEntryProp.exchange=symbolInfo.exch;
+    OrderEntryProp.ltp = symbolInfo.ltp;
+    dispatch(setOrderEntryProps(OrderEntryProp))
     dispatch(openSellOrderEntry());
   }
   function onChartClick() {
@@ -116,6 +169,18 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
       )
     );
   }
+
+  function onCreateGTTOrderClick(symbolInfo:IMarketWatchTokenInfo){
+    GTTEntryProp.token = symbolInfo.tk;
+    GTTEntryProp.price = symbolInfo.ltp;
+    GTTEntryProp.quantity =1;
+    GTTEntryProp.symbol = symbolInfo.sym;
+    GTTEntryProp.exchange=symbolInfo.exch;
+    GTTEntryProp.ltp = +symbolInfo.ltp;
+    dispatch(setGTTEntryProps(GTTEntryProp))
+    dispatch(openGTTEntry());
+  }
+
   return (
     <div>
       {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
@@ -128,6 +193,10 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
                 id={String(nIncreament)}
                 className="mw_block"
                 style={{ width: "378px" }}
+                style={{ width: "400px" }}
+                onMouseLeave={() => {
+                  dispatch(hideMore(nIncreament));
+                }}
               >
                 <div className="popupCloseButton" title="Delete"></div>
                 <div style={{ display: "none" }} className="mw_status">
@@ -152,14 +221,14 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
                       title="Depth"
                       onClick={() => onDepthClick(nIncreament, symbolInfo)}
                     >
-                      Depth
+                      D
                     </button>
                     <button
                       className="btn_mw_overlay_2 btn_buy"
                       title="Delete"
                       onClick={() => RemoveSymbol(symbolInfo)}
                     >
-                      D
+                      Del
                     </button>
                     <button
                       className="btn_mw_overlay_2 btn_buy"
@@ -171,22 +240,35 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
                     <button
                       className="btn_mw_overlay_2 btn_buy"
                       title="BUY"
-                      onClick={onBuyOrderEntryClick}
+                      onClick={()=>onBuyOrderEntryClick(symbolInfo)}
                     >
                       B
                     </button>
                     <button
                       className="btn_mw_overlay_3 btn_sell"
                       title="SELL"
-                      onClick={onSellOrderEntryClick}
+                      onClick={()=>onSellOrderEntryClick(symbolInfo)}
                     >
                       S
                     </button>
                     <button
-                      className="btn_mw_overlay_1 btn_detail"
-                      title="Market Depth"
+                      className="btn_mw_overlay_3 btn_detail"
+                      title="More"
+                      onClick={() => {
+                        symbolInfo.showMore
+                          ? dispatch(hideMore(nIncreament))
+                          : dispatch(showMore(nIncreament));
+                      }}
                     ></button>
                   </div>
+
+                  {symbolInfo.showMore && (
+                    <input
+                      type="button"
+                      value="Create GTT"
+                      onClick={()=>onCreateGTTOrderClick(symbolInfo)}
+                    />
+                  )}
 
                   <div className="divLeftV_in">
                     <div className="mysymbolname">

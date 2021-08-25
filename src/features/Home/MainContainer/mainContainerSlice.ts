@@ -42,6 +42,7 @@ const mainContainerSlice = createSlice({
       state.rightContainer = 6;
       state.IsPersonal = true;
     },
+    
   },
 });
 
