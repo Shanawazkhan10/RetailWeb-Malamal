@@ -35,7 +35,7 @@ const MPIN = () => {
       uid: UserDetailsonLogin.UserId,
       mpin: md5(data.PIN),
       brokerId: "TECXLABS",
-      devicempinkey: UserDetailsonLogin.user.devicempinkey,
+      devicempinkey: UserDetailsonLogin.user.data.devicempinkey,
       source: Source,
     });
 
