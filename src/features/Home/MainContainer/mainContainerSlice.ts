@@ -50,6 +50,7 @@ const mainContainerSlice = createSlice({
       state.rightContainer = 8;
       state.IsPersonal = false;
     },
+    
   },
 });
 
