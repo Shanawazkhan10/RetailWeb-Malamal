@@ -444,6 +444,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
           ltp: "78",
         },
         {
@@ -467,6 +468,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
           ltp: "78",
         },
       ];
@@ -494,6 +496,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
           ltp: "78",
         },
         {
@@ -541,6 +544,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
           ltp: "78",
         },
         {
@@ -789,6 +793,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
           ltp: "78",
         },
         {
@@ -836,6 +841,7 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
           ltp: "78",
         },
         {

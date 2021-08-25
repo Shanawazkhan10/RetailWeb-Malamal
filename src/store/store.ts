@@ -13,6 +13,7 @@ import MenuBarSlice from "../features/Home/Menu/MenuBarSlice";
 import PersonalDetailsSlice from "../features/Home/PersonalDetails/PersonalDetailsSlice";
 import AccountSummaryDetailsSlice from "../features/Home/Account/AccountSummaryDetailsSlice";
 import SmartSearchSlice from "../features/Home/MainContainer/SmartSearch/SmartSearchSlice";
+import gttEntrySlice from "../features/Home/GTTOrderEntry/gttEntrySlice";
 import { ThunkAction } from 'redux-thunk'
 
 const store = configureStore({
