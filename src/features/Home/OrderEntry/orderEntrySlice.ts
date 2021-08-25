@@ -1,19 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { sendOrderEntryRequest } from "../../../app/api";
+import { toastNotification } from "../../../app/Notification";
+import { AppThunk } from "../../../store/store";
 import { IOrderEntry } from "../../../types/IOrderEntry";
+import { IOrderEntryRequest } from "../../../types/Request/IOrderEntryRequest";
 
 const initialState = {
   isOrderEntryOpen: false,
   isBuy: false,
   variety: 0,
-  productCode: 0,
-  orderType: 0,
+  productCode: "MIS",
+  orderType: "MKT",
   isPriceEnabled: false,
   isTriggerPriceEnabled: false,
   isValidityOpen: false,
-  validity: 0,
+  validity: "DAY",
   disclosedQty: 0,
   isDisclosedQtyVisible: true,
   isIOCVisible: true,
+  triggerprice: "0",
 } as IOrderEntry;
 
 // PRODUCT TYPE
@@ -42,9 +47,9 @@ export const orderEntrySlice = createSlice({
       state.exchange = action.payload.exchange;
       state.isPriceEnabled = true;
       state.ltp = action.payload.ltp;
-      state.orderType = 1;
+      state.orderType = "L";
     },
-    openBuyOrderEntry: (state) => {      
+    openBuyOrderEntry: (state) => {
       state.isOrderEntryOpen = true;
       state.isBuy = true;
     },
@@ -56,50 +61,50 @@ export const orderEntrySlice = createSlice({
       state.isOrderEntryOpen = false;
       state.isBuy = false;
     },
-    selectProductCode: (state, action: PayloadAction<number>) => {
+    selectProductCode: (state, action: PayloadAction<string>) => {
       state.productCode = action.payload;
     },
     selectRegularVariety: (state) => {
       state.variety = 0;
       state.isDisclosedQtyVisible = true;
       state.isIOCVisible = true;
-      state.validity = 0;
+      state.validity = "DAY";
     },
     selectCoverVariety: (state) => {
       state.variety = 1;
-      state.productCode = 0;
+      state.productCode = "MIS";
       state.isDisclosedQtyVisible = false;
       state.isIOCVisible = false;
-      state.validity = 0;
+      state.validity = "DAY";
     },
     selectAMOVariety: (state) => {
       state.variety = 2;
       state.isDisclosedQtyVisible = true;
       state.isIOCVisible = true;
-      state.validity = 0;
+      state.validity = "DAY";
     },
     setMarketOrder: (state) => {
       state.isPriceEnabled = false;
       state.isTriggerPriceEnabled = false;
-      state.orderType = 0;
+      state.orderType = "MKT";
       state.price = "0";
       state.triggerprice = "0";
     },
     setLimitOrder: (state) => {
       state.isPriceEnabled = true;
       state.isTriggerPriceEnabled = false;
-      state.orderType = 1;
+      state.orderType = "L";
       state.triggerprice = "0";
     },
     setSLOrder: (state) => {
       state.isPriceEnabled = true;
       state.isTriggerPriceEnabled = true;
-      state.orderType = 2;
+      state.orderType = "SL";
     },
     setSLMOrder: (state) => {
       state.isPriceEnabled = false;
       state.isTriggerPriceEnabled = true;
-      state.orderType = 3;
+      state.orderType = "SL-M";
       state.price = "0";
       state.triggerprice = "0";
     },
@@ -116,18 +121,37 @@ export const orderEntrySlice = createSlice({
       state.isValidityOpen = !state.isValidityOpen;
     },
     setDayValidity: (state) => {
-      state.validity = 0;
+      state.validity = "DAY";
       state.isDisclosedQtyVisible = true;
     },
     setIOCValidity: (state) => {
-      state.validity = 1;
+      state.validity = "IOC";
       state.isDisclosedQtyVisible = false;
     },
     setDisclosedQty: (state, action: PayloadAction<number>) => {
       state.disclosedQty = action.payload;
     },
+    onOrderEntrySuccess: (state, action: PayloadAction<any>) => {            
+      state.isOrderEntryOpen = false;
+      toastNotification("success","Order Placed");
+    },
+    onOrderEntryError: (state, action: PayloadAction<any>) => {      
+      state.isOrderEntryOpen = false;
+      toastNotification("error",action.payload.message);
+    },
   },
 });
+
+export const placeOrder =
+  (orderentryRequest: IOrderEntryRequest): AppThunk =>
+  async (dispatch) => {
+    try {
+      const orderResponse = await sendOrderEntryRequest(orderentryRequest);
+      dispatch(onOrderEntrySuccess(orderResponse));
+    } catch (err) {
+      dispatch(onOrderEntryError(err));
+    }
+  };
 
 export const {
   openBuyOrderEntry,
@@ -149,6 +173,8 @@ export const {
   setIOCValidity,
   setDisclosedQty,
   setOrderEntryProps,
+  onOrderEntrySuccess,
+  onOrderEntryError
 } = orderEntrySlice.actions;
 
 export default orderEntrySlice.reducer;
