@@ -9,10 +9,11 @@ import {
   loggedInError,
   twofasuccess,
   twofaError,
+  UserLogin,
 } from "./userSlice";
 import MPIN from "./MPIN";
 import md5 from "md5";
-import { postLoginRequest } from "../../app/api";
+import { isMobile } from "react-device-detect";
 
 interface ILoginInput {
   clientid: string;
@@ -34,17 +35,24 @@ const Login = () => {
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
+  var Source = "";
+  if (isMobile) {
+    Source = "Mobile";
+  } else {
+    Source = "Web";
+  }
   const onSubmit: SubmitHandler<ILoginInput> = (data) => {
-    dispatch(logging());
+    dispatch(logging(data.clientid));
     console.log(data);
-    dispatch(loggedInSuccess("User"));
+    //dispatch(loggedInSuccess("User"));
     var querystring = JSON.stringify({
-      uid: data.clientid + "-TECXLABS",
+      uid: data.clientid,
       pwd: md5(data.password),
       brokerId: "TECXLABS",
-      source: "Web",
+      source: Source,
     });
-    postLoginRequest(querystring);
+
+    dispatch(UserLogin("Login", querystring));
   };
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -68,7 +76,6 @@ const Login = () => {
                       name="clientid"
                       placeholder="User ID"
                       type="text"
-                      maxLength={10}
                     />
                     <span className="input-ico user"></span>
                   </div>

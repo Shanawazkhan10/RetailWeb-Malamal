@@ -1,5 +1,6 @@
 import axios from "axios";
 import { UpdateSymbolDetails } from "../features/Home/MainContainer/MarketWatch/MarketWatchSlice";
+import { loggedInSuccess } from "../features/Login/userSlice";
 import { ILogin } from "../types/ILogin";
 import { useAppDispatch } from "./hooks";
 //import parseLink, { Links } from 'parse-link-header';
@@ -16,29 +17,27 @@ export const api = axios.create({
   },
 });
 
-export const postLoginRequest = (LoginData: string) => {
-  // var querystring = JSON.stringify({
-  //   uid: LoginData.clientid,
-  //   pwd: LoginData.password,
-  //   brokerId: LoginData.brokerId,
-  //   source: LoginData.source,
-  // });
-
-  var res = axios
+export async function PostLoginRequest(LoginData: string): Promise<any> {
+  return await api
     .post("https://uathsauth.hypertrade.in/api/login", LoginData, {
       headers: {
         "Content-Type": "application/json",
       },
     })
-    .then(
-      (response) => {
-        console.log(response);
+    .then((response) => response.data)
+    .catch((error) => error);
+}
+
+export async function PostMPINRequest(LoginData: string): Promise<any> {
+  return await api
+    .post("https://uathsauth.hypertrade.in/api/mpinlogin", LoginData, {
+      headers: {
+        "Content-Type": "application/json",
       },
-      (error) => {
-        console.log(error);
-      }
-    );
-};
+    })
+    .then((response) => response.data)
+    .catch((error) => error);
+}
 
 export const getNetpositionData: any = () => {
   const NetPositionData = {

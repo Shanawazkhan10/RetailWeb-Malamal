@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, Action } from "@reduxjs/toolkit";
 import userReducer from "../features/Login/userSlice";
 import chartReducer from "../features/Home/Chart/chartSlice";
 import forgotpasswordReducer from "../features/Login/forgotpasswordSlice";
@@ -13,6 +13,7 @@ import MenuBarSlice from "../features/Home/Menu/MenuBarSlice";
 import PersonalDetailsSlice from "../features/Home/PersonalDetails/PersonalDetailsSlice";
 import AccountSummaryDetailsSlice from "../features/Home/Account/AccountSummaryDetailsSlice";
 import IPODetailsSlice from "../features/Home/IPO/IPODetailsSlice";
+import { ThunkAction } from "redux-thunk";
 
 const store = configureStore({
   reducer: {
@@ -41,5 +42,7 @@ const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
+
+export type AppThunk = ThunkAction<void, RootState, null, Action<string>>;
 
 export default store;
