@@ -19,8 +19,7 @@ import {
 import {
   getMarketDepthSuccess,
   RemoveSymbolFromWatchlist,
-  ShowMarketDepth,
-  UpdateSymbolDetails,
+  ShowMarketDepth,  
   UpdateSymbolDetails,
   hideMore,
   showMore,
@@ -31,11 +30,8 @@ import { Collapse, Button, CardBody, Card } from "reactstrap";
 import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
-
-const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
 import { IOrderEntryProps } from "../../../../types/IOrderEntryProps";
 import { IGTTEntryProps } from "../../../../types/IGTTEntryProps";
-
 
 const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
   const marketWatchState = useAppSelector(
@@ -192,7 +188,6 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
                 key={symbolInfo.scrips}
                 id={String(nIncreament)}
                 className="mw_block"
-                style={{ width: "378px" }}
                 style={{ width: "400px" }}
                 onMouseLeave={() => {
                   dispatch(hideMore(nIncreament));

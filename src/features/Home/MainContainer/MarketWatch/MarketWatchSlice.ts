@@ -13,8 +13,6 @@ const InitialMarketWatch: IMarketWatchList = {
   nSelectedWatchList: 1,
   sSelectedWatchList: "",
   bIsBind: false,
-  nSelectedWatchList: 0,
-  bIsBind: false,  
 };
 
 const marketwatchSlice = createSlice({

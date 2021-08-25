@@ -9,7 +9,7 @@ import {
   SetSegmentDetails,
   GetEnumName,
 } from "./SegmentDetailsSlice";
-import { enumSegments } from "../../../constants/enumSegments";
+import { enumSegments } from "../../../Constants/enumSegments";
 import { act } from "react-dom/test-utils";
 
 const SegmentDetails = () => {
