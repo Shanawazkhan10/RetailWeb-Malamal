@@ -10,10 +10,10 @@ const OrderSlice = createSlice({
     OrderViewData: InitialOrderView,
   },
   reducers: {
-    OrderViewSuccess(state, action) {
+    OrderViewSuccess: (state, action) => {
       state.OrderViewData = action.payload;
     },
-    OrderUpdate(state, action) {
+    OrderUpdate: (state, action) => {
       state.OrderViewData = state.OrderViewData.map((el) =>
         el.Token == action.payload.Token ? action.payload : el
       );
