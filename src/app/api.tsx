@@ -1,5 +1,7 @@
 import axios from "axios";
 import { UpdateSymbolDetails } from "../features/Home/MainContainer/MarketWatch/MarketWatchSlice";
+import { loggedInSuccess } from "../features/Login/userSlice";
+import { ILogin } from "../types/ILogin";
 import { IContractSearchReq } from "../types/IContractSearchReq";
 import { IRemoveFromWatch } from "../types/IRemoveFromWatch";
 import { IRenameWatchlist } from "../types/IRenameWatchlist";
@@ -1070,6 +1072,49 @@ export const getProfileSummary: any = () => {
     Segments: "NSE,NFO,BSE,MF",
   };
   return MyData;
+};
+
+export const getIPODetails: any = () => {
+  const IPODetails = {
+    InstrumentName: "DUDIGITAL",
+    StartDate: "12-08-2021",
+    EndDate: "17-08-2021",
+    PriceRange: "65-65",
+    MinQty: "200",
+    Status: "Closed",
+    AllotmentFinalizationDate: "20-08-2021",
+    RefundInitializationDate: "23-08-2021",
+    DematTransferDate: "24-08-2021",
+    ListingDate: "25-08-2021",
+    MandateEndDate: "01-09-2021",
+  };
+  return IPODetails;
+};
+
+export const getUpcomingIPODetails: any = () => {
+  const IPODetails = {
+    InstrumentName: "DUDIGITAL",
+    StartDate: "12-08-2021",
+    EndDate: "17-08-2021",
+    PriceRange: "65-65",
+    MinQty: "200",
+    Status: "Upcoming",
+    RHP: "",
+  };
+  return IPODetails;
+};
+
+export const getClosingIPODetails: any = () => {
+  const IPODetails = {
+    InstrumentName: "DUDIGITAL",
+    StartDate: "12-08-2021",
+    EndDate: "17-08-2021",
+    PriceRange: "65-65",
+    MinQty: "200",
+    Status: "Closed",
+    RHP: "https://www1.nseindia.com/content/equities/IPO_RHP_NUVOCO.pdf",
+  };
+  return IPODetails;
 };
 
 export async function sendOrderEntryRequest(
