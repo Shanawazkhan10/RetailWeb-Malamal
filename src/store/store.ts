@@ -13,6 +13,7 @@ import MenuBarSlice from "../features/Home/Menu/MenuBarSlice";
 import PersonalDetailsSlice from "../features/Home/PersonalDetails/PersonalDetailsSlice";
 import AccountSummaryDetailsSlice from "../features/Home/Account/AccountSummaryDetailsSlice";
 import IPODetailsSlice from "../features/Home/IPO/IPODetailsSlice";
+import gttEntrySlice from "../features/Home/GTTOrderEntry/gttEntrySlice";
 import { ThunkAction } from "redux-thunk";
 
 const store = configureStore({
@@ -31,6 +32,7 @@ const store = configureStore({
     accountContainer: AccountSummaryDetailsSlice,
     menuContainer: MenuBarSlice,
     ipoContainer: IPODetailsSlice,
+    gttEntry: gttEntrySlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
