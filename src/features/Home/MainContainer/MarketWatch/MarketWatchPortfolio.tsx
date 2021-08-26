@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { getWatchList } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
-import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IWatchListProps } from "../../../../types/IWatchListProps";
 import "../../style.css";
@@ -29,11 +28,7 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
   const handleChange = (event: any) => {
     event.preventDefault();
     //event.stopPropagation();
-    const ChangeWatchlist: IChangeWatchlist = {
-      id: Number(event.currentTarget.id),
-      mwname: event.currentTarget.value,
-    };
-    dispatch(ChangeWatchList(ChangeWatchlist));
+    dispatch(ChangeWatchList(Number(event.currentTarget.id)));
   };
 
   return WatchListData && WatchListData.length > 0 ? (

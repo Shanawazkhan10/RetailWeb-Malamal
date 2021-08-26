@@ -7,7 +7,6 @@ import {
   setPrice,
   setTriggerPrice,
   setValidityWindow,
-  placeOrder,
 } from "./orderEntrySlice";
 import "./orderEntry.css";
 import OrderEntryHeader from "./OrderEntryHeader";
@@ -15,44 +14,31 @@ import "balloon-css";
 import OrderEntryVariety from "./OrderEntryVariety";
 import OrderEntryType from "./OrderEntryType";
 import OrderEntryValidity from "./OrderEntryValidity";
-import { IOrderEntryProps } from "../../../types/IOrderEntryProps";
-import {IjData, IOrderEntryRequest} from "../../../types/Request/IOrderEntryRequest"
+
+interface IOrderentryInput {
+  token: number;
+  quantity: number;
+  price: number;
+  triggerprice: number;
+}
 
 const OrderEntryComp = () => {
   const {
     register,
-    formState,
+    formState: { errors },
     handleSubmit,
-  } = useForm<IOrderEntryProps>();
+  } = useForm<IOrderentryInput>();
 
   const dispatch = useAppDispatch();
   function onCancelClick() {
     dispatch(closeOrderEntry());
   }
   const orderEntryState = useAppSelector((state) => state.orderEntry);
-  const onSubmit: SubmitHandler<IOrderEntryProps> = (data) => {
-    console.log(data);    
-    const Jdata:IjData={
-        es: orderEntryState.exchange,
-        pc: orderEntryState.productCode,
-        pr: orderEntryState.price,
-        ot: orderEntryState.orderType,
-        qt: orderEntryState.quantity.toString(),
-        rt: orderEntryState.validity,
-        tk: orderEntryState.token,
-        tp: orderEntryState.triggerprice,
-        ts: orderEntryState.symbol,
-        tt: orderEntryState.isBuy?"B":"S",
-        ig: "erfhj1234xcjid"
-    }
-    const orderentryrequest:IOrderEntryRequest={    
-     jKey:"",
-     jData:Jdata,       
-    }
-    dispatch(placeOrder(orderentryrequest));
+  const onSubmit: SubmitHandler<IOrderentryInput> = (data) => {
+    console.log(data);
   };
 
-  function onProductCodechange(value: string) {
+  function onProductCodechange(value: any) {
     dispatch(selectProductCode(value));
   }
   function onQtyChange(e: any) {
@@ -69,8 +55,10 @@ const OrderEntryComp = () => {
     dispatch(setValidityWindow());
   }
 
-  return (    
-    <form className={"order_window " + (orderEntryState.isBuy ? "buy" : "sell")} onSubmit={handleSubmit(onSubmit)}>      
+  return (
+    <form
+      className={"order_window " + (orderEntryState.isBuy ? "buy" : "sell")}
+    >
       <div className="drag-handle"></div>
       <OrderEntryHeader />
 
@@ -87,7 +75,7 @@ const OrderEntryComp = () => {
                 aria-label="Margin Intraday Squareoff: Requires lower margin. Has to be exited before market close."
                 data-balloon-pos="up"
                 data-balloon-length="large"
-                onClick={() => onProductCodechange("MIS")}
+                onClick={() => onProductCodechange(0)}
               >
                 <input
                   id="radio-206"
@@ -98,11 +86,11 @@ const OrderEntryComp = () => {
                     "su-radio" +
                     (orderEntryState.variety === 1 ? " disabled" : "")
                   }
-                  value={"MIS"}
-                  checked={orderEntryState.productCode === "MIS" ? true : false}
+                  value={0}
+                  checked={orderEntryState.productCode === 0 ? true : false}
                   onChange={() => {}}
                 />
-                <label htmlFor="radio-206" className="su-radio-label">
+                <label data-for="radio-206" className="su-radio-label">
                   Intraday <span>MIS</span>
                 </label>
               </div>
@@ -112,7 +100,7 @@ const OrderEntryComp = () => {
                   aria-label="CashNCarry: Longterm investment. Requires full upfront margin."
                   data-balloon-pos="up"
                   data-balloon-length="large"
-                  onClick={() => onProductCodechange("CNC")}
+                  onClick={() => onProductCodechange(1)}
                 >
                   <input
                     id="radio-259"
@@ -121,11 +109,11 @@ const OrderEntryComp = () => {
                     title="CashNCarry: Longterm investment. Requires full upfront margin."
                     data-label="Longterm <span>CNC</span>"
                     className="su-radio"
-                    value={"CNC"}
-                    checked={orderEntryState.productCode === "CNC" ? true : false}
+                    value={1}
+                    checked={orderEntryState.productCode === 1 ? true : false}
                     onChange={() => {}}
                   />
-                  <label htmlFor="radio-259" className="su-radio-label">
+                  <label data-for="radio-259" className="su-radio-label">
                     Longterm <span>CNC</span>
                   </label>
                 </div>
@@ -138,34 +126,30 @@ const OrderEntryComp = () => {
                 <div className="no su-input-group su-static-label">
                   <label className="su-input-label su-visible">Qty.</label>
                   <input
-                    {...register("quantity", { required: true, maxLength: 8,
-                      min:{value:1,
-                      message:"Value must be greater than 0"},max:999999 })}
+                    {...register('quantity', { required: true, maxLength: 8,min:1,max:999999 })}
                     type="number"
                     placeholder=""
                     data-autocorrect="off"
-                    name="quantity"
-                    step="1"
                     min="1"
-                    value={orderEntryState.quantity}
+                    step="1"
+                    value={orderEntryState.qty}
                     onChange={(e) => {
                       onQtyChange(e);
                     }}
-                  />     
-                </div>                
+                  />
+                </div>
               </div>
               <div className="four columns price">
                 <div className="no su-input-group su-static-label disabled">
                   <label className="su-input-label su-visible">Price</label>
                   <input
-                    {...register("price", { required: true, maxLength: 8,min:1,max:999999 })}
+                    {...register('price', { required: true, maxLength: 8,min:1,max:999999 })}
                     type="number"
                     placeholder=""
                     data-autocorrect="off"
                     min="0.05"
                     step="0.05"
                     size={8}
-                    name="price"
                     disabled={!orderEntryState.isPriceEnabled}
                     value={orderEntryState.price}
                     onChange={(e) => {
@@ -178,13 +162,12 @@ const OrderEntryComp = () => {
                 <div className="no su-input-group su-static-label disabled">
                   <label className="su-input-label">Trigger price</label>
                   <input
-                    {...register("triggerprice", { maxLength: 8,min:1,max:999999 })}
+                    {...register('triggerprice', { required: true, maxLength: 8,min:1,max:999999 })}
                     type="number"
                     placeholder=""
                     data-autocorrect="off"
                     min="0"
                     step="0.05"
-                    name="triggerprice"
                     size={8}
                     disabled={!orderEntryState.isTriggerPriceEnabled}
                     value={orderEntryState.triggerprice}
@@ -225,14 +208,14 @@ const OrderEntryComp = () => {
                     <span className="icon icon-info"></span>
                   </a>
                 </span>
-                <span className="margin-value">₹299.95</span>
-                <a href="" aria-label="Refresh" data-balloon-pos="up">
+                <span className="margin-value">?299.95</span>
+                <a href="#" aria-label="Refresh" data-balloon-pos="up">
                   <span className="reload-margin icon icon-reload"></span>
                 </a>
               </div>
             </div>
             <div className="six columns text-right actions">
-              <button type="submit" className="submit"> 
+              <button type="submit" className="submit">
                 <span>{orderEntryState.isBuy === true ? "Buy" : "Sell"}</span>
               </button>
               <button

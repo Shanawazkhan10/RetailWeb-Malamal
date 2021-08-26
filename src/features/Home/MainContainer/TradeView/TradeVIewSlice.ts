@@ -10,7 +10,7 @@ const TradeSlice = createSlice({
     TradeViewData: InitialTradeView,
   },
   reducers: {
-    TradeViewSuccess: (state, action) => {
+    TradeViewSuccess(state, action) {
       state.TradeViewData = action.payload;
     },
     TradeUpdate(state, action) {

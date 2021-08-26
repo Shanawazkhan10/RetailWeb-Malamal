@@ -21,45 +21,12 @@ import AccountSummary from "../PersonalDetails/AccountSummary";
 import { PasswordSecurity } from "../PersonalDetails/PasswordSecurity";
 import DematDetails from "../Account/DematDetails";
 import UpdateMobileEmail from "../Account/UpdateMobileEmail";
+import IPODetails from "../IPO/IPODetails";
+import UpcomingIPODetails from "../IPO/UpcomingIPODetails";
 
 const MainContainer = (props: any) => {
   const MenuClick = props;
   const mainContainer = useAppSelector((state) => state.mainContainer);
-  // function renderRightContainer() {
-  //   switch (mainContainer.rightContainer) {
-  //     case 0:
-  //       return (
-  //         <div className="con_bottom">
-  //           <NetPositionList></NetPositionList>
-  //           <HoldingList></HoldingList>
-  //           {/* <MarketPicture></MarketPicture> */}
-  //         </div>
-  //       );
-  //     case 1:
-  //       return (
-  //         <div className="con_bottom">
-  //           {/* <AdvancedChart></AdvancedChart> */}
-  //         </div>
-  //       );
-  //     case 2:
-  //       return (
-  //         <div className="con_bottom">
-  //           <HoldingList></HoldingList>
-  //         </div>
-  //       );
-  //     case 3:
-  //       return (
-  //         <div className="con_bottom">
-  //           <HoldingList></HoldingList>
-  //         </div>
-  //       );
-  //     case 4:
-  //       return (
-  //         <div className="con_bottom">
-  //           <OrderList></OrderList>
-  //           <TradeList></TradeList>
-  //         </div>
-  //       );
 
   const personalContainer = useAppSelector((state) => state.personalContainer);
 
@@ -96,6 +63,7 @@ const MainContainer = (props: any) => {
               <UpdateMobileEmail></UpdateMobileEmail>
             </div>
           );
+
         default:
           return (
             <div className="con_bottom">
@@ -142,6 +110,18 @@ const MainContainer = (props: any) => {
           return (
             <div className="con_bottom">
               <ProfileSummary></ProfileSummary>
+            </div>
+          );
+        case 7:
+          return (
+            <div className="con_bottom">
+              <IPODetails></IPODetails>
+            </div>
+          );
+        case 8:
+          return (
+            <div className="con_bottom">
+              <UpcomingIPODetails></UpcomingIPODetails>
             </div>
           );
         default:

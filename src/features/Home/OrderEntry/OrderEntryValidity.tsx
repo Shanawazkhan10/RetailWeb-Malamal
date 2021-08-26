@@ -19,7 +19,7 @@ const OrderEntryValidity = () => {
           <div
             className={
               "su-radio-wrap " +
-              (orderEntryState.validity === "DAY" ? " checked" : "")
+              (orderEntryState.validity === 0 ? " checked" : "")
             }
             aria-label="Regular day order"
             data-balloon-pos="up"
@@ -32,7 +32,7 @@ const OrderEntryValidity = () => {
               title="Regular day order"
               className="su-radio"
               value={0}
-              checked={orderEntryState.validity === "DAY" ? true : false}
+              checked={orderEntryState.validity === 0 ? true : false}
               onChange={() => {}}
             />
             <label className="su-radio-label">Day</label>
@@ -41,7 +41,7 @@ const OrderEntryValidity = () => {
             <div
               className={
                 "su-radio-wrap " +
-                (orderEntryState.validity === "IOC" ? " checked" : "")
+                (orderEntryState.validity === 1 ? " checked" : "")
               }
               aria-label="Immediate or Cancel"
               data-balloon-pos="up"
@@ -54,10 +54,10 @@ const OrderEntryValidity = () => {
                 title="Immediate or Cancel"
                 className="su-radio"
                 value={1}
-                checked={orderEntryState.validity === "IOC" ? true : false}
+                checked={orderEntryState.validity === 1 ? true : false}
                 onChange={() => {}}
               />
-              <label htmlFor="radio-274" className="su-radio-label">
+              <label data-for="radio-274" className="su-radio-label">
                 Immediate or Cancel <span>IOC</span>
               </label>
             </div>

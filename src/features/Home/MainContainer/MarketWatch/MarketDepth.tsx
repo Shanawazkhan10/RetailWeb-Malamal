@@ -7,7 +7,7 @@ const MarketDepth = (props: any) => {
   //const expanded = props.activeItem === props.index;
 
   let symbolInfo = props.tokenInfo;
-  let Depth = props.depth;
+  let Depth = props.depth[0];
   return Depth != undefined ? (
     <div className="market-depth" style={{ display: "" }}>
       <div className="depth-table">
@@ -51,7 +51,7 @@ const MarketDepth = (props: any) => {
               </tr>
               <tr>
                 <td className="rate">{Depth.bp2}</td>{" "}
-                <td className="orders">{Depth.bq2}</td>{" "}
+                <td className="orders">{Depth.bs2}</td>{" "}
                 <td
                   className="text-right quantity"
                   style={{
@@ -64,7 +64,7 @@ const MarketDepth = (props: any) => {
               </tr>
               <tr>
                 <td className="rate">{Depth.bp3}</td>{" "}
-                <td className="orders">{Depth.bp3}</td>{" "}
+                <td className="orders">{Depth.b13}</td>{" "}
                 <td
                   className="text-right quantity"
                   style={{
@@ -76,7 +76,7 @@ const MarketDepth = (props: any) => {
                 </td>
               </tr>
               <tr>
-                <td className="rate">{Depth.bp4}</td>{" "}
+                <td className="rate">{Depth.b4}</td>{" "}
                 <td className="orders">{Depth.bq4}</td>{" "}
                 <td
                   className="text-right quantity"
@@ -112,7 +112,7 @@ const MarketDepth = (props: any) => {
             <tbody>
               <tr>
                 <td className="rate">{Depth.sp}</td>{" "}
-                <td className="orders">{Depth.bs}</td>{" "}
+                <td className="orders">{Depth.sq}</td>{" "}
                 <td
                   className="text-right quantity"
                   style={{
@@ -125,12 +125,12 @@ const MarketDepth = (props: any) => {
               </tr>
               <tr>
                 <td className="rate">{Depth.sp1}</td>{" "}
-                <td className="orders">{Depth.bs1}</td>{" "}
+                <td className="orders">{Depth.sq1}</td>{" "}
                 <td
                   className="text-right quantity"
                   style={{
                     background:
-                      "linear-gradient(to left, rgba(255, 87, 34, 0.1) 8.52713%, transparent 8.52713%)",
+                      "linear-gradient(to left, rgba(255, 87, 34, 0.1) 8.52713%, transparent 8.52713%);",
                   }}
                 >
                   {Depth.sno2}
@@ -138,12 +138,12 @@ const MarketDepth = (props: any) => {
               </tr>
               <tr>
                 <td className="rate">{Depth.sp2}</td>{" "}
-                <td className="orders">{Depth.bs2}</td>{" "}
+                <td className="orders">{Depth.sq2}</td>{" "}
                 <td
                   className="text-right quantity"
                   style={{
                     background:
-                      "linear-gradient(to left, rgba(255, 87, 34, 0.1) 100%, transparent 100%)",
+                      "linear-gradient(to left, rgba(255, 87, 34, 0.1) 100%, transparent 100%);",
                   }}
                 >
                   {Depth.sno3}
@@ -151,7 +151,7 @@ const MarketDepth = (props: any) => {
               </tr>
               <tr>
                 <td className="rate">{Depth.sp3}</td>{" "}
-                <td className="orders">{Depth.bs3}</td>{" "}
+                <td className="orders">{Depth.sq3}</td>{" "}
                 <td
                   className="text-right quantity"
                   style={{
@@ -163,13 +163,13 @@ const MarketDepth = (props: any) => {
                 </td>
               </tr>
               <tr>
-                <td className="rate">{Depth.sp4}</td>{" "}
-                <td className="orders">{Depth.bs4}</td>{" "}
+                <td className="rate">{Depth.s4}</td>{" "}
+                <td className="orders">{Depth.sq4}</td>{" "}
                 <td
                   className="text-right quantity"
                   style={{
                     background:
-                      "linear-gradient(to left, rgba(255, 87, 34, 0.1) 5%, transparent 5%)",
+                      "linear-gradient(to left, rgba(255, 87, 34, 0.1) 5%, transparent 5%);",
                   }}
                 >
                   {Depth.sno4}
@@ -186,12 +186,12 @@ const MarketDepth = (props: any) => {
             </tfoot>
           </table>
         </div>{" "}
-        {/* <div className="depth-toggle">
+        <div className="depth-toggle">
           {" "}
           <a href="" className="text-center">
             <span className="icon icon-chevron-down"></span> View 20 depth
           </a>
-        </div> */}
+        </div>
       </div>{" "}
       <div className="ohlc">
         <div className="row">

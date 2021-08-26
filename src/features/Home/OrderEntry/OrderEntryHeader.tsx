@@ -21,10 +21,10 @@ const OrderEntryHeader = () => {
               {orderEntryState.isBuy ? "BUY" : "SELL"}
             </span>
             <span className="tradingsymbol">
-              <span className="name">{orderEntryState.symbol}</span>
-              <span className="exchange">{orderEntryState.exchange}</span>
+              <span className="name">RELIANCE</span>
+              <span className="exchange">NSE</span>
             </span>
-            ×<span className="qty">{orderEntryState.quantity} Qty</span>
+            ×<span className="qty">1 Qty</span>
           </div>
         </div>
         {/* <div>
@@ -49,14 +49,14 @@ const OrderEntryHeader = () => {
                     onChange={()=>{}}
                   />
                   <label
-                    htmlFor="switch-197"
+                    data-for="switch-197"
                     className="su-switch-control"
                   ></label>
                 </div>
               </span>
               <a
                 target="_blank"
-                href=""
+                href="#"
                 className="info"
                 data-balloon="Help"
                 data-balloon-pos="up"
