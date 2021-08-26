@@ -1,24 +1,22 @@
+import { MouseEvent } from "react";
 import CSS from "csstype";
 import { useState } from "react";
-import { useAppDispatch } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   dashboardContainer,
   orderContainer,
   holdingContainer,
   positionContainer,
 } from "../MainContainer/mainContainerSlice";
-import { ToggleMenuContainer } from "../Menu/MenuBarSlice";
-import "./Header.css";
-import MenuImage from "../../../assets/menu-ico.png";
+import { showmenuContainer } from "../Menu/MenuBarSlice";
 
 const ContainerStyle: CSS.Properties = {
   display: "flex",
-  width: "100%",
 };
 
 const WatchStyle: CSS.Properties = {
   float: "left",
-  margin: "0px 0px 0px 0px",
+  margin: "0px 100px 0px 0px",
 };
 
 const Header = () => {
@@ -26,7 +24,7 @@ const Header = () => {
 
   const [flag, SetMenuflag] = useState(false);
 
-  dispatch(ToggleMenuContainer(flag));
+  dispatch(showmenuContainer(flag));
 
   function onDashBoard() {
     dispatch(dashboardContainer());
@@ -49,13 +47,13 @@ const Header = () => {
       <div className="wegas-logo">
         <a id="ancLogo"></a>
       </div>
-      {/* <div id="SearchBarIndex">
+      <div id="SearchBarIndex">
         <div className="sec-search">
           <div className="sec-search-in">
-            {/* <input id="srchname" type="text" autocomplete="off" placeholder="Search eg: gold mcx, infy bse, nifty fut" className="ui-autocomplete-input"></input> 
+            {/* <input id="srchname" type="text" autocomplete="off" placeholder="Search eg: gold mcx, infy bse, nifty fut" className="ui-autocomplete-input"></input> */}
           </div>
         </div>
-      </div> */}
+      </div>
 
       <div id="container" style={ContainerStyle}>
         <div id="hrwatch_id" className="hrwatch" style={WatchStyle}>
@@ -83,9 +81,6 @@ const Header = () => {
             fontFamily: "sans-serif",
             fontSize: "small",
             marginTop: "20px",
-
-            marginLeft: "450px",
-            marginRight: "10px",
           }}
         >
           <ul>
@@ -124,30 +119,22 @@ const Header = () => {
                 <span id="spnPositions">Positions</span>
               </a>
             </li>
+            <button
+              id="btnMenu"
+              title="Menu"
+              style={{
+                float: "right",
+                height: "30px",
+                width: "30px",
+                marginRight: "15rem",
+              }}
+              onClick={() => SetMenuflag(!flag)}
+            ></button>
           </ul>
-        </div>
-        <div
-          id="right-nav"
-          className="right-nav"
-          style={{
-            marginTop: "10px",
-            marginLeft: "50px",
-          }}
-        >
-          <button
-            id="btnMenu"
-            title="Menu"
-            style={{
-              width: "30px",
-              height: "30px",
-              backgroundImage: "url(" + MenuImage + ")",
-            }}
-            onClick={() => SetMenuflag(!flag)}
-          ></button>
         </div>
       </div>
 
-      {/* <ul id="ml-auto_id" className="nav ml-auto">
+      <ul id="ml-auto_id" className="nav ml-auto">
         <li className="nav-item dropdown nw_note">
           <a className="nav-link msg_panel">
             <i></i>
@@ -194,7 +181,7 @@ const Header = () => {
             <i></i>
           </a>
         </li>
-      </ul> */}
+      </ul>
     </header>
   );
 };

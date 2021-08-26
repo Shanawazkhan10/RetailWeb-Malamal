@@ -18,7 +18,7 @@ const ProfilePhoto = () => {
     dispatch(passwordChangeContainer());
   }
   return (
-    <div className="profile-pic" style={{ width: "100%", height: "250px" }}>
+    <div className="profile-pic" style={{ width: "650px", height: "250px" }}>
       <h3
         className="mt-5 mb-5"
         style={{
@@ -37,8 +37,6 @@ const ProfilePhoto = () => {
         style={{
           marginBottom: "10px",
           marginTop: "30px",
-          marginRight: "250px",
-          float: "right",
         }}
       >
         <a
@@ -62,7 +60,7 @@ const ProfilePhoto = () => {
           marginRight: "0px",
         }}
       >
-        <div className="avatar-preview" style={{ marginTop: "50px" }}>
+        <div className="avatar-preview">
           <div id="imagePreview">
             <img src=""></img>
           </div>

@@ -22,13 +22,16 @@ import MPIN from "./features/Login/MPIN";
 // import AdvancedChart from "./features/Home/Chart/AdvancedChart";
 
 // Amplify.configure(awsConfig);
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { NotificationContainer } from "react-notifications";
 
 function App() {
   return (
     <Router history={history}>
       <Switch>
         <Route exact path="/">
-	          <Login/>
+          <Login />
         </Route>
         {/* <Route path="/ChartJS">
           <ChartJS />
@@ -49,6 +52,7 @@ function App() {
         {/* <AmplifySignOut /> */}
         <Route component={Login} />
       </Switch>
+      <ToastContainer />
     </Router>
   );
 }

@@ -9,7 +9,6 @@ import {
   SetSegmentDetails,
   GetEnumName,
 } from "./SegmentDetailsSlice";
-import { act } from "react-dom/test-utils";
 
 const SegmentDetails = () => {
   const [btnflag, Setbtnflag] = useState(false);

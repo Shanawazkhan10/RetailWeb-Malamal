@@ -1,13 +1,12 @@
+import { $CombinedState } from "redux";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import { loggedout } from "../../Login/userSlice";
 import {
   holdingContainer,
+  orderContainer,
   myprofileContainer,
-  ipoContainer,
 } from "../MainContainer/mainContainerSlice";
 import { profileContainer } from "../PersonalDetails/PersonalDetailsSlice";
-import { ToggleMenuContainer } from "./MenuBarSlice";
-import "./Menu.css";
 
 //import { closemenuContainer } from "./MenuBarSlice";
 
@@ -18,31 +17,30 @@ const Menu = () => {
 
   function OnProfileMenu() {
     //To do changes for menu opening and closing
-    dispatch(ToggleMenuContainer(false));
+
     dispatch(myprofileContainer());
     dispatch(profileContainer());
   }
 
-  function OnIPO() {
-    // const output = document.getElementById("menu");
-    // if (output) output.style.width = "0px";
-    dispatch(ToggleMenuContainer(false));
-    dispatch(ipoContainer());
+  function OnOrder() {
+    const output = document.getElementById("menu");
+    if (output) output.style.width = "0px";
+    dispatch(orderContainer());
   }
 
   function OnHoldings() {
-    dispatch(ToggleMenuContainer(false));
+    const output = document.getElementById("menu");
+    if (output) output.style.width = "0px";
     dispatch(holdingContainer());
   }
 
   function OnLogout() {
-    dispatch(ToggleMenuContainer(false));
     dispatch(loggedout());
   }
 
   if (menuContainer.toggleflag) {
     return (
-      <div className="pushy" id="menu" style={{ width: "500px", zIndex: 9999 }}>
+      <div className="pushy" id="menu" style={{ width: "500px" }}>
         <ul>
           <li>
             <div className="profile_info">
@@ -58,18 +56,21 @@ const Menu = () => {
             </div>
           </li>
           <li>
+            {" "}
             <a id="menuMyProfile" onClick={OnProfileMenu}>
               <span></span>My Profile
             </a>
           </li>
 
           <li>
-            <a id="menuIPO" onClick={OnIPO}>
-              <span></span>IPO
+            {" "}
+            <a id="menuOrderBook" onClick={OnOrder}>
+              <span></span>Order Book
             </a>
           </li>
 
           <li>
+            {" "}
             <a id="menuHoldings" onClick={OnHoldings}>
               <span></span>Holdings
             </a>

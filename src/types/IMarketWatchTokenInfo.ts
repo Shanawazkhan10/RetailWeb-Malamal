@@ -21,4 +21,9 @@ export interface IMarketWatchTokenInfo {
   ap: string;
   ltq: string;
   v: string;
+  showDepth: boolean;
+  tk:string;
+  ltp:string;
+  nc:string;
+  showMore:boolean;
 }
