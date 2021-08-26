@@ -17,11 +17,33 @@ import { IDeleteWatchlist } from "./IDeleteWatchlist";
 // }
 
 export const api = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com",
+  baseURL: "https://uathsauth.hypertrade.in/",
   headers: {
     "Content-Type": "application/json",
   },
 });
+
+export async function PostLoginRequest(LoginData: string): Promise<any> {
+  return await api
+    .post("https://uathsauth.hypertrade.in/api/login", LoginData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => error);
+}
+
+export async function PostMPINRequest(LoginData: string): Promise<any> {
+  return await api
+    .post("https://uathsauth.hypertrade.in/api/mpinlogin", LoginData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => error);
+}
 
 export const getNetpositionData: any = () => {
   const NetPositionData = {
