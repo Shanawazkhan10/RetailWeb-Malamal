@@ -225,6 +225,19 @@ input[type="password"]::-ms-reveal {
   display: none;
 }
 
+input[type="button"],
+button,
+#btnPlaceOrder {
+  /*Atul: For submit btn in BuySellEntry*/
+  background-image: rgba(0, 0, 0, 0.5);
+  color: orange;
+  border-radius: 3px;
+  border: none;
+  font-size: 12px;
+  padding: 8px 20px;
+  cursor: pointer;
+}
+
 textarea:focus,
 input:focus {
   outline: none;
@@ -519,6 +532,23 @@ th {
 
 .in-block {
   display: inline-block;
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+  -webkit-touch-callout: none;
+  -moz-user-select: text;
+}
+
+div,
+span,
+input:disabled {
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
 }
 
 /*------------------- Basic Styling ------------------------------------*/
@@ -2933,7 +2963,8 @@ li.dropdown a.menu-btn i {
 .mw_headnew #txtWatchlist {
   background: rgba(0, 0, 0, 0.5);
   height: 40px;
-  border-radius: 0;
+  border-radius: 3px 3px 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .mw-head-btns {
@@ -9607,7 +9638,8 @@ div#divRightV {
   background-image: none;
   flex-grow: 1;
   margin: 0 5px 10px;
-  padding: 5px 0;
+  padding: 5px;
+  min-width: 30px;
   border-radius: 15px;
   font-family: "Roboto Regular";
 }
@@ -9617,7 +9649,7 @@ div#divRightV {
   margin: 0 10px;
   font-family: "Roboto Medium";
   height: 30px;
-  width: 30px;
+  /* width: 30px; */
   border-radius: 3px;
 }
 
@@ -13045,6 +13077,7 @@ tr.sticky th {
 }
 
 .avatar-upload {
+  position: relative;
   max-width: 150px;
   margin: 0 auto;
 }
@@ -13089,7 +13122,7 @@ tr.sticky th {
 .avatar-upload .avatar-preview {
   width: 150px;
   height: 150px;
-  position: inherit;
+  position: relative;
   border-radius: 100%;
   border: 6px solid #f8f8f8;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);

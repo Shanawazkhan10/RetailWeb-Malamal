@@ -27,6 +27,41 @@ import UpcomingIPODetails from "../IPO/UpcomingIPODetails";
 const MainContainer = (props: any) => {
   const MenuClick = props;
   const mainContainer = useAppSelector((state) => state.mainContainer);
+  // function renderRightContainer() {
+  //   switch (mainContainer.rightContainer) {
+  //     case 0:
+  //       return (
+  //         <div className="con_bottom">
+  //           <NetPositionList></NetPositionList>
+  //           <HoldingList></HoldingList>
+  //           {/* <MarketPicture></MarketPicture> */}
+  //         </div>
+  //       );
+  //     case 1:
+  //       return (
+  //         <div className="con_bottom">
+  //           {/* <AdvancedChart></AdvancedChart> */}
+  //         </div>
+  //       );
+  //     case 2:
+  //       return (
+  //         <div className="con_bottom">
+  //           <HoldingList></HoldingList>
+  //         </div>
+  //       );
+  //     case 3:
+  //       return (
+  //         <div className="con_bottom">
+  //           <HoldingList></HoldingList>
+  //         </div>
+  //       );
+  //     case 4:
+  //       return (
+  //         <div className="con_bottom">
+  //           <OrderList></OrderList>
+  //           <TradeList></TradeList>
+  //         </div>
+  //       );
 
   const personalContainer = useAppSelector((state) => state.personalContainer);
 
@@ -63,7 +98,6 @@ const MainContainer = (props: any) => {
               <UpdateMobileEmail></UpdateMobileEmail>
             </div>
           );
-
         default:
           return (
             <div className="con_bottom">

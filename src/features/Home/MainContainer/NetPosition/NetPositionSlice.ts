@@ -34,7 +34,7 @@ const netposition = createSlice({
     netposition: InitialNetposition,
   },
   reducers: {
-    NetpositionSuccess(state, action) {
+    NetpositionSuccess: (state, action) => {
       //NetpositionSuccess(state, { payload }: PayloadAction<Netposition>) {
       //: PayloadAction<Netposition>) {
       // state.isLoading = false;

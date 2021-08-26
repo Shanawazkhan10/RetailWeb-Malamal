@@ -15,7 +15,7 @@ import AccountSummaryDetailsSlice from "../features/Home/Account/AccountSummaryD
 import IPODetailsSlice from "../features/Home/IPO/IPODetailsSlice";
 import gttEntrySlice from "../features/Home/GTTOrderEntry/gttEntrySlice";
 import { ThunkAction } from "redux-thunk";
-
+import SmartSearchSlice from "../features/Home/MainContainer/SmartSearch/SmartSearchSlice";
 const store = configureStore({
   reducer: {
     user: userReducer,
@@ -32,6 +32,7 @@ const store = configureStore({
     accountContainer: AccountSummaryDetailsSlice,
     menuContainer: MenuBarSlice,
     ipoContainer: IPODetailsSlice,
+    smartSearch: SmartSearchSlice,
     gttEntry: gttEntrySlice,
   },
   middleware: (getDefaultMiddleware) =>
