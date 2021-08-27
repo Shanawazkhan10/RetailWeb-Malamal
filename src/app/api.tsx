@@ -1,4 +1,5 @@
 import axios from "axios";
+import { URLSearchParams } from "url";
 import { UpdateSymbolDetails } from "../features/Home/MainContainer/MarketWatch/MarketWatchSlice";
 import { IContractSearchReq } from "../types/IContractSearchReq";
 import { IMarketWatchTokenInfo } from "../types/IMarketWatchTokenInfo";
@@ -1111,3 +1112,19 @@ export const getProfileSummary: any = () => {
   };
   return MyData;
 };
+
+export async function PostScritInfo(scriptInfo: string[]): Promise<any> {
+  const params = new URLSearchParams();
+  params.append("jData", JSON.stringify(scriptInfo));
+  return await api
+
+    .post("https://uathsauth.hypertrade.in/api/mpinlogin", params, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+
+    .then((response) => response.data)
+
+    .catch((error) => error);
+}

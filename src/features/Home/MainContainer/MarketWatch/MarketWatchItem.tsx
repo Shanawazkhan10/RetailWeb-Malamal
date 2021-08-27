@@ -16,6 +16,7 @@ import {
   SubscribeMarketDepth,
 } from "../../../../app/api";
 import {
+  FetchWatchListSymbol,
   getMarketDepthSuccess,
   RemoveSymbolFromWatchlist,
   ShowMarketDepth,
@@ -32,6 +33,9 @@ import {
   UpdateTokenInfo,
 } from "../MarketPicture/MarketPictureSlice";
 
+export interface scriptInfoReq {
+  scripArr: string[];
+}
 const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
   const { propMarketWatch } = props;
   const dispatch = useAppDispatch();
@@ -116,12 +120,16 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
   }
   function getSymbol() {
     //API call to bind Token info (Scrip Info Request)
-
-    dispatch(
-      UpdateSymbolDetails(
-        GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
-      )
-    );
+    // var scrpitArray:string[]=propMarketWatch.scrips.split(",");
+    //  const scriptInfoReq:scriptInfoReq {
+    //   scripArr:scrpitArray
+    // }
+    dispatch(FetchWatchListSymbol(propMarketWatch.scrips.split(",")));
+    // dispatch(
+    //   UpdateSymbolDetails(
+    //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
+    //   )
+    // );
   }
   return (
     <div>

@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import userReducer from "../features/Login/userSlice";
 import chartReducer from "../features/Home/Chart/chartSlice";
 import forgotpasswordReducer from "../features/Login/forgotpasswordSlice";
@@ -45,3 +45,5 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export default store;
+
+export type AppThunk = ThunkAction<void, RootState, null, Action<string>>;
