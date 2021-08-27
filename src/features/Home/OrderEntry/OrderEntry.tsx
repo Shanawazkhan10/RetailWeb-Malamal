@@ -30,6 +30,7 @@ const OrderEntryComp = () => {
     dispatch(closeOrderEntry());
   }
   const orderEntryState = useAppSelector((state) => state.orderEntry);
+  const userState = useAppSelector((state)=>state.user);
   const onSubmit: SubmitHandler<IOrderEntryProps> = (data) => {
     console.log(data);    
     const Jdata:IjData={
@@ -46,7 +47,7 @@ const OrderEntryComp = () => {
         ig: "erfhj1234xcjid"
     }
     const orderentryrequest:IOrderEntryRequest={    
-     jKey:"",
+     jKey:userState.sessionKey,
      jData:Jdata,       
     }
     dispatch(placeOrder(orderentryrequest));

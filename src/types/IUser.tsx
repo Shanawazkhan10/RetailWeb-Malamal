@@ -4,4 +4,6 @@ export interface IUser {
   isError: boolean;
   UserId: string;
   user: any | null;
+  sessionKey:string;
+  server:string;
 }
