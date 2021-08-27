@@ -7,7 +7,11 @@ import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IWatchListProps } from "../../../../types/IWatchListProps";
 import "../../style.css";
-import { ChangeWatchList, fetchmarketWatch } from "./MarketWatchSlice";
+import {
+  ChangeWatchList,
+  fetchmarketWatch,
+  onMarketWatchSuccess,
+} from "./MarketWatchSlice";
 import { useAppSelector } from "../../../../app/hooks";
 
 const MarketWatchPortfolio = (props: IWatchListProps) => {

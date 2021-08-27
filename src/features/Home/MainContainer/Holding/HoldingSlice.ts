@@ -10,11 +10,11 @@ const holding = createSlice({
     holding: InitialHolding,
   },
   reducers: {
-    HoldingSuccess(state, action) {
+    HoldingSuccess: (state, action) => {
       state.holding = action.payload;
     },
 
-    HoldingUpdate(state, action) {
+    HoldingUpdate: (state, action) => {
       state.holding = state.holding.map((el) =>
         el.Token == action.payload.Token ? action.payload : el
       );

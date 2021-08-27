@@ -1,8 +1,10 @@
 import axios from "axios";
+import { URLSearchParams } from "url";
 import { UpdateSymbolDetails } from "../features/Home/MainContainer/MarketWatch/MarketWatchSlice";
 import { loggedInSuccess } from "../features/Login/userSlice";
 import { ILogin } from "../types/ILogin";
 import { IContractSearchReq } from "../types/IContractSearchReq";
+import { IMarketWatchTokenInfo } from "../types/IMarketWatchTokenInfo";
 import { IRemoveFromWatch } from "../types/IRemoveFromWatch";
 import { IRenameWatchlist } from "../types/IRenameWatchlist";
 import { ISubscribeDepth } from "../types/ISubscribeDepth";
@@ -194,8 +196,52 @@ export const getOrderData: any = () => {
       Token: 2,
       Time: "14:51PM",
     },
+    {
+      Symbol: "ACC",
+      InstrumentName: "FUT",
+      ProductType: "NORMAL",
+      Qty: "5",
+      AvgPrice: 123,
+      Status: "Executed",
+      ExchangeName: "NSE",
+      Token: 2,
+      Time: "14:51PM",
+    },
+    {
+      Symbol: "ACC",
+      InstrumentName: "FUT",
+      ProductType: "NORMAL",
+      Qty: "5",
+      AvgPrice: 123,
+      Status: "Executed",
+      ExchangeName: "NSE",
+      Token: 2,
+      Time: "14:51PM",
+    },
+    {
+      Symbol: "ACC",
+      InstrumentName: "FUT",
+      ProductType: "NORMAL",
+      Qty: "5",
+      AvgPrice: 123,
+      Status: "Executed",
+      ExchangeName: "NSE",
+      Token: 2,
+      Time: "14:51PM",
+    },
+    {
+      Symbol: "ACC",
+      InstrumentName: "FUT",
+      ProductType: "NORMAL",
+      Qty: "5",
+      AvgPrice: 123,
+      Status: "Executed",
+      ExchangeName: "NSE",
+      Token: 2,
+      Time: "14:51PM",
+    },
   ];
-  return getOrderData;
+  return OrderData;
 };
 
 export async function getWatchList(cache: boolean): Promise<any> {
@@ -278,6 +324,32 @@ export async function renameWatchList(cache: boolean): Promise<any> {
     )
     .then((response) => response.data)
     .catch((error) => error);
+}
+
+export function GetSymbolDetails() {
+  const SymbolListData = {
+    mwId: 1,
+    mwName: "nifty",
+    scrips: "bse_cm|16082",
+    cmpName: "ACC LIMITED",
+    exch: "NSE",
+    seg: "CASH",
+    sym: "ACC",
+    exEndDt: "NA",
+    op: "656",
+    c: "566",
+    h: "45.567",
+    lo: "67",
+    lt1: "78",
+    ltt: "78",
+    lcl: "78",
+    ucl: "78",
+    ap: "78",
+    ltq: "78",
+    v: "45",
+    showDepth: false,
+  } as IMarketWatchTokenInfo;
+  return SymbolListData;
 }
 
 export function GetWatchListSymbolDetails(i: number, scripArr: string) {
@@ -1009,6 +1081,34 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
   return SymbolListData;
 }
 
+export function AddSymbolToWatchlist(i: number, scripArr: string) {
+  //const dispatch = useAppDispatch();
+
+  const SymbolListData = {
+    mwId: 1,
+    mwName: "nifty",
+    scrips: "bse_cm|16082",
+    cmpName: "ACC LIMITED",
+    exch: "NSE",
+    seg: "CASH",
+    sym: "ACC",
+    exEndDt: "NA",
+    op: "656",
+    c: "566",
+    h: "45.567",
+    lo: "67",
+    lt1: "78",
+    ltt: "78",
+    lcl: "78",
+    ucl: "78",
+    ap: "78",
+    ltq: "78",
+    v: "45",
+    showDepth: false,
+  };
+
+  return SymbolListData;
+}
 export const SubscribeMarketDepth: any = (id: number, index: number) => {
   const DepthData = {
     id: id,
