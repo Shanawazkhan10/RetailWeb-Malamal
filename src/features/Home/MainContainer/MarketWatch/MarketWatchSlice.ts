@@ -30,7 +30,7 @@ const marketwatchSlice = createSlice({
   },
   reducers: {
     onMarketWatchSuccess: (state, action) => {
-      state.marketWatch.MarketWatchList = action.payload;
+      state.marketWatch.MarketWatchList = action.payload.data;
       state.marketWatch.bIsBind = true;
       state.marketWatch.nSelectedWatchList = 1;
       // state.marketWatch.MarketWatchList.map(
@@ -103,7 +103,7 @@ const marketwatchSlice = createSlice({
       state.marketWatch.MarketWatchList[
         state.marketWatch.nSelectedWatchList - 1
       ].SymbolList[action.payload].showMore = false; //Temp Watchlist Id -1 need to change
-
+    },
     AddToWatchlistFromSearch(state, action: PayloadAction<IRemoveFromWatch>) {
       state.marketWatch.MarketWatchList[action.payload.id].scrips =
         action.payload.scrips;
@@ -168,8 +168,8 @@ export const renamemarketWatch =
       dispatch(onMarketWatchSuccess(MarketWatchData));
     } catch (err) {
       //TO ADD
-  
-
+    }
+  };
 // export const fetchmarketWatch = () => async (dispatch: any) => {
 //   try {
 //     await api
@@ -189,4 +189,4 @@ export const FetchWatchListSymbol =
     } catch (err) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
-  }
+  };

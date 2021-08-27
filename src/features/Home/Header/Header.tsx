@@ -10,7 +10,6 @@ import {
 import { ToggleMenuContainer } from "../Menu/MenuBarSlice";
 import "./Header.css";
 import MenuImage from "../../../assets/menu-ico.png";
-import { showmenuContainer } from "../Menu/MenuBarSlice";
 import { socket1 } from "./../../WebSocket/Socket";
 import HSSocket from "../../WebSocket/HSSocket";
 

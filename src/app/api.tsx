@@ -326,6 +326,36 @@ export async function renameWatchList(cache: boolean): Promise<any> {
     .catch((error) => error);
 }
 
+export async function PostScritInfo(scriptInfo: string[]): Promise<any> {
+  var querystring = JSON.stringify({
+    scripArr: scriptInfo,
+  });
+
+  //const params = new URLSearchParams();
+  //params.append("jData", querystring);
+
+  var formBody = [];
+  //for (var property in scriptInfo) {
+  var encodedKey = encodeURIComponent("jData");
+  var encodedValue = encodeURIComponent(querystring);
+  formBody.push(encodedKey + "=" + encodedValue);
+  //}
+
+  const params = JSON.stringify({ jData: querystring });
+  return await api
+
+    .post("https://uathsint.hypertrade.in/quick/scrip/info", params, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": localStorage.getItem("sessionKey"),
+      },
+    })
+
+    .then((response) => response.data)
+
+    .catch((error) => error);
+}
+
 export function GetSymbolDetails() {
   const SymbolListData = {
     mwId: 1,

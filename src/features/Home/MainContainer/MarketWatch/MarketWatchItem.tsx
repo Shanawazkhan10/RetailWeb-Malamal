@@ -167,6 +167,7 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
       // UnsubscribeMarketDepth(SubscribeDepth);
     }
   }
+
   function getSymbol() {
     //API call to bind Token info (Scrip Info Request)
     // var scrpitArray:string[]=propMarketWatch.scrips.split(",");
@@ -174,11 +175,6 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
     //   scripArr:scrpitArray
     // }
     dispatch(FetchWatchListSymbol(propMarketWatch.scrips.split(",")));
-    // dispatch(
-    //   UpdateSymbolDetails(
-    //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
-    //   )
-    // );
   }
 
   function onCreateGTTOrderClick(symbolInfo: IMarketWatchTokenInfo) {
