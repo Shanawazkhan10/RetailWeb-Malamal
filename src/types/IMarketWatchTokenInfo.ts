@@ -1,4 +1,4 @@
-import { IMarketDepth } from "./IMarketDepth";
+import { IMarketDepth, InitialMarketDepth } from "./IMarketDepth";
 
 export interface IMarketWatchTokenInfo {
   mwId: number;
@@ -23,3 +23,27 @@ export interface IMarketWatchTokenInfo {
   v: string;
   showDepth: boolean;
 }
+
+export const InitialTokenInfo = {
+  mwId: 0,
+  mwName: "",
+  scrips: "",
+  cmpName: "",
+  exch: "",
+  seg: "",
+  sym: "",
+  exEndDt: "",
+  marketDepth: InitialMarketDepth,
+  op: "",
+  c: "",
+  h: "",
+  lo: "",
+  lt1: "",
+  ltt: "",
+  lcl: "",
+  ucl: "",
+  ap: "",
+  ltq: "",
+  v: "",
+  showDepth: false,
+};

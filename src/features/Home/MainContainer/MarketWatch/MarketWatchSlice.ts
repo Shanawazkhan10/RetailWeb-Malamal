@@ -82,6 +82,11 @@ const marketwatchSlice = createSlice({
       state.marketWatch.MarketWatchList[action.payload.id].scrips =
         action.payload.scrips;
     },
+
+    AddToWatchlistFromSearch(state, action: PayloadAction<IRemoveFromWatch>) {
+      state.marketWatch.MarketWatchList[action.payload.id].scrips =
+        action.payload.scrips;
+    },
   },
 });
 

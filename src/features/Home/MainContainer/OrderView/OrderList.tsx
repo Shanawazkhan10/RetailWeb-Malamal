@@ -18,7 +18,7 @@ const OrderList = () => {
   return (
     <div className="block_netPosition mr14" id="NetPosition">
       <div className="block_head">
-        <h1>Holding</h1>
+        <h1>Orders:</h1>
         <div className="mw_opt" id="mw_opt">
           <div>
             <ul id="ulTab" className="scroll_tabs_container">

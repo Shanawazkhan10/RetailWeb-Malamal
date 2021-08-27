@@ -10,6 +10,7 @@ import { chartContainer } from "../mainContainerSlice";
 
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import {
+  GetSymbolDetails,
   GetWatchListSymbolDetails,
   RemoveTokenfromWatchlist,
   SubscribeMarketDepth,
@@ -26,6 +27,10 @@ import { Collapse, Button, CardBody, Card } from "reactstrap";
 import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
+import {
+  updateMarketDepth,
+  UpdateTokenInfo,
+} from "../MarketPicture/MarketPictureSlice";
 
 const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
   const { propMarketWatch } = props;
@@ -46,16 +51,18 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
     dispatch(chartContainer());
   }
   function RemoveSymbol(tokenInfo: IMarketWatchTokenInfo) {
+    dispatch(UpdateTokenInfo(GetSymbolDetails()));
+
+    dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
+
     //API Call update List & on success call dispatch
-    const RemoveFromWatch: IRemoveFromWatch = {
-      mwName: propMarketWatch.mwName,
-      scrips: removeValue(propMarketWatch.scrips, tokenInfo.scrips, "|"),
-      id: tokenInfo.mwId,
-      userId: "Test User",
-    };
-
-    dispatch(RemoveSymbolFromWatchlist(RemoveFromWatch));
-
+    // const RemoveFromWatch: IRemoveFromWatch = {
+    //   mwName: propMarketWatch.mwName,
+    //   scrips: removeValue(propMarketWatch.scrips, tokenInfo.scrips, "|"),
+    //   id: tokenInfo.mwId,
+    //   userId: "Test User",
+    // };
+    // dispatch(RemoveSymbolFromWatchlist(RemoveFromWatch));
     //Unsubscribe Depth API Call
     // if (symbol.showDepth) {
     //   const SubscribeDepth: ISubscribeDepth = {

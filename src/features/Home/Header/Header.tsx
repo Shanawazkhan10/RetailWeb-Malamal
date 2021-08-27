@@ -9,6 +9,8 @@ import {
   positionContainer,
 } from "../MainContainer/mainContainerSlice";
 import { showmenuContainer } from "../Menu/MenuBarSlice";
+import { socket1 } from "./../../WebSocket/Socket";
+import HSSocket from "../../WebSocket/HSSocket";
 
 const ContainerStyle: CSS.Properties = {
   display: "flex",
@@ -71,6 +73,14 @@ const Header = () => {
             <li className="limit">
               <span id="spnLimitValue">99,99,99,99,999.00</span>
               <span>Funds Deposited</span>
+            </li>
+            <li className="limit">
+              {/* <button
+                className="btn_mw_overlay_2 btn_buy"
+                title="Chart(C )"
+                onClick={() => socket1()}
+              /> */}
+              <HSSocket></HSSocket>
             </li>
           </ul>
         </div>

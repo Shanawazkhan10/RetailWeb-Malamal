@@ -144,6 +144,12 @@ const MainContainer = (props: any) => {
               <ProfileSummary></ProfileSummary>
             </div>
           );
+        // case 7:
+        //   return (
+        //     <div className="con_bottom">
+        //       <MarketPicture></MarketPicture>
+        //     </div>
+        //   );
         default:
           return null;
       }
