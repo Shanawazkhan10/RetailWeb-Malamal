@@ -5,7 +5,7 @@ import { twofasuccess } from "./userSlice";
 import { RootState } from "../../store/store";
 import md5 from "md5";
 import { isMobile } from "react-device-detect";
-import { UserLogin } from "./userSlice";
+import { UserMPINLogin } from "./userSlice";
 
 interface IMPINInput {
   PIN: string;
@@ -40,7 +40,7 @@ const MPIN = () => {
     });
 
     console.log(data);
-    dispatch(UserLogin("MPIN", querystring)); //Temp Code need to remove and Set after success response on Login/MPIN : MP
+    dispatch(UserMPINLogin(querystring)); //Temp Code need to remove and Set after success response on Login/MPIN : MP
     history.push("/Home");
   };
   return (

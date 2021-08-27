@@ -41,6 +41,7 @@ const Login = () => {
   } else {
     Source = "Web";
   }
+
   const onSubmit: SubmitHandler<ILoginInput> = (data) => {
     dispatch(logging(data.clientid));
     console.log(data);
@@ -52,7 +53,7 @@ const Login = () => {
       source: Source,
     });
 
-    dispatch(UserLogin("Login", querystring));
+    dispatch(UserLogin(querystring));
   };
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);

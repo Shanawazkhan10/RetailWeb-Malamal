@@ -1,5 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { api, GetWatchListSymbolDetails } from "../../../../app/api";
+import {
+  api,
+  getWatchList,
+  GetWatchListSymbolDetails,
+} from "../../../../app/api";
 import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { IMarketDepth } from "../../../../types/IMarketDepth";
@@ -7,6 +11,7 @@ import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchList } from "../../../../types/IMarketWatchList";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
+import { AppThunk } from "../../../../store/store";
 
 const InitialMarketWatch: IMarketWatchList = {
   MarketWatchList: [],
@@ -21,7 +26,7 @@ const marketwatchSlice = createSlice({
     marketWatch: InitialMarketWatch,
   },
   reducers: {
-    getMarketWatchSuccess: (state, action) => {
+    onMarketWatchSuccess: (state, action) => {
       state.marketWatch.MarketWatchList = action.payload;
       state.marketWatch.bIsBind = true;
       state.marketWatch.nSelectedWatchList = 1;
@@ -82,18 +87,22 @@ const marketwatchSlice = createSlice({
       state.marketWatch.MarketWatchList[action.payload.id].scrips =
         action.payload.scrips;
     },
-    showMore:(state,action:PayloadAction<number>)=>{
-      state.marketWatch.MarketWatchList[state.marketWatch.nSelectedWatchList-1].SymbolList[action.payload].showMore = true;//Temp Watchlist Id -1 need to change
+    showMore: (state, action: PayloadAction<number>) => {
+      state.marketWatch.MarketWatchList[
+        state.marketWatch.nSelectedWatchList - 1
+      ].SymbolList[action.payload].showMore = true; //Temp Watchlist Id -1 need to change
     },
-    hideMore:(state,action:PayloadAction<number>)=>{
-      state.marketWatch.MarketWatchList[state.marketWatch.nSelectedWatchList-1].SymbolList[action.payload].showMore = false;//Temp Watchlist Id -1 need to change
+    hideMore: (state, action: PayloadAction<number>) => {
+      state.marketWatch.MarketWatchList[
+        state.marketWatch.nSelectedWatchList - 1
+      ].SymbolList[action.payload].showMore = false; //Temp Watchlist Id -1 need to change
     },
   },
-}); 
+});
 
 export default marketwatchSlice.reducer;
 export const {
-  getMarketWatchSuccess,
+  onMarketWatchSuccess,
   ChangeWatchList,
   DeleteWatchList,
   AddToWatchList,
@@ -103,17 +112,49 @@ export const {
   RemoveSymbolFromWatchlist,
   ShowMarketDepth,
   showMore,
-  hideMore
+  hideMore,
 } = marketwatchSlice.actions;
 
-export const fetchmarketWatch = () => async (dispatch: any) => {
-  try {
-    await api
-      .get<IMarketWatchList[]>("/users")
-      .then((response) => dispatch(getMarketWatchSuccess(response.data)));
-  } catch (e) {
-    return console.error(e.message);
-  }
-};
+export const fetchmarketWatch =
+  (cache: boolean): AppThunk =>
+  async (dispatch) => {
+    try {
+      const MarketWatchData = await getWatchList(cache);
+      dispatch(onMarketWatchSuccess(MarketWatchData));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
+export const deletemarketWatch =
+  (MarketRequestData: any): AppThunk =>
+  async (dispatch) => {
+    try {
+      const MarketWatchData = await getWatchList(MarketRequestData);
+      dispatch(onMarketWatchSuccess(MarketWatchData));
+    } catch (err) {
+      //TO ADD
+    }
+  };
 
+export const updatemarketWatch =
+  (MarketRequestData: any): AppThunk =>
+  async (dispatch) => {
+    try {
+      const MarketWatchData = await getWatchList(MarketRequestData);
+      dispatch(onMarketWatchSuccess(MarketWatchData));
+    } catch (err) {
+      //TO ADD
+    }
+  };
+
+export const renamemarketWatch =
+  (MarketRequestData: any): AppThunk =>
+  async (dispatch) => {
+    try {
+      const MarketWatchData = await getWatchList(MarketRequestData);
+      dispatch(onMarketWatchSuccess(MarketWatchData));
+    } catch (err) {
+      //TO ADD
+    }
+  };

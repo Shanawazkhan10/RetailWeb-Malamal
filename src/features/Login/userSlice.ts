@@ -11,8 +11,8 @@ const initialState = {
   isError: false,
   UserId: "",
   user: null,
-  sessionKey:"",
-  server:"",
+  sessionKey: "",
+  server: "",
 } as IUser;
 
 export const userSlice = createSlice({
@@ -37,7 +37,7 @@ export const userSlice = createSlice({
       state.isAuthenticated = false;
       state.isError = true;
       state.user = null;
-      toastNotification("error",action.payload.message);
+      toastNotification("error", action.payload.message);
     },
     twofasuccess: (state, action: PayloadAction<any>) => {
       state.isPasswordCheked = true;
@@ -46,13 +46,14 @@ export const userSlice = createSlice({
       state.user = action.payload;
       state.sessionKey = action.payload.data.sessionKey;
       state.server = action.payload.data.server;
+      localStorage.setItem("sessionKey", state.sessionKey);
     },
     twofaError: (state, action: PayloadAction<any>) => {
       state.isPasswordCheked = true;
       state.isAuthenticated = false;
       state.isError = true;
       state.user = action.payload;
-      toastNotification("error",action.payload.message);
+      toastNotification("error", action.payload.message);
     },
     loggedout: (state) => {
       state.isPasswordCheked = false;
@@ -64,21 +65,27 @@ export const userSlice = createSlice({
 });
 
 export const UserLogin =
-  (CallFrom: string, loginData: any): AppThunk =>
+  (loginData: any): AppThunk =>
   async (dispatch) => {
     try {
-      if (CallFrom == "Login") {
-        let LoginResponse = await PostLoginRequest(loginData);
+      const LoginResponse = await PostLoginRequest(loginData);
 
-        if (LoginResponse.code == 200) {
-          dispatch(loggedInSuccess(LoginResponse));
-        } else {
-          dispatch(loggedInError(LoginResponse));
-        }
-      } else if (CallFrom == "MPIN") {
-        let MPINResponse = await PostMPINRequest(loginData);
-        dispatch(twofasuccess(MPINResponse));
+      if (LoginResponse.code == 200) {
+        dispatch(loggedInSuccess(LoginResponse));
+      } else if (LoginResponse.status == "FAILURE") {
+        dispatch(loggedInError(LoginResponse));
       }
+    } catch (err) {
+      dispatch(loggedInError(err.toString()));
+    }
+  };
+
+export const UserMPINLogin =
+  (LoginData: any): AppThunk =>
+  async (dispatch) => {
+    try {
+      const MPINResponse = await PostMPINRequest(LoginData);
+      dispatch(twofasuccess(MPINResponse));
     } catch (err) {
       dispatch(loggedInError(err.toString()));
     }

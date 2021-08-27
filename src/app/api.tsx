@@ -23,6 +23,21 @@ export const api = axios.create({
   },
 });
 
+export const AuthApi = axios.create({
+  baseURL: "https://uathsauth.hypertrade.in/",
+  headers: { "Content-Type": "application/json" },
+});
+
+export const IntApi = axios.create({
+  baseURL: "https://uathsint.hypertrade.in/",
+  headers: { "Content-Type": "application/json" },
+});
+
+export const DiscApi = axios.create({
+  baseURL: "https://uathsdiscovery.hypertrade.in/",
+  headers: { "Content-Type": "application/json" },
+});
+
 export async function PostLoginRequest(LoginData: string): Promise<any> {
   return await api
     .post("https://uathsauth.hypertrade.in/api/login", LoginData, {
@@ -183,42 +198,87 @@ export const getOrderData: any = () => {
   return getOrderData;
 };
 
-export const getWatchList: any = () => {
-  const WatchListData = [
+export async function getWatchList(cache: boolean): Promise<any> {
+  const sessionKey = localStorage.getItem("sessionKey");
+
+  var querystring = JSON.stringify({
+    cache: cache,
+  });
+
+  return await DiscApi.post(
+    "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/getusergroups",
+    querystring,
     {
-      mwName: "nifty",
-      scrips: "bse_cm|16082,bse_fo|68822,bse_cm|16082,bse_fo|68822",
-      id: 1,
-      SymbolList: null,
-    },
-    {
-      mwName: "nifty1",
-      scrips: "nse_cm|15083,nse_fo|58824",
-      id: 2,
-      SymbolList: null,
-    },
-    {
-      mwName: "nifty2",
-      scrips: "bse_cm|16082,bse_fo|68822,bse_cm|16082,bse_fo|68822",
-      id: 3,
-      SymbolList: null,
-    },
-    {
-      mwName: "nifty3",
-      scrips: "nse_cm|15083",
-      id: 4,
-      SymbolList: null,
-    },
-    {
-      mwName: "nifty4",
-      scrips:
-        "nse_cm|15083,nse_fo|58824,bse_cm|16082,bse_fo|68822,bse_cm|16082,bse_fo|68822",
-      id: 5,
-      SymbolList: null,
-    },
-  ];
-  return WatchListData;
-};
+      headers: {
+        "api-key": "UzL0HZiHPTc1rNVr",
+        "x-access-token": sessionKey,
+        "Content-Type": "application/json",
+      },
+    }
+  )
+    .then((response) => response.data)
+    .catch((error) => error);
+}
+
+export async function updateWatchList(cache: boolean): Promise<any> {
+  const sessionKey = localStorage.getItem("sessionKey");
+
+  return await api
+    .post(
+      "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/getusergroups",
+      JSON.stringify(cache),
+      {
+        headers: {
+          "api-key": "UzL0HZiHPTc1rNVr",
+          "x-access-token": sessionKey,
+        },
+      }
+    )
+    .then((response) => response.data)
+    .catch((error) => error);
+}
+
+export async function deleteWatchList(cache: boolean): Promise<any> {
+  const sessionKey = localStorage.getItem("sessionKey");
+
+  const DeleteRequestData = {
+    mwName: "W1",
+    userid: "",
+  };
+
+  return await api
+
+    .post(
+      "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/getusergroups",
+      JSON.stringify(cache),
+      {
+        headers: {
+          "api-key": "UzL0HZiHPTc1rNVr",
+          "x-access-token": sessionKey,
+        },
+      }
+    )
+    .then((response) => response.data)
+    .catch((error) => error);
+}
+
+export async function renameWatchList(cache: boolean): Promise<any> {
+  const sessionKey = localStorage.getItem("sessionKey");
+
+  return await api
+    .post(
+      "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/getusergroups",
+      JSON.stringify(cache),
+      {
+        headers: {
+          "api-key": "UzL0HZiHPTc1rNVr",
+          "x-access-token": sessionKey,
+        },
+      }
+    )
+    .then((response) => response.data)
+    .catch((error) => error);
+}
 
 export function GetWatchListSymbolDetails(i: number, scripArr: string) {
   //const dispatch = useAppDispatch();
@@ -1148,5 +1208,7 @@ export async function sendOrderEntryRequest(
       orderentryrequest
     )
     .then((response) => response.data)
-    .catch((error) => {throw(error)});
+    .catch((error) => {
+      throw error;
+    });
 }
