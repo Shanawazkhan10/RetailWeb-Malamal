@@ -1,7 +1,12 @@
 import { stat } from "fs";
-import React, { useState } from "react";
+import React, { MouseEvent, useState } from "react";
 import { useSelector } from "react-redux";
-import { ContractSearch } from "../../../../app/api";
+import {
+  ContractSearch,
+  GetSymbolDetails,
+  GetWatchListSymbolDetails,
+  SubscribeMarketDepth,
+} from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import { IContractSearchReq } from "../../../../types/IContractSearchReq";
@@ -14,7 +19,12 @@ import {
   openBuyOrderEntry,
   openSellOrderEntry,
 } from "../../OrderEntry/orderEntrySlice";
-import { chartContainer } from "../mainContainerSlice";
+import { chartContainer, searchDepthContainer } from "../mainContainerSlice";
+import {
+  ShowDepthFromSearch,
+  updateMarketDepth,
+  UpdateTokenInfo,
+} from "../MarketPicture/MarketPictureSlice";
 
 const Search = () => {
   const dispatch = useAppDispatch();
@@ -102,6 +112,17 @@ const Search = () => {
     return ContractSearch(ContractSearchReq);
   }
 
+  function AddToWatchlist() {}
+
+  const onDepthClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    dispatch(searchDepthContainer());
+    dispatch(ShowDepthFromSearch(""));
+    //Dummy call for fetch
+    dispatch(UpdateTokenInfo(GetSymbolDetails()));
+    dispatch(UpdateTokenInfo(SubscribeMarketDepth(0, 0)));
+    //dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
+  };
   // Render Each Option
   function renderSearch(suggestion: IContractSearch) {
     return (
@@ -118,6 +139,9 @@ const Search = () => {
           </button>
           <button className=" btn_sell" title="SELL">
             S
+          </button>
+          <button className=" btn_sell" title="Depth" onClick={onDepthClick}>
+            D
           </button>
         </div>
 

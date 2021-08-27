@@ -50,7 +50,11 @@ const mainContainerSlice = createSlice({
       state.rightContainer = 8;
       state.IsPersonal = false;
     },
-    
+
+    searchDepthContainer: (state) => {
+      state.rightContainer = 9;
+      state.IsPersonal = false;
+    },
   },
 });
 
@@ -64,6 +68,7 @@ export const {
   myprofileContainer,
   ipoContainer,
   upcomingipoContainer,
+  searchDepthContainer,
 } = mainContainerSlice.actions;
 
 export default mainContainerSlice.reducer;

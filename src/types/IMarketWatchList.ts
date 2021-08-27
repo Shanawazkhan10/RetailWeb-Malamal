@@ -5,4 +5,5 @@ export interface IMarketWatchList {
   nSelectedWatchList: number;
   sSelectedWatchList: string;
   bIsBind: boolean;
+  bIsError: boolean;
 }

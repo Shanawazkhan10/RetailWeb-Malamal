@@ -1,4 +1,5 @@
-import { configureStore, Action } from "@reduxjs/toolkit";
+import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+
 import userReducer from "../features/Login/userSlice";
 import chartReducer from "../features/Home/Chart/chartSlice";
 import forgotpasswordReducer from "../features/Login/forgotpasswordSlice";
@@ -14,7 +15,7 @@ import PersonalDetailsSlice from "../features/Home/PersonalDetails/PersonalDetai
 import AccountSummaryDetailsSlice from "../features/Home/Account/AccountSummaryDetailsSlice";
 import IPODetailsSlice from "../features/Home/IPO/IPODetailsSlice";
 import gttEntrySlice from "../features/Home/GTTOrderEntry/gttEntrySlice";
-import { ThunkAction } from "redux-thunk";
+
 import SmartSearchSlice from "../features/Home/MainContainer/SmartSearch/SmartSearchSlice";
 const store = configureStore({
   reducer: {
@@ -34,6 +35,7 @@ const store = configureStore({
     ipoContainer: IPODetailsSlice,
     smartSearch: SmartSearchSlice,
     gttEntry: gttEntrySlice,
+    marketpicture: MarketPictureSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -49,3 +51,5 @@ export type AppDispatch = typeof store.dispatch;
 export type AppThunk = ThunkAction<void, RootState, null, Action<string>>;
 
 export default store;
+
+export type AppThunk = ThunkAction<void, RootState, null, Action<string>>;

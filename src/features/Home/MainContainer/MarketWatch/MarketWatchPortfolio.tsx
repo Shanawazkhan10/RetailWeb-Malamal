@@ -7,7 +7,7 @@ import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IWatchListProps } from "../../../../types/IWatchListProps";
 import "../../style.css";
-import { ChangeWatchList, getMarketWatchSuccess } from "./MarketWatchSlice";
+import { ChangeWatchList, onMarketWatchSuccess } from "./MarketWatchSlice";
 
 const MarketWatchPortfolio = (props: IWatchListProps) => {
   //const [appState, changeState] = useState(0);
@@ -21,7 +21,7 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
 
   useEffect(() => {
     //if (!WatchList.marketWatch.bIsBind) {
-    dispatch(getMarketWatchSuccess(getWatchList()));
+    dispatch(onMarketWatchSuccess(getWatchList()));
     console.log("getMarketWatchSuccess useEffect");
     //}
   }, []);
