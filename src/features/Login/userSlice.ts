@@ -3,6 +3,7 @@ import type { RootState } from "../../store/store";
 import { IUser } from "../../types/IUser";
 import { AppThunk } from "../../store/store";
 import { PostLoginRequest, PostMPINRequest } from "../../app/api";
+import { toastNotification } from "../.././app/Notification";
 
 const initialState = {
   isPasswordCheked: false,
@@ -10,6 +11,8 @@ const initialState = {
   isError: false,
   UserId: "",
   user: null,
+  sessionKey:"",
+  server:"",
 } as IUser;
 
 export const userSlice = createSlice({
@@ -34,18 +37,22 @@ export const userSlice = createSlice({
       state.isAuthenticated = false;
       state.isError = true;
       state.user = null;
+      toastNotification("error",action.payload.message);
     },
     twofasuccess: (state, action: PayloadAction<any>) => {
       state.isPasswordCheked = true;
       state.isAuthenticated = true;
       state.isError = false;
       state.user = action.payload;
+      state.sessionKey = action.payload.data.sessionKey;
+      state.server = action.payload.data.server;
     },
     twofaError: (state, action: PayloadAction<any>) => {
       state.isPasswordCheked = true;
       state.isAuthenticated = false;
       state.isError = true;
       state.user = action.payload;
+      toastNotification("error",action.payload.message);
     },
     loggedout: (state) => {
       state.isPasswordCheked = false;
