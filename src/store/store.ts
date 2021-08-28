@@ -1,4 +1,5 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+
 import userReducer from "../features/Login/userSlice";
 import chartReducer from "../features/Home/Chart/chartSlice";
 import forgotpasswordReducer from "../features/Login/forgotpasswordSlice";
@@ -12,9 +13,12 @@ import mainContainerSlice from "../features/Home/MainContainer/mainContainerSlic
 import MenuBarSlice from "../features/Home/Menu/MenuBarSlice";
 import PersonalDetailsSlice from "../features/Home/PersonalDetails/PersonalDetailsSlice";
 import AccountSummaryDetailsSlice from "../features/Home/Account/AccountSummaryDetailsSlice";
+import IPODetailsSlice from "../features/Home/IPO/IPODetailsSlice";
+import gttEntrySlice from "../features/Home/GTTOrderEntry/gttEntrySlice";
+
 import SmartSearchSlice from "../features/Home/MainContainer/SmartSearch/SmartSearchSlice";
 import MarketPictureSlice from "../features/Home/MainContainer/MarketPicture/MarketPictureSlice";
-
+import WebSocketSlice from "../features/WebSocket/WebSocketSlice";
 const store = configureStore({
   reducer: {
     user: userReducer,
@@ -30,8 +34,11 @@ const store = configureStore({
     personalContainer: PersonalDetailsSlice,
     accountContainer: AccountSummaryDetailsSlice,
     menuContainer: MenuBarSlice,
+    ipoContainer: IPODetailsSlice,
     smartSearch: SmartSearchSlice,
+    gttEntry: gttEntrySlice,
     marketpicture: MarketPictureSlice,
+    socketData: WebSocketSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

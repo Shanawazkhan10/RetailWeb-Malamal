@@ -42,8 +42,17 @@ const mainContainerSlice = createSlice({
       state.rightContainer = 6;
       state.IsPersonal = true;
     },
-    searchDepthContainer: (state) => {
+    ipoContainer: (state) => {
       state.rightContainer = 7;
+      state.IsPersonal = false;
+    },
+    upcomingipoContainer: (state) => {
+      state.rightContainer = 8;
+      state.IsPersonal = false;
+    },
+
+    searchDepthContainer: (state) => {
+      state.rightContainer = 9;
       state.IsPersonal = false;
     },
   },
@@ -57,7 +66,9 @@ export const {
   orderContainer,
   fundContainer,
   myprofileContainer,
-  searchDepthContainer, 
+  ipoContainer,
+  upcomingipoContainer,
+  searchDepthContainer,
 } = mainContainerSlice.actions;
 
 export default mainContainerSlice.reducer;

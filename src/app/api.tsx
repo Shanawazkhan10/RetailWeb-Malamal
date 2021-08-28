@@ -1,11 +1,14 @@
 import axios from "axios";
 import { URLSearchParams } from "url";
 import { UpdateSymbolDetails } from "../features/Home/MainContainer/MarketWatch/MarketWatchSlice";
+import { loggedInSuccess } from "../features/Login/userSlice";
+import { ILogin } from "../types/ILogin";
 import { IContractSearchReq } from "../types/IContractSearchReq";
 import { IMarketWatchTokenInfo } from "../types/IMarketWatchTokenInfo";
 import { IRemoveFromWatch } from "../types/IRemoveFromWatch";
 import { IRenameWatchlist } from "../types/IRenameWatchlist";
 import { ISubscribeDepth } from "../types/ISubscribeDepth";
+import { IOrderEntryRequest } from "../types/Request/IOrderEntryRequest";
 import { useAppDispatch } from "./hooks";
 import { IDeleteWatchlist } from "./IDeleteWatchlist";
 //import parseLink, { Links } from 'parse-link-header';
@@ -16,11 +19,33 @@ import { IDeleteWatchlist } from "./IDeleteWatchlist";
 // }
 
 export const api = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com",
+  baseURL: "https://uathsauth.hypertrade.in/",
   headers: {
     "Content-Type": "application/json",
   },
 });
+
+export async function PostLoginRequest(LoginData: string): Promise<any> {
+  return await api
+    .post("https://uathsauth.hypertrade.in/api/login", LoginData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => error);
+}
+
+export async function PostMPINRequest(LoginData: string): Promise<any> {
+  return await api
+    .post("https://uathsauth.hypertrade.in/api/mpinlogin", LoginData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => error);
+}
 
 export const getNetpositionData: any = () => {
   const NetPositionData = {
@@ -294,6 +319,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 1,
@@ -316,6 +343,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 1,
@@ -338,6 +367,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 1,
@@ -360,6 +391,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 1,
@@ -382,6 +415,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 1,
@@ -404,6 +439,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 1,
@@ -426,6 +463,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 1,
@@ -448,6 +487,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
       ];
       break;
@@ -475,6 +516,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 2,
@@ -497,6 +540,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 2,
@@ -519,6 +564,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
       ];
       break;
@@ -545,6 +592,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 3,
@@ -567,6 +616,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 3,
@@ -589,6 +640,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 3,
@@ -611,6 +664,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
       ];
       break;
@@ -637,6 +692,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 4,
@@ -659,6 +716,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 4,
@@ -681,6 +740,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 4,
@@ -703,6 +764,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 4,
@@ -725,6 +788,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 4,
@@ -747,6 +812,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 4,
@@ -769,6 +836,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
       ];
       break;
@@ -796,6 +865,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 5,
@@ -818,6 +889,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 5,
@@ -840,6 +913,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 5,
@@ -862,6 +937,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 5,
@@ -884,6 +961,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 5,
@@ -906,6 +985,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
         {
           mwId: 5,
@@ -928,6 +1009,8 @@ export function GetWatchListSymbolDetails(i: number, scripArr: string) {
           ltq: "78",
           v: "45",
           showDepth: false,
+          tk: "15083",
+          ltp: "78",
         },
       ];
       break;
@@ -1113,6 +1196,62 @@ export const getProfileSummary: any = () => {
   return MyData;
 };
 
+export const getIPODetails: any = () => {
+  const IPODetails = {
+    InstrumentName: "DUDIGITAL",
+    StartDate: "12-08-2021",
+    EndDate: "17-08-2021",
+    PriceRange: "65-65",
+    MinQty: "200",
+    Status: "Closed",
+    AllotmentFinalizationDate: "20-08-2021",
+    RefundInitializationDate: "23-08-2021",
+    DematTransferDate: "24-08-2021",
+    ListingDate: "25-08-2021",
+    MandateEndDate: "01-09-2021",
+  };
+  return IPODetails;
+};
+
+export const getUpcomingIPODetails: any = () => {
+  const IPODetails = {
+    InstrumentName: "DUDIGITAL",
+    StartDate: "12-08-2021",
+    EndDate: "17-08-2021",
+    PriceRange: "65-65",
+    MinQty: "200",
+    Status: "Upcoming",
+    RHP: "",
+  };
+  return IPODetails;
+};
+
+export const getClosingIPODetails: any = () => {
+  const IPODetails = {
+    InstrumentName: "DUDIGITAL",
+    StartDate: "12-08-2021",
+    EndDate: "17-08-2021",
+    PriceRange: "65-65",
+    MinQty: "200",
+    Status: "Closed",
+    RHP: "https://www1.nseindia.com/content/equities/IPO_RHP_NUVOCO.pdf",
+  };
+  return IPODetails;
+};
+
+export async function sendOrderEntryRequest(
+  orderentryrequest: IOrderEntryRequest
+): Promise<any> {
+  return await api
+    .post(
+      "https://uathsint.hypertrade.in/quick/order/place?sId=server1",
+      orderentryrequest
+    )
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+}
 export async function PostScritInfo(scriptInfo: string[]): Promise<any> {
   const params = new URLSearchParams();
   params.append("jData", JSON.stringify(scriptInfo));

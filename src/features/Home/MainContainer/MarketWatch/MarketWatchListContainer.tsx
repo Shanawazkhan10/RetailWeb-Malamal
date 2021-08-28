@@ -36,18 +36,18 @@ const MarketWatchListContainer = (props: any) => {
               width: "300%",
               height: "100%",
               position: "absolute",
-              left: "-378px",
+              left: "-455px",
             }}
           >
             <div
               id="mw_leftInnerView"
               className="mw_inner"
-              style={{ width: "378px" }}
+              style={{ width: "455px" }}
             ></div>
             <div
               id="mw_centralInnerView"
               className="mw_inner"
-              style={{ width: "378px" }}
+              style={{ width: "455px" }}
             >
               {/* {WatchListData.map((WatchList: any) => (
                 <SingleLayout />
@@ -60,7 +60,7 @@ const MarketWatchListContainer = (props: any) => {
             <div
               id="mw_rightInnerView"
               className="mw_inner"
-              style={{ width: "378px" }}
+              style={{ width: "455px" }}
             ></div>
           </div>
         </div>

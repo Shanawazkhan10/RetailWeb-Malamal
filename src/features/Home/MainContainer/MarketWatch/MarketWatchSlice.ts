@@ -94,7 +94,16 @@ const marketwatchSlice = createSlice({
       state.marketWatch.MarketWatchList[action.payload.id].scrips =
         action.payload.scrips;
     },
-
+    showMore: (state, action: PayloadAction<number>) => {
+      state.marketWatch.MarketWatchList[
+        state.marketWatch.nSelectedWatchList - 1
+      ].SymbolList[action.payload].showMore = true; //Temp Watchlist Id -1 need to change
+    },
+    hideMore: (state, action: PayloadAction<number>) => {
+      state.marketWatch.MarketWatchList[
+        state.marketWatch.nSelectedWatchList - 1
+      ].SymbolList[action.payload].showMore = false; //Temp Watchlist Id -1 need to change
+    },
     AddToWatchlistFromSearch(state, action: PayloadAction<IRemoveFromWatch>) {
       state.marketWatch.MarketWatchList[action.payload.id].scrips =
         action.payload.scrips;
@@ -114,6 +123,8 @@ export const {
   RemoveSymbolFromWatchlist,
   ShowMarketDepth,
   onMarketWatchFailure,
+  hideMore,
+  showMore,
 } = marketwatchSlice.actions;
 
 // export const fetchmarketWatch = () => async (dispatch: any) => {
