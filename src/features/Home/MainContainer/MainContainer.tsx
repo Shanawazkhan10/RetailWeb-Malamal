@@ -23,6 +23,8 @@ import DematDetails from "../Account/DematDetails";
 import UpdateMobileEmail from "../Account/UpdateMobileEmail";
 import IPODetails from "../IPO/IPODetails";
 import UpcomingIPODetails from "../IPO/UpcomingIPODetails";
+import { useEffect } from "react";
+import { loggedout } from "../../Login/userSlice";
 
 const MainContainer = (props: any) => {
   const MenuClick = props;
@@ -65,6 +67,7 @@ const MainContainer = (props: any) => {
 
   const personalContainer = useAppSelector((state) => state.personalContainer);
 
+  const dispatch =  useAppDispatch();
   function renderRightContainer() {
     if (mainContainer.IsPersonal) {
       switch (personalContainer.initialState.rightContainer) {
@@ -162,6 +165,16 @@ const MainContainer = (props: any) => {
           return null;
       }
     }
+  }
+
+  useEffect(() => {  
+    window.addEventListener('beforeunload', onWindowCLose);  
+  }, [])
+
+  function onWindowCLose()
+  {
+    //alert("Window closing");
+    //dispatch(loggedout());
   }
   return (
     <div id="content">

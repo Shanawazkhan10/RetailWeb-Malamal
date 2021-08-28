@@ -4,14 +4,15 @@ import { IUser } from "../../types/IUser";
 import { AppThunk } from "../../store/store";
 import { PostLoginRequest, PostMPINRequest } from "../../app/api";
 import { toastNotification } from "../.././app/Notification";
+import { Redirect } from "react-router";
 
-const initialState = {
-  isPasswordCheked: false,
-  isAuthenticated: false,
+const initialState = {  
+  isPasswordCheked: localStorage.getItem("userkey") ? true : false,
+  isAuthenticated: localStorage.getItem("userkey") ? true :false,
   isError: false,
-  UserId: "",
+  UserId:"",
   user: null,
-  sessionKey:"",
+  sessionKey:localStorage.getItem("userkey") ? localStorage.getItem("userkey"): "",
   server:"",
 } as IUser;
 
@@ -40,12 +41,13 @@ export const userSlice = createSlice({
       toastNotification("error",action.payload.message);
     },
     twofasuccess: (state, action: PayloadAction<any>) => {
+      localStorage.setItem("userkey",action.payload.data.sessionKey);
       state.isPasswordCheked = true;
       state.isAuthenticated = true;
       state.isError = false;
       state.user = action.payload;
-      state.sessionKey = action.payload.data.sessionKey;
-      state.server = action.payload.data.server;
+      state.sessionKey = state.user.data.sessionKey;
+      state.server = state.user.data.server;
     },
     twofaError: (state, action: PayloadAction<any>) => {
       state.isPasswordCheked = true;
@@ -55,6 +57,7 @@ export const userSlice = createSlice({
       toastNotification("error",action.payload.message);
     },
     loggedout: (state) => {
+      localStorage.removeItem("userkey");
       state.isPasswordCheked = false;
       state.isAuthenticated = false;
       state.isError = false;
@@ -69,7 +72,6 @@ export const UserLogin =
     try {
       if (CallFrom == "Login") {
         let LoginResponse = await PostLoginRequest(loginData);
-
         if (LoginResponse.code == 200) {
           dispatch(loggedInSuccess(LoginResponse));
         } else {
@@ -77,7 +79,7 @@ export const UserLogin =
         }
       } else if (CallFrom == "MPIN") {
         let MPINResponse = await PostMPINRequest(loginData);
-        dispatch(twofasuccess(MPINResponse));
+        dispatch(twofasuccess(MPINResponse));        
       }
     } catch (err) {
       dispatch(loggedInError(err.toString()));

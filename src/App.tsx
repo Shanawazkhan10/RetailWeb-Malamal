@@ -30,9 +30,7 @@ function App() {
   return (
     <Router history={history}>
       <Switch>
-        <Route exact path="/">
-          <Login />
-        </Route>
+        <PrivateRoute exact={true} path="/" component={Home}/>          
         {/* <Route path="/ChartJS">
           <ChartJS />
         </Route>

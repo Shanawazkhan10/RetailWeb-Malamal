@@ -37,13 +37,10 @@ const MPIN = () => {
       brokerId: "TECXLABS",
       devicempinkey: UserDetailsonLogin.user.data.devicempinkey,
       source: Source,
-    });
-
-    console.log(data);
-    dispatch(UserLogin("MPIN", querystring)); //Temp Code need to remove and Set after success response on Login/MPIN : MP
-    history.push("/Home");
+    });    
+    dispatch(UserLogin("MPIN", querystring)); //Temp Code need to remove and Set after success response on Login/MPIN : MP   
   };
-  return (
+  return (    
     <form onSubmit={handleSubmit(onSubmit)}>
       <span className="login-main-form-title">MPIN</span>
       <div className="wrap-input100 m-b-20">

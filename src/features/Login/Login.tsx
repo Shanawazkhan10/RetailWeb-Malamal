@@ -33,7 +33,7 @@ const Login = () => {
 
   const history = useHistory();
   const user = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();  
 
   var Source = "";
   if (isMobile) {
@@ -57,6 +57,11 @@ const Login = () => {
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
+
+  if(user.isAuthenticated)
+  {
+    history.push("/home");
+  }
   return (
     <div className="retail_login">
       <div className="Login container-login-main">

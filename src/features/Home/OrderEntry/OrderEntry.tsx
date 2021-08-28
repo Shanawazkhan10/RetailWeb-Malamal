@@ -45,11 +45,13 @@ const OrderEntryComp = () => {
         ts: orderEntryState.symbol,
         tt: orderEntryState.isBuy?"B":"S",
         ig: "erfhj1234xcjid"
-    }
+    };
+    
     const orderentryrequest:IOrderEntryRequest={    
      jKey:userState.sessionKey,
      jData:Jdata,       
-    }
+    };
+
     dispatch(placeOrder(orderentryrequest));
   };
 
