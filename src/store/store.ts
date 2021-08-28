@@ -17,6 +17,8 @@ import IPODetailsSlice from "../features/Home/IPO/IPODetailsSlice";
 import gttEntrySlice from "../features/Home/GTTOrderEntry/gttEntrySlice";
 
 import SmartSearchSlice from "../features/Home/MainContainer/SmartSearch/SmartSearchSlice";
+import MarketPictureSlice from "../features/Home/MainContainer/MarketPicture/MarketPictureSlice";
+import WebSocketSlice from "../features/WebSocket/WebSocketSlice";
 const store = configureStore({
   reducer: {
     user: userReducer,
@@ -36,6 +38,7 @@ const store = configureStore({
     smartSearch: SmartSearchSlice,
     gttEntry: gttEntrySlice,
     marketpicture: MarketPictureSlice,
+    socketData: WebSocketSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -47,8 +50,6 @@ const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
-
-export type AppThunk = ThunkAction<void, RootState, null, Action<string>>;
 
 export default store;
 

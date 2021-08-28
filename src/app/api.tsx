@@ -1248,7 +1248,10 @@ export async function sendOrderEntryRequest(
       orderentryrequest
     )
     .then((response) => response.data)
-    .catch((error) => {throw(error)});
+    .catch((error) => {
+      throw error;
+    });
+}
 export async function PostScritInfo(scriptInfo: string[]): Promise<any> {
   const params = new URLSearchParams();
   params.append("jData", JSON.stringify(scriptInfo));

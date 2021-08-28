@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Helmet } from "react-helmet";
 //import ScriptTag from "react-script-tag";
 //import Safe from "react-safe";
 // import  HSLib  =require("../WebSocket/hslibo");
@@ -9,6 +8,12 @@ import { Helmet } from "react-helmet";
 //import app1 from "hslibo.js";
 // import  {app1 }from "./hslibo";
 //import {function1 } from "../WebSocket/hslibo.js"
+import { Dispatch } from "redux";
+import { useAppDispatch } from "../../app/hooks";
+import { IMarketDepth } from "../../types/IMarketDepth";
+import { IIndices } from "../../types/MarketData'/IIndices";
+import { IScriptUpdate } from "../../types/MarketData'/IScriptUpdate";
+import { DepthUpdate, IndicesUpdate, ScriptUpdate } from "./WebSocketSlice";
 
 export interface authReq {
   sessionid: string;
@@ -28,6 +33,7 @@ const HSSocket = () => {
   var userWS: any = null;
   var type: any = "mw";
   var scriptList: any = "nse_cm|11536&nse_cm|22&nse_cm|236";
+  const dispatch = useAppDispatch();
   //var HSWebSocket: any = null;
 
   function selectType(ty: string) {
@@ -68,11 +74,21 @@ const HSSocket = () => {
     };
 
     userWS.onmessage = function (msg: any) {
+      if (msg as IMarketDepth) {
+        dispatch(DepthUpdate(msg));
+      } else if (msg as IScriptUpdate) {
+        dispatch(ScriptUpdate(msg));
+      } else if (msg as IIndices) {
+        dispatch(IndicesUpdate(msg));
+      } else {
+        console.log(displayMessage("[Res]: " + msg + "\n"));
+      }
       displayMessage("[Res]: " + msg + "\n");
     };
   }
 
   function disconnect() {
+    //Call on logoff
     userWS.close();
     userWS = null;
   }
@@ -136,7 +152,6 @@ const HSSocket = () => {
     // script.src = "../WebSocket/hslibo.js";
     // script.async = true;
     // document.body.appendChild(script);
-
     const script = document.createElement("script");
     script.src = "../hslibo.js";
     script.async = true;
@@ -144,6 +159,9 @@ const HSSocket = () => {
     return () => {
       document.body.removeChild(script);
     };
+    init();
+    connect();
+    auth();
   }, []);
   return (
     <div>

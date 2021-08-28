@@ -123,6 +123,8 @@ export const {
   RemoveSymbolFromWatchlist,
   ShowMarketDepth,
   onMarketWatchFailure,
+  hideMore,
+  showMore,
 } = marketwatchSlice.actions;
 
 // export const fetchmarketWatch = () => async (dispatch: any) => {
