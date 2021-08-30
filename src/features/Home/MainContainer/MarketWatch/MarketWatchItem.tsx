@@ -1,46 +1,34 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { IMarketWatch } from "../../../../types/IMarketWatch";
+import React, { useEffect } from "react";
+import { Collapse } from "reactstrap";
+import { SubscribeMarketDepth } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { IDepthReq } from "../../../../types/IDepthReq";
+import { IGTTEntryProps } from "../../../../types/IGTTEntryProps";
+import { IMarketWatch } from "../../../../types/IMarketWatch";
+import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
+import { IOrderEntryProps } from "../../../../types/IOrderEntryProps";
+import {
+  openGTTEntry,
+  setGTTEntryProps,
+} from "../../GTTOrderEntry/gttEntrySlice";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
   setOrderEntryProps,
 } from "../../OrderEntry/orderEntrySlice";
-import {
-  openGTTEntry,
-  setGTTEntryProps,
-} from "../../GTTOrderEntry/gttEntrySlice";
 import { chartContainer } from "../mainContainerSlice";
-
-import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
-import {
-  GetSymbolDetails,
-  GetWatchListSymbolDetails,
-  RemoveTokenfromWatchlist,
-  SubscribeMarketDepth,
-} from "../../../../app/api";
-import {
-  FetchWatchListSymbol,
-  getMarketDepthSuccess,
-  RemoveSymbolFromWatchlist,
-  ShowMarketDepth,
-  UpdateSymbolDetails,
-  hideMore,
-  showMore,
-} from "./MarketWatchSlice";
-import MarketDepth from "./MarketDepth";
-
-import { Collapse, Button, CardBody, Card } from "reactstrap";
-import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
-import { IDepthReq } from "../../../../types/IDepthReq";
-import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
-import { IOrderEntryProps } from "../../../../types/IOrderEntryProps";
-import { IGTTEntryProps } from "../../../../types/IGTTEntryProps";
 import {
   updateMarketDepth,
   UpdateTokenInfo,
 } from "../MarketPicture/MarketPictureSlice";
+import MarketDepth from "./MarketDepth";
+import {
+  FetchWatchListSymbol,
+  getMarketDepthSuccess,
+  hideMore,
+  ShowMarketDepth,
+  showMore,
+} from "./MarketWatchSlice";
 
 export interface scriptInfoReq {
   scripArr: string[];

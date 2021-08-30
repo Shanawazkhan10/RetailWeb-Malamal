@@ -2,8 +2,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { api, GetOrderBook } from "../../../../app/api";
 import { AppThunk } from "../../../../store/store";
 import { IOrderView } from "../../../../types/IOrderView";
+import { IOrderResponse } from "./../../../../types/Order/IOrderResponse";
 
-const InitialOrderView: IOrderView[] = [];
+const InitialOrderView: IOrderResponse[] = [];
 
 const OrderSlice = createSlice({
   name: "OrderSlice",
@@ -12,12 +13,12 @@ const OrderSlice = createSlice({
   },
   reducers: {
     OrderViewSuccess: (state, action) => {
-      state.OrderViewData = action.payload;
+      state.OrderViewData = action.payload.data;
     },
     OrderUpdate: (state, action) => {
-      state.OrderViewData = state.OrderViewData.map((el) =>
-        el.Token == action.payload.Token ? action.payload : el
-      );
+      // state.OrderViewData = state.OrderViewData.map((el) =>
+      //   el.tk == action.payload.Token ? action.payload : el
+      // );
     },
     OrderError: (state, action) => {},
   },

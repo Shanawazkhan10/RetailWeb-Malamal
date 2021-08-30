@@ -4,6 +4,7 @@ import { useAppDispatch } from "../../../../app/hooks";
 import { IDeleteWatchlist } from "../../../../app/IDeleteWatchlist";
 import { RootState } from "../../../../store/store";
 import { IRenameWatchlist } from "../../../../types/IRenameWatchlist";
+import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 import "../../style.css";
 import Search1 from "../SmartSearch/Search1";
 import {
@@ -11,8 +12,6 @@ import {
   RenameWatchlist,
   UpdateWatchlist,
 } from "./MarketWatchSlice";
-import { userSlice } from "./../../../Login/userSlice";
-import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 
 const MarketWatchHeader = () => {
   const [sName, setName] = useState("");
@@ -39,12 +38,12 @@ const MarketWatchHeader = () => {
 
   const dispatch = useAppDispatch();
   function RemoveWatchList() {
-    const DeleteWatchlistReq: IDeleteWatchlist = {
+    const DeleteReq: IDeleteWatchlist = {
       mwName: sSelectedWatchList,
-      //id: number;
+
       userId: UserId,
     };
-    dispatch(DeleteWatchlist(DeleteWatchlistReq)); //API Call
+    dispatch(DeleteWatchlist(DeleteReq)); //API Call
   }
 
   function handleChange(event: any) {
@@ -64,7 +63,7 @@ const MarketWatchHeader = () => {
 
   function EditWatchList() {
     const RenameReq: IRenameWatchlist = {
-      oldmwName: sName,
+      oldmwName: sSelectedWatchList,
       newmwName: sName, //from input control
       id: Number(nSelectedWatchList),
       userId: UserId,

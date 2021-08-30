@@ -16,8 +16,7 @@ const MarketWatchListContainer = (props: any) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    //dispatch(getMarketWatchSuccess(getNetpositionData()));
-    console.log(" MarketWatchListContainer useEffect");
+    //console.log(" MarketWatchListContainer useEffect");
   }, []);
 
   return WatchListData && WatchListData.length > 0 ? (

@@ -40,6 +40,7 @@ export const userSlice = createSlice({
       state.isAuthenticated = true;
       state.isError = false;
       state.user = action.payload;
+      localStorage.setItem("sessionKey", action.payload.data.sessionKey);
     },
     twofaError: (state, action: PayloadAction<any>) => {
       state.isPasswordCheked = true;

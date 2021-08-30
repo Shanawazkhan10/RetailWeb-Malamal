@@ -1,15 +1,11 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getNetpositionData } from "../../../../app/api";
-<<<<<<< Updated upstream
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import "../../style.css";
-=======
-import { fetchNetposition, NetpositionSuccess } from "./NetPositionSlice";
->>>>>>> Stashed changes
 import NetPosition from "./NetPosition";
-import { NetpositionSuccess } from "./NetPositionSlice";
+import { fetchNetposition, NetpositionSuccess } from "./NetPositionSlice";
 import NetPositionSummary from "./NetPositionSummary";
 
 const NetPositionList = () => {

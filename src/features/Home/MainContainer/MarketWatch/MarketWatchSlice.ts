@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
+  getWatchList,
   PostScritInfo,
   renameWatchlist,
   updateWatchlist,
@@ -30,7 +31,7 @@ const marketwatchSlice = createSlice({
   },
   reducers: {
     onMarketWatchSuccess: (state, action) => {
-      state.marketWatch.MarketWatchList = action.payload;
+      state.marketWatch.MarketWatchList = action.payload.data;
       state.marketWatch.bIsBind = true;
       state.marketWatch.nSelectedWatchList = 1;
       // state.marketWatch.MarketWatchList.map(
@@ -66,10 +67,9 @@ const marketwatchSlice = createSlice({
         );
     },
     UpdateSymbolDetails: (state, action) => {
-      let TokenInfo: IMarketWatchTokenInfo[] = action.payload;
+      let TokenInfo: IMarketWatchTokenInfo[] = action.payload.data;
       if (TokenInfo != undefined)
-        state.marketWatch.MarketWatchList[TokenInfo[0].mwId - 1].SymbolList =
-          TokenInfo;
+        state.marketWatch.MarketWatchList[0].SymbolList = TokenInfo;
       // state.marketWatch.MarketWatchList[2].SymbolList = TokenInfo;
       // state.marketWatch.MarketWatchList[3].SymbolList = TokenInfo;
       // state.marketWatch.MarketWatchList[4].SymbolList = TokenInfo;
@@ -128,15 +128,14 @@ export const {
   showMore,
 } = marketwatchSlice.actions;
 
-// export const fetchmarketWatch = () => async (dispatch: any) => {
-//   try {
-//     await api
-//       .get<IMarketWatchList[]>("/users")
-//       .then((response) => dispatch(onMarketWatchSuccess(response.data)));
-//   } catch (e) {
-//     return console.error(e.message);
-//   }
-// };
+export const FetchWatchList = (): AppThunk => async (dispatch) => {
+  try {
+    const watchListResponse = await getWatchList();
+    dispatch(onMarketWatchSuccess(watchListResponse));
+  } catch (err) {
+    dispatch(onMarketWatchFailure(err.toString()));
+  }
+};
 
 export const FetchWatchListSymbol =
   (scriptInfoReq: string[]): AppThunk =>
