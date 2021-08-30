@@ -1,4 +1,3 @@
-import "../../style.css";
 import React from "react";
 import { IHolding } from "../../../../types/IHolding";
 import { useAppDispatch } from "../../../../app/hooks";

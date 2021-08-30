@@ -14,6 +14,7 @@ import {
 import MPIN from "./MPIN";
 import md5 from "md5";
 import { isMobile } from "react-device-detect";
+// import "../Home/style1.css";
 
 interface ILoginInput {
   clientid: string;
@@ -33,7 +34,7 @@ const Login = () => {
 
   const history = useHistory();
   const user = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();  
+  const dispatch = useAppDispatch();
 
   var Source = "";
   if (isMobile) {
@@ -58,8 +59,7 @@ const Login = () => {
     setPasswordShown(passwordShown ? false : true);
   };
 
-  if(user.isAuthenticated)
-  {
+  if (user.isAuthenticated) {
     history.push("/home");
   }
   return (

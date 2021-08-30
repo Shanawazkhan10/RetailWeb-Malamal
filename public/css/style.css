@@ -1,0 +1,271 @@
+body {
+  font-size: 1rem;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: initial;
+  line-height: normal;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-weight: 500;
+  line-height: 1;
+}
+
+p {
+  font-size: 0.875rem;
+  margin-bottom: .5rem;
+  line-height: 1.3rem;
+}
+
+h1, .h1 {
+  font-size: 3.125rem;
+}
+
+h2, .h2 {
+  font-size: 2.5rem;
+}
+
+h3, .h3 {
+  font-size: 1.875rem;
+}
+
+h4, .h4 {
+  font-size: 1.125rem;
+}
+
+h5, .h5 {
+  font-size: 1rem;
+}
+
+h6, .h6 {
+  font-size: .9375rem;
+}
+
+
+::-webkit-scrollbar {width: 8px;}
+::-webkit-scrollbar-track {background-color: #efefef}
+::-webkit-scrollbar-thumb {background-color: rgb(39 39 39 / 69%);border: 1px solid rgba(92, 92, 92, 0.5);border-radius: 10px;}
+::-webkit-scrollbar-thumb:hover {background-color: #efefef;}  
+
+.plate a{text-decoration: underline;color: #6344f2;}
+.main-container {margin: 1.6rem 0.8rem;}
+.grid-container {margin: auto;display: grid;grid-gap: 1.1312rem;grid-template-columns: repeat(auto-fit, 12.8rem);grid-auto-rows: 12.8rem;grid-auto-flow: dense;justify-content: center;max-width: 75em;}
+
+.card {
+  grid-row: auto/span 1;
+  grid-column: auto/span 1;
+  background-color: white;
+  box-shadow: 1px 3px 3px rgba(0, 10, 20, 0.06);
+}
+.card h1, .card h2, .card h3, .card h4, .card p {
+  margin-top: 0;
+  font-weight: normal;
+}
+.card__image {
+  height: 100%;
+  max-height: 100%;
+  width: 100%;
+  display: flex;
+}
+.card__image img {
+  height: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.card__side-by-side {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+}
+.card__side-by-side--m {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.card__side-by-side--m img {
+  min-height: auto;
+}
+.card__content {
+  padding: 1.6rem;
+}
+.card__button {
+  margin: 1.6rem 0;
+  text-align: center;
+  padding: 0.8rem 1.6rem;
+  background: none;
+  border: 0.5px solid #777;
+  border-radius: 2px;
+}
+.card__button:hover {
+  border-color: #d099a0;
+}
+.card--featured {
+  grid-row: auto/span 3;
+  grid-column: auto/span 2;
+}
+.card--2x {
+  grid-row: auto/span 2;
+  grid-column: auto/span 2;
+}
+.card--vertical {
+  grid-row: auto/span 2;
+}
+.card--horizontal {
+  grid-column: auto/span 2;
+}
+.card--frameless {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.padding-large {
+  padding: 3.2rem;
+}
+.padding-large--l {
+  padding: 1.6rem;
+}
+
+.big-script {
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  font-family: "Sacramento", sans-serif;
+  font-size: 4.3em;
+  line-height: 1.15em;
+  text-align: center;
+}
+.big-script p {
+  margin: 0;
+}
+.c-blue{color: #6344f2;}
+.c-black{color: #000000;}
+.c-orange{color: #f54518;}
+.c-green{color: #00c707;}
+.c-red{color: #f1524e;}
+
+.c-red .progress-bar{background-color: #f1524e!important;}
+
+.marketlive{background-color: #ffffff;width: 480px;height: 40px;padding: 6px 24px;text-align: -webkit-center;}
+.marketlive .nname{text-transform: uppercase;font-weight: 700;font-size: 16px;}
+.marketlive .pgreen{color: green;margin: 2px 14px 2px;font-weight: 700;}
+.marketlive .pred{color: red;margin: 2px 14px 2px;font-weight: 700;}
+.marketlive .mpercent{margin: 2px;font-weight: 600;}
+.niftymain{display: inline-flex;color: #000000;font-weight: 700;}
+.sensexmain{display: inline-flex;color: #000000;margin-left: 14px;}
+
+.pagination>li>a { border-radius: 4px !important;margin: 0 5px;}
+.page-item.active .page-link{background-color: #6a4eee;color: #ffffff;}
+.page-item .page-link{color: #000000;border:1px solid #d2d0e1!important;}
+.page-item .page-link:hover{color: #ffffff;border:1px solid #d2d0e1!important;background-color: #6a4eee;}
+.page-item .page-link:focus{box-shadow: none;}
+
+.b-listing{padding: 18px;}
+.b-listing table{margin-bottom: 6px;width: fit-content;width: 100%;}
+.b-listing nav{display: inline-block;margin-right: 10px;}
+.b-listing tr td{padding: 6px 0;}
+.b-listing tr img{width: 35px;height: 35px;border: 1px solid #8b72ff;border-radius: 35px;margin-right: 10px;object-fit: contain;}
+.b-listing tr span{text-transform: uppercase;font-weight: 600;font-size: 14px;color: #121212;white-space: normal;display: inline-block;max-width: 60%;vertical-align: middle;word-break: break-word;}
+
+.price-box {text-align: right;}
+.price-box p{font-weight: 400;font-size: 12px;}
+.price-box .text-green{color: #00c707;}
+.price-box .text-red{color: #ff0606;}
+.price-box .lprice{font-size: 16px;font-weight: 600;margin-bottom: 4px;}
+
+.equitytxt {color: #a5a7a4;font-size: 17px;margin-bottom: 20px;}
+.equitytxt p{color: #a5a7a4;font-size: 16px;font-weight: 400;}
+.equitytxt span{color: #000000;float: right;}
+.equitybtn a{font-size: 16px;font-weight: 600;color: #6344f2;}
+
+.equity-summary{}
+.equity-summary table tr th{padding: 10px 20px 10px 2px;font-size: 13px;font-weight: 600;}
+.toptxt p{margin: 20px 0 !important;font-size: 20px;font-weight: 600;}
+.equity-summary table tr td{padding: 5px 10px 8px 2px;font-size: 14px;font-weight: 600;width: 100%;}
+
+.plate{color: #000000;background: #ffffff;padding: 18px;box-shadow: 0 2px 10px 0 rgb(0 0 0 / 14%);height: 40vh;overflow: hidden;margin-bottom: 10px;}
+#holdingbox{height: 60vh}
+#marketbox{height: 60vh}
+.plate-2{color: #000000;background: #ffffff;box-shadow: 0 4px 8px 0 rgb(0 0 0 / 14%);height: 86vh;position: fixed;}
+.plate span{font-size: 20px;font-weight: 600;vertical-align: bottom;margin-left: 10px;}
+.plate h1{color: #6344f2;margin-top: 16px;font-size: 34px;font-weight: 600;}
+
+.positions p{text-transform: uppercase;font-weight: 600;margin: 0;}
+#bar-graph{overflow: auto;height: 230px;}
+#bar-graph .col-md-6:nth-child(1){padding: 0 6px 0 15px;}
+#bar-graph .col-md-6:nth-child(2){padding: 0 15px 0 6px}
+#bar-graph .col-md-6{padding: 0 6px;}
+.positions .progress{border-radius: 4px;background-color: #ffffff;margin: 7px 0;}
+.positions .progress .progress-bar{border-radius: 4px;background-color: #307bfa;}
+
+.holdingleft h3{font-size: 20px;margin-bottom: 0;}
+.holdingleft span{font-size: 14px;margin: 0;}
+.holdingleft p{color: #a5a7a4;margin-bottom:  20px;}
+.holdingbtn span a{font-size: 16px;font-weight: 600;color: #6344f2;float: right;}
+
+#search{border: transparent;border-bottom: 1px solid #efefef;}
+#search span{vertical-align: -webkit-baseline-middle;}
+#search input{border: transparent;padding: 8px 14px;font-size: 13px;}
+
+.menu-bar {position: absolute;top: 20px;    left: 50%;height: 14px;margin-left: -10px;}
+.bars {display: block;width: 20px;height: 3px;    background-color: #333;box-shadow: 0 5px 0 #333, 0 10px 0 #333;}
+.menu {display: none; width: 100%;padding: 30px 10px 50px;margin: 0 auto;text-align: center;background-color: #fff;}
+.menu ul {margin-bottom: 0;}
+.menu a {color: #333; text-transform: uppercase;opacity: 0.8;}
+.menu a:hover {text-decoration: none;opacity: 1;}
+
+.slideInDown-element {
+  animation: slideInDown; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 3s; /* don't forget to set a duration! */
+}
+.slideInLeft-element {
+  animation: slideInLeft; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 3s; /* don't forget to set a duration! */
+}
+.fadeIn-element {
+  animation: fadeIn; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 2s; /* don't forget to set a duration! */
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) { ... }
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767.98px) { ... }
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991.98px) { ... }
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199.98px) { ... }
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { ... }
+
+@media (min-width: 1400px) {
+  .plate{height: 33vh;}
+  .plate-2{height: 88vh;width: 23%;}
+  .b-listing tr td{width: 100%;padding: 12px 0;}
+  .b-listing tr span{font-size: 16px;}
+  .price-box .lprice{font-size: 18px;}
+  .price-box p{font-size: 12px;}
+  .plate h1{font-size: 50px;}
+  .equitytxt p{font-size: 20px;}
+  .equitybtn a{font-size: 20px;}
+  .positions p{font-size: 16px;margin: 3px 0px;}
+  .positions .progress{margin: 8px 0;height: 10px;}
+  .equity-summary table tr th{font-size: 16px;}
+  .equity-summary table tr td{font-size: 14px;}
+  .holdingleft h3{font-size: 40px;}
+  .holdingleft p{font-size: 18px;}
+  #marketbox{height: 52vh;}
+  #holdingbox{height: 52vh;}
+  .holdingbtn span a{font-size: 20px;}
+}

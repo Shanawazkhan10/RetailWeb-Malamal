@@ -1,4 +1,3 @@
-import "../../style.css";
 import { IMarketDepth } from "./../../../../types/IMarketDepth";
 
 const MarketPictureDepth = (props: { Depth: IMarketDepth }) => {

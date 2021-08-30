@@ -30,7 +30,7 @@ function App() {
   return (
     <Router history={history}>
       <Switch>
-        <PrivateRoute exact={true} path="/" component={Home}/>          
+        <PrivateRoute exact={true} path="/" component={Home} />
         {/* <Route path="/ChartJS">
           <ChartJS />
         </Route>
@@ -46,7 +46,7 @@ function App() {
         <Route path="/forgotPassword">
           <ForgotPassword />
         </Route>
-        <PrivateRoute path="/home" exact={true} component={Home} />
+        <Route path="/home" exact={true} component={Home} />
         {/* <AmplifySignOut /> */}
         <Route component={Login} />
       </Switch>

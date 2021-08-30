@@ -14,7 +14,7 @@ import AutoSuggest from "react-autosuggest";
 
 import ReactDOM from "react-dom";
 import { IContractSearch } from "../../../../types/IContractSearch";
-import "../../style.css";
+
 import {
   openBuyOrderEntry,
   openSellOrderEntry,

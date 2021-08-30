@@ -1,5 +1,4 @@
 import { IWatchListProps } from "../../../types/IWatchListProps";
-import "../style.css";
 import HoldingList from "./Holding/HoldingList";
 import MarketPicture from "./MarketPicture/MarketPicture";
 
@@ -25,85 +24,51 @@ import IPODetails from "../IPO/IPODetails";
 import UpcomingIPODetails from "../IPO/UpcomingIPODetails";
 import { useEffect } from "react";
 import { loggedout } from "../../Login/userSlice";
+import MainDashboard from "./Dashboard/MainDashboard";
 
 const MainContainer = (props: any) => {
   const MenuClick = props;
   const mainContainer = useAppSelector((state) => state.mainContainer);
-  // function renderRightContainer() {
-  //   switch (mainContainer.rightContainer) {
-  //     case 0:
-  //       return (
-  //         <div className="con_bottom">
-  //           <NetPositionList></NetPositionList>
-  //           <HoldingList></HoldingList>
-  //           {/* <MarketPicture></MarketPicture> */}
-  //         </div>
-  //       );
-  //     case 1:
-  //       return (
-  //         <div className="con_bottom">
-  //           {/* <AdvancedChart></AdvancedChart> */}
-  //         </div>
-  //       );
-  //     case 2:
-  //       return (
-  //         <div className="con_bottom">
-  //           <HoldingList></HoldingList>
-  //         </div>
-  //       );
-  //     case 3:
-  //       return (
-  //         <div className="con_bottom">
-  //           <HoldingList></HoldingList>
-  //         </div>
-  //       );
-  //     case 4:
-  //       return (
-  //         <div className="con_bottom">
-  //           <OrderList></OrderList>
-  //           <TradeList></TradeList>
-  //         </div>
-  //       );
 
   const personalContainer = useAppSelector((state) => state.personalContainer);
 
-  const dispatch =  useAppDispatch();
+  const dispatch = useAppDispatch();
   function renderRightContainer() {
     if (mainContainer.IsPersonal) {
       switch (personalContainer.initialState.rightContainer) {
         case 0:
           return (
-            <div className="con_bottom">
+            <div className="col-md-6 col-lg-8 col-xl-9">
               <ProfileSummary></ProfileSummary>
             </div>
           );
         case 1:
           return (
-            <div className="con_bottom">
+            <div className="col-md-6 col-lg-8 col-xl-9">
               <AccountSummary></AccountSummary>
             </div>
           );
         case 2:
           return (
-            <div className="con_bottom">
+            <div className="col-md-6 col-lg-8 col-xl-9">
               <PasswordSecurity></PasswordSecurity>
             </div>
           );
         case 3:
           return (
-            <div className="con_bottom">
+            <div className="col-md-6 col-lg-8 col-xl-9">
               <DematDetails></DematDetails>
             </div>
           );
         case 4:
           return (
-            <div className="con_bottom">
+            <div className="col-md-6 col-lg-8 col-xl-9">
               <UpdateMobileEmail></UpdateMobileEmail>
             </div>
           );
         default:
           return (
-            <div className="con_bottom">
+            <div className="col-md-6 col-lg-8 col-xl-9">
               <ProfileSummary></ProfileSummary>
             </div>
           );
@@ -111,59 +76,53 @@ const MainContainer = (props: any) => {
     } else {
       switch (mainContainer.rightContainer) {
         case 0:
-          return (
-            <div className="con_bottom">
-              <NetPositionList></NetPositionList>
-              <HoldingList></HoldingList>
-              {/* <MarketPicture></MarketPicture> */}
-            </div>
-          );
+          return <MainDashboard></MainDashboard>;
         case 1:
           return (
-            <div className="con_bottom">
+            <div className="col-md-6 col-lg-8 col-xl-9">
               {/* <AdvancedChart></AdvancedChart> */}
             </div>
           );
         case 2:
           return (
-            <div className="con_bottom">
+            <div className="col-md-6 col-lg-8 col-xl-9">
               <HoldingList></HoldingList>
             </div>
           );
         case 3:
           return (
-            <div className="con_bottom">
+            <div className="col-md-6 col-lg-8 col-xl-9">
               <NetPositionList></NetPositionList>
             </div>
           );
         case 4:
           return (
-            <div className="con_bottom">
+            <div className="col-md-6 col-lg-8 col-xl-9">
               <OrderList></OrderList>
               <TradeList></TradeList>
             </div>
           );
         case 6:
           return (
-            <div className="con_bottom">
+            <div className="col-md-6 col-lg-8 col-xl-9">
               <ProfileSummary></ProfileSummary>
             </div>
           );
         case 7:
           return (
-            <div className="con_bottom">
+            <div className="col-md-6 col-lg-8 col-xl-9">
               <IPODetails></IPODetails>
             </div>
           );
         case 8:
           return (
-            <div className="con_bottom">
+            <div className="col-md-6 col-lg-8 col-xl-9">
               <UpcomingIPODetails></UpcomingIPODetails>
             </div>
           );
         // case 9:
         //   return (
-        //     <div className="con_bottom">
+        //     <div className="col-md-6 col-lg-8 col-xl-9">
         //       <MarketPicture></MarketPicture>
         //     </div>
         //   );
@@ -173,24 +132,23 @@ const MainContainer = (props: any) => {
     }
   }
 
-  useEffect(() => {  
-    window.addEventListener('beforeunload', onWindowCLose);  
-  }, [])
+  useEffect(() => {
+    window.addEventListener("beforeunload", onWindowCLose);
+  }, []);
 
-  function onWindowCLose()
-  {
+  function onWindowCLose() {
     //alert("Window closing");
     //dispatch(loggedout());
   }
   return (
     <div id="content">
       <div className="hdivided" style={{ display: "flex" }}>
-        <div className="mw_main mw_ver" id="mw_main">
+        <div className="col-md-6 col-lg-4 col-xl-3">
           <MarketWatch></MarketWatch>
-          <MarketWatchPortfolio nWatchList={1}></MarketWatchPortfolio>
+          {/*}  <MarketWatchPortfolio nWatchList={1}></MarketWatchPortfolio>
           <MarketWatchListContainer></MarketWatchListContainer>
+        </div> */}
         </div>
-
         {renderRightContainer()}
         {/* {rendertempAccount()} */}
       </div>

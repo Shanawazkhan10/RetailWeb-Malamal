@@ -1,4 +1,3 @@
-import "../../style.css";
 import React from "react";
 import { useAppDispatch } from "../../../../app/hooks";
 import { ITradeView } from "../../../../types/ITradeView";

@@ -3,8 +3,8 @@ import Header from "./Header/Header";
 import MainContainer from "./MainContainer/MainContainer";
 import Menu from "./Menu/Menu";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
-
-import "./style.css";
+import "../css/style.css";
+import "../css/extra.css";
 import OrderEntryComp from "./OrderEntry/OrderEntry";
 import GttOrderEntry from "./GTTOrderEntry/GttOrderEntry";
 
@@ -18,18 +18,19 @@ const Home = () => {
   const marketPictureState = useAppSelector((state) => state.marketpicture);
   const gttEntryState = useAppSelector((state) => state.gttEntry);
   return (
-    <div id="MasterSearchDiv">
-      <div id="wrapper">
-        <Header />
-        <MainContainer nWatchList={1} />
-        {orderEntryState.isOrderEntryOpen && <OrderEntryComp />}
-        {gttEntryState.isGTTEntryOpen && <GttOrderEntry />}
-        {/* <Footer /> */}
-        {marketPictureState.marketpicture.IsShow && (
+    // <div id="MasterSearchDiv">
+    //   <div id="wrapper">
+    <div className="container-scroller mb-2">
+      <Header />
+      <MainContainer nWatchList={1} />
+      {/*}  {orderEntryState.isOrderEntryOpen && <OrderEntryComp />}
+        {gttEntryState.isGTTEntryOpen && <GttOrderEntry />} */}
+      {/* <Footer /> */}
+      {/* {marketPictureState.marketpicture.IsShow && (
           <MarketPicture></MarketPicture>
-        )}
-        <Menu></Menu>
-      </div>
+        )} */}
+      <Menu></Menu>
+      {/* </div> */}
       <ToastContainer />
     </div>
   );

@@ -1,5 +1,5 @@
 import { NetpositionSummary } from "../../../../types/INetpositionSummary";
-import "../../style.css";
+
 import { useAppDispatch } from "../../../../app/hooks";
 const NetPositionSummary = (props: {
   netpositionSummary: NetpositionSummary;

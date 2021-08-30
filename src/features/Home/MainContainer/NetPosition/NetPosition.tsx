@@ -1,4 +1,3 @@
-import "../../style.css";
 import React from "react";
 import { useAppDispatch } from "../../../../app/hooks";
 import { INetPosition } from "../../../../types/INetposition";

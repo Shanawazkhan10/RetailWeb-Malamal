@@ -5,7 +5,6 @@ import { useAppDispatch } from "../../../../app/hooks";
 import { IDeleteWatchlist } from "../../../../app/IDeleteWatchlist";
 import { RootState } from "../../../../store/store";
 import { IRenameWatchlist } from "../../../../types/IRenameWatchlist";
-import "../../style.css";
 import Search from "../SmartSearch/Search";
 import Search1 from "../SmartSearch/Search1";
 import {

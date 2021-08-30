@@ -1,4 +1,3 @@
-import "../../style.css";
 import React, { useEffect } from "react";
 import NetPositionSummary from "./NetPositionSummary";
 import { useSelector } from "react-redux";

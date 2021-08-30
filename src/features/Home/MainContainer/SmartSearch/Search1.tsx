@@ -93,17 +93,25 @@ const Search1 = () => {
   };
   return (
     <div className="search-container">
+      <div className="input-group slideInLeft-element" id="search">
+        <div>
+          <span>
+            <img src="images/search.svg" />
+          </span>
+        </div>
+        <input
+          type="text"
+          className="searchForm__text"
+          placeholder="Search by symbol or name"
+          value={searchValue}
+          onChange={(e) => handleSearchChange(e)}
+          onKeyDown={handleSearchKeyDowns}
+          onBlur={clearSearch}
+        />
+      </div>
+
       <form className="searchForm">
         <div className="searchForm__inputs">
-          <input
-            type="text"
-            className="searchForm__text"
-            placeholder="Search by symbol or name"
-            value={searchValue}
-            onChange={(e) => handleSearchChange(e)}
-            onKeyDown={handleSearchKeyDowns}
-            onBlur={clearSearch}
-          />
           {/* if the search input value is not empty show the clear button */}
           {searchValue !== "" && (
             <button

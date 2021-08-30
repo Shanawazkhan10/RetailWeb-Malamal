@@ -6,7 +6,6 @@ import { RootState } from "../../../../store/store";
 import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IWatchListProps } from "../../../../types/IWatchListProps";
-import "../../style.css";
 import { ChangeWatchList, onMarketWatchSuccess } from "./MarketWatchSlice";
 
 const MarketWatchPortfolio = (props: IWatchListProps) => {
