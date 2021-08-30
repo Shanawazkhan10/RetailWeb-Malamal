@@ -1,5 +1,10 @@
 import axios from "axios";
+<<<<<<< Updated upstream
 import { URLSearchParams } from "url";
+=======
+
+import { ILogin } from "../types/ILogin";
+>>>>>>> Stashed changes
 import { IContractSearchReq } from "../types/IContractSearchReq";
 import { IMarketWatchTokenInfo } from "../types/IMarketWatchTokenInfo";
 import { IRemoveFromWatch } from "../types/IRemoveFromWatch";
@@ -1286,10 +1291,73 @@ export async function sendOrderEntryRequest(
 }
 export async function PostScritInfo(scriptInfo: string[]): Promise<any> {
   const params = new URLSearchParams();
-  params.append("jData", JSON.stringify(scriptInfo));
+  params.append("jData", JSON.stringify({ scripArr: scriptInfo }));
   return await api
 
-    .post("https://uathsauth.hypertrade.in/api/mpinlogin", params, {
+    .post("https://uathsauth.hypertrade.in/quick/scrip/info", params, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+
+    .then((response) => response.data)
+
+    .catch((error) => error);
+}
+
+export async function GetOrderBook(): Promise<any> {
+  //const params = new URLSearchParams();
+  //params.append("jData", JSON.stringify(scriptInfo));
+  return await api
+
+    .post("https://uathsauth.hypertrade.in/api/mpinlogin", "", {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+
+    .then((response) => response.data)
+
+    .catch((error) => error);
+}
+
+export async function GetTradeBook(): Promise<any> {
+  //const params = new URLSearchParams();
+  //params.append("jData", JSON.stringify(scriptInfo));
+  return await api
+
+    .post("https://uathsauth.hypertrade.in/api/mpinlogin", "", {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+
+    .then((response) => response.data)
+
+    .catch((error) => error);
+}
+
+export async function getNetposition(): Promise<any> {
+  //const params = new URLSearchParams();
+  //params.append("jData", JSON.stringify(scriptInfo));
+  return await api
+
+    .post("https://uathsauth.hypertrade.in/quick/user/positions", "", {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+
+    .then((response) => response.data)
+
+    .catch((error) => error);
+}
+
+export async function getHolding(): Promise<any> {
+  //const params = new URLSearchParams();
+  //params.append("jData", JSON.stringify(scriptInfo));
+  return await api
+    .post("https://uathsauth.hypertrade.in/quick/user/holdings", "", {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
       },

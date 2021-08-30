@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getNetpositionData } from "../../../../app/api";
+<<<<<<< Updated upstream
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import "../../style.css";
+=======
+import { fetchNetposition, NetpositionSuccess } from "./NetPositionSlice";
+>>>>>>> Stashed changes
 import NetPosition from "./NetPosition";
 import { NetpositionSuccess } from "./NetPositionSlice";
 import NetPositionSummary from "./NetPositionSummary";
@@ -15,7 +19,8 @@ const NetPositionList = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(NetpositionSuccess(getNetpositionData()));
+    //dispatch(NetpositionSuccess(getNetpositionData()));
+    dispatch(fetchNetposition());
   }, []);
 
   return NetpositionList && NetpositionList.length > 0 ? (

@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getOrderData } from "../../../../app/api";
+<<<<<<< Updated upstream
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import "../../style.css";
+=======
+import { fetchOrderView, OrderViewSuccess } from "./OrderViewSlice";
+>>>>>>> Stashed changes
 import OrderView from "./Order";
 import { OrderViewSuccess } from "./OrderViewSlice";
 
@@ -12,10 +16,11 @@ const OrderList = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(OrderViewSuccess(getOrderData()));
+    //dispatch(OrderViewSuccess(getOrderData()));
+    dispatch(fetchOrderView());
   }, []);
 
-  return (
+  return OrderList && OrderList.OrderViewData.length > 0 ? (
     <div className="block_netPosition mr14" id="NetPosition">
       <div className="block_head">
         <h1>Orders:</h1>
@@ -110,6 +115,8 @@ const OrderList = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <div>Empty......</div>
   );
 };
 
