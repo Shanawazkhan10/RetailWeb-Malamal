@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
 import { useAppDispatch } from "../../../../app/hooks";
 import { getHoldingData } from "../../../../app/api";
-import { HoldingSuccess } from "./HoldingSlice";
+import { fetchHolding, HoldingSuccess } from "./HoldingSlice";
 import Holding from "./Holding";
 
 const HoldingList = () => {
@@ -12,10 +12,11 @@ const HoldingList = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(HoldingSuccess(getHoldingData()));
+    //dispatch(HoldingSuccess(getHoldingData()));
+    dispatch(fetchHolding());
   }, []);
 
-  return (
+  return HoldingList && HoldingList.holding.length > 0 ? (
     <div className="block_netPosition mr14" id="Holding">
       <div className="block_head">
         <h1>Holding</h1>
@@ -110,6 +111,8 @@ const HoldingList = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <div>Empty......</div>
   );
 };
 

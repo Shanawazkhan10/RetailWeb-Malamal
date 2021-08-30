@@ -1,18 +1,8 @@
 import React, { useEffect } from "react";
-//import ScriptTag from "react-script-tag";
-//import Safe from "react-safe";
-// import  HSLib  =require("../WebSocket/hslibo");
-// import * as app1 from "../WebSocket/hslibo";
-// import {App} from "../WebSocket/hslibo";
-
-//import app1 from "hslibo.js";
-// import  {app1 }from "./hslibo";
-//import {function1 } from "../WebSocket/hslibo.js"
-import { Dispatch } from "redux";
 import { useAppDispatch } from "../../app/hooks";
 import { IMarketDepth } from "../../types/IMarketDepth";
-import { IIndices } from "../../types/MarketData'/IIndices";
-import { IScriptUpdate } from "../../types/MarketData'/IScriptUpdate";
+import { IIndices } from "../../types/MarketData/IIndices";
+import { IScriptUpdate } from "../../types/MarketData/IScriptUpdate";
 import { DepthUpdate, IndicesUpdate, ScriptUpdate } from "./WebSocketSlice";
 
 export interface authReq {

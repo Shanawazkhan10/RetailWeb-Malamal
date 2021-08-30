@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { api } from "../../../../app/api";
+import { api, GetOrderBook } from "../../../../app/api";
+import { AppThunk } from "../../../../store/store";
 import { IOrderView } from "../../../../types/IOrderView";
 
 const InitialOrderView: IOrderView[] = [];
@@ -18,19 +19,19 @@ const OrderSlice = createSlice({
         el.Token == action.payload.Token ? action.payload : el
       );
     },
+    OrderError: (state, action) => {},
   },
 });
 
 export default OrderSlice.reducer;
 
-export const { OrderViewSuccess } = OrderSlice.actions;
+export const { OrderViewSuccess, OrderError } = OrderSlice.actions;
 
-export const fetchOrderView = () => async (dispatch: any) => {
+export const fetchOrderView = (): AppThunk => async (dispatch) => {
   try {
-    await api
-      .get<IOrderView[]>("/users")
-      .then((response) => dispatch(OrderViewSuccess(response.data)));
-  } catch (e) {
-    return console.error(e.message);
+    const orderResponse = await GetOrderBook();
+    dispatch(OrderViewSuccess(orderResponse));
+  } catch (err) {
+    dispatch(OrderError(err.toString()));
   }
 };
