@@ -161,6 +161,12 @@ const MainContainer = (props: any) => {
               <UpcomingIPODetails></UpcomingIPODetails>
             </div>
           );
+        // case 9:
+        //   return (
+        //     <div className="con_bottom">
+        //       <MarketPicture></MarketPicture>
+        //     </div>
+        //   );
         default:
           return null;
       }

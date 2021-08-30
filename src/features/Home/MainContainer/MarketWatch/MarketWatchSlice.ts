@@ -1,5 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { api, GetWatchListSymbolDetails } from "../../../../app/api";
+import {
+  api,
+  GetWatchListSymbolDetails,
+  PostScritInfo,
+} from "../../../../app/api";
 import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { IMarketDepth } from "../../../../types/IMarketDepth";
@@ -7,12 +11,16 @@ import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchList } from "../../../../types/IMarketWatchList";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
+import { scriptInfoReq } from "./MarketWatchItem";
+import { AppThunk } from "../../../../store/store";
+import { Dispatch } from "redux";
 
 const InitialMarketWatch: IMarketWatchList = {
   MarketWatchList: [],
   nSelectedWatchList: 1,
   sSelectedWatchList: "",
   bIsBind: false,
+  bIsError: false,
 };
 
 const marketwatchSlice = createSlice({
@@ -21,13 +29,17 @@ const marketwatchSlice = createSlice({
     marketWatch: InitialMarketWatch,
   },
   reducers: {
-    getMarketWatchSuccess: (state, action) => {
+    onMarketWatchSuccess: (state, action) => {
       state.marketWatch.MarketWatchList = action.payload;
       state.marketWatch.bIsBind = true;
       state.marketWatch.nSelectedWatchList = 1;
       // state.marketWatch.MarketWatchList.map(
       //   (row, i) => GetWatchListSymbolDetails(i + 1, row.scrips) //DUmmy Call for actual call send token info
       // );
+    },
+    onMarketWatchFailure: (state, action) => {
+      state.marketWatch.bIsError = true;
+      //Tostify Call
     },
     ChangeWatchList: (state, action: PayloadAction<IChangeWatchlist>) => {
       state.marketWatch.nSelectedWatchList = action.payload.id;
@@ -82,18 +94,26 @@ const marketwatchSlice = createSlice({
       state.marketWatch.MarketWatchList[action.payload.id].scrips =
         action.payload.scrips;
     },
-    showMore:(state,action:PayloadAction<number>)=>{
-      state.marketWatch.MarketWatchList[state.marketWatch.nSelectedWatchList-1].SymbolList[action.payload].showMore = true;//Temp Watchlist Id -1 need to change
+    showMore: (state, action: PayloadAction<number>) => {
+      state.marketWatch.MarketWatchList[
+        state.marketWatch.nSelectedWatchList - 1
+      ].SymbolList[action.payload].showMore = true; //Temp Watchlist Id -1 need to change
     },
-    hideMore:(state,action:PayloadAction<number>)=>{
-      state.marketWatch.MarketWatchList[state.marketWatch.nSelectedWatchList-1].SymbolList[action.payload].showMore = false;//Temp Watchlist Id -1 need to change
+    hideMore: (state, action: PayloadAction<number>) => {
+      state.marketWatch.MarketWatchList[
+        state.marketWatch.nSelectedWatchList - 1
+      ].SymbolList[action.payload].showMore = false; //Temp Watchlist Id -1 need to change
+    },
+    AddToWatchlistFromSearch(state, action: PayloadAction<IRemoveFromWatch>) {
+      state.marketWatch.MarketWatchList[action.payload.id].scrips =
+        action.payload.scrips;
     },
   },
-}); 
+});
 
 export default marketwatchSlice.reducer;
 export const {
-  getMarketWatchSuccess,
+  onMarketWatchSuccess,
   ChangeWatchList,
   DeleteWatchList,
   AddToWatchList,
@@ -102,18 +122,28 @@ export const {
   getMarketDepthSuccess,
   RemoveSymbolFromWatchlist,
   ShowMarketDepth,
+  onMarketWatchFailure,
+  hideMore,
   showMore,
-  hideMore
 } = marketwatchSlice.actions;
 
-export const fetchmarketWatch = () => async (dispatch: any) => {
-  try {
-    await api
-      .get<IMarketWatchList[]>("/users")
-      .then((response) => dispatch(getMarketWatchSuccess(response.data)));
-  } catch (e) {
-    return console.error(e.message);
-  }
-};
+// export const fetchmarketWatch = () => async (dispatch: any) => {
+//   try {
+//     await api
+//       .get<IMarketWatchList[]>("/users")
+//       .then((response) => dispatch(onMarketWatchSuccess(response.data)));
+//   } catch (e) {
+//     return console.error(e.message);
+//   }
+// };
 
-
+export const FetchWatchListSymbol =
+  (scriptInfoReq: string[]): AppThunk =>
+  async (dispatch) => {
+    try {
+      const scriptInfoResponse = await PostScritInfo(scriptInfoReq);
+      dispatch(UpdateSymbolDetails(scriptInfoResponse));
+    } catch (err) {
+      dispatch(onMarketWatchFailure(err.toString()));
+    }
+  };

@@ -5,21 +5,26 @@ import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
-  setOrderEntryProps
+  setOrderEntryProps,
 } from "../../OrderEntry/orderEntrySlice";
-import { openGTTEntry, setGTTEntryProps } from "../../GTTOrderEntry/gttEntrySlice";
+import {
+  openGTTEntry,
+  setGTTEntryProps,
+} from "../../GTTOrderEntry/gttEntrySlice";
 import { chartContainer } from "../mainContainerSlice";
 
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import {
+  GetSymbolDetails,
   GetWatchListSymbolDetails,
   RemoveTokenfromWatchlist,
   SubscribeMarketDepth,
 } from "../../../../app/api";
 import {
+  FetchWatchListSymbol,
   getMarketDepthSuccess,
   RemoveSymbolFromWatchlist,
-  ShowMarketDepth,  
+  ShowMarketDepth,
   UpdateSymbolDetails,
   hideMore,
   showMore,
@@ -32,14 +37,19 @@ import { IDepthReq } from "../../../../types/IDepthReq";
 import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
 import { IOrderEntryProps } from "../../../../types/IOrderEntryProps";
 import { IGTTEntryProps } from "../../../../types/IGTTEntryProps";
+import {
+  updateMarketDepth,
+  UpdateTokenInfo,
+} from "../MarketPicture/MarketPictureSlice";
 
+export interface scriptInfoReq {
+  scripArr: string[];
+}
 const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
   const marketWatchState = useAppSelector(
     (state) => state.marketwatch.marketWatch
   );
-  const OrderEntryState = useAppSelector(
-    (state) => state.orderEntry
-  );
+  const OrderEntryState = useAppSelector((state) => state.orderEntry);
   const [activeItem, setActiveItem] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [depth, setDepth] = React.useState(null);
@@ -52,59 +62,60 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
     console.log(" MarketWatchItem useEffect");
   }, []);
 
-  const OrderEntryProp ={
-    token:"",
-    exchange:"",
-    quantity:0,
-    price:"",    
-    triggerprice:"",
-    symbol:"",
-  }as IOrderEntryProps;
+  const OrderEntryProp = {
+    token: "",
+    exchange: "",
+    quantity: 0,
+    price: "",
+    triggerprice: "",
+    symbol: "",
+  } as IOrderEntryProps;
 
-  const GTTEntryProp ={
-    token:"",
-    exchange:"",
-    quantity:0,
-    price:"",    
-    triggerprice:"",
-    symbol:"",
-  }as IGTTEntryProps;
+  const GTTEntryProp = {
+    token: "",
+    exchange: "",
+    quantity: 0,
+    price: "",
+    triggerprice: "",
+    symbol: "",
+  } as IGTTEntryProps;
 
-
-  function onBuyOrderEntryClick(symbolInfo:IMarketWatchTokenInfo) {
+  function onBuyOrderEntryClick(symbolInfo: IMarketWatchTokenInfo) {
     OrderEntryProp.token = symbolInfo.tk;
     OrderEntryProp.price = symbolInfo.ltp;
-    OrderEntryProp.quantity =1;
+    OrderEntryProp.quantity = 1;
     OrderEntryProp.symbol = symbolInfo.sym;
-    OrderEntryProp.exchange=symbolInfo.exch;
+    OrderEntryProp.exchange = symbolInfo.exch;
     OrderEntryProp.ltp = symbolInfo.ltp;
-    dispatch(setOrderEntryProps(OrderEntryProp))
+    dispatch(setOrderEntryProps(OrderEntryProp));
     dispatch(openBuyOrderEntry());
   }
-  function onSellOrderEntryClick(symbolInfo:IMarketWatchTokenInfo) {
+  function onSellOrderEntryClick(symbolInfo: IMarketWatchTokenInfo) {
     OrderEntryProp.token = symbolInfo.tk;
     OrderEntryProp.price = symbolInfo.ltp;
-    OrderEntryProp.quantity =1;
+    OrderEntryProp.quantity = 1;
     OrderEntryProp.symbol = symbolInfo.sym;
-    OrderEntryProp.exchange=symbolInfo.exch;
+    OrderEntryProp.exchange = symbolInfo.exch;
     OrderEntryProp.ltp = symbolInfo.ltp;
-    dispatch(setOrderEntryProps(OrderEntryProp))
+    dispatch(setOrderEntryProps(OrderEntryProp));
     dispatch(openSellOrderEntry());
   }
   function onChartClick() {
     dispatch(chartContainer());
   }
   function RemoveSymbol(tokenInfo: IMarketWatchTokenInfo) {
+    dispatch(UpdateTokenInfo(GetSymbolDetails()));
+
+    dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
+
     //API Call update List & on success call dispatch
-    const RemoveFromWatch: IRemoveFromWatch = {
-      mwName: propMarketWatch.mwName,
-      scrips: removeValue(propMarketWatch.scrips, tokenInfo.scrips, "|"),
-      id: tokenInfo.mwId,
-      userId: "Test User",
-    };
-
-    dispatch(RemoveSymbolFromWatchlist(RemoveFromWatch));
-
+    // const RemoveFromWatch: IRemoveFromWatch = {
+    //   mwName: propMarketWatch.mwName,
+    //   scrips: removeValue(propMarketWatch.scrips, tokenInfo.scrips, "|"),
+    //   id: tokenInfo.mwId,
+    //   userId: "Test User",
+    // };
+    // dispatch(RemoveSymbolFromWatchlist(RemoveFromWatch));
     //Unsubscribe Depth API Call
     // if (symbol.showDepth) {
     //   const SubscribeDepth: ISubscribeDepth = {
@@ -158,22 +169,26 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
   }
   function getSymbol() {
     //API call to bind Token info (Scrip Info Request)
-
-    dispatch(
-      UpdateSymbolDetails(
-        GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
-      )
-    );
+    // var scrpitArray:string[]=propMarketWatch.scrips.split(",");
+    //  const scriptInfoReq:scriptInfoReq {
+    //   scripArr:scrpitArray
+    // }
+    dispatch(FetchWatchListSymbol(propMarketWatch.scrips.split(",")));
+    // dispatch(
+    //   UpdateSymbolDetails(
+    //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
+    //   )
+    // );
   }
 
-  function onCreateGTTOrderClick(symbolInfo:IMarketWatchTokenInfo){
+  function onCreateGTTOrderClick(symbolInfo: IMarketWatchTokenInfo) {
     GTTEntryProp.token = symbolInfo.tk;
     GTTEntryProp.price = symbolInfo.ltp;
-    GTTEntryProp.quantity =1;
+    GTTEntryProp.quantity = 1;
     GTTEntryProp.symbol = symbolInfo.sym;
-    GTTEntryProp.exchange=symbolInfo.exch;
+    GTTEntryProp.exchange = symbolInfo.exch;
     GTTEntryProp.ltp = +symbolInfo.ltp;
-    dispatch(setGTTEntryProps(GTTEntryProp))
+    dispatch(setGTTEntryProps(GTTEntryProp));
     dispatch(openGTTEntry());
   }
 
@@ -235,14 +250,14 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
                     <button
                       className="btn_mw_overlay_2 btn_buy"
                       title="BUY"
-                      onClick={()=>onBuyOrderEntryClick(symbolInfo)}
+                      onClick={() => onBuyOrderEntryClick(symbolInfo)}
                     >
                       B
                     </button>
                     <button
                       className="btn_mw_overlay_3 btn_sell"
                       title="SELL"
-                      onClick={()=>onSellOrderEntryClick(symbolInfo)}
+                      onClick={() => onSellOrderEntryClick(symbolInfo)}
                     >
                       S
                     </button>
@@ -261,7 +276,7 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
                     <input
                       type="button"
                       value="Create GTT"
-                      onClick={()=>onCreateGTTOrderClick(symbolInfo)}
+                      onClick={() => onCreateGTTOrderClick(symbolInfo)}
                     />
                   )}
 
