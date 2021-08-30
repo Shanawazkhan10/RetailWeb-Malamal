@@ -10,7 +10,7 @@ const initialState = {
   isPasswordCheked: localStorage.getItem("userkey") ? true : false,
   isAuthenticated: localStorage.getItem("userkey") ? true :false,
   isError: false,
-  UserId:"",
+  UserId:localStorage.getItem("userID")?localStorage.getItem("userID"):"",
   user: null,
   sessionKey:localStorage.getItem("userkey") ? localStorage.getItem("userkey"): "",
   server:"",
@@ -25,6 +25,7 @@ export const userSlice = createSlice({
       state.isAuthenticated = false;
       state.isError = false;
       state.UserId = action.payload;
+      localStorage.setItem("userID",action.payload);
       state.user = null;
     },
     loggedInSuccess: (state, action: PayloadAction<any>) => {
@@ -58,6 +59,7 @@ export const userSlice = createSlice({
     },
     loggedout: (state) => {
       localStorage.removeItem("userkey");
+      localStorage.removeItem("userID");
       state.isPasswordCheked = false;
       state.isAuthenticated = false;
       state.isError = false;
