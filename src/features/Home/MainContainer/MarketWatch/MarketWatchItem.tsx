@@ -35,8 +35,8 @@ import { Collapse, Button, CardBody, Card } from "reactstrap";
 import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
-import { IOrderEntryProps } from "../../../../types/IOrderEntryProps";
-import { IGTTEntryProps } from "../../../../types/IGTTEntryProps";
+import { IOrderEntryProps } from "../../../../types/OrderEntry/IOrderEntryProps";
+import { IGTTEntryProps } from "../../../../types/OrderEntry/IGTTEntryProps";
 import {
   updateMarketDepth,
   UpdateTokenInfo,
@@ -173,12 +173,12 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
     //  const scriptInfoReq:scriptInfoReq {
     //   scripArr:scrpitArray
     // }
-    dispatch(FetchWatchListSymbol(propMarketWatch.scrips.split(",")));
-    // dispatch(
-    //   UpdateSymbolDetails(
-    //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
-    //   )
-    // );
+    //dispatch(FetchWatchListSymbol(propMarketWatch.scrips.split(",")));
+    dispatch(
+      UpdateSymbolDetails(
+        GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
+      )
+    );
   }
 
   function onCreateGTTOrderClick(symbolInfo: IMarketWatchTokenInfo) {

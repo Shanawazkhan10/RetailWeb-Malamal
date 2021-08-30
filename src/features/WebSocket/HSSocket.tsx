@@ -11,8 +11,8 @@ import React, { useEffect } from "react";
 import { Dispatch } from "redux";
 import { useAppDispatch } from "../../app/hooks";
 import { IMarketDepth } from "../../types/IMarketDepth";
-import { IIndices } from "../../types/MarketData'/IIndices";
-import { IScriptUpdate } from "../../types/MarketData'/IScriptUpdate";
+import { IIndices } from "../../types/MarketData/IIndices";
+import { IScriptUpdate } from "../../types/MarketData/IScriptUpdate";
 import { DepthUpdate, IndicesUpdate, ScriptUpdate } from "./WebSocketSlice";
 
 export interface authReq {

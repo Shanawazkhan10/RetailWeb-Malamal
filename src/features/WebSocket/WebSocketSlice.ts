@@ -2,10 +2,10 @@ import { IMarketDepth, InitialMarketDepth } from "../../types/IMarketDepth";
 import {
   InitialScriptUpdate,
   IScriptUpdate,
-} from "../../types/MarketData'/IScriptUpdate";
-import { ISocketData } from "../../types/MarketData'/ISocketData";
+} from "../../types/MarketData/IScriptUpdate";
+import { ISocketData } from "../../types/MarketData/ISocketData";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IIndices, InitialIndices } from "../../types/MarketData'/IIndices";
+import { IIndices, InitialIndices } from "../../types/MarketData/IIndices";
 
 const InitialSocketData: ISocketData = {
   IsShow: false,

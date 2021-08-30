@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { sendOrderEntryRequest } from "../../../app/api";
 import { toastNotification } from "../../../app/Notification";
 import { AppThunk } from "../../../store/store";
-import { IOrderEntry } from "../../../types/IOrderEntry";
+import { IOrderEntry } from "../../../types/OrderEntry/IOrderEntry";
 import { IOrderEntryRequest } from "../../../types/Request/IOrderEntryRequest";
 
 const initialState = {

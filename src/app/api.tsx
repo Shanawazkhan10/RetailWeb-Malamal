@@ -1,5 +1,4 @@
 import axios from "axios";
-import { URLSearchParams } from "url";
 import { UpdateSymbolDetails } from "../features/Home/MainContainer/MarketWatch/MarketWatchSlice";
 import { loggedInSuccess } from "../features/Login/userSlice";
 import { ILogin } from "../types/ILogin";
