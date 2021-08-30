@@ -65,7 +65,7 @@ const MarketWatchHeader = () => {
         value={sName}
       ></input> */}
       <Search1></Search1>
-      <div className="mw-head-btns">
+      {/* <div className="mw-head-btns">
         <button id="btnEditMode" title="Edit" onClick={(e) => EditWatchList()}>
           Edit
         </button>
@@ -88,7 +88,7 @@ const MarketWatchHeader = () => {
             <span>Menu</span>
           </label>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

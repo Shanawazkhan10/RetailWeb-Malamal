@@ -1,4 +1,4 @@
-import { enumSegments } from "../.././../Constants/enumSegments";
+import { enumSegments } from "../.././../constants/enumSegments";
 
 var newSegments: Array<string>;
 

@@ -141,16 +141,18 @@ const MainContainer = (props: any) => {
     //dispatch(loggedout());
   }
   return (
-    <div id="content">
-      <div className="hdivided" style={{ display: "flex" }}>
+    <div className="container-fluid" style={{ marginTop: "25px" }}>
+      <div className="row">
         <div className="col-md-6 col-lg-4 col-xl-3">
-          <MarketWatch></MarketWatch>
-          {/*}  <MarketWatchPortfolio nWatchList={1}></MarketWatchPortfolio>
-          <MarketWatchListContainer></MarketWatchListContainer>
-        </div> */}
+          <div className="plate-2 fadeIn-element">
+            <div className="b-listing">
+              <MarketWatch></MarketWatch>
+              <MarketWatchPortfolio nWatchList={1}></MarketWatchPortfolio>
+              <MarketWatchListContainer></MarketWatchListContainer>
+            </div>
+          </div>
         </div>
         {renderRightContainer()}
-        {/* {rendertempAccount()} */}
       </div>
     </div>
   );

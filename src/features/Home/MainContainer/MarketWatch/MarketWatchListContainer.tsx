@@ -30,39 +30,36 @@ const MarketWatchListContainer = (props: any) => {
           id={String(i + 1)}
           style={selectedList == i + 1 ? {} : { display: "none" }}
         >
-          <div
-            style={{
-              width: "300%",
-              height: "100%",
-              position: "absolute",
-              left: "-455px",
-            }}
-          >
-            <div
-              id="mw_leftInnerView"
-              className="mw_inner"
-              style={{ width: "455px" }}
-            ></div>
-            <div
-              id="mw_centralInnerView"
-              className="mw_inner"
-              style={{ width: "455px" }}
-            >
-              {/* {WatchListData.map((WatchList: any) => (
-                <SingleLayout />
-              ))} */}
-              <MarketWatchItem
-                key={row.id}
-                propMarketWatch={row}
-              ></MarketWatchItem>
-            </div>
-            <div
-              id="mw_rightInnerView"
-              className="mw_inner"
-              style={{ width: "455px" }}
-            ></div>
-          </div>
+          <MarketWatchItem key={row.id} propMarketWatch={row}></MarketWatchItem>
         </div>
+
+        /* <div
+        //   style={{
+        //     width: "300%",
+        //     height: "100%",
+        //     position: "absolute",
+        //     left: "-455px",
+        //   }}
+        // >
+        // <div
+        //   id="mw_leftInnerView"
+        //   className="mw_inner"
+        //   style={{ width: "455px" }}
+        // ></div>
+        // <div
+        //   id="mw_centralInnerView"
+        //   className="mw_inner"
+        //   style={{ width: "455px" }}
+        // >
+        /* {WatchListData.map((WatchList: any) => (
+                <SingleLayout />
+              ))} */
+
+        // <div
+        //   id="mw_rightInnerView"
+        //   className="mw_inner"
+        //   style={{ width: "455px" }}
+        // ></div>
       ))}
     </div>
   ) : (

@@ -1,46 +1,37 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { IMarketWatch } from "../../../../types/IMarketWatch";
+import React, { useEffect } from "react";
+import { Collapse } from "reactstrap";
+import { GetSymbolDetails, SubscribeMarketDepth } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { IDepthReq } from "../../../../types/IDepthReq";
+import { IGTTEntryProps } from "../../../../types/IGTTEntryProps";
+import { IMarketWatch } from "../../../../types/IMarketWatch";
+import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
+import { IOrderEntryProps } from "../../../../types/IOrderEntryProps";
+import {
+  openGTTEntry,
+  setGTTEntryProps,
+} from "../../GTTOrderEntry/gttEntrySlice";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
   setOrderEntryProps,
 } from "../../OrderEntry/orderEntrySlice";
-import {
-  openGTTEntry,
-  setGTTEntryProps,
-} from "../../GTTOrderEntry/gttEntrySlice";
 import { chartContainer } from "../mainContainerSlice";
-
-import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
-import {
-  GetSymbolDetails,
-  GetWatchListSymbolDetails,
-  RemoveTokenfromWatchlist,
-  SubscribeMarketDepth,
-} from "../../../../app/api";
-import {
-  FetchWatchListSymbol,
-  getMarketDepthSuccess,
-  RemoveSymbolFromWatchlist,
-  ShowMarketDepth,
-  UpdateSymbolDetails,
-  hideMore,
-  showMore,
-} from "./MarketWatchSlice";
-import MarketDepth from "./MarketDepth";
-
-import { Collapse, Button, CardBody, Card } from "reactstrap";
-import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
-import { IDepthReq } from "../../../../types/IDepthReq";
-import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
-import { IOrderEntryProps } from "../../../../types/IOrderEntryProps";
-import { IGTTEntryProps } from "../../../../types/IGTTEntryProps";
 import {
   updateMarketDepth,
   UpdateTokenInfo,
 } from "../MarketPicture/MarketPictureSlice";
+import MarketDepth from "./MarketDepth";
+import {
+  FetchWatchListSymbol,
+  getMarketDepthSuccess,
+  hideMore,
+  ShowMarketDepth,
+  showMore,
+} from "./MarketWatchSlice";
+
+import { UpdateSymbolDetails } from "./MarketWatchSlice";
+import { GetWatchListSymbolDetails } from "../../../../app/api";
 
 export interface scriptInfoReq {
   scripArr: string[];
@@ -174,11 +165,11 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
     //   scripArr:scrpitArray
     // }
     dispatch(FetchWatchListSymbol(propMarketWatch.scrips.split(",")));
-    // dispatch(
-    //   UpdateSymbolDetails(
-    //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
-    //   )
-    // );
+    dispatch(
+      UpdateSymbolDetails(
+        GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
+      )
+    );
   }
 
   function onCreateGTTOrderClick(symbolInfo: IMarketWatchTokenInfo) {
@@ -193,161 +184,149 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
   }
 
   return (
-    <div>
-      {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
-      {propMarketWatch.SymbolList != null ? (
-        propMarketWatch.SymbolList.map(
-          (symbolInfo: IMarketWatchTokenInfo, nIncreament) => (
-            <div>
-              <div
-                key={symbolInfo.scrips}
-                id={String(nIncreament)}
-                className="mw_block"
-                style={{ width: "400px" }}
-                onMouseLeave={() => {
-                  dispatch(hideMore(nIncreament));
-                }}
-              >
-                <div className="popupCloseButton" title="Delete"></div>
-                <div style={{ display: "none" }} className="mw_status">
-                  <ul>
-                    <li>
-                      <span id="spnEventStatus"></span>
-                    </li>
-                    <li>
-                      <span id="spnMarketStatus"></span>
-                    </li>
-                  </ul>
-                  <div className="status_pop">
-                    <span className="pre_game" id="spnEventStateTooltip"></span>
-                    <span className="open" id="spnMarketStateTooltip"></span>
-                  </div>
-                </div>
-
-                <div id="divLeftV" className="container_mw mw_team1">
-                  <div className="overlay_mw">
-                    <button
-                      className="btn_mw_overlay_2 btn_buy"
-                      title="Depth"
-                      onClick={() => onDepthClick(nIncreament, symbolInfo)}
-                    >
-                      D
-                    </button>
-                    <button
-                      className="btn_mw_overlay_2 btn_buy"
-                      title="Delete"
-                      onClick={() => RemoveSymbol(symbolInfo)}
-                    >
-                      Del
-                    </button>
-                    <button
-                      className="btn_mw_overlay_2 btn_buy"
-                      title="Chart(C )"
-                      onClick={onChartClick}
-                    >
-                      C
-                    </button>
-                    <button
-                      className="btn_mw_overlay_2 btn_buy"
-                      title="BUY"
-                      onClick={() => onBuyOrderEntryClick(symbolInfo)}
-                    >
-                      B
-                    </button>
-                    <button
-                      className="btn_mw_overlay_3 btn_sell"
-                      title="SELL"
-                      onClick={() => onSellOrderEntryClick(symbolInfo)}
-                    >
-                      S
-                    </button>
-                    <button
-                      className="btn_mw_overlay_3 btn_detail"
-                      title="More"
-                      onClick={() => {
-                        symbolInfo.showMore
-                          ? dispatch(hideMore(nIncreament))
-                          : dispatch(showMore(nIncreament));
-                      }}
-                    ></button>
-                  </div>
-
-                  {symbolInfo.showMore && (
-                    <input
-                      type="button"
-                      value="Create GTT"
-                      onClick={() => onCreateGTTOrderClick(symbolInfo)}
-                    />
-                  )}
-
-                  <div className="divLeftV_in">
-                    <div className="mysymbolname">
-                      <span id="spnsymbol" title={symbolInfo.sym}>
-                        {symbolInfo.sym}
-                      </span>
-                      <br />
-                      <span id="spnLtt" title="LTT">
-                        2021-07-06 16:59:58
-                      </span>
-                    </div>
-
-                    <div className="ltp_main">
+    <table className="table table-responsive table-borderless">
+      <tbody>
+        {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
+        {propMarketWatch.SymbolList != null ? (
+          propMarketWatch.SymbolList.map(
+            (symbolInfo: IMarketWatchTokenInfo, nIncreament) => (
+              <div>
+                <div
+                  key={symbolInfo.scrips}
+                  id={String(nIncreament)}
+                  className="mw_block"
+                  style={{ width: "400px" }}
+                  onMouseLeave={() => {
+                    dispatch(hideMore(nIncreament));
+                  }}
+                >
+                  <div className="popupCloseButton" title="Delete"></div>
+                  <div style={{ display: "none" }} className="mw_status">
+                    <ul>
+                      <li>
+                        <span id="spnEventStatus"></span>
+                      </li>
+                      <li>
+                        <span id="spnMarketStatus"></span>
+                      </li>
+                    </ul>
+                    <div className="status_pop">
                       <span
-                        className="pt_sprd"
-                        id="spnltp"
-                        title="LTP"
-                        style={{ color: "#00bb7e" }}
-                      >
-                        88.5100
-                      </span>
-                      <span className="pt_sprd" id="ltpDifference">
-                        0.05
-                      </span>
-                      <span className="pt_sprd" id="ltpPercent">
-                        0.06%
-                      </span>
+                        className="pre_game"
+                        id="spnEventStateTooltip"
+                      ></span>
+                      <span className="open" id="spnMarketStateTooltip"></span>
                     </div>
                   </div>
-                  <span
-                    style={{ display: "none" }}
-                    className="mw_hold"
-                    id="spnPositionTakenLeftV"
-                  ></span>
-                </div>
 
-                <div id="divRightV" className="mw_team2">
-                  <span
-                    className="vertical-text"
-                    id="spnEventStateTooltip"
-                    title="Exchange"
-                  >
-                    {symbolInfo.exch}
-                  </span>
+                  <div id="divLeftV" className="container_mw mw_team1">
+                    {/* <div className="overlay_mw">
+                      <button
+                        className="btn_mw_overlay_2 btn_buy"
+                        title="Depth"
+                        onClick={() => onDepthClick(nIncreament, symbolInfo)}
+                      >
+                        D
+                      </button>
+                      <button
+                        className="btn_mw_overlay_2 btn_buy"
+                        title="Delete"
+                        onClick={() => RemoveSymbol(symbolInfo)}
+                      >
+                        Del
+                      </button>
+                      <button
+                        className="btn_mw_overlay_2 btn_buy"
+                        title="Chart(C )"
+                        onClick={onChartClick}
+                      >
+                        C
+                      </button>
+                      <button
+                        className="btn_mw_overlay_2 btn_buy"
+                        title="BUY"
+                        onClick={() => onBuyOrderEntryClick(symbolInfo)}
+                      >
+                        B
+                      </button>
+                      <button
+                        className="btn_mw_overlay_3 btn_sell"
+                        title="SELL"
+                        onClick={() => onSellOrderEntryClick(symbolInfo)}
+                      >
+                        S
+                      </button>
+                      <button
+                        className="btn_mw_overlay_3 btn_detail"
+                        title="More"
+                        onClick={() => {
+                          symbolInfo.showMore
+                            ? dispatch(hideMore(nIncreament))
+                            : dispatch(showMore(nIncreament));
+                        }}
+                      ></button>
+                    </div>
+
+                    {symbolInfo.showMore && (
+                      <input
+                        type="button"
+                        value="Create GTT"
+                        onClick={() => onCreateGTTOrderClick(symbolInfo)}
+                      />
+                    )} */}
+
+                    <tr className="slideInDown-element">
+                      <td>
+                        <img src="images/hdfc-logo.jpg" width="35" />
+                        <span> {symbolInfo.sym}</span>
+                      </td>
+                      <td className="price-box">
+                        <div className="lprice">Rs. 1503.45</div>
+                        <p className="text-green">+2.03 (+1.04%)</p>
+                      </td>
+                    </tr>
+
+                    <span
+                      style={{ display: "none" }}
+                      className="mw_hold"
+                      id="spnPositionTakenLeftV"
+                    ></span>
+                  </div>
+                  {/* 
+                  <div id="divRightV" className="mw_team2">
+                    <span
+                      className="vertical-text"
+                      id="spnEventStateTooltip"
+                      title="Exchange"
+                    >
+                      {symbolInfo.exch}
+                    </span>
+                  </div> */}
                 </div>
-              </div>
-              {symbolInfo.showDepth &&
-              symbolInfo.marketDepth != null &&
-              symbolInfo.marketDepth != undefined ? (
-                <Collapse in={symbolInfo.showDepth}>
-                  <MarketDepth
-                    index={nIncreament}
-                    depth={symbolInfo.marketDepth}
-                    tokenInfo={symbolInfo}
-                  ></MarketDepth>
-                </Collapse>
-              ) : (
-                ""
-              )}
-              {/* {activeItem && activeIndex == nIncreament + 1
+                {symbolInfo.showDepth &&
+                symbolInfo.marketDepth != null &&
+                symbolInfo.marketDepth != undefined ? (
+                  <Collapse in={symbolInfo.showDepth}>
+                    <MarketDepth
+                      index={nIncreament}
+                      depth={symbolInfo.marketDepth}
+                      tokenInfo={symbolInfo}
+                    ></MarketDepth>
+                  </Collapse>
+                ) : (
+                  ""
+                )}
+                {/* {activeItem && activeIndex == nIncreament + 1
                 ? onDepthClick1(nIncreament + 1)
                 : ""} */}
-            </div>
+              </div>
+            )
           )
-        )
-      ) : (
-        <div>No Data 2</div>
-      )}
-    </div>
+        ) : (
+          <div>No Data 2</div>
+        )}
+      </tbody>
+    </table>
   );
 };
 

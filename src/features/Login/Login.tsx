@@ -14,6 +14,7 @@ import {
 import MPIN from "./MPIN";
 import md5 from "md5";
 import { isMobile } from "react-device-detect";
+import "./Login.css";
 // import "../Home/style1.css";
 
 interface ILoginInput {

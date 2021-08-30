@@ -44,7 +44,7 @@ const Header = () => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="#">
+      <a className="navbar-brand" href="/Home">
         <img src="images/logo.png" alt="logo" />
       </a>
       <button

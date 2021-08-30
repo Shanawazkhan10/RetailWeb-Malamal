@@ -33,9 +33,9 @@ const marketwatchSlice = createSlice({
       state.marketWatch.MarketWatchList = action.payload;
       state.marketWatch.bIsBind = true;
       state.marketWatch.nSelectedWatchList = 1;
-      // state.marketWatch.MarketWatchList.map(
-      //   (row, i) => GetWatchListSymbolDetails(i + 1, row.scrips) //DUmmy Call for actual call send token info
-      // );
+      state.marketWatch.MarketWatchList.map(
+        (row, i) => GetWatchListSymbolDetails(i + 1, row.scrips) //DUmmy Call for actual call send token info
+      );
     },
     onMarketWatchFailure: (state, action) => {
       state.marketWatch.bIsError = true;
