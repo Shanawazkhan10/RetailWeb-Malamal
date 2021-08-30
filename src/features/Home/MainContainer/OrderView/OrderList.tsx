@@ -1,11 +1,11 @@
-import "../../style.css";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../store/store";
-import { useAppDispatch } from "../../../../app/hooks";
 import { getOrderData } from "../../../../app/api";
-import { OrderViewSuccess } from "./OrderViewSlice";
+import { useAppDispatch } from "../../../../app/hooks";
+import { RootState } from "../../../../store/store";
+import "../../style.css";
 import OrderView from "./Order";
+import { OrderViewSuccess } from "./OrderViewSlice";
 
 const OrderList = () => {
   const OrderList = useSelector((state: RootState) => state.OrderView);

@@ -4,9 +4,7 @@ import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
 import "../../style.css";
-import MarketDepth from "./MarketDepth";
 import MarketWatchItem from "./MarketWatchItem";
-import SingleLayout from "./MarketWatchItem";
 
 const MarketWatchListContainer = (props: any) => {
   //const [Flag, setFlag] = props;

@@ -1,15 +1,10 @@
 import axios from "axios";
 import { URLSearchParams } from "url";
-import { UpdateSymbolDetails } from "../features/Home/MainContainer/MarketWatch/MarketWatchSlice";
-import { loggedInSuccess } from "../features/Login/userSlice";
-import { ILogin } from "../types/ILogin";
 import { IContractSearchReq } from "../types/IContractSearchReq";
 import { IMarketWatchTokenInfo } from "../types/IMarketWatchTokenInfo";
 import { IRemoveFromWatch } from "../types/IRemoveFromWatch";
 import { IRenameWatchlist } from "../types/IRenameWatchlist";
-import { ISubscribeDepth } from "../types/ISubscribeDepth";
 import { IOrderEntryRequest } from "../types/Request/IOrderEntryRequest";
-import { useAppDispatch } from "./hooks";
 import { IDeleteWatchlist } from "./IDeleteWatchlist";
 //import parseLink, { Links } from 'parse-link-header';
 
@@ -1100,25 +1095,62 @@ export const SubscribeMarketDepth: any = (id: number, index: number) => {
 //   return null;
 // }
 
-export async function RemoveTokenfromWatchlist(data: IRemoveFromWatch) {
-  //const url = `https://api.github.com/repos/${org}/${repo}/issues/${number}`
-  //const { data } = await axios.get<Issue>(url)
-  //return data
-  return null;
+export async function updateWatchlist(
+  renameReq: IRenameWatchlist
+): Promise<any> {
+  return await api
+
+    .post(
+      "https://uathsauth.hypertrade.in/api/mpinlogin",
+      JSON.stringify(renameReq),
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+      }
+    )
+
+    .then((response) => response.data)
+
+    .catch((error) => error);
 }
 
-export async function RenameWatchlist(data: IRenameWatchlist) {
-  //const url = `https://api.github.com/repos/${org}/${repo}/issues/${number}`
-  //const { data } = await axios.get<Issue>(url)
-  //return data
-  return null;
+export async function renameWatchlist(
+  renameReq: IRenameWatchlist
+): Promise<any> {
+  return await api
+
+    .post(
+      "https://uathsauth.hypertrade.in/api/mpinlogin",
+      JSON.stringify(renameReq),
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+      }
+    )
+
+    .then((response) => response.data)
+
+    .catch((error) => error);
 }
 
-export async function DeleteWatchlist(data: IDeleteWatchlist) {
-  //const url = `https://api.github.com/repos/${org}/${repo}/issues/${number}`
-  //const { data } = await axios.get<Issue>(url)
-  //return data
-  return null;
+export async function DeleteWatchlist(DelReq: IDeleteWatchlist): Promise<any> {
+  return await api
+
+    .post(
+      "https://uathsauth.hypertrade.in/api/mpinlogin",
+      JSON.stringify(DelReq),
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+      }
+    )
+
+    .then((response) => response.data)
+
+    .catch((error) => error);
 }
 
 export async function PredifinedWatchlist() {

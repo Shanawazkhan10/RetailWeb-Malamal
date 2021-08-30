@@ -1,19 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {
-  api,
-  GetWatchListSymbolDetails,
-  PostScritInfo,
-} from "../../../../app/api";
+import { PostScritInfo, renameWatchlist } from "../../../../app/api";
+import { AppThunk } from "../../../../store/store";
 import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { IMarketDepth } from "../../../../types/IMarketDepth";
-import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchList } from "../../../../types/IMarketWatchList";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
-import { scriptInfoReq } from "./MarketWatchItem";
-import { AppThunk } from "../../../../store/store";
-import { Dispatch } from "redux";
+import { IDeleteWatchlist } from "./../../../../app/IDeleteWatchlist";
+import { IRenameWatchlist } from "./../../../../types/IRenameWatchlist";
 
 const InitialMarketWatch: IMarketWatchList = {
   MarketWatchList: [],
@@ -143,6 +138,39 @@ export const FetchWatchListSymbol =
     try {
       const scriptInfoResponse = await PostScritInfo(scriptInfoReq);
       dispatch(UpdateSymbolDetails(scriptInfoResponse));
+    } catch (err) {
+      dispatch(onMarketWatchFailure(err.toString()));
+    }
+  };
+
+export const DeleteWatchlist =
+  (DelReq: IDeleteWatchlist): AppThunk =>
+  async (dispatch) => {
+    try {
+      const deleteWatchlistResponse = await DeleteWatchlist(DelReq);
+      dispatch(DeleteWatchList(deleteWatchlistResponse));
+    } catch (err) {
+      dispatch(onMarketWatchFailure(err.toString()));
+    }
+  };
+
+export const RenameWatchlist =
+  (RenameReq: IRenameWatchlist): AppThunk =>
+  async (dispatch) => {
+    try {
+      const renameWatchlistResponse = await renameWatchlist(RenameReq);
+      dispatch(RenameWatchList(renameWatchlistResponse));
+    } catch (err) {
+      dispatch(onMarketWatchFailure(err.toString()));
+    }
+  };
+
+export const UpdateWatchlist =
+  (RenameReq: IRenameWatchlist): AppThunk =>
+  async (dispatch) => {
+    try {
+      const renameWatchlistResponse = await updateWatchlist(RenameReq);
+      dispatch(RenameWatchList(renameWatchlistResponse));
     } catch (err) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
