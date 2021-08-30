@@ -10,6 +10,7 @@ import { IMarketWatchTokenInfo } from "../types/IMarketWatchTokenInfo";
 import { IRemoveFromWatch } from "../types/IRemoveFromWatch";
 import { IRenameWatchlist } from "../types/IRenameWatchlist";
 import { IOrderEntryRequest } from "../types/Request/IOrderEntryRequest";
+import { IUpdateWatchlist } from "../types/WatchList/IUpdateWatchList";
 import { IDeleteWatchlist } from "./IDeleteWatchlist";
 //import parseLink, { Links } from 'parse-link-header';
 
@@ -1101,13 +1102,13 @@ export const SubscribeMarketDepth: any = (id: number, index: number) => {
 // }
 
 export async function updateWatchlist(
-  renameReq: IRenameWatchlist
+  UpdateReq: IUpdateWatchlist
 ): Promise<any> {
   return await api
 
     .post(
       "https://uathsauth.hypertrade.in/api/mpinlogin",
-      JSON.stringify(renameReq),
+      JSON.stringify(UpdateReq),
       {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",

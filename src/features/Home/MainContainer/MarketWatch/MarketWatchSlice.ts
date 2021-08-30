@@ -1,5 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { PostScritInfo, renameWatchlist } from "../../../../app/api";
+import {
+  PostScritInfo,
+  renameWatchlist,
+  updateWatchlist,
+} from "../../../../app/api";
 import { AppThunk } from "../../../../store/store";
 import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
 import { IDepthReq } from "../../../../types/IDepthReq";
@@ -7,6 +11,7 @@ import { IMarketDepth } from "../../../../types/IMarketDepth";
 import { IMarketWatchList } from "../../../../types/IMarketWatchList";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
+import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 import { IDeleteWatchlist } from "./../../../../app/IDeleteWatchlist";
 import { IRenameWatchlist } from "./../../../../types/IRenameWatchlist";
 
@@ -47,6 +52,7 @@ const marketwatchSlice = createSlice({
         state.marketWatch.MarketWatchList.filter(
           (row) => row.id != action.payload
         );
+      state.marketWatch.nSelectedWatchList = 1;
     },
     AddToWatchList: (state, action) => {
       state.marketWatch.MarketWatchList[
@@ -166,11 +172,11 @@ export const RenameWatchlist =
   };
 
 export const UpdateWatchlist =
-  (RenameReq: IRenameWatchlist): AppThunk =>
+  (UpdateReq: IUpdateWatchlist): AppThunk =>
   async (dispatch) => {
     try {
-      const renameWatchlistResponse = await updateWatchlist(RenameReq);
-      dispatch(RenameWatchList(renameWatchlistResponse));
+      const renameWatchlistResponse = await updateWatchlist(UpdateReq);
+      //dispatch(RenameWatchList(renameWatchlistResponse));
     } catch (err) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
