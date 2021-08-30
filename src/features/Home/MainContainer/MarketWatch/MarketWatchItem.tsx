@@ -167,6 +167,7 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
       // UnsubscribeMarketDepth(SubscribeDepth);
     }
   }
+
   function getSymbol() {
     //API call to bind Token info (Scrip Info Request)
     // var scrpitArray:string[]=propMarketWatch.scrips.split(",");
@@ -179,6 +180,7 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
         GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
       )
     );
+    //dispatch(FetchWatchListSymbol(propMarketWatch.scrips.split(",")));
   }
 
   function onCreateGTTOrderClick(symbolInfo: IMarketWatchTokenInfo) {

@@ -15,8 +15,8 @@ import MarketPicture from "./MainContainer/MarketPicture/MarketPicture";
 
 const Home = () => {
   const orderEntryState = useAppSelector((state) => state.orderEntry);
-  const marketPictureState = useAppSelector((state) => state.marketpicture);
   const gttEntryState = useAppSelector((state) => state.gttEntry);
+  const marketPictureState = useAppSelector((state) => state.marketpicture);
   return (
     <div id="MasterSearchDiv">
       <div id="wrapper">

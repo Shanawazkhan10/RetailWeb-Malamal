@@ -15,10 +15,10 @@ import PersonalDetailsSlice from "../features/Home/PersonalDetails/PersonalDetai
 import AccountSummaryDetailsSlice from "../features/Home/Account/AccountSummaryDetailsSlice";
 import IPODetailsSlice from "../features/Home/IPO/IPODetailsSlice";
 import gttEntrySlice from "../features/Home/GTTOrderEntry/gttEntrySlice";
-
+import WebSocketSlice from "../features/WebSocket/WebSocketSlice";
 import SmartSearchSlice from "../features/Home/MainContainer/SmartSearch/SmartSearchSlice";
 import MarketPictureSlice from "../features/Home/MainContainer/MarketPicture/MarketPictureSlice";
-import WebSocketSlice from "../features/WebSocket/WebSocketSlice";
+
 const store = configureStore({
   reducer: {
     user: userReducer,
@@ -51,6 +51,6 @@ export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
 
-export default store;
-
 export type AppThunk = ThunkAction<void, RootState, null, Action<string>>;
+
+export default store;
