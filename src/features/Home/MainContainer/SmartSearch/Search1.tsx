@@ -51,8 +51,8 @@ const Search1 = () => {
     }
     //API Call
     const ContractSearchReq: IContractSearchReq = {
-      limit: 10,
-      searchType: "all",
+      //limit: 10,
+      search_type: "all",
       keyword: val,
       allowed_exchange: [
         "nse_cm",
