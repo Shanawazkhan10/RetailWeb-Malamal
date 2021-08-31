@@ -1,26 +1,22 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   getWatchList,
-  GetWatchListSymbolDetails,
   PostScritInfo,
   renameWatchlist,
   updateWatchlist,
 } from "../../../../app/api";
-import { AppThunk, RootState } from "../../../../store/store";
+import { AppThunk } from "../../../../store/store";
 import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { IMarketDepth } from "../../../../types/IMarketDepth";
+import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchList } from "../../../../types/IMarketWatchList";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
+import { IScriptUpdate } from "../../../../types/MarketData/IScriptUpdate";
 import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 import { IDeleteWatchlist } from "./../../../../app/IDeleteWatchlist";
 import { IRenameWatchlist } from "./../../../../types/IRenameWatchlist";
-import { useSelector } from "react-redux";
-import store from "./../../../../store/store";
-import { stat } from "fs";
-import { IScriptUpdate } from "../../../../types/MarketData/IScriptUpdate";
-import { IMarketWatch } from "../../../../types/IMarketWatch";
 
 const InitialMarketWatch: IMarketWatchList = {
   MarketWatchList: [],
