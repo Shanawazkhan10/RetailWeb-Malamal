@@ -1140,7 +1140,7 @@ export async function updateWatchlist(
     .catch((error) => error);
 }
 
-export async function renameWatchlist(
+export async function RenameWatchlist(
   renameReq: IRenameWatchlist
 ): Promise<any> {
   return await api
@@ -1305,15 +1305,14 @@ export async function sendOrderEntryRequest(
 ): Promise<any> {
   const params = new URLSearchParams();
   params.append("jData", JSON.stringify(orderentryrequest.jData));
-  params.append("jKey", orderentryrequest.jKey); 
+  params.append("jKey", orderentryrequest.jKey);
 
   return await api
-    .post("https://uathsint.hypertrade.in/quick/order/place",params,    
-    {
+    .post("https://uathsint.hypertrade.in/quick/order/place", params, {
       headers: {
         "x-access-token": orderentryrequest.jKey,
         "Content-Type": "application/x-www-form-urlencoded",
-      }            
+      },
     })
     .then((response) => response.data)
     .catch((error) => {
