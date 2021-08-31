@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { api } from "../../../../app/api";
 import { NetpositionSummary } from "../../../../types/INetpositionSummary";
 
@@ -35,23 +35,9 @@ const netposition = createSlice({
   },
   reducers: {
     NetpositionSuccess: (state, action) => {
-      //NetpositionSuccess(state, { payload }: PayloadAction<Netposition>) {
-      //: PayloadAction<Netposition>) {
-      // state.isLoading = false;
-      //state.error = null;
-      //state.NetpositionList?.push(payload);
-      //state.netposition.push(payload);
-      state.netposition = action.payload;
+      state.netposition = action.payload.data;
     },
     NetpositionUpdate(state, action) {
-      // let data = [...state.netposition.NetPosition];
-      // let index = data.find(
-      //   (netposition) => netposition.Token === action.payload
-      // );
-      // if (index > -1) {
-      //   data[index] = action.payload;
-      //   return { ...state, DataArray: data };
-      // } else return state;
       state.netposition.NetPosition = state.netposition.NetPosition.map((el) =>
         el.Token == action.payload.Token ? action.payload : el
       );

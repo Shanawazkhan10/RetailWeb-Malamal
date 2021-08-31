@@ -1,55 +1,48 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { IMarketWatch } from "../../../../types/IMarketWatch";
+import React, { useEffect } from "react";
+import { Collapse } from "reactstrap";
+import { GetSymbolDetails, SubscribeMarketDepth } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { IDepthReq } from "../../../../types/IDepthReq";
+import { IGTTEntryProps } from "../../../../types/OrderEntry/IGTTEntryProps";
+import { IMarketWatch } from "../../../../types/IMarketWatch";
+import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
+import { IOrderEntryProps } from "../../../../types/OrderEntry/IOrderEntryProps";
+import {
+  openGTTEntry,
+  setGTTEntryProps,
+} from "../../GTTOrderEntry/gttEntrySlice";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
   setOrderEntryProps,
 } from "../../OrderEntry/orderEntrySlice";
-import {
-  openGTTEntry,
-  setGTTEntryProps,
-} from "../../GTTOrderEntry/gttEntrySlice";
 import { chartContainer } from "../mainContainerSlice";
-
-import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
-import {
-  GetSymbolDetails,
-  GetWatchListSymbolDetails,
-  RemoveTokenfromWatchlist,
-  SubscribeMarketDepth,
-} from "../../../../app/api";
-import {
-  FetchWatchListSymbol,
-  getMarketDepthSuccess,
-  RemoveSymbolFromWatchlist,
-  ShowMarketDepth,
-  UpdateSymbolDetails,
-  hideMore,
-  showMore,
-} from "./MarketWatchSlice";
-import MarketDepth from "./MarketDepth";
-
-import { Collapse, Button, CardBody, Card } from "reactstrap";
-import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
-import { IDepthReq } from "../../../../types/IDepthReq";
-import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
-import { IOrderEntryProps } from "../../../../types/OrderEntry/IOrderEntryProps";
-import { IGTTEntryProps } from "../../../../types/OrderEntry/IGTTEntryProps";
 import {
   updateMarketDepth,
   UpdateTokenInfo,
 } from "../MarketPicture/MarketPictureSlice";
+import MarketDepth from "./MarketDepth";
+import {
+  FetchWatchListSymbol,
+  getMarketDepthSuccess,
+  hideMore,
+  setSymbollistindex,
+  ShowMarketDepth,
+  showMore,
+} from "./MarketWatchSlice";
 
 export interface scriptInfoReq {
   scripArr: string[];
 }
-const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
+const MarketWatchItem = (props: {
+  propMarketWatch: IMarketWatch;
+  index: number;
+}) => {
   const marketWatchState = useAppSelector(
     (state) => state.marketwatch.marketWatch
   );
   const OrderEntryState = useAppSelector((state) => state.orderEntry);
+  const user = useAppSelector((state) => state.user); 
   const [activeItem, setActiveItem] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [depth, setDepth] = React.useState(null);
@@ -58,6 +51,7 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
   const options = ["one", "two", "three"];
 
   useEffect(() => {
+    //dispatch(setSymbollistindex(props.index));
     getSymbol();
     console.log(" MarketWatchItem useEffect");
   }, []);
@@ -154,7 +148,7 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
       //   channelnum: propMarketWatch.id,
       // };
       dispatch(
-        getMarketDepthSuccess(SubscribeMarketDepth(propMarketWatch.id, index))
+        getMarketDepthSuccess(SubscribeMarketDepth(propMarketWatch.id, index,user.sessionKey))
       );
     } else {
       //Unsubscribe Depth API Call
@@ -174,13 +168,14 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
     //  const scriptInfoReq:scriptInfoReq {
     //   scripArr:scrpitArray
     // }
-    //dispatch(FetchWatchListSymbol(propMarketWatch.scrips.split(",")));
     dispatch(
-      UpdateSymbolDetails(
-        GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
-      )
+      FetchWatchListSymbol(propMarketWatch.scrips.split(","), props.index,user.sessionKey)
     );
-    //dispatch(FetchWatchListSymbol(propMarketWatch.scrips.split(",")));
+    // dispatch(
+    //   UpdateSymbolDetails(
+    //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
+    //   )
+    // );
   }
 
   function onCreateGTTOrderClick(symbolInfo: IMarketWatchTokenInfo) {

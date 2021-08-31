@@ -6,4 +6,5 @@ export interface IMarketWatchList {
   sSelectedWatchList: string;
   bIsBind: boolean;
   bIsError: boolean;
+  Symbollistindex: number;
 }

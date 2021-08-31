@@ -6,7 +6,6 @@ import { useAppDispatch } from "../../../../app/hooks";
 const HoldingView = (props: { holding: IHolding }) => {
   const { holding } = props;
   const dispatch = useAppDispatch();
-  //const dispatch = useAppDispatch();
 
   return (
     <tr>

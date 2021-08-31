@@ -3,9 +3,8 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
 import { useAppDispatch } from "../../../../app/hooks";
-import { TradeViewSuccess } from "./TradeVIewSlice";
+import { fetchTradeView, TradeViewSuccess } from "./TradeVIewSlice";
 import { getOrderData } from "../../../../app/api";
-import tradeView from "./Trade";
 import TradeView from "./Trade";
 
 const TradeList = () => {
@@ -13,10 +12,11 @@ const TradeList = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(TradeViewSuccess(getOrderData()));
+    //dispatch(TradeViewSuccess(getOrderData()));
+    dispatch(fetchTradeView());
   }, []);
 
-  return (
+  return TradeList && TradeList.TradeViewData.length > 0 ? (
     <div className="block_netPosition mr14" id="TradeView">
       <div className="block_head">
         <h1>Trades :</h1>
@@ -111,6 +111,8 @@ const TradeList = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <div>Empty...</div>
   );
 };
 

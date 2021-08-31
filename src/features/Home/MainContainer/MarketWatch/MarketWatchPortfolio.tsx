@@ -1,23 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { getWatchList } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
-import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IWatchListProps } from "../../../../types/IWatchListProps";
 import "../../style.css";
-import {
-  ChangeWatchList,
-  fetchmarketWatch,
-  onMarketWatchSuccess,
-} from "./MarketWatchSlice";
-import { useAppSelector } from "../../../../app/hooks";
+import { ChangeWatchList } from "./MarketWatchSlice";
 
 const MarketWatchPortfolio = (props: IWatchListProps) => {
-  //const [appState, changeState] = useState(0);
   const dispatch = useAppDispatch();
-  //const [Flag, setFlag] = props;
   let WatchListData: any[];
   let selectedList: number;
   const WatchList = useSelector((state: RootState) => state.marketwatch);
@@ -28,9 +19,8 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
   // const userState = useAppSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(fetchmarketWatch(false,userState.sessionKey));
+   // dispatch(FetchWatchList());
     console.log("getMarketWatchSuccess useEffect");
-    //}
   }, []);
 
   const handleChange = (event: any) => {
