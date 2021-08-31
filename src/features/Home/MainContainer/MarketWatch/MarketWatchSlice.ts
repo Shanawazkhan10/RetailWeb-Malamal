@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   getWatchList,
+  GetWatchListSymbolDetails,
   PostScritInfo,
   renameWatchlist,
   updateWatchlist,
@@ -22,6 +23,7 @@ const InitialMarketWatch: IMarketWatchList = {
   sSelectedWatchList: "",
   bIsBind: false,
   bIsError: false,
+  Symbollistindex: 0,
 };
 
 const marketwatchSlice = createSlice({
@@ -33,9 +35,11 @@ const marketwatchSlice = createSlice({
     onMarketWatchSuccess: (state, action) => {
       state.marketWatch.MarketWatchList = action.payload.data;
       state.marketWatch.bIsBind = true;
-      state.marketWatch.nSelectedWatchList = 1;
+      state.marketWatch.nSelectedWatchList = 0;
+      state.marketWatch.Symbollistindex = 0;
       state.marketWatch.MarketWatchList.map(
-        (row, i) => GetWatchListSymbolDetails(i + 1, row.scrips) //DUmmy Call for actual call send token info
+        //(row, i) => GetWatchListSymbolDetails(i + 1, row.scrips) //DUmmy Call for actual call send token info
+        (row, i) => (row.id = i)
       );
     },
     onMarketWatchFailure: (state, action) => {
@@ -69,7 +73,9 @@ const marketwatchSlice = createSlice({
     UpdateSymbolDetails: (state, action) => {
       let TokenInfo: IMarketWatchTokenInfo[] = action.payload.data;
       if (TokenInfo != undefined)
-        state.marketWatch.MarketWatchList[0].SymbolList = TokenInfo;
+        state.marketWatch.MarketWatchList[
+          state.marketWatch.Symbollistindex
+        ].SymbolList = TokenInfo;
       // state.marketWatch.MarketWatchList[2].SymbolList = TokenInfo;
       // state.marketWatch.MarketWatchList[3].SymbolList = TokenInfo;
       // state.marketWatch.MarketWatchList[4].SymbolList = TokenInfo;
@@ -97,17 +103,20 @@ const marketwatchSlice = createSlice({
     },
     showMore: (state, action: PayloadAction<number>) => {
       state.marketWatch.MarketWatchList[
-        state.marketWatch.nSelectedWatchList - 1
+        state.marketWatch.nSelectedWatchList
       ].SymbolList[action.payload].showMore = true; //Temp Watchlist Id -1 need to change
     },
     hideMore: (state, action: PayloadAction<number>) => {
       state.marketWatch.MarketWatchList[
-        state.marketWatch.nSelectedWatchList - 1
+        state.marketWatch.nSelectedWatchList
       ].SymbolList[action.payload].showMore = false; //Temp Watchlist Id -1 need to change
     },
     AddToWatchlistFromSearch(state, action: PayloadAction<IRemoveFromWatch>) {
       state.marketWatch.MarketWatchList[action.payload.id].scrips =
         action.payload.scrips;
+    },
+    setSymbollistindex: (state, action) => {
+      state.marketWatch.Symbollistindex = action.payload;
     },
   },
 });
@@ -126,6 +135,7 @@ export const {
   onMarketWatchFailure,
   hideMore,
   showMore,
+  setSymbollistindex,
 } = marketwatchSlice.actions;
 
 export const FetchWatchList = (): AppThunk => async (dispatch) => {
@@ -138,10 +148,11 @@ export const FetchWatchList = (): AppThunk => async (dispatch) => {
 };
 
 export const FetchWatchListSymbol =
-  (scriptInfoReq: string[]): AppThunk =>
+  (scriptInfoReq: string[], index: number): AppThunk =>
   async (dispatch) => {
     try {
       const scriptInfoResponse = await PostScritInfo(scriptInfoReq);
+      dispatch(setSymbollistindex(index));
       dispatch(UpdateSymbolDetails(scriptInfoResponse));
     } catch (err) {
       dispatch(onMarketWatchFailure(err.toString()));

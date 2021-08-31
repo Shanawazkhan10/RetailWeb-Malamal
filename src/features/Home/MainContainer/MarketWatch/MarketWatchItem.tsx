@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import { Collapse } from "reactstrap";
-import {
-  GetSymbolDetails,
-  GetWatchListSymbolDetails,
-  SubscribeMarketDepth,
-} from "../../../../app/api";
+import { GetSymbolDetails, SubscribeMarketDepth } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { IGTTEntryProps } from "../../../../types/IGTTEntryProps";
@@ -30,6 +26,7 @@ import {
   FetchWatchListSymbol,
   getMarketDepthSuccess,
   hideMore,
+  setSymbollistindex,
   ShowMarketDepth,
   showMore,
   UpdateSymbolDetails,
@@ -38,7 +35,10 @@ import {
 export interface scriptInfoReq {
   scripArr: string[];
 }
-const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
+const MarketWatchItem = (props: {
+  propMarketWatch: IMarketWatch;
+  index: number;
+}) => {
   const marketWatchState = useAppSelector(
     (state) => state.marketwatch.marketWatch
   );
@@ -51,6 +51,7 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
   const options = ["one", "two", "three"];
 
   useEffect(() => {
+    //dispatch(setSymbollistindex(props.index));
     getSymbol();
     console.log(" MarketWatchItem useEffect");
   }, []);
@@ -166,12 +167,14 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
     //  const scriptInfoReq:scriptInfoReq {
     //   scripArr:scrpitArray
     // }
-    dispatch(FetchWatchListSymbol(propMarketWatch.scrips.split(",")));
     dispatch(
-      UpdateSymbolDetails(
-        GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
-      )
+      FetchWatchListSymbol(propMarketWatch.scrips.split(","), props.index)
     );
+    // dispatch(
+    //   UpdateSymbolDetails(
+    //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
+    //   )
+    // );
   }
 
   function onCreateGTTOrderClick(symbolInfo: IMarketWatchTokenInfo) {

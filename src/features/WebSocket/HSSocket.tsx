@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useAppDispatch } from "../../app/hooks";
-import { IMarketDepth } from "../../types/IMarketDepth";
 import { IIndices } from "../../types/MarketData/IIndices";
 import { IScriptUpdate } from "../../types/MarketData/IScriptUpdate";
 import { DepthUpdate, IndicesUpdate, ScriptUpdate } from "./WebSocketSlice";
+import { IMarketDepth } from "./../../types/IMarketDepth";
 
 export interface authReq {
   sessionid: string;
@@ -63,13 +63,13 @@ const HSSocket = () => {
       displayMessage("[Socket]: Error !\n");
     };
 
-    userWS.onmessage = function (msg: any) {
-      if (msg as IMarketDepth) {
-        dispatch(DepthUpdate(msg));
-      } else if (msg as IScriptUpdate) {
-        dispatch(ScriptUpdate(msg));
-      } else if (msg as IIndices) {
-        dispatch(IndicesUpdate(msg));
+    userWS.onmessage = function (msg: IMarketDepth | IScriptUpdate | IIndices) {
+      if (msg.name && msg.name == "dp") {
+        dispatch(DepthUpdate(msg as IMarketDepth));
+      } else if (msg.name && msg.name == "sf") {
+        dispatch(ScriptUpdate(msg as IScriptUpdate));
+      } else if (msg.name && msg.name == "if") {
+        dispatch(IndicesUpdate(msg as IIndices));
       } else {
         console.log(displayMessage("[Res]: " + msg + "\n"));
       }
@@ -149,13 +149,13 @@ const HSSocket = () => {
     return () => {
       document.body.removeChild(script);
     };
-    init();
-    connect();
-    auth();
+    // init();
+    // connect();
+    // auth();
   }, []);
   return (
     <div>
-      {/* <button
+      <button
         className="btn_mw_overlay_2 btn_buy"
         title="Chart(C )"
         onClick={() => connect()}
@@ -176,7 +176,7 @@ const HSSocket = () => {
         onClick={() => subscribe()}
       >
         subscribe
-      </button> */}
+      </button>
     </div>
   );
 };

@@ -24,8 +24,8 @@ const MarketWatchListContainer = (props: any) => {
         <div
           className="mw_content"
           key={i}
-          id={String(i + 1)}
-          style={selectedList == i + 1 ? {} : { display: "none" }}
+          id={String(i)}
+          style={selectedList == i ? {} : { display: "none" }}
         >
           <MarketWatchItem key={row.id} propMarketWatch={row}></MarketWatchItem>
         </div>

@@ -1,6 +1,6 @@
 import React from "react";
-import { useAppDispatch } from "../../../../app/hooks";
 import { INetPosition } from "../../../../types/INetposition";
+import "../../style.css";
 
 const NetPositionV = (props: { netposition: INetPosition }) => {
   const { netposition } = props;

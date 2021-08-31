@@ -1,6 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { api, getNetposition } from "../../../../app/api";
-import { AppThunk } from "../../../../store/store";
+import { createSlice } from "@reduxjs/toolkit";
+import { api } from "../../../../app/api";
 import { NetpositionSummary } from "../../../../types/INetpositionSummary";
 
 // interface NetpositionState {
@@ -36,27 +35,26 @@ const netposition = createSlice({
   },
   reducers: {
     NetpositionSuccess: (state, action) => {
-      state.netposition = action.payload;
+      state.netposition = action.payload.data;
     },
     NetpositionUpdate(state, action) {
       state.netposition.NetPosition = state.netposition.NetPosition.map((el) =>
         el.Token == action.payload.Token ? action.payload : el
       );
     },
-    NetpositionError(state, action) {},
   },
 });
 
 export default netposition.reducer;
 
-export const { NetpositionSuccess, NetpositionUpdate, NetpositionError } =
-  netposition.actions;
+export const { NetpositionSuccess, NetpositionUpdate } = netposition.actions;
 
-export const fetchNetposition = (): AppThunk => async (dispatch) => {
+export const fetchNetposition = () => async (dispatch: any) => {
   try {
-    const positionResponse = await getNetposition();
-    dispatch(NetpositionSuccess(positionResponse));
-  } catch (err) {
-    dispatch(NetpositionError(err.toString()));
+    await api
+      .get<NetpositionSummary[]>("/users")
+      .then((response) => dispatch(NetpositionSuccess(response.data)));
+  } catch (e) {
+    return console.error(e.message);
   }
 };
