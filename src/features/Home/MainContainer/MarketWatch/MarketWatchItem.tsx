@@ -3,10 +3,10 @@ import { Collapse } from "reactstrap";
 import { GetSymbolDetails, SubscribeMarketDepth } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IDepthReq } from "../../../../types/IDepthReq";
-
 import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
-
+import { IGTTEntryProps } from "../../../../types/OrderEntry/IGTTEntryProps";
+import { IOrderEntryProps } from "../../../../types/OrderEntry/IOrderEntryProps";
 import { FetchSocketData } from "../../../WebSocket/WebSocketSlice";
 import {
   openGTTEntry,
@@ -31,10 +31,6 @@ import {
   showMore,
 } from "./MarketWatchSlice";
 
-import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
-
-import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
-
 export interface scriptInfoReq {
   scripArr: string[];
 }
@@ -46,6 +42,7 @@ const MarketWatchItem = (props: {
     (state) => state.marketwatch.marketWatch
   );
   const OrderEntryState = useAppSelector((state) => state.orderEntry);
+  const userState = useAppSelector((state) => state.user);
   // const ScriptUpdate = useAppSelector(
   //   (state) => state.socketData.socketdata.Script
   // );
@@ -173,19 +170,13 @@ const MarketWatchItem = (props: {
   }
 
   function getSymbol() {
-    //API call to bind Token info (Scrip Info Request)
-    // var scrpitArray:string[]=propMarketWatch.scrips.split(",");
-    //  const scriptInfoReq:scriptInfoReq {
-    //   scripArr:scrpitArray
-    // }
     dispatch(
-      FetchWatchListSymbol(propMarketWatch.scrips.split(","), props.index)
+      FetchWatchListSymbol(
+        propMarketWatch.scrips.split(","),
+        userState.sessionKey,
+        props.index
+      )
     );
-    // dispatch(
-    //   UpdateSymbolDetails(
-    //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
-    //   )
-    // );
   }
 
   function onCreateGTTOrderClick(symbolInfo: IMarketWatchTokenInfo) {

@@ -1,10 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   api,
+  deleteWatchList,
   getWatchList,
   GetWatchListSymbolDetails,
   PostScritInfo,
- 
+  renameWatchList,
+  updateWatchList,
 } from "../../../../app/api";
 import { AppThunk, RootState } from "../../../../store/store";
 import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
@@ -189,10 +191,10 @@ export const {
 } = marketwatchSlice.actions;
 
 export const fetchmarketWatch =
-  (cache: boolean,sessionkey:string): AppThunk =>
+  (cache: boolean, sessionkey: string): AppThunk =>
   async (dispatch) => {
     try {
-      const MarketWatchData = await getWatchList(cache,sessionkey);      
+      const MarketWatchData = await getWatchList(cache, sessionkey);
       dispatch(onMarketWatchSuccess(MarketWatchData));
     } catch (err) {
       console.log(err);
@@ -200,10 +202,10 @@ export const fetchmarketWatch =
   };
 
 export const deletemarketWatch =
-  (MarketRequestData: any,sessionkey:string): AppThunk =>
+  (MarketRequestData: any, sessionkey: string): AppThunk =>
   async (dispatch) => {
     try {
-      const MarketWatchData = await getWatchList(MarketRequestData,sessionkey);
+      const MarketWatchData = await getWatchList(MarketRequestData, sessionkey);
       dispatch(onMarketWatchSuccess(MarketWatchData));
     } catch (err) {
       //TO ADD
@@ -211,10 +213,10 @@ export const deletemarketWatch =
   };
 
 export const updatemarketWatch =
-  (MarketRequestData: any,sessionkey:string): AppThunk =>
+  (MarketRequestData: any, sessionkey: string): AppThunk =>
   async (dispatch) => {
     try {
-      const MarketWatchData = await getWatchList(MarketRequestData,sessionkey);
+      const MarketWatchData = await getWatchList(MarketRequestData, sessionkey);
       dispatch(onMarketWatchSuccess(MarketWatchData));
     } catch (err) {
       //TO ADD
@@ -222,44 +224,21 @@ export const updatemarketWatch =
   };
 
 export const renamemarketWatch =
-  (MarketRequestData: any,sessionkey:string): AppThunk =>
+  (MarketRequestData: any, sessionkey: string): AppThunk =>
   async (dispatch) => {
     try {
-      const MarketWatchData = await getWatchList(MarketRequestData,sessionkey);
+      const MarketWatchData = await getWatchList(MarketRequestData, sessionkey);
       dispatch(onMarketWatchSuccess(MarketWatchData));
     } catch (err) {
       //TO ADD
     }
   };
-// export const fetchmarketWatch = () => async (dispatch: any) => {
-//   try {
-//     await api
-//       .get<IMarketWatchList[]>("/users")
-//       .then((response) => dispatch(onMarketWatchSuccess(response.data)));
-//   } catch (e) {
-//     return console.error(e.message);
-//   }
-// };
 
 export const FetchWatchListSymbol =
-  (scriptInfoReq: string[],sessionkey:string): AppThunk =>
+  (scriptInfoReq: string[], sessionkey: string, index: number): AppThunk =>
   async (dispatch) => {
     try {
-      const scriptInfoResponse = await PostScritInfo(scriptInfoReq,sessionkey);
-export const FetchWatchList = (): AppThunk => async (dispatch) => {
-  try {
-    const watchListResponse = await getWatchList();
-    dispatch(onMarketWatchSuccess(watchListResponse));
-  } catch (err) {
-    dispatch(onMarketWatchFailure(err.toString()));
-  }
-};
-
-export const FetchWatchListSymbol =
-  (scriptInfoReq: string[], index: number): AppThunk =>
-  async (dispatch) => {
-    try {
-      const scriptInfoResponse = await PostScritInfo(scriptInfoReq);
+      const scriptInfoResponse = await PostScritInfo(scriptInfoReq, sessionkey);
       dispatch(setSymbollistindex(index));
       dispatch(UpdateSymbolDetails(scriptInfoResponse));
     } catch (err) {
@@ -268,10 +247,10 @@ export const FetchWatchListSymbol =
   };
 
 export const DeleteWatchlist =
-  (DelReq: IDeleteWatchlist): AppThunk =>
+  (DelReq: IDeleteWatchlist, sessionkey: string): AppThunk =>
   async (dispatch) => {
     try {
-      const deleteWatchlistResponse = await DeleteWatchlist(DelReq);
+      const deleteWatchlistResponse = await deleteWatchList(DelReq, sessionkey);
       dispatch(DeleteWatchList(deleteWatchlistResponse));
     } catch (err) {
       dispatch(onMarketWatchFailure(err.toString()));
@@ -279,10 +258,13 @@ export const DeleteWatchlist =
   };
 
 export const RenameWatchlist =
-  (RenameReq: IRenameWatchlist): AppThunk =>
+  (RenameReq: IRenameWatchlist, sessionkey: string): AppThunk =>
   async (dispatch) => {
     try {
-      const renameWatchlistResponse = await renameWatchlist(RenameReq);
+      const renameWatchlistResponse = await renameWatchList(
+        RenameReq,
+        sessionkey
+      );
       dispatch(RenameWatchList(renameWatchlistResponse));
     } catch (err) {
       dispatch(onMarketWatchFailure(err.toString()));
@@ -290,10 +272,13 @@ export const RenameWatchlist =
   };
 
 export const UpdateWatchlist =
-  (UpdateReq: IUpdateWatchlist): AppThunk =>
+  (UpdateReq: IUpdateWatchlist, sessionkey: string): AppThunk =>
   async (dispatch) => {
     try {
-      const renameWatchlistResponse = await updateWatchlist(UpdateReq);
+      const renameWatchlistResponse = await updateWatchList(
+        UpdateReq,
+        sessionkey
+      );
       //dispatch(RenameWatchList(renameWatchlistResponse));
     } catch (err) {
       dispatch(onMarketWatchFailure(err.toString()));

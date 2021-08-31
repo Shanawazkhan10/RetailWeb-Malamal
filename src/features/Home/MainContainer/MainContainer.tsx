@@ -1,5 +1,5 @@
 //const MainContainer = (props: IWatchListProps) => {
-import { useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import DematDetails from "../Account/DematDetails";
 import UpdateMobileEmail from "../Account/UpdateMobileEmail";
 import IPODetails from "../IPO/IPODetails";
@@ -15,6 +15,7 @@ import MarketWatchPortfolio from "./MarketWatch/MarketWatchPortfolio";
 import NetPositionList from "./NetPosition/NetPositionList";
 import OrderList from "./OrderView/OrderList";
 import TradeList from "./TradeView/TradeList";
+import { useEffect } from "react";
 
 const MainContainer = (props: any) => {
   const MenuClick = props;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IDeleteWatchlist } from "../../../../app/IDeleteWatchlist";
 import { RootState } from "../../../../store/store";
 import { IRenameWatchlist } from "../../../../types/IRenameWatchlist";
@@ -20,6 +20,7 @@ const MarketWatchHeader = () => {
   // selectedList = WatchList.marketWatch.nSelectedWatchList;
 
   const UserId = useSelector((state: RootState) => state.user.UserId);
+  const userState = useAppSelector((state) => state.user);
   const {
     nSelectedWatchList,
     sSelectedWatchList,
@@ -43,7 +44,7 @@ const MarketWatchHeader = () => {
 
       userId: UserId,
     };
-    dispatch(DeleteWatchlist(DeleteReq)); //API Call
+    dispatch(DeleteWatchlist(DeleteReq, userState.sessionKey)); //API Call
   }
 
   function handleChange(event: any) {
@@ -57,7 +58,7 @@ const MarketWatchHeader = () => {
       userid: UserId,
     };
 
-    dispatch(UpdateWatchlist(UpdateReq));
+    dispatch(UpdateWatchlist(UpdateReq, userState.sessionKey));
     //dispatch(AddToWatchList(setName)); //API Call
   }
 
@@ -69,7 +70,7 @@ const MarketWatchHeader = () => {
       userId: UserId,
     };
     //API Call TO rename watch list
-    dispatch(RenameWatchlist(RenameReq));
+    dispatch(RenameWatchlist(RenameReq, userState.sessionKey));
     //dispatch(RenameWatchList(RenameWatchlist(Input))); //API Call
   }
   return (

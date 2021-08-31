@@ -25,7 +25,6 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
 
   useEffect(() => {
     dispatch(fetchmarketWatch(false, userState.sessionKey));
-
     console.log("getMarketWatchSuccess useEffect");
   }, []);
 
