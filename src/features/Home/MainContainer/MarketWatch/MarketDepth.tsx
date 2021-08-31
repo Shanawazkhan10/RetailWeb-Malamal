@@ -1,7 +1,4 @@
 import React from "react";
-import Collapsible from "react-collapsible";
-import { Collapse, Button, CardBody, Card } from "reactstrap";
-import { IMarketDepth } from "../../../../types/IMarketDepth";
 
 const MarketDepth = (props: any) => {
   //const expanded = props.activeItem === props.index;

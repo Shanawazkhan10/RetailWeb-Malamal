@@ -1,30 +1,21 @@
-import { IWatchListProps } from "../../../types/IWatchListProps";
-import HoldingList from "./Holding/HoldingList";
-import MarketPicture from "./MarketPicture/MarketPicture";
-
-import MarketWatch from "./MarketWatch/MarketWatchHeader";
-import MarketWatchListContainer from "./MarketWatch/MarketWatchListContainer";
-import MarketWatchList from "./MarketWatch/MarketWatchListContainer";
-import MarketWatchPortfolio from "./MarketWatch/MarketWatchPortfolio";
-import NetPositionList from "./NetPosition/NetPositionList";
 //const MainContainer = (props: IWatchListProps) => {
-
+import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
-// import AdvancedChart from "../Chart/AdvancedChart";
-import OrderView from "./OrderView/Order";
-import OrderList from "./OrderView/OrderList";
-import TradeList from "./TradeView/TradeList";
-import ProfileSummary from "../PersonalDetails/ProfileSummary";
-import { ChangePassword } from "../../Login/ChangePassword";
-import AccountSummary from "../PersonalDetails/AccountSummary";
-import { PasswordSecurity } from "../PersonalDetails/PasswordSecurity";
 import DematDetails from "../Account/DematDetails";
 import UpdateMobileEmail from "../Account/UpdateMobileEmail";
 import IPODetails from "../IPO/IPODetails";
 import UpcomingIPODetails from "../IPO/UpcomingIPODetails";
-import { useEffect } from "react";
-import { loggedout } from "../../Login/userSlice";
+import AccountSummary from "../PersonalDetails/AccountSummary";
+import { PasswordSecurity } from "../PersonalDetails/PasswordSecurity";
+import ProfileSummary from "../PersonalDetails/ProfileSummary";
 import MainDashboard from "./Dashboard/MainDashboard";
+import HoldingList from "./Holding/HoldingList";
+import MarketWatch from "./MarketWatch/MarketWatchHeader";
+import MarketWatchListContainer from "./MarketWatch/MarketWatchListContainer";
+import MarketWatchPortfolio from "./MarketWatch/MarketWatchPortfolio";
+import NetPositionList from "./NetPosition/NetPositionList";
+import OrderList from "./OrderView/OrderList";
+import TradeList from "./TradeView/TradeList";
 
 const MainContainer = (props: any) => {
   const MenuClick = props;

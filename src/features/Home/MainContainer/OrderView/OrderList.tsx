@@ -1,20 +1,22 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../store/store";
-import { useAppDispatch } from "../../../../app/hooks";
 import { getOrderData } from "../../../../app/api";
-import { OrderViewSuccess } from "./OrderViewSlice";
+import { useAppDispatch } from "../../../../app/hooks";
+import { RootState } from "../../../../store/store";
+import "../../style.css";
 import OrderView from "./Order";
+import { fetchOrderView, OrderViewSuccess } from "./OrderViewSlice";
 
 const OrderList = () => {
   const OrderList = useSelector((state: RootState) => state.OrderView);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(OrderViewSuccess(getOrderData()));
+    //dispatch(OrderViewSuccess(getOrderData()));
+    dispatch(fetchOrderView());
   }, []);
 
-  return (
+  return OrderList && OrderList.OrderViewData.length > 0 ? (
     <div className="block_netPosition mr14" id="NetPosition">
       <div className="block_head">
         <h1>Orders:</h1>
@@ -67,36 +69,28 @@ const OrderList = () => {
                 <th
                   className="tblHeaderNP right"
                   data-value="LastTradedPrice"
-                  title="LTP"
+                  title="Status"
                 >
-                  <span>LTP</span>
+                  <span>Status</span>
                 </th>
-                <th className="tblHeaderNP right" data-value="PL" title="PL">
-                  <span>PL</span>
+                <th className="tblHeaderNP right" data-value="Price" title="PL">
+                  <span>Price</span>
                 </th>
-                <th
-                  className="tblHeaderNP"
-                  data-value="nExchangeId"
-                  style={{ width: "111px" }}
-                  title="Chg"
-                >
-                  <span>Chg</span>
-                </th>
+
                 <th
                   className="tblHeaderNP"
                   data-value="nExchangeId"
                   style={{ width: "111px" }}
                   title="Exchange"
                 >
-                  <span>Exchange</span>
+                  <span>Order type</span>
                 </th>
                 <th
                   className="tblHeaderNP"
-                  data-value="nExchangeId"
                   style={{ width: "111px" }}
-                  title="Total"
+                  title="rejRsn"
                 >
-                  <span>Total</span>
+                  <span>Rejection reason</span>
                 </th>
               </tr>
             </thead>
@@ -109,6 +103,8 @@ const OrderList = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <div>Empty......</div>
   );
 };
 

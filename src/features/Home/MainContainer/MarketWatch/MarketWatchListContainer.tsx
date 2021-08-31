@@ -3,9 +3,7 @@ import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
-import MarketDepth from "./MarketDepth";
 import MarketWatchItem from "./MarketWatchItem";
-import SingleLayout from "./MarketWatchItem";
 
 const MarketWatchListContainer = (props: any) => {
   //const [Flag, setFlag] = props;
@@ -17,8 +15,7 @@ const MarketWatchListContainer = (props: any) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    //dispatch(getMarketWatchSuccess(getNetpositionData()));
-    console.log(" MarketWatchListContainer useEffect");
+    //console.log(" MarketWatchListContainer useEffect");
   }, []);
 
   return WatchListData && WatchListData.length > 0 ? (

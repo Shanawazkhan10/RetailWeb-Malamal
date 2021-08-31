@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { api } from "../../../../app/api";
+import { api, getNetposition } from "../../../../app/api";
+import { AppThunk } from "../../../../store/store";
 import { NetpositionSummary } from "../../../../types/INetpositionSummary";
 
 // interface NetpositionState {
@@ -35,40 +36,27 @@ const netposition = createSlice({
   },
   reducers: {
     NetpositionSuccess: (state, action) => {
-      //NetpositionSuccess(state, { payload }: PayloadAction<Netposition>) {
-      //: PayloadAction<Netposition>) {
-      // state.isLoading = false;
-      //state.error = null;
-      //state.NetpositionList?.push(payload);
-      //state.netposition.push(payload);
       state.netposition = action.payload;
     },
     NetpositionUpdate(state, action) {
-      // let data = [...state.netposition.NetPosition];
-      // let index = data.find(
-      //   (netposition) => netposition.Token === action.payload
-      // );
-      // if (index > -1) {
-      //   data[index] = action.payload;
-      //   return { ...state, DataArray: data };
-      // } else return state;
       state.netposition.NetPosition = state.netposition.NetPosition.map((el) =>
         el.Token == action.payload.Token ? action.payload : el
       );
     },
+    NetpositionError(state, action) {},
   },
 });
 
 export default netposition.reducer;
 
-export const { NetpositionSuccess, NetpositionUpdate } = netposition.actions;
+export const { NetpositionSuccess, NetpositionUpdate, NetpositionError } =
+  netposition.actions;
 
-export const fetchNetposition = () => async (dispatch: any) => {
+export const fetchNetposition = (): AppThunk => async (dispatch) => {
   try {
-    await api
-      .get<NetpositionSummary[]>("/users")
-      .then((response) => dispatch(NetpositionSuccess(response.data)));
-  } catch (e) {
-    return console.error(e.message);
+    const positionResponse = await getNetposition();
+    dispatch(NetpositionSuccess(positionResponse));
+  } catch (err) {
+    dispatch(NetpositionError(err.toString()));
   }
 };

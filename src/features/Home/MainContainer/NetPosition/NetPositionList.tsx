@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import NetPositionSummary from "./NetPositionSummary";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../store/store";
-import { useAppDispatch } from "../../../../app/hooks";
 import { getNetpositionData } from "../../../../app/api";
-import { NetpositionSuccess } from "./NetPositionSlice";
+import { useAppDispatch } from "../../../../app/hooks";
+import { RootState } from "../../../../store/store";
+import "../../style.css";
 import NetPosition from "./NetPosition";
+import { fetchNetposition, NetpositionSuccess } from "./NetPositionSlice";
+import NetPositionSummary from "./NetPositionSummary";
 
 const NetPositionList = () => {
   let NetpositionList: any[];
@@ -14,7 +15,8 @@ const NetPositionList = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(NetpositionSuccess(getNetpositionData()));
+    //dispatch(NetpositionSuccess(getNetpositionData()));
+    dispatch(fetchNetposition());
   }, []);
 
   return NetpositionList && NetpositionList.length > 0 ? (

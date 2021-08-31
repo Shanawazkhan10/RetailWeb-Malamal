@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { Collapse } from "reactstrap";
-import { GetSymbolDetails, SubscribeMarketDepth } from "../../../../app/api";
+import {
+  GetSymbolDetails,
+  GetWatchListSymbolDetails,
+  SubscribeMarketDepth,
+} from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { IGTTEntryProps } from "../../../../types/IGTTEntryProps";
@@ -28,10 +32,8 @@ import {
   hideMore,
   ShowMarketDepth,
   showMore,
+  UpdateSymbolDetails,
 } from "./MarketWatchSlice";
-
-import { UpdateSymbolDetails } from "./MarketWatchSlice";
-import { GetWatchListSymbolDetails } from "../../../../app/api";
 
 export interface scriptInfoReq {
   scripArr: string[];
@@ -173,12 +175,12 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
   }
 
   function onCreateGTTOrderClick(symbolInfo: IMarketWatchTokenInfo) {
-    GTTEntryProp.token = symbolInfo.tk;
-    GTTEntryProp.price = symbolInfo.ltp;
-    GTTEntryProp.quantity = 1;
-    GTTEntryProp.symbol = symbolInfo.sym;
-    GTTEntryProp.exchange = symbolInfo.exch;
-    GTTEntryProp.ltp = +symbolInfo.ltp;
+    // GTTEntryProp.token = symbolInfo.tk;
+    // GTTEntryProp.price = symbolInfo.ltp;
+    // GTTEntryProp.quantity = 1;
+    // GTTEntryProp.symbol = symbolInfo.sym;
+    // GTTEntryProp.exchange = symbolInfo.exch;
+    // GTTEntryProp.ltp = +symbolInfo.ltp;
     dispatch(setGTTEntryProps(GTTEntryProp));
     dispatch(openGTTEntry());
   }
