@@ -328,26 +328,29 @@ export async function PostScritInfo(
   scriptInfo: string[],
   sessionKey: string
 ): Promise<any> {
-  var querystring = JSON.stringify({
-    scripArr: scriptInfo,
-  });
+  const params = new URLSearchParams();
+  params.append("jData", JSON.stringify({ scripArr: scriptInfo }));
+
+  // var querystring = JSON.stringify({
+  //   scripArr: scriptInfo,
+  // });
 
   //const params = new URLSearchParams();
   //params.append("jData", querystring);
 
-  var formBody = [];
-  //for (var property in scriptInfo) {
-  var encodedKey = encodeURIComponent("jData");
-  var encodedValue = encodeURIComponent(querystring);
-  formBody.push(encodedKey + "=" + encodedValue);
+  // var formBody = [];
+  // //for (var property in scriptInfo) {
+  // var encodedKey = encodeURIComponent("jData");
+  // var encodedValue = encodeURIComponent(querystring);
+  // formBody.push(encodedKey + "=" + encodedValue);
   //}
 
-  const params = JSON.stringify({ jData: querystring });
+  //const params = JSON.stringify({ jData: querystring });
   return await api
 
     .post("https://uathsint.hypertrade.in/quick/scrip/info", params, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         "x-access-token": sessionKey,
       },
     })
