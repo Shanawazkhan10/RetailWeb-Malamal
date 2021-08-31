@@ -156,7 +156,7 @@ const HSSocket = () => {
   }, []);
   return (
     <div>
-      <button
+      {/* <button
         className="btn_mw_overlay_2 btn_buy"
         title="Chart(C )"
         onClick={() => connect()}
@@ -177,7 +177,7 @@ const HSSocket = () => {
         onClick={() => subscribe()}
       >
         subscribe
-      </button>
+      </button> */}
     </div>
   );
 };
