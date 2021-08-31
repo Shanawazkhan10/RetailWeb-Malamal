@@ -1,19 +1,10 @@
 import React, { useEffect } from "react";
-//import ScriptTag from "react-script-tag";
-//import Safe from "react-safe";
-// import  HSLib  =require("../WebSocket/hslibo");
-// import * as app1 from "../WebSocket/hslibo";
-// import {App} from "../WebSocket/hslibo";
-
-//import app1 from "hslibo.js";
-// import  {app1 }from "./hslibo";
-//import {function1 } from "../WebSocket/hslibo.js"
-import { Dispatch } from "redux";
 import { useAppDispatch } from "../../app/hooks";
-import { IMarketDepth } from "../../types/IMarketDepth";
 import { IIndices } from "../../types/MarketData/IIndices";
 import { IScriptUpdate } from "../../types/MarketData/IScriptUpdate";
 import { DepthUpdate, IndicesUpdate, ScriptUpdate } from "./WebSocketSlice";
+import { IMarketDepth } from "./../../types/IMarketDepth";
+import { ScriptUpdatefromSocket } from "../Home/MainContainer/MarketWatch/MarketWatchSlice";
 
 export interface authReq {
   sessionid: string;
@@ -32,7 +23,8 @@ const HSSocket = () => {
   var url = "wss://uathsmkt.hypertrade.in";
   var userWS: any = null;
   var type: any = "mw";
-  var scriptList: any = "nse_cm|11536&nse_cm|22&nse_cm|236";
+  var scriptList: any =
+    "nse_fo|48740&nse_fo|49053&nse_fo|51892&nse_cm|11536&nse_cm|1330&nse_cm|22&nse_cm|15083&nse_cm|3456&nse_cm|3499"; //"nse_cm|11536&nse_cm|22&nse_cm|236";
   const dispatch = useAppDispatch();
   //var HSWebSocket: any = null;
 
@@ -40,7 +32,8 @@ const HSSocket = () => {
     type = ty;
     let sublistValue = "";
     if (type == "mw") {
-      sublistValue = "nse_cm|11536&nse_cm|22&nse_cm|236";
+      sublistValue =
+        "nse_fo|48740&nse_fo|49053&nse_fo|51892&nse_cm|11536&nse_cm|1330&nse_cm|22&nse_cm|15083&nse_cm|3456&nse_cm|3499";
     } else if (type == "dp") {
       sublistValue = "nse_cm|11536";
     } else if (type == "if") {
@@ -74,12 +67,13 @@ const HSSocket = () => {
     };
 
     userWS.onmessage = function (msg: any) {
-      if (msg as IMarketDepth) {
-        dispatch(DepthUpdate(msg));
-      } else if (msg as IScriptUpdate) {
-        dispatch(ScriptUpdate(msg));
-      } else if (msg as IIndices) {
-        dispatch(IndicesUpdate(msg));
+      if (JSON.parse(msg) && JSON.parse(msg)[0].name == "dp") {
+        dispatch(DepthUpdate(msg as IMarketDepth));
+      } else if (JSON.parse(msg) && JSON.parse(msg)[0].name == "sf") {
+        //dispatch(ScriptUpdate(msg as IScriptUpdate));
+        dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
+      } else if (JSON.parse(msg) && JSON.parse(msg)[0].name == "if") {
+        dispatch(IndicesUpdate(msg as IIndices));
       } else {
         console.log(displayMessage("[Res]: " + msg + "\n"));
       }
@@ -120,7 +114,7 @@ const HSSocket = () => {
     // jObj["channelnum"] = parseInt(document.getElementById('channel_tb').value.split(',')[0], 10);
     // sendReq(jObj);
     const subUnsubReq: SubUnsubReq = {
-      type: type,
+      type: ty,
       scrips: scriptList,
       channelnum: 1,
     };
@@ -148,24 +142,21 @@ const HSSocket = () => {
     //dataArea.scrollTop = dataArea.scrollHeight;
   }
   useEffect(() => {
-    // const script = document.createElement("script");
-    // script.src = "../WebSocket/hslibo.js";
-    // script.async = true;
-    // document.body.appendChild(script);
     const script = document.createElement("script");
     script.src = "../hslibo.js";
     script.async = true;
+
     document.body.appendChild(script);
+    // init();
+    // connect();
+    // auth();
     return () => {
       document.body.removeChild(script);
     };
-    init();
-    connect();
-    auth();
   }, []);
   return (
     <div>
-      {/* <button
+      <button
         className="btn_mw_overlay_2 btn_buy"
         title="Chart(C )"
         onClick={() => connect()}
@@ -186,7 +177,7 @@ const HSSocket = () => {
         onClick={() => subscribe()}
       >
         subscribe
-      </button> */}
+      </button>
     </div>
   );
 };

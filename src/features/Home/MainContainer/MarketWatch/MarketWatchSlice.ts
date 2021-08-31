@@ -4,23 +4,34 @@ import {
   getWatchList,
   GetWatchListSymbolDetails,
   PostScritInfo,
+ 
 } from "../../../../app/api";
+import { AppThunk, RootState } from "../../../../store/store";
 import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { IMarketDepth } from "../../../../types/IMarketDepth";
-import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchList } from "../../../../types/IMarketWatchList";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
-import { AppThunk } from "../../../../store/store";
+
 import { scriptInfoReq } from "./MarketWatchItem";
+import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
+import { IDeleteWatchlist } from "./../../../../app/IDeleteWatchlist";
+import { IRenameWatchlist } from "./../../../../types/IRenameWatchlist";
+import { useSelector } from "react-redux";
+import store from "./../../../../store/store";
+import { stat } from "fs";
+import { IScriptUpdate } from "../../../../types/MarketData/IScriptUpdate";
+import { IMarketWatch } from "../../../../types/IMarketWatch";
 
 const InitialMarketWatch: IMarketWatchList = {
   MarketWatchList: [],
-  nSelectedWatchList: 1,
+  nSelectedWatchList: 0,
   sSelectedWatchList: "",
   bIsBind: false,
   bIsError: false,
+  Symbollistindex: 0,
+  SymbolList: [],
 };
 
 const marketwatchSlice = createSlice({
@@ -32,10 +43,12 @@ const marketwatchSlice = createSlice({
     onMarketWatchSuccess: (state, action) => {
       state.marketWatch.MarketWatchList = action.payload.data;
       state.marketWatch.bIsBind = true;
-      state.marketWatch.nSelectedWatchList = 1;
-      // state.marketWatch.MarketWatchList.map(
-      //   (row, i) => GetWatchListSymbolDetails(i + 1, row.scrips) //DUmmy Call for actual call send token info
-      // );
+      state.marketWatch.nSelectedWatchList = 0;
+      state.marketWatch.Symbollistindex = 0;
+      state.marketWatch.MarketWatchList.map(
+        //(row, i) => GetWatchListSymbolDetails(i + 1, row.scrips) //DUmmy Call for actual call send token info
+        (row, i) => (row.id = i)
+      );
     },
     onMarketWatchFailure: (state, action) => {
       state.marketWatch.bIsError = true;
@@ -52,6 +65,7 @@ const marketwatchSlice = createSlice({
         state.marketWatch.MarketWatchList.filter(
           (row) => row.id != action.payload
         );
+      state.marketWatch.nSelectedWatchList = 1;
     },
     AddToWatchList: (state, action) => {
       state.marketWatch.MarketWatchList[
@@ -65,14 +79,14 @@ const marketwatchSlice = createSlice({
         );
     },
     UpdateSymbolDetails: (state, action) => {
-      let TokenInfo: IMarketWatchTokenInfo[] = action.payload;
+      let TokenInfo: IMarketWatchTokenInfo[] = action.payload.data;
       if (TokenInfo != undefined)
-        state.marketWatch.MarketWatchList[TokenInfo[0].mwId - 1].SymbolList =
-          TokenInfo;
-      // state.marketWatch.MarketWatchList[2].SymbolList = TokenInfo;
-      // state.marketWatch.MarketWatchList[3].SymbolList = TokenInfo;
-      // state.marketWatch.MarketWatchList[4].SymbolList = TokenInfo;
-      // state.marketWatch.MarketWatchList[5].SymbolList = TokenInfo;
+        state.marketWatch.MarketWatchList[
+          state.marketWatch.Symbollistindex
+        ].SymbolList = TokenInfo;
+
+      state.marketWatch.SymbolList[Number(state.marketWatch.Symbollistindex)] =
+        action.payload.data;
     },
     getMarketDepthSuccess: (state, action) => {
       let MarketDepth: IMarketDepth = action.payload;
@@ -96,18 +110,62 @@ const marketwatchSlice = createSlice({
     },
     showMore: (state, action: PayloadAction<number>) => {
       state.marketWatch.MarketWatchList[
-        state.marketWatch.nSelectedWatchList - 1
+        state.marketWatch.nSelectedWatchList
       ].SymbolList[action.payload].showMore = true; //Temp Watchlist Id -1 need to change
     },
     hideMore: (state, action: PayloadAction<number>) => {
       state.marketWatch.MarketWatchList[
-        state.marketWatch.nSelectedWatchList - 1
+        state.marketWatch.nSelectedWatchList
       ].SymbolList[action.payload].showMore = false; //Temp Watchlist Id -1 need to change
     },
     AddToWatchlistFromSearch(state, action: PayloadAction<IRemoveFromWatch>) {
       state.marketWatch.MarketWatchList[action.payload.id].scrips =
         action.payload.scrips;
     },
+    setSymbollistindex: (state, action) => {
+      state.marketWatch.Symbollistindex = action.payload;
+    },
+    ScriptUpdatefromSocket: (state, action) => {
+      const ScriptList: IScriptUpdate[] = action.payload;
+      JSON.parse(action.payload).forEach((script: IScriptUpdate) => {
+        // state.socketdata.Script[Number(script.tk)] = script;
+        //
+        //state.marketWatch.SymbolList[0].ltp = script.ltp;
+        //state.marketWatch.MarketWatchList[0].SymbolList[0].sym = script.ltp;
+        state.marketWatch.MarketWatchList.forEach(
+          (MarketWatch: IMarketWatch) => {
+            MarketWatch.SymbolList.forEach((token: IMarketWatchTokenInfo) => {
+              if (token.tok == script.tk) {
+                if (script.ltp != undefined) {
+                  token.ltp = script.ltp;
+                }
+                token.nc = script.nc;
+                token.cng = script.cng;
+              }
+            });
+          }
+        );
+        // state.marketWatch.MarketWatchList[0].SymbolList.forEach(
+        //   (token: IMarketWatchTokenInfo) => {
+        //     if (token.tok == script.tk) {
+        //       token.ltp = script.ltp;
+        //       token.nc = script.nc;
+        //     }
+        //   }
+        // );
+      });
+      //state.marketWatch.SymbolList[0].ltp
+    },
+    // FetchSocketData: (state, action) => {
+    //   // const ScriptData = useSelector(
+    //   //   (state: RootState) => state.socketData.socketdata.Script
+    //   // );
+    //   // state.marketWatch.MarketWatchList[
+    //   //   state.marketWatch.nSelectedWatchList
+    //   // ].SymbolList[0].ltp =
+    //   //   store.getState().socketData.socketdata.Script[22].ltp;
+    //   //const x = store.getState().socketData.socketdata.Script[22].ltp;
+    // },
   },
 });
 
@@ -125,6 +183,9 @@ export const {
   onMarketWatchFailure,
   hideMore,
   showMore,
+  setSymbollistindex,
+  ScriptUpdatefromSocket,
+  //FetchSocketData,
 } = marketwatchSlice.actions;
 
 export const fetchmarketWatch =
@@ -185,7 +246,55 @@ export const FetchWatchListSymbol =
   async (dispatch) => {
     try {
       const scriptInfoResponse = await PostScritInfo(scriptInfoReq,sessionkey);
+export const FetchWatchList = (): AppThunk => async (dispatch) => {
+  try {
+    const watchListResponse = await getWatchList();
+    dispatch(onMarketWatchSuccess(watchListResponse));
+  } catch (err) {
+    dispatch(onMarketWatchFailure(err.toString()));
+  }
+};
+
+export const FetchWatchListSymbol =
+  (scriptInfoReq: string[], index: number): AppThunk =>
+  async (dispatch) => {
+    try {
+      const scriptInfoResponse = await PostScritInfo(scriptInfoReq);
+      dispatch(setSymbollistindex(index));
       dispatch(UpdateSymbolDetails(scriptInfoResponse));
+    } catch (err) {
+      dispatch(onMarketWatchFailure(err.toString()));
+    }
+  };
+
+export const DeleteWatchlist =
+  (DelReq: IDeleteWatchlist): AppThunk =>
+  async (dispatch) => {
+    try {
+      const deleteWatchlistResponse = await DeleteWatchlist(DelReq);
+      dispatch(DeleteWatchList(deleteWatchlistResponse));
+    } catch (err) {
+      dispatch(onMarketWatchFailure(err.toString()));
+    }
+  };
+
+export const RenameWatchlist =
+  (RenameReq: IRenameWatchlist): AppThunk =>
+  async (dispatch) => {
+    try {
+      const renameWatchlistResponse = await renameWatchlist(RenameReq);
+      dispatch(RenameWatchList(renameWatchlistResponse));
+    } catch (err) {
+      dispatch(onMarketWatchFailure(err.toString()));
+    }
+  };
+
+export const UpdateWatchlist =
+  (UpdateReq: IUpdateWatchlist): AppThunk =>
+  async (dispatch) => {
+    try {
+      const renameWatchlistResponse = await updateWatchlist(UpdateReq);
+      //dispatch(RenameWatchList(renameWatchlistResponse));
     } catch (err) {
       dispatch(onMarketWatchFailure(err.toString()));
     }

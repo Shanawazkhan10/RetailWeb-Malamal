@@ -6,14 +6,16 @@ import { PostLoginRequest, PostMPINRequest } from "../../app/api";
 import { toastNotification } from "../.././app/Notification";
 import { Redirect } from "react-router";
 
-const initialState = {  
+const initialState = {
   isPasswordCheked: localStorage.getItem("userkey") ? true : false,
-  isAuthenticated: localStorage.getItem("userkey") ? true :false,
+  isAuthenticated: localStorage.getItem("userkey") ? true : false,
   isError: false,
-  UserId:localStorage.getItem("userID")?localStorage.getItem("userID"):"",
+  UserId: localStorage.getItem("userID") ? localStorage.getItem("userID") : "",
   user: null,
-  sessionKey:localStorage.getItem("userkey") ? localStorage.getItem("userkey"): "",
-  server:"",
+  sessionKey: localStorage.getItem("userkey")
+    ? localStorage.getItem("userkey")
+    : "",
+  server: "",
 } as IUser;
 
 export const userSlice = createSlice({
@@ -25,7 +27,7 @@ export const userSlice = createSlice({
       state.isAuthenticated = false;
       state.isError = false;
       state.UserId = action.payload;
-      localStorage.setItem("userID",action.payload);
+      localStorage.setItem("userID", action.payload);
       state.user = null;
     },
     loggedInSuccess: (state, action: PayloadAction<any>) => {
@@ -42,7 +44,7 @@ export const userSlice = createSlice({
       toastNotification("error", action.payload.message);
     },
     twofasuccess: (state, action: PayloadAction<any>) => {
-      localStorage.setItem("userkey",action.payload.data.sessionKey);
+      localStorage.setItem("userkey", action.payload.data.sessionKey);
       state.isPasswordCheked = true;
       state.isAuthenticated = true;
       state.isError = false;

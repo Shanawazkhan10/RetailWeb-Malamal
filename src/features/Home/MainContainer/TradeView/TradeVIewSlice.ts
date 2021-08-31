@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { api } from "../../../../app/api";
+import { api, GetTradeBook } from "../../../../app/api";
+import { AppThunk } from "../../../../store/store";
 import { ITradeView } from "../../../../types/ITradeView";
 
 const InitialTradeView: ITradeView[] = [];
@@ -18,19 +19,19 @@ const TradeSlice = createSlice({
         el.Token == action.payload.Token ? action.payload : el
       );
     },
+    TradeError: (state, action) => {},
   },
 });
 
 export default TradeSlice.reducer;
 
-export const { TradeViewSuccess } = TradeSlice.actions;
+export const { TradeViewSuccess, TradeError, TradeUpdate } = TradeSlice.actions;
 
-export const fetchTradeView = () => async (dispatch: any) => {
+export const fetchTradeView = (): AppThunk => async (dispatch) => {
   try {
-    await api
-      .get<ITradeView[]>("/users")
-      .then((response) => dispatch(TradeViewSuccess(response.data)));
-  } catch (e) {
-    return console.error(e.message);
+    const tradeResponse = await GetTradeBook();
+    dispatch(TradeViewSuccess(tradeResponse));
+  } catch (err) {
+    dispatch(TradeError(err.toString()));
   }
 };

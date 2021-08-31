@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IHolding } from "../../../../types/IHolding";
-import { api } from "../../../../app/api";
+import { api, getHolding } from "../../../../app/api";
+import { AppThunk } from "../../../../store/store";
+import { IHolding } from "../../../../types/Holding/IHolding";
 
 const InitialHolding: IHolding[] = [];
 
@@ -13,25 +14,26 @@ const holding = createSlice({
     HoldingSuccess: (state, action) => {
       state.holding = action.payload;
     },
-
     HoldingUpdate: (state, action) => {
-      state.holding = state.holding.map((el) =>
-        el.Token == action.payload.Token ? action.payload : el
-      );
+      // state.holding = state.holding.map((el) =>
+      //   el.Token == action.payload.Token ? action.payload : el
+      // );
+    },
+    HoldingError: (state, action) => {
+      state.holding = action.payload;
     },
   },
 });
 
 export default holding.reducer;
 
-export const { HoldingSuccess } = holding.actions;
+export const { HoldingSuccess, HoldingError, HoldingUpdate } = holding.actions;
 
-export const fetchNetposition = () => async (dispatch: any) => {
+export const fetchHolding = (): AppThunk => async (dispatch) => {
   try {
-    await api
-      .get<IHolding[]>("/users")
-      .then((response) => dispatch(HoldingSuccess(response.data)));
-  } catch (e) {
-    return console.error(e.message);
+    const holdingResponse = await getHolding();
+    dispatch(HoldingSuccess(holdingResponse));
+  } catch (err) {
+    dispatch(HoldingError(err.toString()));
   }
 };

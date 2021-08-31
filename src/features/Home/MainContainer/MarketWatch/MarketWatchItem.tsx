@@ -1,55 +1,54 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { IMarketWatch } from "../../../../types/IMarketWatch";
+import React, { useEffect } from "react";
+import { Collapse } from "reactstrap";
+import { GetSymbolDetails, SubscribeMarketDepth } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { IDepthReq } from "../../../../types/IDepthReq";
+
+import { IMarketWatch } from "../../../../types/IMarketWatch";
+import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
+
+import { FetchSocketData } from "../../../WebSocket/WebSocketSlice";
+import {
+  openGTTEntry,
+  setGTTEntryProps,
+} from "../../GTTOrderEntry/gttEntrySlice";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
   setOrderEntryProps,
 } from "../../OrderEntry/orderEntrySlice";
-import {
-  openGTTEntry,
-  setGTTEntryProps,
-} from "../../GTTOrderEntry/gttEntrySlice";
 import { chartContainer } from "../mainContainerSlice";
-
-import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
-import {
-  GetSymbolDetails,
-  GetWatchListSymbolDetails,
-  RemoveTokenfromWatchlist,
-  SubscribeMarketDepth,
-} from "../../../../app/api";
-import {
-  FetchWatchListSymbol,
-  getMarketDepthSuccess,
-  RemoveSymbolFromWatchlist,
-  ShowMarketDepth,
-  UpdateSymbolDetails,
-  hideMore,
-  showMore,
-} from "./MarketWatchSlice";
-import MarketDepth from "./MarketDepth";
-
-import { Collapse, Button, CardBody, Card } from "reactstrap";
-import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
-import { IDepthReq } from "../../../../types/IDepthReq";
-import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
-import { IOrderEntryProps } from "../../../../types/OrderEntry/IOrderEntryProps";
-import { IGTTEntryProps } from "../../../../types/OrderEntry/IGTTEntryProps";
 import {
   updateMarketDepth,
   UpdateTokenInfo,
 } from "../MarketPicture/MarketPictureSlice";
+import MarketDepth from "./MarketDepth";
+import {
+  FetchWatchListSymbol,
+  getMarketDepthSuccess,
+  hideMore,
+  ShowMarketDepth,
+  showMore,
+} from "./MarketWatchSlice";
+
+import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
+
+import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
 
 export interface scriptInfoReq {
   scripArr: string[];
 }
-const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
+const MarketWatchItem = (props: {
+  propMarketWatch: IMarketWatch;
+  index: number;
+}) => {
   const marketWatchState = useAppSelector(
     (state) => state.marketwatch.marketWatch
   );
   const OrderEntryState = useAppSelector((state) => state.orderEntry);
+  // const ScriptUpdate = useAppSelector(
+  //   (state) => state.socketData.socketdata.Script
+  // );
   const [activeItem, setActiveItem] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [depth, setDepth] = React.useState(null);
@@ -58,8 +57,13 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
   const options = ["one", "two", "three"];
 
   useEffect(() => {
+    //dispatch(setSymbollistindex(props.index));
     getSymbol();
     console.log(" MarketWatchItem useEffect");
+  }, []);
+
+  useEffect(() => {
+    var a = dispatch(FetchSocketData(22));
   }, []);
 
   const OrderEntryProp = {
@@ -81,7 +85,7 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
   } as IGTTEntryProps;
 
   function onBuyOrderEntryClick(symbolInfo: IMarketWatchTokenInfo) {
-    OrderEntryProp.token = symbolInfo.tk;
+    OrderEntryProp.token = symbolInfo.tok;
     OrderEntryProp.price = symbolInfo.ltp;
     OrderEntryProp.quantity = 1;
     OrderEntryProp.symbol = symbolInfo.sym;
@@ -91,7 +95,7 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
     dispatch(openBuyOrderEntry());
   }
   function onSellOrderEntryClick(symbolInfo: IMarketWatchTokenInfo) {
-    OrderEntryProp.token = symbolInfo.tk;
+    OrderEntryProp.token = symbolInfo.tok;
     OrderEntryProp.price = symbolInfo.ltp;
     OrderEntryProp.quantity = 1;
     OrderEntryProp.symbol = symbolInfo.sym;
@@ -174,17 +178,18 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
     //  const scriptInfoReq:scriptInfoReq {
     //   scripArr:scrpitArray
     // }
-    //dispatch(FetchWatchListSymbol(propMarketWatch.scrips.split(",")));
     dispatch(
-      UpdateSymbolDetails(
-        GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
-      )
+      FetchWatchListSymbol(propMarketWatch.scrips.split(","), props.index)
     );
-    //dispatch(FetchWatchListSymbol(propMarketWatch.scrips.split(",")));
+    // dispatch(
+    //   UpdateSymbolDetails(
+    //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
+    //   )
+    // );
   }
 
   function onCreateGTTOrderClick(symbolInfo: IMarketWatchTokenInfo) {
-    GTTEntryProp.token = symbolInfo.tk;
+    GTTEntryProp.token = symbolInfo.tok;
     GTTEntryProp.price = symbolInfo.ltp;
     GTTEntryProp.quantity = 1;
     GTTEntryProp.symbol = symbolInfo.sym;
@@ -284,12 +289,12 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
 
                   <div className="divLeftV_in">
                     <div className="mysymbolname">
-                      <span id="spnsymbol" title={symbolInfo.sym}>
+                      <span id="spnsymbol" title={symbolInfo.trdSym}>
                         {symbolInfo.sym}
                       </span>
                       <br />
                       <span id="spnLtt" title="LTT">
-                        2021-07-06 16:59:58
+                        {symbolInfo.trdSym}
                       </span>
                     </div>
 
@@ -300,13 +305,13 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
                         title="LTP"
                         style={{ color: "#00bb7e" }}
                       >
-                        88.5100
+                        {symbolInfo.ltp}
                       </span>
                       <span className="pt_sprd" id="ltpDifference">
-                        0.05
+                        {symbolInfo.cng}
                       </span>
                       <span className="pt_sprd" id="ltpPercent">
-                        0.06%
+                        {symbolInfo.nc}%
                       </span>
                     </div>
                   </div>

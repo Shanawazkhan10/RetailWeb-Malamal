@@ -5,6 +5,6 @@ export interface IMarketPicture {
   IsShow: boolean;
   Type: number;
   script: string;
-  TokenInfo: IMarketWatchTokenInfo;
   Depth: IMarketDepth;
+  TokenInfo: IMarketWatchTokenInfo;
 }
