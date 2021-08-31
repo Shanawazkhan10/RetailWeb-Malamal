@@ -9,11 +9,12 @@ import { fetchOrderView, OrderViewSuccess } from "./OrderViewSlice";
 
 const OrderList = () => {
   const OrderList = useSelector((state: RootState) => state.OrderView);
+  const user = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     //dispatch(OrderViewSuccess(getOrderData()));
-    dispatch(fetchOrderView());
+    dispatch(fetchOrderView(user.sessionKey));
   }, []);
 
   return OrderList && OrderList.OrderViewData.length > 0 ? (

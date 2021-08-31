@@ -75,8 +75,8 @@ const MarketWatchItem = (props: {
   } as IGTTEntryProps;
 
   function onBuyOrderEntryClick(symbolInfo: IMarketWatchTokenInfo) {
-    OrderEntryProp.token = symbolInfo.tk;
-    OrderEntryProp.price = symbolInfo.ltp;
+    OrderEntryProp.token = symbolInfo.tk;    
+    OrderEntryProp.price = symbolInfo.ltp;    
     OrderEntryProp.quantity = 1;
     OrderEntryProp.symbol = symbolInfo.sym;
     OrderEntryProp.exchange = symbolInfo.exch;

@@ -19,7 +19,7 @@ const MarketWatchHeader = () => {
   // const WatchList = useSelector((state: RootState) => state.marketwatch);
   // selectedList = WatchList.marketWatch.nSelectedWatchList;
 
-  const UserId = useSelector((state: RootState) => state.user.UserId);
+  const user = useSelector((state: RootState) => state.user);
   const {
     nSelectedWatchList,
     sSelectedWatchList,
@@ -40,8 +40,7 @@ const MarketWatchHeader = () => {
   function RemoveWatchList() {
     const DeleteReq: IDeleteWatchlist = {
       mwName: sSelectedWatchList,
-
-      userId: UserId,
+      userId: user.UserId,
     };
     dispatch(DeleteWatchlist(DeleteReq)); //API Call
   }
@@ -54,10 +53,10 @@ const MarketWatchHeader = () => {
     const UpdateReq: IUpdateWatchlist = {
       mwName: sName,
       scrips: "",
-      userid: UserId,
+      userid: user.UserId,
     };
 
-    dispatch(UpdateWatchlist(UpdateReq));
+    dispatch(UpdateWatchlist(UpdateReq,user.sessionKey));
     //dispatch(AddToWatchList(setName)); //API Call
   }
 
@@ -66,10 +65,10 @@ const MarketWatchHeader = () => {
       oldmwName: sSelectedWatchList,
       newmwName: sName, //from input control
       id: Number(nSelectedWatchList),
-      userId: UserId,
+      userId: user.UserId,
     };
     //API Call TO rename watch list
-    dispatch(RenameWatchlist(RenameReq));
+    dispatch(RenameWatchlist(RenameReq,user.sessionKey));
     //dispatch(RenameWatchList(RenameWatchlist(Input))); //API Call
   }
   return (

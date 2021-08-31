@@ -138,6 +138,15 @@ export const {
   setSymbollistindex,
 } = marketwatchSlice.actions;
 
+export const FetchWatchList = (sessionKey:string): AppThunk => async (dispatch) => {
+  try {
+    const watchListResponse = await getWatchList(sessionKey);
+    dispatch(onMarketWatchSuccess(watchListResponse));
+  } catch (err) {
+    dispatch(onMarketWatchFailure(err.toString()));
+  }
+};
+
 export const fetchmarketWatch =
   (cache: boolean,sessionkey:string): AppThunk =>
   async (dispatch) => {
@@ -181,21 +190,12 @@ export const renamemarketWatch =
       //TO ADD
     }
   };
-// export const fetchmarketWatch = () => async (dispatch: any) => {
-//   try {
-//     await api
-//       .get<IMarketWatchList[]>("/users")
-//       .then((response) => dispatch(onMarketWatchSuccess(response.data)));
-//   } catch (e) {
-//     return console.error(e.message);
-//   }
-// };
 
 export const FetchWatchListSymbol =
   (scriptInfoReq: string[], index: number,sessionKey:string): AppThunk =>
   async (dispatch) => {
     try {
-      const scriptInfoResponse = await PostScritInfo(scriptInfoReq,index,sessionKey);
+      const scriptInfoResponse = await PostScritInfo(scriptInfoReq,sessionKey);
       dispatch(setSymbollistindex(index));
       dispatch(UpdateSymbolDetails(scriptInfoResponse));
     } catch (err) {
@@ -215,10 +215,10 @@ export const DeleteWatchlist =
   };
 
 export const RenameWatchlist =
-  (RenameReq: IRenameWatchlist): AppThunk =>
+  (RenameReq: IRenameWatchlist,sessionKey:string): AppThunk =>
   async (dispatch) => {
     try {
-      const renameWatchlistResponse = await renameWatchlist(RenameReq);
+      const renameWatchlistResponse = await renameWatchlist(RenameReq,sessionKey);
       dispatch(RenameWatchList(renameWatchlistResponse));
     } catch (err) {
       dispatch(onMarketWatchFailure(err.toString()));
@@ -226,10 +226,10 @@ export const RenameWatchlist =
   };
 
 export const UpdateWatchlist =
-  (UpdateReq: IUpdateWatchlist): AppThunk =>
+  (UpdateReq: IUpdateWatchlist,sessionKey:string): AppThunk =>
   async (dispatch) => {
     try {
-      const renameWatchlistResponse = await updateWatchlist(UpdateReq);
+      const renameWatchlistResponse = await updateWatchlist(UpdateReq,sessionKey);
       //dispatch(RenameWatchList(renameWatchlistResponse));
     } catch (err) {
       dispatch(onMarketWatchFailure(err.toString()));

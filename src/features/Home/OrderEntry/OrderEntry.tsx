@@ -44,7 +44,7 @@ const OrderEntryComp = () => {
       tp: orderEntryState.triggerprice,
       ts: orderEntryState.symbol,
       tt: orderEntryState.isBuy ? "B" : "S",
-      ig: "",      
+      //ig: "",      
       os: "WEB",
       dq: orderEntryState.disclosedQty.toString(),
     };
@@ -177,7 +177,7 @@ const OrderEntryComp = () => {
                     {...register("price", {
                       required: true,
                       maxLength: 8,
-                      min: 1,
+                      min: 0,
                       max: 999999,
                     })}
                     type="number"
@@ -201,7 +201,7 @@ const OrderEntryComp = () => {
                   <input
                     {...register("triggerprice", {
                       maxLength: 8,
-                      min: 1,
+                      min: 0,
                       max: 999999,
                     })}
                     type="number"

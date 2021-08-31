@@ -9,11 +9,12 @@ import TradeView from "./Trade";
 
 const TradeList = () => {
   const TradeList = useSelector((state: RootState) => state.TradeView);
+  const user = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     //dispatch(TradeViewSuccess(getOrderData()));
-    dispatch(fetchTradeView());
+    dispatch(fetchTradeView(user.sessionKey));
   }, []);
 
   return TradeList && TradeList.TradeViewData.length > 0 ? (

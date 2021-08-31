@@ -41,13 +41,22 @@ export const orderEntrySlice = createSlice({
   reducers: {
     setOrderEntryProps: (state, action: PayloadAction<any>) => {
       state.token = action.payload.token;
-      state.price = action.payload.price;
+      if(action.payload.price ===  undefined)
+      {
+        state.price = "0";
+        state.orderType = "MKT";
+        state.isPriceEnabled = false;
+      }
+      else
+      {
+        state.price = action.payload.price;
+        state.orderType = "L";
+        state.isPriceEnabled = true;
+      }      
       state.quantity = action.payload.quantity;
       state.symbol = action.payload.symbol;
       state.exchange = action.payload.exchange;
-      state.isPriceEnabled = true;
-      state.ltp = action.payload.ltp;
-      state.orderType = "L";
+      state.ltp = action.payload.ltp;      
     },
     openBuyOrderEntry: (state) => {
       state.isOrderEntryOpen = true;

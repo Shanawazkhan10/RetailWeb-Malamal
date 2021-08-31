@@ -15,7 +15,7 @@ export interface IjData {
   tp: string; //Trigger Price
   ts: string; //Trading Symbol
   tt: string; //Transaction Type
-  ig: string;//GuiOrderId (its Madatory, if GUIId check is enabled from Server)  
+  //ig: string;//GuiOrderId (its Madatory, if GUIId check is enabled from Server)  
   os: string;
   dq: string;
 }

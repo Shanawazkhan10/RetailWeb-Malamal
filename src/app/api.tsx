@@ -345,40 +345,6 @@ export async function renameWatchList(
     .catch((error) => error);
 }
 
-export async function PostScritInfo(
-  scriptInfo: string[],
-  index:number,
-  sessionKey: string
-): Promise<any> {
-  var querystring = JSON.stringify({
-    scripArr: scriptInfo,
-  });
-
-  //const params = new URLSearchParams();
-  //params.append("jData", querystring);
-
-  var formBody = [];
-  //for (var property in scriptInfo) {
-  var encodedKey = encodeURIComponent("jData");
-  var encodedValue = encodeURIComponent(querystring);
-  formBody.push(encodedKey + "=" + encodedValue);
-  //}
-
-  const params = JSON.stringify({ jData: querystring });
-  return await api
-
-    .post("https://uathsint.hypertrade.in/quick/scrip/info", params, {
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": sessionKey,
-      },
-    })
-
-    .then((response) => response.data)
-
-    .catch((error) => error);
-}
-
 export function GetSymbolDetails() {
   const SymbolListData = {
     mwId: 1,
@@ -1235,7 +1201,7 @@ export async function getWatchList(sesssionKey:string): Promise<any> {
 }
 
 export async function updateWatchlist(
-  UpdateReq: IUpdateWatchlist
+  UpdateReq: IUpdateWatchlist,sessionKey:string
 ): Promise<any> {
   return await api
 
@@ -1245,7 +1211,7 @@ export async function updateWatchlist(
       {
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
-          "x-access-token": localStorage.getItem("sessionKey"),
+          "x-access-token": sessionKey,
           "api-key": " UzL0HZiHPTc1rNVr",
         },
       }
@@ -1257,7 +1223,7 @@ export async function updateWatchlist(
 }
 
 export async function renameWatchlist(
-  renameReq: IRenameWatchlist
+  renameReq: IRenameWatchlist,sessionKey:string
 ): Promise<any> {
   return await api
 
@@ -1267,7 +1233,7 @@ export async function renameWatchlist(
       {
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
-          "x-access-token": localStorage.getItem("sessionKey"),
+          "x-access-token": sessionKey,
           "api-key": " UzL0HZiHPTc1rNVr",
         },
       }
@@ -1278,7 +1244,7 @@ export async function renameWatchlist(
     .catch((error) => error);
 }
 
-export async function DeleteWatchlist(DelReq: IDeleteWatchlist): Promise<any> {
+export async function DeleteWatchlist(DelReq: IDeleteWatchlist,sessionKey:string): Promise<any> {
   return await api
 
     .post(
@@ -1287,7 +1253,7 @@ export async function DeleteWatchlist(DelReq: IDeleteWatchlist): Promise<any> {
       {
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
-          "x-access-token": localStorage.getItem("sessionKey"),
+          "x-access-token": sessionKey,
           "api-key": " UzL0HZiHPTc1rNVr",
         },
       }
@@ -1434,8 +1400,23 @@ export async function sendOrderEntryRequest(
       throw error;
     });
 }
+export async function PostScritInfo(scriptInfo: string[],sessionKey:string): Promise<any> {
+  const params = new URLSearchParams();
+  params.append("jData", JSON.stringify({ scripArr: scriptInfo }));
+  return await api
 
-export async function GetOrderBook(): Promise<any> {
+    .post("https://uathsint.hypertrade.in/quick/scrip/info", params, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "x-access-token": sessionKey,
+      },
+    })
+
+    .then((response) => response.data)
+
+    .catch((error) => error);
+}
+export async function GetOrderBook(sessionKey:string): Promise<any> {
   //const params = new URLSearchParams();
   //params.append("jData", JSON.stringify(scriptInfo));
   return await api
@@ -1443,7 +1424,7 @@ export async function GetOrderBook(): Promise<any> {
     .post("https://uathsint.hypertrade.in/quick/user/orders", "", {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        "x-access-token": localStorage.getItem("sessionKey"),
+        "x-access-token": sessionKey,
       },
     })
 
@@ -1452,7 +1433,7 @@ export async function GetOrderBook(): Promise<any> {
     .catch((error) => error);
 }
 
-export async function GetTradeBook(): Promise<any> {
+export async function GetTradeBook(sessionKey:string): Promise<any> {
   //const params = new URLSearchParams();
   //params.append("jData", JSON.stringify(scriptInfo));
   return await api
@@ -1460,7 +1441,7 @@ export async function GetTradeBook(): Promise<any> {
     .post("https://uathsint.hypertrade.in/quick/user/trades", "", {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        "x-access-token": localStorage.getItem("sessionKey"),
+        "x-access-token": sessionKey,
       },
     })
 
@@ -1469,7 +1450,7 @@ export async function GetTradeBook(): Promise<any> {
     .catch((error) => error);
 }
 
-export async function getNetposition(): Promise<any> {
+export async function getNetposition(sessionKey:string): Promise<any> {
   //const params = new URLSearchParams();
   //params.append("jData", JSON.stringify(scriptInfo));
   return await api
@@ -1477,6 +1458,7 @@ export async function getNetposition(): Promise<any> {
     .post("https://uathsint.hypertrade.in/quick/user/positions", "", {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "x-access-token": sessionKey,
       },
     })
 

@@ -5,7 +5,7 @@ import { RootState } from "../../../../store/store";
 import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
 import { IWatchListProps } from "../../../../types/IWatchListProps";
 import "../../style.css";
-import { ChangeWatchList } from "./MarketWatchSlice";
+import { ChangeWatchList, FetchWatchList } from "./MarketWatchSlice";
 
 const MarketWatchPortfolio = (props: IWatchListProps) => {
   const dispatch = useAppDispatch();
@@ -19,7 +19,7 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
   // const userState = useAppSelector((state) => state.user);
 
   useEffect(() => {
-   // dispatch(FetchWatchList());
+    dispatch(FetchWatchList(userState.sessionKey));
     console.log("getMarketWatchSuccess useEffect");
   }, []);
 
