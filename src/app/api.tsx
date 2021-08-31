@@ -264,29 +264,29 @@ export const getWatchList1: any = () => {
 };
 
 export function GetSymbolDetails() {
-  // const SymbolListData = {
-  //   mwId: 1,
-  //   mwName: "nifty",
-  //   scrips: "bse_cm|16082",
-  //   cmpName: "ACC LIMITED",
-  //   exch: "NSE",
-  //   seg: "CASH",
-  //   sym: "ACC",
-  //   exEndDt: "NA",
-  //   op: "656",
-  //   c: "566",
-  //   h: "45.567",
-  //   lo: "67",
-  //   lt1: "78",
-  //   ltt: "78",
-  //   lcl: "78",
-  //   ucl: "78",
-  //   ap: "78",
-  //   ltq: "78",
-  //   v: "45",
-  //   showDepth: false,
-  // } as IMarketWatchTokenInfo;
-  const SymbolListData = null;
+  const SymbolListData = {
+    mwId: 1,
+    mwName: "nifty",
+    scrips: "bse_cm|16082",
+    cmpName: "ACC LIMITED",
+    exch: "NSE",
+    seg: "CASH",
+    sym: "ACC",
+    exEndDt: "NA",
+    op: "656",
+    c: "566",
+    h: "45.567",
+    lo: "67",
+    lt1: "78",
+    ltt: "78",
+    lcl: "78",
+    ucl: "78",
+    ap: "78",
+    ltq: "78",
+    v: "45",
+    showDepth: false,
+  } as IMarketWatchTokenInfo;
+  //const SymbolListData = null;
   return SymbolListData;
 }
 

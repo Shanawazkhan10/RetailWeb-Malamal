@@ -34,21 +34,21 @@ const MarketPicturePrice = (props: { TokenInfo: IMarketWatchTokenInfo }) => {
           </div>
           <div className="MarketPicturePrice">
             <label>Low:</label>
-            <label className="classNamemk">{props.TokenInfo.lo}</label>
+            <label className="classNamemk">74.8125</label>
             <label>Close:</label>
-            <label className="classNamemk">{props.TokenInfo.c}</label>
+            <label className="classNamemk">74.8125</label>
           </div>
           <div className="MarketPicturePrice">
             <label>Volume:</label>
-            <label className="classNamemk"> {props.TokenInfo.v}</label>
+            <label className="classNamemk">74.8125</label>
             <label>Avg. Price:</label>
-            <label className="classNamemk">{props.TokenInfo.ap}</label>
+            <label className="classNamemk">74.8125</label>
           </div>
           <div className="MarketPicturePrice">
             <label>LTQ:</label>
-            <label className="classNamemk"> {props.TokenInfo.ltq}</label>
+            <label className="classNamemk"> 74.8125</label>
             <label>LTT:</label>
-            <label className="classNamemk">{props.TokenInfo.ltt}</label>
+            <label className="classNamemk">74.8125</label>
           </div>
           {/* <div className="MarketPicturePrice">
             <label>LUT:</label>
@@ -64,9 +64,9 @@ const MarketPicturePrice = (props: { TokenInfo: IMarketWatchTokenInfo }) => {
           </div> */}
           <div className="MarketPicturePrice">
             <label>Lower Circuit:</label>
-            <label className="classNamemk">{props.TokenInfo.lcl}</label>
+            <label className="classNamemk">74.8125</label>
             <label>Upper Circuit:</label>
-            <label className="classNamemk">{props.TokenInfo.ucl}</label>
+            <label className="classNamemk">74.8125</label>
           </div>
           {/* <div className="MarketPicturePrice">
             <label>Tick Size:</label>
