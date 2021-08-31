@@ -6,7 +6,7 @@ import {
   renameWatchlist,
   updateWatchlist,
 } from "../../../../app/api";
-import { AppThunk } from "../../../../store/store";
+import { AppThunk, RootState } from "../../../../store/store";
 import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { IMarketDepth } from "../../../../types/IMarketDepth";
@@ -16,14 +16,20 @@ import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
 import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 import { IDeleteWatchlist } from "./../../../../app/IDeleteWatchlist";
 import { IRenameWatchlist } from "./../../../../types/IRenameWatchlist";
+import { useSelector } from "react-redux";
+import store from "./../../../../store/store";
+import { stat } from "fs";
+import { IScriptUpdate } from "../../../../types/MarketData/IScriptUpdate";
+import { IMarketWatch } from "../../../../types/IMarketWatch";
 
 const InitialMarketWatch: IMarketWatchList = {
   MarketWatchList: [],
-  nSelectedWatchList: 1,
+  nSelectedWatchList: 0,
   sSelectedWatchList: "",
   bIsBind: false,
   bIsError: false,
   Symbollistindex: 0,
+  SymbolList: [],
 };
 
 const marketwatchSlice = createSlice({
@@ -76,10 +82,9 @@ const marketwatchSlice = createSlice({
         state.marketWatch.MarketWatchList[
           state.marketWatch.Symbollistindex
         ].SymbolList = TokenInfo;
-      // state.marketWatch.MarketWatchList[2].SymbolList = TokenInfo;
-      // state.marketWatch.MarketWatchList[3].SymbolList = TokenInfo;
-      // state.marketWatch.MarketWatchList[4].SymbolList = TokenInfo;
-      // state.marketWatch.MarketWatchList[5].SymbolList = TokenInfo;
+
+      state.marketWatch.SymbolList[Number(state.marketWatch.Symbollistindex)] =
+        action.payload.data;
     },
     getMarketDepthSuccess: (state, action) => {
       let MarketDepth: IMarketDepth = action.payload;
@@ -118,6 +123,47 @@ const marketwatchSlice = createSlice({
     setSymbollistindex: (state, action) => {
       state.marketWatch.Symbollistindex = action.payload;
     },
+    ScriptUpdatefromSocket: (state, action) => {
+      const ScriptList: IScriptUpdate[] = action.payload;
+      JSON.parse(action.payload).forEach((script: IScriptUpdate) => {
+        // state.socketdata.Script[Number(script.tk)] = script;
+        //
+        //state.marketWatch.SymbolList[0].ltp = script.ltp;
+        //state.marketWatch.MarketWatchList[0].SymbolList[0].sym = script.ltp;
+        state.marketWatch.MarketWatchList.forEach(
+          (MarketWatch: IMarketWatch) => {
+            MarketWatch.SymbolList.forEach((token: IMarketWatchTokenInfo) => {
+              if (token.tok == script.tk) {
+                if (script.ltp != undefined) {
+                  token.ltp = script.ltp;
+                }
+                token.nc = script.nc;
+                token.cng = script.cng;
+              }
+            });
+          }
+        );
+        // state.marketWatch.MarketWatchList[0].SymbolList.forEach(
+        //   (token: IMarketWatchTokenInfo) => {
+        //     if (token.tok == script.tk) {
+        //       token.ltp = script.ltp;
+        //       token.nc = script.nc;
+        //     }
+        //   }
+        // );
+      });
+      //state.marketWatch.SymbolList[0].ltp
+    },
+    // FetchSocketData: (state, action) => {
+    //   // const ScriptData = useSelector(
+    //   //   (state: RootState) => state.socketData.socketdata.Script
+    //   // );
+    //   // state.marketWatch.MarketWatchList[
+    //   //   state.marketWatch.nSelectedWatchList
+    //   // ].SymbolList[0].ltp =
+    //   //   store.getState().socketData.socketdata.Script[22].ltp;
+    //   //const x = store.getState().socketData.socketdata.Script[22].ltp;
+    // },
   },
 });
 
@@ -136,6 +182,8 @@ export const {
   hideMore,
   showMore,
   setSymbollistindex,
+  ScriptUpdatefromSocket,
+  //FetchSocketData,
 } = marketwatchSlice.actions;
 
 export const FetchWatchList = (): AppThunk => async (dispatch) => {

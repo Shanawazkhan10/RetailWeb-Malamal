@@ -106,7 +106,14 @@ const Search = () => {
       limit: 10,
       searchType: "all",
       keyword: value,
-      allowed_exchange: 1,
+      allowed_exchange: [
+        "nse_cm",
+        "nse_fo",
+        "mcx_fo",
+        "bse_cm",
+        "bse_fo",
+        "cde_fo",
+      ],
     };
 
     return ContractSearch(ContractSearchReq);

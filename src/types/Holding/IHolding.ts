@@ -1,4 +1,4 @@
-export interface IHoldingimport {
+export interface IHolding {
   bseTrdSym: String;
   btstHld: String;
   buyQty: String;

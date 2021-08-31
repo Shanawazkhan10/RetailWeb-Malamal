@@ -16,6 +16,7 @@ import {
   ShowDepthFromSearch,
   UpdateTokenInfo,
 } from "../MarketPicture/MarketPictureSlice";
+import { FetchSearch } from "./SmartSearchSlice";
 
 const Search1 = () => {
   const dispatch = useAppDispatch();
@@ -45,15 +46,25 @@ const Search1 = () => {
 
   // search world trading data for available stock symbols that match the search input
   const search = (val: string) => {
+    if (val.length < 3) {
+      return;
+    }
     //API Call
     const ContractSearchReq: IContractSearchReq = {
       limit: 10,
       searchType: "all",
       keyword: val,
-      allowed_exchange: 1,
+      allowed_exchange: [
+        "nse_cm",
+        "nse_fo",
+        // "mcx_fo",
+        // "bse_cm",
+        // "bse_fo",
+        // "cde_fo",
+      ],
     };
-
-    setResult(ContractSearch(ContractSearchReq));
+    var result: any = dispatch(FetchSearch(ContractSearchReq));
+    //setResult(result);
   };
 
   // handles changes to the search input

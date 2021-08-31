@@ -1395,3 +1395,24 @@ export async function getHolding(): Promise<any> {
 
     .catch((error) => error);
 }
+
+export async function SearchSymbol(
+  ContractSearchReq: IContractSearchReq
+): Promise<any> {
+  return await api
+    .post(
+      "https://uathsdiscovery.hypertrade.in/htpl/search/symbol",
+      JSON.stringify(ContractSearchReq),
+      {
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+          "x-access-token": localStorage.getItem("sessionKey"),
+          "api-key": "UzL0HZiHPTc1rNVr",
+        },
+      }
+    )
+
+    .then((response) => response.data)
+
+    .catch((error) => error);
+}

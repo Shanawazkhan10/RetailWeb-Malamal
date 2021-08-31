@@ -7,6 +7,7 @@ import { IGTTEntryProps } from "../../../../types/IGTTEntryProps";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import { IOrderEntryProps } from "../../../../types/IOrderEntryProps";
+import { FetchSocketData } from "../../../WebSocket/WebSocketSlice";
 import {
   openGTTEntry,
   setGTTEntryProps,
@@ -26,7 +27,6 @@ import {
   FetchWatchListSymbol,
   getMarketDepthSuccess,
   hideMore,
-  setSymbollistindex,
   ShowMarketDepth,
   showMore,
 } from "./MarketWatchSlice";
@@ -42,6 +42,9 @@ const MarketWatchItem = (props: {
     (state) => state.marketwatch.marketWatch
   );
   const OrderEntryState = useAppSelector((state) => state.orderEntry);
+  // const ScriptUpdate = useAppSelector(
+  //   (state) => state.socketData.socketdata.Script
+  // );
   const [activeItem, setActiveItem] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [depth, setDepth] = React.useState(null);
@@ -53,6 +56,10 @@ const MarketWatchItem = (props: {
     //dispatch(setSymbollistindex(props.index));
     getSymbol();
     console.log(" MarketWatchItem useEffect");
+  }, []);
+
+  useEffect(() => {
+    var a = dispatch(FetchSocketData(22));
   }, []);
 
   const OrderEntryProp = {
@@ -74,7 +81,7 @@ const MarketWatchItem = (props: {
   } as IGTTEntryProps;
 
   function onBuyOrderEntryClick(symbolInfo: IMarketWatchTokenInfo) {
-    OrderEntryProp.token = symbolInfo.tk;
+    OrderEntryProp.token = symbolInfo.tok;
     OrderEntryProp.price = symbolInfo.ltp;
     OrderEntryProp.quantity = 1;
     OrderEntryProp.symbol = symbolInfo.sym;
@@ -84,7 +91,7 @@ const MarketWatchItem = (props: {
     dispatch(openBuyOrderEntry());
   }
   function onSellOrderEntryClick(symbolInfo: IMarketWatchTokenInfo) {
-    OrderEntryProp.token = symbolInfo.tk;
+    OrderEntryProp.token = symbolInfo.tok;
     OrderEntryProp.price = symbolInfo.ltp;
     OrderEntryProp.quantity = 1;
     OrderEntryProp.symbol = symbolInfo.sym;
@@ -177,7 +184,7 @@ const MarketWatchItem = (props: {
   }
 
   function onCreateGTTOrderClick(symbolInfo: IMarketWatchTokenInfo) {
-    GTTEntryProp.token = symbolInfo.tk;
+    GTTEntryProp.token = symbolInfo.tok;
     GTTEntryProp.price = symbolInfo.ltp;
     GTTEntryProp.quantity = 1;
     GTTEntryProp.symbol = symbolInfo.sym;
@@ -277,12 +284,12 @@ const MarketWatchItem = (props: {
 
                   <div className="divLeftV_in">
                     <div className="mysymbolname">
-                      <span id="spnsymbol" title={symbolInfo.sym}>
+                      <span id="spnsymbol" title={symbolInfo.trdSym}>
                         {symbolInfo.sym}
                       </span>
                       <br />
                       <span id="spnLtt" title="LTT">
-                        2021-07-06 16:59:58
+                        {symbolInfo.trdSym}
                       </span>
                     </div>
 
@@ -293,13 +300,13 @@ const MarketWatchItem = (props: {
                         title="LTP"
                         style={{ color: "#00bb7e" }}
                       >
-                        88.5100
+                        {symbolInfo.ltp}
                       </span>
                       <span className="pt_sprd" id="ltpDifference">
-                        0.05
+                        {symbolInfo.cng}
                       </span>
                       <span className="pt_sprd" id="ltpPercent">
-                        0.06%
+                        {symbolInfo.nc}%
                       </span>
                     </div>
                   </div>
