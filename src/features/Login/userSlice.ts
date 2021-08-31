@@ -6,14 +6,17 @@ import { PostLoginRequest, PostMPINRequest } from "../../app/api";
 import { toastNotification } from "../.././app/Notification";
 import { Redirect } from "react-router";
 
-const initialState = {  
+const initialState = {
   isPasswordCheked: localStorage.getItem("userkey") ? true : false,
-  isAuthenticated: localStorage.getItem("userkey") ? true :false,
+  isAuthenticated: localStorage.getItem("userkey") ? true : false,
   isError: false,
-  UserId:localStorage.getItem("userID")?localStorage.getItem("userID"):"",
+  UserId: localStorage.getItem("userID") ? localStorage.getItem("userID") : "",
   user: null,
-  sessionKey:localStorage.getItem("userkey") ? localStorage.getItem("userkey"): "",
-  server:"",
+  sessionKey: localStorage.getItem("userkey")
+    ? localStorage.getItem("userkey")
+    : "",
+  server: "",
+  SetPassword:false,
 } as IUser;
 
 export const userSlice = createSlice({
@@ -25,7 +28,7 @@ export const userSlice = createSlice({
       state.isAuthenticated = false;
       state.isError = false;
       state.UserId = action.payload;
-      localStorage.setItem("userID",action.payload);
+      localStorage.setItem("userID", action.payload);
       state.user = null;
     },
     loggedInSuccess: (state, action: PayloadAction<any>) => {
@@ -33,6 +36,15 @@ export const userSlice = createSlice({
       state.isAuthenticated = false;
       state.isError = false;
       state.user = action.payload;
+      state.SetPassword= false;
+    },
+    loggedInSuccessSetPassword: (state, action: PayloadAction<any>) => {
+      state.isPasswordCheked = true;
+      state.isAuthenticated = false;
+      state.isError = false;
+      state.user = action.payload;
+      state.SetPassword= true;
+      state.sessionKey= action.payload.data.sessioinkey;
     },
     loggedInError: (state, action: PayloadAction<any>) => {
       state.isPasswordCheked = false;
@@ -42,7 +54,7 @@ export const userSlice = createSlice({
       toastNotification("error", action.payload.message);
     },
     twofasuccess: (state, action: PayloadAction<any>) => {
-      localStorage.setItem("userkey",action.payload.data.sessionKey);
+      localStorage.setItem("userkey", action.payload.data.sessionKey);
       state.isPasswordCheked = true;
       state.isAuthenticated = true;
       state.isError = false;
@@ -75,7 +87,14 @@ export const UserLogin =
       const LoginResponse = await PostLoginRequest(loginData);
 
       if (LoginResponse.code == 200) {
-        dispatch(loggedInSuccess(LoginResponse));
+        if(LoginResponse.data.action == 102)
+        {
+
+        }
+        else
+        {
+          dispatch(loggedInSuccess(LoginResponse));
+        }
       } else if (LoginResponse.status == "FAILURE") {
         dispatch(loggedInError(LoginResponse));
       }
@@ -89,9 +108,13 @@ export const UserMPINLogin =
   async (dispatch) => {
     try {
       const MPINResponse = await PostMPINRequest(LoginData);
-      dispatch(twofasuccess(MPINResponse));
+      if (MPINResponse.code == 200) {
+        dispatch(twofasuccess(MPINResponse));
+      } else {
+        dispatch(twofaError(MPINResponse));
+      }
     } catch (err) {
-      dispatch(loggedInError(err.toString()));
+      dispatch(twofaError(err));
     }
   };
 

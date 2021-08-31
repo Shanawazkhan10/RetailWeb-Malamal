@@ -6,4 +6,5 @@ export interface IUser {
   user: any | null;
   sessionKey:string;
   server:string;
+  SetPassword:boolean;
 }

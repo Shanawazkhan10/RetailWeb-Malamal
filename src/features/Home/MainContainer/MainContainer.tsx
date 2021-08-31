@@ -25,6 +25,7 @@ import IPODetails from "../IPO/IPODetails";
 import UpcomingIPODetails from "../IPO/UpcomingIPODetails";
 import { useEffect } from "react";
 import { loggedout } from "../../Login/userSlice";
+import PieChart from "./PieChart/PieChart";
 
 const MainContainer = (props: any) => {
   const MenuClick = props;
@@ -114,7 +115,8 @@ const MainContainer = (props: any) => {
           return (
             <div className="con_bottom">
               <NetPositionList></NetPositionList>
-              <HoldingList></HoldingList>
+              <PieChart></PieChart>
+              {/* <HoldingList></HoldingList> */}
               {/* <MarketPicture></MarketPicture> */}
             </div>
           );

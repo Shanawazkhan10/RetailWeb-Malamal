@@ -4,6 +4,7 @@ export interface IOrderEntryRequest {
 }
 
 export interface IjData {
+  am: string;
   es: string; //Exchange Segment
   pc: string; //Product Code
   pr: string; //price
@@ -14,8 +15,7 @@ export interface IjData {
   tp: string; //Trigger Price
   ts: string; //Trading Symbol
   tt: string; //Transaction Type
-  //ig: string;//GuiOrderId (its Madatory, if GUIId check is enabled from Server)
-  am: string;
+  ig: string;//GuiOrderId (its Madatory, if GUIId check is enabled from Server)  
   os: string;
   dq: string;
 }

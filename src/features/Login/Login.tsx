@@ -119,7 +119,8 @@ const Login = () => {
                   </div>
                 </form>
               ) : (
-                <MPIN />
+                (user.SetPassword ?("SetPasword Window Here")
+                :<MPIN />)
               )}
             </div>
           </div>

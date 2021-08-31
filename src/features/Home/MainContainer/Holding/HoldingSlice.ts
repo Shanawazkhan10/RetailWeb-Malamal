@@ -26,12 +26,12 @@ export default holding.reducer;
 
 export const { HoldingSuccess } = holding.actions;
 
-export const fetchNetposition = () => async (dispatch: any) => {
-  try {
-    await api
-      .get<IHolding[]>("/users")
-      .then((response) => dispatch(HoldingSuccess(response.data)));
-  } catch (e) {
-    return console.error(e.message);
-  }
-};
+// export const fetchNetposition = () => async (dispatch: any) => {
+//   try {
+//     await api
+//       .get<IHolding[]>("/users")
+//       .then((response) => dispatch(HoldingSuccess(response.data)));
+//   } catch (e) {
+//     return console.error(e.message);
+//   }
+// };

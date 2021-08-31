@@ -33,6 +33,7 @@ const OrderEntryComp = () => {
   const onSubmit: SubmitHandler<IOrderEntryProps> = (data) => {
     console.log(data);
     const Jdata: IjData = {
+      am: "NO",
       es: orderEntryState.exchange,
       pc: orderEntryState.productCode,
       pr: orderEntryState.price,
@@ -43,10 +44,9 @@ const OrderEntryComp = () => {
       tp: orderEntryState.triggerprice,
       ts: orderEntryState.symbol,
       tt: orderEntryState.isBuy ? "B" : "S",
-      //ig: "erfhj1234xcjid"
-      am: "NO",
+      ig: "",      
       os: "WEB",
-      dq: "0",
+      dq: orderEntryState.disclosedQty.toString(),
     };
 
     const orderentryrequest: IOrderEntryRequest = {

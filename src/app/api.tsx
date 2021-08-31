@@ -243,8 +243,10 @@ export const getOrderData: any = () => {
   return OrderData;
 };
 
-export async function getWatchList(cache: boolean,sessionkey:string): Promise<any> {  
-  
+export async function getWatchList(
+  cache: boolean,
+  sessionkey: string
+): Promise<any> {
   var querystring = JSON.stringify({
     cache: cache,
   });
@@ -264,7 +266,10 @@ export async function getWatchList(cache: boolean,sessionkey:string): Promise<an
     .catch((error) => error);
 }
 
-export async function updateWatchList(cache: boolean,sessionKey:string): Promise<any> {
+export async function updateWatchList(
+  cache: boolean,
+  sessionKey: string
+): Promise<any> {
   return await api
     .post(
       "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/getusergroups",
@@ -280,8 +285,10 @@ export async function updateWatchList(cache: boolean,sessionKey:string): Promise
     .catch((error) => error);
 }
 
-export async function deleteWatchList(cache: boolean,sessionKey:string): Promise<any> {
-
+export async function deleteWatchList(
+  cache: boolean,
+  sessionKey: string
+): Promise<any> {
   const DeleteRequestData = {
     mwName: "W1",
     userid: "",
@@ -303,8 +310,10 @@ export async function deleteWatchList(cache: boolean,sessionKey:string): Promise
     .catch((error) => error);
 }
 
-export async function renameWatchList(cache: boolean,sessionKey:string): Promise<any> {
-  
+export async function renameWatchList(
+  cache: boolean,
+  sessionKey: string
+): Promise<any> {
   return await api
     .post(
       "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/getusergroups",
@@ -320,7 +329,10 @@ export async function renameWatchList(cache: boolean,sessionKey:string): Promise
     .catch((error) => error);
 }
 
-export async function PostScritInfo(scriptInfo: string[],sessionKey:string): Promise<any> {
+export async function PostScritInfo(
+  scriptInfo: string[],
+  sessionKey: string
+): Promise<any> {
   var querystring = JSON.stringify({
     scripArr: scriptInfo,
   });
@@ -340,7 +352,7 @@ export async function PostScritInfo(scriptInfo: string[],sessionKey:string): Pro
 
     .post("https://uathsint.hypertrade.in/quick/scrip/info", params, {
       headers: {
-        "Content-Type"  : "application/json",
+        "Content-Type": "application/json",
         "x-access-token": sessionKey,
       },
     })
@@ -1328,33 +1340,17 @@ export async function sendOrderEntryRequest(
 ): Promise<any> {
   const params = new URLSearchParams();
   params.append("jData", JSON.stringify(orderentryrequest.jData));
-  params.append("jKey", orderentryrequest.jKey); 
+  params.append("jKey", orderentryrequest.jKey);
 
   return await api
-    .post("https://uathsint.hypertrade.in/quick/order/place",params,    
-    {
+    .post("https://uathsint.hypertrade.in/quick/order/place", params, {
       headers: {
         "x-access-token": orderentryrequest.jKey,
         "Content-Type": "application/x-www-form-urlencoded",
-      }            
+      },
     })
     .then((response) => response.data)
     .catch((error) => {
       throw error;
     });
-}
-export async function Postmpinlogin(scriptInfo: string[]): Promise<any> {
-  const params = new URLSearchParams();
-  params.append("jData", JSON.stringify(scriptInfo));
-  return await api
-
-    .post("https://uathsauth.hypertrade.in/api/mpinlogin", params, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-      },
-    })
-
-    .then((response) => response.data)
-
-    .catch((error) => error);
 }
