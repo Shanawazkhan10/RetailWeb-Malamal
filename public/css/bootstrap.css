@@ -5008,7 +5008,7 @@ a.badge-dark:focus, a.badge-dark.focus {
   background-size: 1rem 1rem;
 }
 
-.progress-bar-animated {
+/* .progress-bar-animated {
   animation: progress-bar-stripes 1s linear infinite;
 }
 
@@ -5016,7 +5016,7 @@ a.badge-dark:focus, a.badge-dark.focus {
   .progress-bar-animated {
     animation: none;
   }
-}
+} */
 
 .media {
   display: flex;

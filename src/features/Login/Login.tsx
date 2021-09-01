@@ -54,7 +54,7 @@ const Login = () => {
       source: Source,
     });
 
-    dispatch(UserLogin("Login", querystring));
+    dispatch(UserLogin(querystring));
   };
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);

@@ -1,4 +1,17 @@
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { FetchMargin } from "./MarginSlice";
+
 const Margin = () => {
+  const dispatch = useAppDispatch();
+
+  const userState = useAppSelector((state) => state.user);
+  const marginState = useAppSelector((state) => state.margin);
+
+  useEffect(() => {
+    dispatch(FetchMargin(userState.sessionKey));
+  }, []);
+
   return (
     <div className="col-sm-12 col-md-12 col-lg-6 col-xl-4">
       <div className="plate fadeIn-element">
@@ -10,7 +23,7 @@ const Margin = () => {
           <div className="equitytxt">
             <p>Margin Available</p>
             <p>
-              Margin Used <span>8.85</span>
+              Margin Used <span>{marginState.marginData}</span>
             </p>
             <p>
               Opening Balance <span>168.1</span>

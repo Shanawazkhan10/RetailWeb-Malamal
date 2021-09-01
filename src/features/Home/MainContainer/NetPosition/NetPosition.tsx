@@ -1,6 +1,5 @@
 import React from "react";
 import { INetPosition } from "../../../../types/INetposition";
-import "../../style.css";
 
 const NetPositionV = (props: { netposition: INetPosition }) => {
   const { netposition } = props;

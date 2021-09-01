@@ -19,6 +19,8 @@ import gttEntrySlice from "../features/Home/GTTOrderEntry/gttEntrySlice";
 import SmartSearchSlice from "../features/Home/MainContainer/SmartSearch/SmartSearchSlice";
 import MarketPictureSlice from "../features/Home/MainContainer/MarketPicture/MarketPictureSlice";
 import WebSocketSlice from "../features/WebSocket/WebSocketSlice";
+import SummarySlice from "../features/Home/MainContainer/Dashboard/SummarySlice";
+import MarginSlice from "../features/Home/MainContainer/Dashboard/MarginSlice";
 const store = configureStore({
   reducer: {
     user: userReducer,
@@ -39,6 +41,8 @@ const store = configureStore({
     gttEntry: gttEntrySlice,
     marketpicture: MarketPictureSlice,
     socketData: WebSocketSlice,
+    summary: SummarySlice,
+    margin: MarginSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

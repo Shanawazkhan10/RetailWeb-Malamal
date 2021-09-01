@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { getNetpositionData } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
-import "../../style.css";
 import NetPosition from "./NetPosition";
 import { fetchNetposition, NetpositionSuccess } from "./NetPositionSlice";
 import NetPositionSummary from "./NetPositionSummary";

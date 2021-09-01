@@ -1,4 +1,17 @@
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { FetchGainer, OnTopGainers } from "./SummarySlice";
+
 const Summary = () => {
+  const dispatch = useAppDispatch();
+
+  const userState = useAppSelector((state) => state.user);
+  const summaryState = useAppSelector((state) => state.summary);
+
+  useEffect(() => {
+    dispatch(FetchGainer(userState.sessionKey));
+  }, []);
+
   return (
     <div className="col-sm-12 col-md-12 col-lg-6 col-xl-4">
       <div className="plate fadeIn-element">
@@ -25,31 +38,19 @@ const Summary = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>HDFC</td>
-                    <td>399.75</td>
-                    <td>8.85%</td>
-                  </tr>
-                  <tr>
-                    <td>HINDUNILVR</td>
-                    <td>400.03</td>
-                    <td>4.23%</td>
-                  </tr>
-                  <tr>
-                    <td>INFY</td>
-                    <td>221.42</td>
-                    <td>23.8%</td>
-                  </tr>
-                  <tr>
-                    <td>ONGC</td>
-                    <td>123.52</td>
-                    <td>2.83%</td>
-                  </tr>
-                  <tr>
-                    <td>TCS</td>
-                    <td>423.54</td>
-                    <td>7.43%</td>
-                  </tr>
+                  {summaryState.summaryData.SummaryList != null ? (
+                    summaryState.summaryData.SummaryList.map(
+                      (summarydata: any) => (
+                        <tr>
+                          <td>{summarydata.tsym}</td>
+                          <td>{summarydata.netchg}</td>
+                          <td>{summarydata.chg}</td>
+                        </tr>
+                      )
+                    )
+                  ) : (
+                    <div>No Data 2</div>
+                  )}
                 </tbody>
               </table>
             </div>

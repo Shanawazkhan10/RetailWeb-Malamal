@@ -5,6 +5,7 @@ import { RootState } from "../../../../store/store";
 import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
 import { IWatchListProps } from "../../../../types/IWatchListProps";
 import { ChangeWatchList, FetchWatchList } from "./MarketWatchSlice";
+import "balloon-css";
 
 const MarketWatchPortfolio = (props: IWatchListProps) => {
   const dispatch = useAppDispatch();
@@ -43,9 +44,29 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
             }
             style={{ display: "inline-block", zoom: "1" }}
           >
-            <a href="" id={WatchList.id} onClick={handleChange}>
+            {/* <a href="" id={WatchList.id} onClick={handleChange}>
               {WatchList.mwName}
-            </a>
+            </a> */}
+            <nav aria-label="Page navigation example">
+              <ul className="pagination">
+                <li className="page-item active">
+                  <a
+                    className="page-link"
+                    href=""
+                    id={String(WatchList.id)}
+                    onClick={handleChange}
+                  >
+                    <span
+                      aria-label={WatchList.mwName}
+                      data-balloon-pos="up"
+                      data-balloon
+                    >
+                      {WatchList.id + 1}
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </li>
         ))}
       </ul>

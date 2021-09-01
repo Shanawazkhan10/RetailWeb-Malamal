@@ -1,4 +1,14 @@
+import { useAppDispatch } from "../../../../app/hooks";
+import { holdingContainer } from "../mainContainerSlice";
+
 const Holdings = () => {
+  const dispatch = useAppDispatch();
+
+  function OpenHolding(e: any) {
+    e.preventDefault();
+    dispatch(holdingContainer());
+  }
+
   return (
     <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6">
       <div className="plate fadeIn-element" id="holdingbox">
@@ -8,7 +18,9 @@ const Holdings = () => {
           </div>
           <div className="col-md-6 holdingbtn">
             <span>
-              <a href="#">View All Holdings</a>
+              <a href="" onClick={OpenHolding}>
+                View All Holdings
+              </a>
             </span>
           </div>
           <div className="col-md-6 holdingleft mt-4">

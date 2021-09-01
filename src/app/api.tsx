@@ -1140,7 +1140,7 @@ export async function updateWatchlist(
     .catch((error) => error);
 }
 
-export async function RenameWatchlist(
+export async function renameWatchlist(
   renameReq: IRenameWatchlist
 ): Promise<any> {
   return await api
@@ -1396,8 +1396,55 @@ export async function getHolding(): Promise<any> {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
       },
     })
-
     .then((response) => response.data)
+    .catch((error) => error);
+}
 
+export async function getSummaryData(SessionKey: string): Promise<any> {
+  const request = {
+    exchange_segment: "nse_cm",
+    type: "gainer",
+    indexname: "nifty50",
+    limit: "5",
+    day: "1",
+  };
+
+  const querystring = JSON.stringify(request);
+
+  return await api
+    .post(
+      "https://uathsdiscovery.hypertrade.in/htpl/market/getmarketmovers",
+      querystring,
+      {
+        headers: {
+          "api-key": "UzL0HZiHPTc1rNVr",
+          "Content-Type": "application/json",
+          "x-access-token": SessionKey,
+        },
+      }
+    )
+    .then((response) => response.data)
+    .catch((error) => error);
+}
+
+export async function getUserMargin(SessionKey: string): Promise<any> {
+  const RequestData = {
+    seg: "CASH",
+    exch: "NSE",
+    prod: "ALL",
+  };
+
+  const params = new URLSearchParams();
+  params.append("jData", JSON.stringify(RequestData));
+  params.append("jKey", SessionKey);
+
+  return await api
+    .post("https://uathsint.hypertrade.in/quick/user/limits", params, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "x-access-token": SessionKey,
+      },
+    })
+    .then((response) => response.data)
     .catch((error) => error);
 }

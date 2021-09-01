@@ -11,7 +11,6 @@ const HoldingList = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    //dispatch(HoldingSuccess(getHoldingData()));
     dispatch(fetchHolding());
   }, []);
 

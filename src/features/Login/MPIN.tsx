@@ -1,11 +1,10 @@
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useHistory } from "react-router-dom";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import { twofasuccess } from "./userSlice";
-import { RootState } from "../../store/store";
 import md5 from "md5";
 import { isMobile } from "react-device-detect";
-import { UserLogin } from "./userSlice";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { RootState } from "../../store/store";
+import { UserMPINLogin } from "./userSlice";
 
 interface IMPINInput {
   PIN: string;
@@ -37,10 +36,10 @@ const MPIN = () => {
       brokerId: "TECXLABS",
       devicempinkey: UserDetailsonLogin.user.data.devicempinkey,
       source: Source,
-    });    
-    dispatch(UserLogin("MPIN", querystring)); //Temp Code need to remove and Set after success response on Login/MPIN : MP   
+    });
+    dispatch(UserMPINLogin(querystring)); //Temp Code need to remove and Set after success response on Login/MPIN : MP
   };
-  return (    
+  return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <span className="login-main-form-title">MPIN</span>
       <div className="wrap-input100 m-b-20">

@@ -486,19 +486,19 @@ h6,
   text-decoration: none;
   opacity: 1;
 }
-
+/* 
 .slideInDown-element {
-  animation: slideInDown; /* referring directly to the animation's @keyframe declaration */
-  animation-duration: 3s; /* don't forget to set a duration! */
+  animation: slideInDown; /* referring directly to the animation's @keyframe declaration
+animation-duration: 3s; /* don't forget to set a duration! 
 }
 .slideInLeft-element {
-  animation: slideInLeft; /* referring directly to the animation's @keyframe declaration */
-  animation-duration: 3s; /* don't forget to set a duration! */
+  animation: slideInLeft; /* referring directly to the animation's @keyframe declaration 
+animation-duration: 3s; /* don't forget to set a duration! 
 }
 .fadeIn-element {
-  animation: fadeIn; /* referring directly to the animation's @keyframe declaration */
-  animation-duration: 2s; /* don't forget to set a duration! */
-}
+  animation: fadeIn; /* referring directly to the animation's @keyframe declaration 
+animation-duration: 2s; /* don't forget to set a duration!
+} */
 
 /* Extra small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {

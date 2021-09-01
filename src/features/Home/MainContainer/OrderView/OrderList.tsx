@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { getOrderData } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
-import "../../style.css";
+
 import OrderView from "./Order";
 import { fetchOrderView, OrderViewSuccess } from "./OrderViewSlice";
 
