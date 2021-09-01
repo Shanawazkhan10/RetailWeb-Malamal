@@ -5,21 +5,26 @@ import { RootState } from "../../../../store/store";
 import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
 import { IWatchListProps } from "../../../../types/IWatchListProps";
 import "../../style.css";
-import { ChangeWatchList, FetchWatchList } from "./MarketWatchSlice";
+import {
+  ChangeWatchList,
+  fetchmarketWatch,
+  onMarketWatchSuccess,
+} from "./MarketWatchSlice";
+import { useAppSelector } from "../../../../app/hooks";
 
 const MarketWatchPortfolio = (props: IWatchListProps) => {
   const dispatch = useAppDispatch();
   let WatchListData: any[];
   let selectedList: number;
   const WatchList = useSelector((state: RootState) => state.marketwatch);
-  const userState = useSelector((state:RootState) => state.user);
+  const userState = useSelector((state: RootState) => state.user);
   selectedList = Number(WatchList.marketWatch.nSelectedWatchList);
   WatchListData = WatchList.marketWatch.MarketWatchList;
 
   // const userState = useAppSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(FetchWatchList(userState.sessionKey));
+    dispatch(fetchmarketWatch(false, userState.sessionKey));
     console.log("getMarketWatchSuccess useEffect");
   }, []);
 

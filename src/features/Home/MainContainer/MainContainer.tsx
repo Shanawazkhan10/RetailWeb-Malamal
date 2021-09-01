@@ -1,5 +1,5 @@
 //const MainContainer = (props: IWatchListProps) => {
-import { useAppSelector,useAppDispatch } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import DematDetails from "../Account/DematDetails";
 import UpdateMobileEmail from "../Account/UpdateMobileEmail";
 import IPODetails from "../IPO/IPODetails";
@@ -59,7 +59,7 @@ const MainContainer = (props: any) => {
 
   const personalContainer = useAppSelector((state) => state.personalContainer);
 
-  const dispatch =  useAppDispatch();
+  const dispatch = useAppDispatch();
   function renderRightContainer() {
     if (mainContainer.IsPersonal) {
       switch (personalContainer.initialState.rightContainer) {
@@ -166,12 +166,11 @@ const MainContainer = (props: any) => {
     }
   }
 
-  useEffect(() => {  
-    window.addEventListener('beforeunload', onWindowCLose);  
-  }, [])
+  useEffect(() => {
+    window.addEventListener("beforeunload", onWindowCLose);
+  }, []);
 
-  function onWindowCLose()
-  {
+  function onWindowCLose() {
     //alert("Window closing");
     //dispatch(loggedout());
   }

@@ -103,10 +103,17 @@ const Search = () => {
   function getSuggestions(value: string): IContractSearch[] {
     //API Call
     const ContractSearchReq: IContractSearchReq = {
-      limit: 10,
-      searchType: "all",
+      //limit: 10,
+      search_type: "all",
       keyword: value,
-      allowed_exchange: 1,
+      allowed_exchange: [
+        "nse_cm",
+        "nse_fo",
+        "mcx_fo",
+        "bse_cm",
+        "bse_fo",
+        "cde_fo",
+      ],
     };
 
     return ContractSearch(ContractSearchReq);

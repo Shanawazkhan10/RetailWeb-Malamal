@@ -1,7 +1,6 @@
 import axios from "axios";
 import { UpdateSymbolDetails } from "../features/Home/MainContainer/MarketWatch/MarketWatchSlice";
 import { loggedInSuccess } from "../features/Login/userSlice";
-
 import { ILogin } from "../types/ILogin";
 import { IContractSearchReq } from "../types/IContractSearchReq";
 import { IMarketWatchTokenInfo } from "../types/IMarketWatchTokenInfo";
@@ -244,52 +243,37 @@ export const getOrderData: any = () => {
   return OrderData;
 };
 
-// export const getWatchList1: any = () => {
-//   const WatchListData = [
-//     {
-//       mwName: "nifty",
-//       scrips: "bse_cm|16082,bse_fo|68822,bse_cm|16082,bse_fo|68822",
-//       id: 1,
-//       SymbolList: null,
-//     },
-//     {
-//       mwName: "nifty1",
-//       scrips: "nse_cm|15083,nse_fo|58824",
-//       id: 2,
-//       SymbolList: null,
-//     },
-//     {
-//       mwName: "nifty2",
-//       scrips: "bse_cm|16082,bse_fo|68822,bse_cm|16082,bse_fo|68822",
-//       id: 3,
-//       SymbolList: null,
-//     },
-//     {
-//       mwName: "nifty3",
-//       scrips: "nse_cm|15083",
-//       id: 4,
-//       SymbolList: null,
-//     },
-//     {
-//       headers: {
-//         "api-key": "UzL0HZiHPTc1rNVr",
-//         "x-access-token": localStorage.getItem("sessionKey"),
-//         "Content-Type": "application/json",
-//       },
-//     }
-//   )
-//     .then((response) => response.data)
-//     .catch((error) => error);
-// }
+export async function getWatchList(
+  cache: boolean,
+  sessionkey: string
+): Promise<any> {
+  var querystring = JSON.stringify({
+    cache: cache,
+  });
+
+  return await DiscApi.post(
+    "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/getusergroups",
+    querystring,
+    {
+      headers: {
+        "api-key": "UzL0HZiHPTc1rNVr",
+        "x-access-token": sessionkey,
+        "Content-Type": "application/json",
+      },
+    }
+  )
+    .then((response) => response.data)
+    .catch((error) => error);
+}
 
 export async function updateWatchList(
-  cache: boolean,
+  UpdateReq: IUpdateWatchlist,
   sessionKey: string
 ): Promise<any> {
   return await api
     .post(
       "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/getusergroups",
-      JSON.stringify(cache),
+      JSON.stringify(UpdateReq),
       {
         headers: {
           "api-key": "UzL0HZiHPTc1rNVr",
@@ -302,19 +286,14 @@ export async function updateWatchList(
 }
 
 export async function deleteWatchList(
-  cache: boolean,
+  DelReq: IDeleteWatchlist,
   sessionKey: string
 ): Promise<any> {
-  const DeleteRequestData = {
-    mwName: "W1",
-    userid: "",
-  };
-
   return await api
 
     .post(
       "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/getusergroups",
-      JSON.stringify(cache),
+      JSON.stringify(DelReq),
       {
         headers: {
           "api-key": "UzL0HZiHPTc1rNVr",
@@ -327,13 +306,13 @@ export async function deleteWatchList(
 }
 
 export async function renameWatchList(
-  cache: boolean,
+  RenameReq: IRenameWatchlist,
   sessionKey: string
 ): Promise<any> {
   return await api
     .post(
       "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/getusergroups",
-      JSON.stringify(cache),
+      JSON.stringify(RenameReq),
       {
         headers: {
           "api-key": "UzL0HZiHPTc1rNVr",
@@ -342,6 +321,42 @@ export async function renameWatchList(
       }
     )
     .then((response) => response.data)
+    .catch((error) => error);
+}
+
+export async function PostScritInfo(
+  scriptInfo: string[],
+  sessionKey: string
+): Promise<any> {
+  const params = new URLSearchParams();
+  params.append("jData", JSON.stringify({ scripArr: scriptInfo }));
+
+  // var querystring = JSON.stringify({
+  //   scripArr: scriptInfo,
+  // });
+
+  //const params = new URLSearchParams();
+  //params.append("jData", querystring);
+
+  // var formBody = [];
+  // //for (var property in scriptInfo) {
+  // var encodedKey = encodeURIComponent("jData");
+  // var encodedValue = encodeURIComponent(querystring);
+  // formBody.push(encodedKey + "=" + encodedValue);
+  //}
+
+  //const params = JSON.stringify({ jData: querystring });
+  return await api
+
+    .post("https://uathsint.hypertrade.in/quick/scrip/info", params, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "x-access-token": sessionKey,
+      },
+    })
+
+    .then((response) => response.data)
+
     .catch((error) => error);
 }
 
@@ -1180,89 +1195,89 @@ export const SubscribeMarketDepth: any = (id: number, index: number) => {
 //   return null;
 // }
 
-export async function getWatchList(sesssionKey:string): Promise<any> {
-  return await api
+// export async function getWatchList(): Promise<any> {
+//   return await api
 
-    .post(
-      "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/getusergroups",
-      JSON.stringify({ cache: false }),
-      {
-        headers: {
-          "Content-Type": "application/json; charset=UTF-8",
-          "x-access-token": sesssionKey,
-          "api-key": "UzL0HZiHPTc1rNVr",
-        },
-      }
-    )
+//     .post(
+//       "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/getusergroups",
+//       JSON.stringify({ cache: false }),
+//       {
+//         headers: {
+//           "Content-Type": "application/json; charset=UTF-8",
+//           "x-access-token": localStorage.getItem("sessionKey"),
+//           "api-key": "UzL0HZiHPTc1rNVr",
+//         },
+//       }
+//     )
 
-    .then((response) => response.data)
+//     .then((response) => response.data)
 
-    .catch((error) => error);
-}
+//     .catch((error) => error);
+// }
 
-export async function updateWatchlist(
-  UpdateReq: IUpdateWatchlist,sessionKey:string
-): Promise<any> {
-  return await api
+// export async function updateWatchlist(
+//   UpdateReq: IUpdateWatchlist
+// ): Promise<any> {
+//   return await api
 
-    .post(
-      "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/updatewatchlist",
-      JSON.stringify(UpdateReq),
-      {
-        headers: {
-          "Content-Type": "application/json; charset=UTF-8",
-          "x-access-token": sessionKey,
-          "api-key": " UzL0HZiHPTc1rNVr",
-        },
-      }
-    )
+//     .post(
+//       "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/updatewatchlist",
+//       JSON.stringify(UpdateReq),
+//       {
+//         headers: {
+//           "Content-Type": "application/json; charset=UTF-8",
+//           "x-access-token": localStorage.getItem("sessionKey"),
+//           "api-key": " UzL0HZiHPTc1rNVr",
+//         },
+//       }
+//     )
 
-    .then((response) => response.data)
+//     .then((response) => response.data)
 
-    .catch((error) => error);
-}
+//     .catch((error) => error);
+// }
 
-export async function renameWatchlist(
-  renameReq: IRenameWatchlist,sessionKey:string
-): Promise<any> {
-  return await api
+// export async function renameWatchlist(
+//   renameReq: IRenameWatchlist
+// ): Promise<any> {
+//   return await api
 
-    .post(
-      "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/renamewatchlist",
-      JSON.stringify(renameReq),
-      {
-        headers: {
-          "Content-Type": "application/json; charset=UTF-8",
-          "x-access-token": sessionKey,
-          "api-key": " UzL0HZiHPTc1rNVr",
-        },
-      }
-    )
+//     .post(
+//       "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/renamewatchlist",
+//       JSON.stringify(renameReq),
+//       {
+//         headers: {
+//           "Content-Type": "application/json; charset=UTF-8",
+//           "x-access-token": localStorage.getItem("sessionKey"),
+//           "api-key": " UzL0HZiHPTc1rNVr",
+//         },
+//       }
+//     )
 
-    .then((response) => response.data)
+//     .then((response) => response.data)
 
-    .catch((error) => error);
-}
+//     .catch((error) => error);
+// }
 
-export async function DeleteWatchlist(DelReq: IDeleteWatchlist,sessionKey:string): Promise<any> {
-  return await api
+// export async function DeleteWatchlist(DelReq: IDeleteWatchlist): Promise<any> {
+//   return await api
 
-    .post(
-      "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/deleteusergroups",
-      JSON.stringify(DelReq),
-      {
-        headers: {
-          "Content-Type": "application/json; charset=UTF-8",
-          "x-access-token": sessionKey,
-          "api-key": " UzL0HZiHPTc1rNVr",
-        },
-      }
-    )
+//     .post(
+//       "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/deleteusergroups",
+//       JSON.stringify(DelReq),
+//       {
+//         headers: {
+//           "Content-Type": "application/json; charset=UTF-8",
+//           "x-access-token": localStorage.getItem("sessionKey"),
+//           "api-key": " UzL0HZiHPTc1rNVr",
+//         },
+//       }
+//     )
 
-    .then((response) => response.data)
+//     .then((response) => response.data)
 
-    .catch((error) => error);
-}
+//     .catch((error) => error);
+// }
 
 export async function PredifinedWatchlist() {
   //const url = `https://api.github.com/repos/${org}/${repo}/issues/${number}`
@@ -1394,28 +1409,15 @@ export async function sendOrderEntryRequest(
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         "x-access-token": orderentryrequest.jKey,
-      }})
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    })
     .then((response) => response.data)
     .catch((error) => {
       throw error;
     });
 }
-export async function PostScritInfo(scriptInfo: string[],sessionKey:string): Promise<any> {
-  const params = new URLSearchParams();
-  params.append("jData", JSON.stringify({ scripArr: scriptInfo }));
-  return await api
 
-    .post("https://uathsint.hypertrade.in/quick/scrip/info", params, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        "x-access-token": sessionKey,
-      },
-    })
-
-    .then((response) => response.data)
-
-    .catch((error) => error);
-}
 export async function GetOrderBook(sessionKey:string): Promise<any> {
   //const params = new URLSearchParams();
   //params.append("jData", JSON.stringify(scriptInfo));
@@ -1481,4 +1483,25 @@ export async function getHolding(): Promise<any> {
     .catch((error) => {
       throw error;
     });
+}
+
+export async function SearchSymbol(
+  ContractSearchReq: IContractSearchReq
+): Promise<any> {
+  return await api
+    .post(
+      "https://uathsdiscovery.hypertrade.in/htpl/search/symbol",
+      JSON.stringify(ContractSearchReq),
+      {
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+          "x-access-token": localStorage.getItem("sessionKey"),
+          "api-key": "UzL0HZiHPTc1rNVr",
+        },
+      }
+    )
+
+    .then((response) => response.data)
+
+    .catch((error) => error);
 }

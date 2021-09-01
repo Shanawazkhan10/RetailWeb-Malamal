@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IHolding } from "../../../../types/IHolding";
 import { api, getHolding } from "../../../../app/api";
 import { AppThunk } from "../../../../store/store";
+import { IHolding } from "../../../../types/Holding/IHolding";
 
 const InitialHolding: IHolding[] = [];
 
@@ -15,9 +15,9 @@ const holding = createSlice({
       state.holding = action.payload;
     },
     HoldingUpdate: (state, action) => {
-      state.holding = state.holding.map((el) =>
-        el.Token == action.payload.Token ? action.payload : el
-      );
+      // state.holding = state.holding.map((el) =>
+      //   el.Token == action.payload.Token ? action.payload : el
+      // );
     },
     HoldingError: (state, action) => {
       state.holding = action.payload;

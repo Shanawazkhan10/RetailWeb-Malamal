@@ -12,11 +12,13 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import MarketPicture from "./MainContainer/MarketPicture/MarketPicture";
+import { useEffect } from "react";
 
 const Home = () => {
   const orderEntryState = useAppSelector((state) => state.orderEntry);
-  const gttEntryState = useAppSelector((state) => state.gttEntry);
   const marketPictureState = useAppSelector((state) => state.marketpicture);
+  const gttEntryState = useAppSelector((state) => state.gttEntry);
+  useEffect(() => {}, []);
   return (
     <div id="MasterSearchDiv">
       <div id="wrapper">

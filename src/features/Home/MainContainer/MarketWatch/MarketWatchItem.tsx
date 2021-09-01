@@ -3,10 +3,11 @@ import { Collapse } from "reactstrap";
 import { GetSymbolDetails, SubscribeMarketDepth } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IDepthReq } from "../../../../types/IDepthReq";
-import { IGTTEntryProps } from "../../../../types/OrderEntry/IGTTEntryProps";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
+import { IGTTEntryProps } from "../../../../types/OrderEntry/IGTTEntryProps";
 import { IOrderEntryProps } from "../../../../types/OrderEntry/IOrderEntryProps";
+import { FetchSocketData } from "../../../WebSocket/WebSocketSlice";
 import {
   openGTTEntry,
   setGTTEntryProps,
@@ -26,7 +27,6 @@ import {
   FetchWatchListSymbol,
   getMarketDepthSuccess,
   hideMore,
-  setSymbollistindex,
   ShowMarketDepth,
   showMore,
 } from "./MarketWatchSlice";
@@ -56,6 +56,10 @@ const MarketWatchItem = (props: {
     console.log(" MarketWatchItem useEffect");
   }, []);
 
+  useEffect(() => {
+    var a = dispatch(FetchSocketData(22));
+  }, []);
+
   const OrderEntryProp = {
     token: "",
     exchange: "",
@@ -75,8 +79,8 @@ const MarketWatchItem = (props: {
   } as IGTTEntryProps;
 
   function onBuyOrderEntryClick(symbolInfo: IMarketWatchTokenInfo) {
-    OrderEntryProp.token = symbolInfo.tk;    
-    OrderEntryProp.price = symbolInfo.ltp;    
+    OrderEntryProp.token = symbolInfo.tok;
+    OrderEntryProp.price = symbolInfo.ltp;
     OrderEntryProp.quantity = 1;
     OrderEntryProp.symbol = symbolInfo.sym;
     OrderEntryProp.exchange = symbolInfo.exch;
@@ -85,7 +89,7 @@ const MarketWatchItem = (props: {
     dispatch(openBuyOrderEntry());
   }
   function onSellOrderEntryClick(symbolInfo: IMarketWatchTokenInfo) {
-    OrderEntryProp.token = symbolInfo.tk;
+    OrderEntryProp.token = symbolInfo.tok;
     OrderEntryProp.price = symbolInfo.ltp;
     OrderEntryProp.quantity = 1;
     OrderEntryProp.symbol = symbolInfo.sym;
@@ -163,23 +167,17 @@ const MarketWatchItem = (props: {
   }
 
   function getSymbol() {
-    //API call to bind Token info (Scrip Info Request)
-    // var scrpitArray:string[]=propMarketWatch.scrips.split(",");
-    //  const scriptInfoReq:scriptInfoReq {
-    //   scripArr:scrpitArray
-    // }
     dispatch(
-      FetchWatchListSymbol(propMarketWatch.scrips.split(","), props.index,user.sessionKey)
+      FetchWatchListSymbol(
+        propMarketWatch.scrips.split(","),
+        user.sessionKey,
+        props.index
+      )
     );
-    // dispatch(
-    //   UpdateSymbolDetails(
-    //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
-    //   )
-    // );
   }
 
   function onCreateGTTOrderClick(symbolInfo: IMarketWatchTokenInfo) {
-    GTTEntryProp.token = symbolInfo.tk;
+    GTTEntryProp.token = symbolInfo.tok;
     GTTEntryProp.price = symbolInfo.ltp;
     GTTEntryProp.quantity = 1;
     GTTEntryProp.symbol = symbolInfo.sym;
@@ -279,12 +277,12 @@ const MarketWatchItem = (props: {
 
                   <div className="divLeftV_in">
                     <div className="mysymbolname">
-                      <span id="spnsymbol" title={symbolInfo.sym}>
+                      <span id="spnsymbol" title={symbolInfo.trdSym}>
                         {symbolInfo.sym}
                       </span>
                       <br />
                       <span id="spnLtt" title="LTT">
-                        2021-07-06 16:59:58
+                        {symbolInfo.trdSym}
                       </span>
                     </div>
 
@@ -295,13 +293,13 @@ const MarketWatchItem = (props: {
                         title="LTP"
                         style={{ color: "#00bb7e" }}
                       >
-                        88.5100
+                        {symbolInfo.ltp}
                       </span>
                       <span className="pt_sprd" id="ltpDifference">
-                        0.05
+                        {symbolInfo.cng}
                       </span>
                       <span className="pt_sprd" id="ltpPercent">
-                        0.06%
+                        {symbolInfo.nc}%
                       </span>
                     </div>
                   </div>

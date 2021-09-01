@@ -17,7 +17,7 @@ const OrderList = () => {
     dispatch(fetchOrderView(user.sessionKey));
   }, []);
 
-  return OrderList && OrderList.OrderViewData.length > 0 ? (
+  return OrderList.OrderViewData && OrderList.OrderViewData.length > 0 ? (
     <div className="block_netPosition mr14" id="NetPosition">
       <div className="block_head">
         <h1>Orders:</h1>

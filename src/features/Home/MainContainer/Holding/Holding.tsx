@@ -1,7 +1,7 @@
 import "../../style.css";
 import React from "react";
-import { IHolding } from "../../../../types/IHolding";
 import { useAppDispatch } from "../../../../app/hooks";
+import { IHolding } from "../../../../types/Holding/IHolding";
 
 const HoldingView = (props: { holding: IHolding }) => {
   const { holding } = props;
@@ -9,44 +9,22 @@ const HoldingView = (props: { holding: IHolding }) => {
 
   return (
     <tr>
-      <td className="netposclsdata" title={holding.Symbol}>
-        {holding.Symbol}
+      <td className="netposclsdata">{holding.nseTrdSym}</td>
+      <td className="netposclsdata">{holding.prod}</td>
+      <td className="netposclsdata">{holding.prod}</td>
+      <td className="netposclsdata right">{holding.hldQty}</td>
+      <td className="netposclsdata right" style={{ color: "#00ff00" }}>
+        {holding.whdColQty}
       </td>
-      <td className="netposclsdata" title={holding.InstrumentName}>
-        {holding.InstrumentName}
+      <td className="netposclsdata right" id="tdltp">
+        {holding.whdColQty}
       </td>
-      <td className="netposclsdata" title={holding.ProductType}>
-        {holding.ProductType}
+      <td className="netposclsdata right" style={{ color: "#ff0000" }}>
+        {holding.whdColQty}
       </td>
-      <td className="netposclsdata right" title={holding.NeyQty}>
-        {holding.NeyQty}
-      </td>
-      <td
-        className="netposclsdata right"
-        title={holding.Avg}
-        style={{ color: "#00ff00" }}
-      >
-        {holding.Avg}
-      </td>
-      <td className="netposclsdata right" title={holding.LTP} id="tdltp">
-        {holding.LTP}
-      </td>
-      <td
-        className="netposclsdata right"
-        title={holding.Avg}
-        style={{ color: "#ff0000" }}
-      >
-        {holding.Avg}
-      </td>
-      <td className="netposclsdata" title={holding.PL}>
-        {holding.PL}
-      </td>
-      <td className="netposclsdata" title={holding.Chg}>
-        {holding.Chg}
-      </td>
-      <td className="netposclsdata" title={holding.Total}>
-        {holding.Total}
-      </td>
+      <td className="netposclsdata">{holding.whdColQty}</td>
+      <td className="netposclsdata">{holding.whdColQty}</td>
+      <td className="netposclsdata">{holding.whdColQty}</td>
     </tr>
   );
 };
