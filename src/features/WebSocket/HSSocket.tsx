@@ -4,7 +4,10 @@ import { IIndices } from "../../types/MarketData/IIndices";
 import { IScriptUpdate } from "../../types/MarketData/IScriptUpdate";
 import { DepthUpdate, IndicesUpdate, ScriptUpdate } from "./WebSocketSlice";
 import { IMarketDepth } from "./../../types/IMarketDepth";
-import { ScriptUpdatefromSocket } from "../Home/MainContainer/MarketWatch/MarketWatchSlice";
+import {
+  DepthUpdatefromSocket,
+  ScriptUpdatefromSocket,
+} from "../Home/MainContainer/MarketWatch/MarketWatchSlice";
 
 export interface authReq {
   sessionid: string;
@@ -18,8 +21,6 @@ export interface SubUnsubReq {
 }
 
 const HSSocket = () => {
-  // <Safe.script src="../WebSocket/hslibo.js"></Safe.script>;
-  // <ScriptTag src="../WebSocket/hslibo.js" />;
   var url = "wss://uathsmkt.hypertrade.in";
   var userWS: any = null;
   var type: any = "mw";
@@ -56,6 +57,7 @@ const HSSocket = () => {
 
     userWS.onopen = function () {
       displayMessage('[Socket]: Connected to "' + url + '"\n');
+      auth();
     };
 
     userWS.onclose = function () {
@@ -68,7 +70,8 @@ const HSSocket = () => {
 
     userWS.onmessage = function (msg: any) {
       if (JSON.parse(msg) && JSON.parse(msg)[0].name == "dp") {
-        dispatch(DepthUpdate(msg as IMarketDepth));
+        //dispatch(DepthUpdate(msg as IMarketDepth));
+        dispatch(DepthUpdatefromSocket(msg as IMarketDepth));
       } else if (JSON.parse(msg) && JSON.parse(msg)[0].name == "sf") {
         //dispatch(ScriptUpdate(msg as IScriptUpdate));
         dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
@@ -103,12 +106,18 @@ const HSSocket = () => {
     //prepareAndSendSubUnsubReq(type + "s"); // Scrip => "mw" + "s", Depth => "dp" + "s", indices => "if" + "s"
   }
 
+  function depthSubscribe() {
+    prepareAndSendSubUnsubReq("dps"); // Scrip => "mw" + "s", Depth => "dp" + "s", indices => "if" + "s"
+    //prepareAndSendSubUnsubReq(type + "s"); // Scrip => "mw" + "s", Depth => "dp" + "s", indices => "if" + "s"
+    prepareAndSendSubUnsubReq("mws");
+  }
+
   function unsubscribe() {
     prepareAndSendSubUnsubReq(type + "u"); // Scrip => "mw" + "u", Depth => "dp" + "u", indices => "if" + "u"
   }
 
   function prepareAndSendSubUnsubReq(ty: any) {
-    let jObj = {};
+    //let jObj = {};
     // jObj["type"] = ty;
     // jObj["scrips"] = document.getElementById('scripList').value.trim();
     // jObj["channelnum"] = parseInt(document.getElementById('channel_tb').value.split(',')[0], 10);
@@ -147,12 +156,13 @@ const HSSocket = () => {
     script.async = true;
 
     document.body.appendChild(script);
-    // init();
-    // connect();
-    // auth();
+    init();
+    connect();
+
     return () => {
       document.body.removeChild(script);
     };
+    auth();
   }, []);
   return (
     <div>
@@ -169,15 +179,22 @@ const HSSocket = () => {
         onClick={() => auth()}
       >
         auth
-      </button>
+      </button> */}
 
-      <button
+      {/* <button
         className="btn_mw_overlay_2 btn_buy"
         title="Chart(C )"
         onClick={() => subscribe()}
       >
-        subscribe
+        Script
       </button> */}
+      <button
+        className="btn_mw_overlay_2 btn_buy"
+        title="Chart(C )"
+        onClick={() => depthSubscribe()}
+      >
+        Depth
+      </button>
     </div>
   );
 };

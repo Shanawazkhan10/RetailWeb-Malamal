@@ -82,7 +82,7 @@ const Header = () => {
                 title="Chart(C )"
                 onClick={() => socket1()}
               /> */}
-              <HSSocket></HSSocket>
+              {/* <HSSocket></HSSocket> */}
             </li>
           </ul>
         </div>
