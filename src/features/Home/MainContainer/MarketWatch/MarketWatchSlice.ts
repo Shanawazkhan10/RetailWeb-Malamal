@@ -79,21 +79,21 @@ const marketwatchSlice = createSlice({
           state.marketWatch.Symbollistindex
         ].SymbolList = TokenInfo;
 
-      state.marketWatch.SymbolList[Number(state.marketWatch.Symbollistindex)] =
-        action.payload.data;
+      // state.marketWatch.SymbolList[Number(state.marketWatch.Symbollistindex)] =
+      //   action.payload.data;
     },
     getMarketDepthSuccess: (state, action) => {
       let MarketDepth: IMarketDepth = action.payload;
       if (MarketDepth != undefined)
-        state.marketWatch.MarketWatchList[MarketDepth.id - 1].SymbolList[
+        state.marketWatch.MarketWatchList[MarketDepth.id].SymbolList[
           MarketDepth.index
         ].marketDepth = action.payload;
     },
     ShowMarketDepth: (state, action: PayloadAction<IDepthReq>) => {
-      state.marketWatch.MarketWatchList[action.payload.id - 1].SymbolList[
+      state.marketWatch.MarketWatchList[action.payload.id].SymbolList[
         action.payload.index
       ].showDepth =
-        !state.marketWatch.MarketWatchList[action.payload.id - 1].SymbolList[
+        !state.marketWatch.MarketWatchList[action.payload.id].SymbolList[
           action.payload.index
         ].showDepth;
     },
@@ -133,22 +133,41 @@ const marketwatchSlice = createSlice({
                 if (script.ltp != undefined) {
                   token.ltp = script.ltp;
                 }
-                token.nc = script.nc;
-                token.cng = script.cng;
+                if (script.nc != undefined) {
+                  token.nc = script.nc;
+                }
+                if (script.cng != undefined) {
+                  token.cng = script.cng;
+                }
+                // token.op = script.op;
+                // token.lo = script.lo;
+                // token.h = script.h;
+                // token.c = script.c;
+                // token.v = script.v;
+                // token.ltq = script.ltq;
+                // token.ltt = script.ltt;
+                // token.lcl = script.lcl;
+                // token.ucl = script.ucl;
               }
             });
           }
         );
-        // state.marketWatch.MarketWatchList[0].SymbolList.forEach(
-        //   (token: IMarketWatchTokenInfo) => {
-        //     if (token.tok == script.tk) {
-        //       token.ltp = script.ltp;
-        //       token.nc = script.nc;
-        //     }
-        //   }
-        // );
       });
       //state.marketWatch.SymbolList[0].ltp
+    },
+    DepthUpdatefromSocket: (state, action) => {
+      const MarketDepth: IMarketDepth[] = action.payload;
+      JSON.parse(action.payload).forEach((depth: IMarketDepth) => {
+        state.marketWatch.MarketWatchList.forEach(
+          (MarketWatch: IMarketWatch) => {
+            MarketWatch.SymbolList.forEach((token: IMarketWatchTokenInfo) => {
+              if (token.showDepth && token.tok == depth.tk) {
+                token.marketDepth = depth;
+              }
+            });
+          }
+        );
+      });
     },
     // FetchSocketData: (state, action) => {
     //   // const ScriptData = useSelector(
@@ -179,6 +198,7 @@ export const {
   showMore,
   setSymbollistindex,
   ScriptUpdatefromSocket,
+  DepthUpdatefromSocket,
   //FetchSocketData,
 } = marketwatchSlice.actions;
 

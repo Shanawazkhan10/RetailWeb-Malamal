@@ -7,6 +7,9 @@ import { IGTTEntryProps } from "../../../../types/IGTTEntryProps";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import { IOrderEntryProps } from "../../../../types/IOrderEntryProps";
+import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
+import HSSocket from "../../../WebSocket/HSSocket";
+//import { sendUnsubReq, SubUnsubReq } from "../../../WebSocket/HSSocket1";
 import { FetchSocketData } from "../../../WebSocket/WebSocketSlice";
 import {
   openGTTEntry,
@@ -30,6 +33,7 @@ import {
   ShowMarketDepth,
   showMore,
 } from "./MarketWatchSlice";
+import Quote from "./Quote";
 
 export interface scriptInfoReq {
   scripArr: string[];
@@ -147,23 +151,25 @@ const MarketWatchItem = (props: {
 
     if (!symbol.showDepth) {
       //subscribe Depth API Call
-      // const SubscribeDepth: ISubscribeDepth = {
-      //   type: "dps",
-      //   scrips: symbol.scrips,
-      //   id: propMarketWatch.id,
-      //   channelnum: propMarketWatch.id,
-      // };
-      dispatch(
-        getMarketDepthSuccess(SubscribeMarketDepth(propMarketWatch.id, index))
-      );
+      const SubscribeDepth: ISubscribeDepth = {
+        type: "dps",
+        scrips: symbol.scrips,
+        //id: propMarketWatch.id,
+        channelnum: propMarketWatch.id,
+      };
+
+      // dispatch(
+      //   getMarketDepthSuccess(SubscribeMarketDepth(propMarketWatch.id, index))
+      // );
     } else {
       //Unsubscribe Depth API Call
-      // const SubscribeDepth: ISubscribeDepth = {
-      //   type: "dpu",
-      //   scrips: symbol.scrips,
-      //   id: propMarketWatch.id,
-      //   channelnum: propMarketWatch.id,
-      // };
+      const SubscribeDepth: ISubscribeDepth = {
+        type: "dpu",
+        scrips: symbol.scrips,
+        //id: propMarketWatch.id,
+        channelnum: propMarketWatch.id + 1,
+      };
+      //sendUnsubReq(SubscribeDepth);
       // UnsubscribeMarketDepth(SubscribeDepth);
     }
   }
@@ -176,6 +182,14 @@ const MarketWatchItem = (props: {
     dispatch(
       FetchWatchListSymbol(propMarketWatch.scrips.split(","), props.index)
     );
+
+    //subscribe Script API Call
+    // const subUnsubReq: SubUnsubReq = {
+    //   type: "mws",
+    //   scrips: propMarketWatch.scrips,
+    //   channelnum: 1,
+    // };
+    // sendUnsubReq(subUnsubReq);
     // dispatch(
     //   UpdateSymbolDetails(
     //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
@@ -331,11 +345,13 @@ const MarketWatchItem = (props: {
               symbolInfo.marketDepth != null &&
               symbolInfo.marketDepth != undefined ? (
                 <Collapse in={symbolInfo.showDepth}>
-                  <MarketDepth
-                    index={nIncreament}
-                    depth={symbolInfo.marketDepth}
-                    tokenInfo={symbolInfo}
-                  ></MarketDepth>
+                  <div className="market-depth" style={{ display: "" }}>
+                    <MarketDepth
+                      index={nIncreament}
+                      depth={symbolInfo.marketDepth}
+                    ></MarketDepth>
+                    <Quote index={nIncreament} tokenInfo={symbolInfo}></Quote>
+                  </div>
                 </Collapse>
               ) : (
                 ""
