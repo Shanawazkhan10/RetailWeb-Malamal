@@ -5,6 +5,7 @@ import { AppThunk } from "../../store/store";
 import { PostLoginRequest, PostMPINRequest } from "../../app/api";
 import { toastNotification } from "../.././app/Notification";
 import { Redirect } from "react-router";
+import Cookies from 'universal-cookie';
 
 const initialState = {
   isPasswordCheked: localStorage.getItem("userkey") ? true : false,
@@ -18,8 +19,8 @@ const initialState = {
   server: "",
   SetPassword:false,
 } as IUser;
-
-export const userSlice = createSlice({
+const cookies = new Cookies();
+export const userSlice = createSlice({  
   name: "User",
   initialState,
   reducers: {
@@ -60,7 +61,8 @@ export const userSlice = createSlice({
       state.isError = false;
       state.user = action.payload;
       state.sessionKey = state.user.data.sessionKey;
-      state.server = state.user.data.server;
+      state.server = state.user.data.server;      
+      cookies.set('userkey', action.payload.data.sessionKey, { path: '/',sameSite: 'strict'});
     },
     twofaError: (state, action: PayloadAction<any>) => {
       state.isPasswordCheked = true;
@@ -70,8 +72,10 @@ export const userSlice = createSlice({
       toastNotification("error", action.payload.message);
     },
     loggedout: (state) => {
+      console.log("Logged Out called");
       localStorage.removeItem("userkey");
       localStorage.removeItem("userID");
+      cookies.remove('userkey');
       state.isPasswordCheked = false;
       state.isAuthenticated = false;
       state.isError = false;

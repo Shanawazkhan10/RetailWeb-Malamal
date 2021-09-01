@@ -4,13 +4,13 @@ import Chart from "react-google-charts";
 const PieChart = () => {
   return (
     <Chart
-      width={"400px"}
-      height={"200px"}
+      width={"600px"}
+      height={"350px"}
       chartType="PieChart"
       loader={<div>Loading Chart</div>}
       data={[
         ["Symbol", "Holdings"],
-        ["Reliance", 60000],
+        ["Reliance", 600000],
         ["ACC", 10000],
         ["AdaniPort", 50000],
         ["Zomato", 100000],
@@ -18,16 +18,21 @@ const PieChart = () => {
       ]}
       options={{
         title: "",
-        pieHole: 0.3,
+        pieHole: 0.60,
         is3D: false,
         backgroundColor:"#1f1e2c",
-        fill:"#fff",
-        slices: {  2: {offset: -0.01},
-                    4: {offset: 0.01},
-                    5: {offset: 0.025},
-          },
+        fill:"#fff",  
+        showScale:false,      
+        // slices: {   2: {offset:-0.0125},
+        //             4: {offset: -0.025},
+        //             5: {offset: 0},
+        //   },
+        pieSliceBorderColor : "transparent", 
+        pieSliceText: "none",
+        legend: {position: 'none'} 
       }}
       rootProps={{ "data-testid": "1" }}
+      
     />    
   );
 };
