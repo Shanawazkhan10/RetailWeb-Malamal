@@ -9,6 +9,7 @@ import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import { IOrderEntryProps } from "../../../../types/IOrderEntryProps";
 import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
 import HSSocket from "../../../WebSocket/HSSocket";
+import { sendUnsubReq, SubUnsubReq } from "../../../WebSocket/HSSocket1";
 //import { sendUnsubReq, SubUnsubReq } from "../../../WebSocket/HSSocket1";
 import { FetchSocketData } from "../../../WebSocket/WebSocketSlice";
 import {
@@ -184,12 +185,12 @@ const MarketWatchItem = (props: {
     );
 
     //subscribe Script API Call
-    // const subUnsubReq: SubUnsubReq = {
-    //   type: "mws",
-    //   scrips: propMarketWatch.scrips,
-    //   channelnum: 1,
-    // };
-    // sendUnsubReq(subUnsubReq);
+    const subUnsubReq: SubUnsubReq = {
+      type: "mws",
+      scrips: propMarketWatch.scrips,
+      channelnum: 1,
+    };
+    sendUnsubReq(subUnsubReq);
     // dispatch(
     //   UpdateSymbolDetails(
     //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)

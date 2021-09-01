@@ -1,9 +1,13 @@
 import { IIndices } from "../../types/MarketData/IIndices";
 import { IScriptUpdate } from "../../types/MarketData/IScriptUpdate";
-import { ScriptUpdatefromSocket } from "../Home/MainContainer/MarketWatch/MarketWatchSlice";
-import { IMarketDepth } from "./../../types/IMarketDepth";
+import {
+  DepthUpdatefromSocket,
+  ScriptUpdatefromSocket,
+  UpdateFeed,
+} from "../Home/MainContainer/MarketWatch/MarketWatchSlice";
+import { IMarketDepth } from "../../types/IMarketDepth";
 import { DepthUpdate, IndicesUpdate, ScriptUpdate } from "./WebSocketSlice";
-import { useAppDispatch } from "./../../app/hooks";
+import { useAppDispatch } from "../../app/hooks";
 
 export interface authReq {
   sessionid: string;
@@ -15,7 +19,7 @@ export interface SubUnsubReq {
   scrips: string;
   channelnum: number;
 }
-const dispatch = useAppDispatch();
+//const dispatch = useAppDispatch();
 var url = "wss://uathsmkt.hypertrade.in";
 var userWS: any = null;
 var type: any = "mw";
@@ -41,6 +45,11 @@ export function connect() {
   userWS = new window.HSWebSocket(url);
   userWS.onopen = function () {
     displayMessage('[Socket]: Connected to "' + url + '"\n');
+    const authReq: authReq = {
+      sessionid: "S101",
+      type: "cn",
+    };
+    sendReq(authReq);
   };
 
   userWS.onclose = function () {
@@ -53,12 +62,14 @@ export function connect() {
 
   userWS.onmessage = function (msg: any) {
     if (JSON.parse(msg) && JSON.parse(msg)[0].name == "dp") {
-      dispatch(DepthUpdate(msg as IMarketDepth));
+      //dispatch(DepthUpdate(msg as IMarketDepth));
+      //dispatch(DepthUpdatefromSocket(msg as IMarketDepth));
+      UpdateFeed(msg);
     } else if (JSON.parse(msg) && JSON.parse(msg)[0].name == "sf") {
-      dispatch(ScriptUpdate(msg as IScriptUpdate));
-      dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
+      //dispatch(ScriptUpdate(msg as IScriptUpdate));
+      //dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
     } else if (JSON.parse(msg) && JSON.parse(msg)[0].name == "if") {
-      dispatch(IndicesUpdate(msg as IIndices));
+      // dispatch(IndicesUpdate(msg as IIndices));
     } else {
       console.log(displayMessage("[Res]: " + msg + "\n"));
     }

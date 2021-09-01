@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppSelector } from "../../app/hooks";
+import { authReq, connect, init, sendReq } from "../WebSocket/HSSocket1";
 // import { connect, init } from "../WebSocket/HSSocket1";
 // import { authReq } from "./../WebSocket/HSSocket";
 // import { sendReq } from "./../WebSocket/HSSocket1";
@@ -18,8 +19,8 @@ const Home = () => {
   const marketPictureState = useAppSelector((state) => state.marketpicture);
   const gttEntryState = useAppSelector((state) => state.gttEntry);
   useEffect(() => {
-    // init();
-    // connect();
+    init();
+    connect();
     // const authReq: authReq = {
     //   sessionid: "S101",
     //   type: "cn",

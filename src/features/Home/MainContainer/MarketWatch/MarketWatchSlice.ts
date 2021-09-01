@@ -255,3 +255,23 @@ export const UpdateWatchlist =
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
+
+export const UpdateFeed =
+  (msg: IScriptUpdate): AppThunk =>
+  async (dispatch) => {
+    try {
+      dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
+    } catch (err) {
+      dispatch(onMarketWatchFailure(err.toString()));
+    }
+  };
+
+export const UpdateDepth =
+  (msg: IMarketDepth): AppThunk =>
+  async (dispatch) => {
+    try {
+      dispatch(DepthUpdatefromSocket(msg as IMarketDepth));
+    } catch (err) {
+      dispatch(onMarketWatchFailure(err.toString()));
+    }
+  };

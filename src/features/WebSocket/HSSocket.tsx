@@ -21,8 +21,6 @@ export interface SubUnsubReq {
 }
 
 const HSSocket = () => {
-  // <Safe.script src="../WebSocket/hslibo.js"></Safe.script>;
-  // <ScriptTag src="../WebSocket/hslibo.js" />;
   var url = "wss://uathsmkt.hypertrade.in";
   var userWS: any = null;
   var type: any = "mw";
@@ -59,6 +57,7 @@ const HSSocket = () => {
 
     userWS.onopen = function () {
       displayMessage('[Socket]: Connected to "' + url + '"\n');
+      auth();
     };
 
     userWS.onclose = function () {
@@ -157,16 +156,17 @@ const HSSocket = () => {
     script.async = true;
 
     document.body.appendChild(script);
-    // init();
-    // connect();
-    // auth();
+    init();
+    connect();
+
     return () => {
       document.body.removeChild(script);
     };
+    auth();
   }, []);
   return (
     <div>
-      <button
+      {/* <button
         className="btn_mw_overlay_2 btn_buy"
         title="Chart(C )"
         onClick={() => connect()}
@@ -179,7 +179,7 @@ const HSSocket = () => {
         onClick={() => auth()}
       >
         auth
-      </button>
+      </button> */}
 
       {/* <button
         className="btn_mw_overlay_2 btn_buy"
