@@ -1409,7 +1409,6 @@ export async function sendOrderEntryRequest(
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         "x-access-token": orderentryrequest.jKey,
-        "Content-Type": "application/x-www-form-urlencoded",
       },
     })
     .then((response) => response.data)
