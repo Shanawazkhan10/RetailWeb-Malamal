@@ -20,7 +20,7 @@ import {
 } from "../MarketPicture/MarketPictureSlice";
 import { FetchSearch } from "./SmartSearchSlice";
 
-const Search1 = () => {
+const SmartSearch = () => {
   const dispatch = useAppDispatch();
   const [cursor, setCursor] = useState(0);
   const [searchValue, setSearchValue] = useState("");
@@ -224,4 +224,4 @@ const Search1 = () => {
   );
 };
 
-export default Search1;
+export default SmartSearch;
