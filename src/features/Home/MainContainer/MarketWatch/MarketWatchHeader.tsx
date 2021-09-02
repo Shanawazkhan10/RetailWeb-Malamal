@@ -6,7 +6,7 @@ import { RootState } from "../../../../store/store";
 import { IRenameWatchlist } from "../../../../types/IRenameWatchlist";
 import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 import "../../style.css";
-import Search1 from "../SmartSearch/Search1";
+import SmartSearch from "../SmartSearch/SmartSearch";
 import {
   DeleteWatchlist,
   RenameWatchlist,
@@ -88,7 +88,7 @@ const MarketWatchHeader = () => {
         onChange={(e) => handleChange}
         value={sName}
       ></input> */}
-      <Search1></Search1>
+      <SmartSearch></SmartSearch>
       <div className="mw-head-btns">
         <button id="btnEditMode" title="Edit" onClick={(e) => EditWatchList()}>
           Edit
