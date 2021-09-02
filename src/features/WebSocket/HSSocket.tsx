@@ -19,10 +19,11 @@ export interface SubUnsubReq {
   scrips: string;
   channelnum: number;
 }
+var url = "wss://uathsmkt.hypertrade.in";
+export let userWS: any = ""; // new window.HSWebSocket(url);
 
 const HSSocket = () => {
-  var url = "wss://uathsmkt.hypertrade.in";
-  var userWS: any = null;
+  //var userWS: any = null;
   var type: any = "mw";
   var scriptList: any =
     "nse_fo|48740&nse_fo|49053&nse_fo|51892&nse_cm|11536&nse_cm|1330&nse_cm|22&nse_cm|15083&nse_cm|3456&nse_cm|3499"; //"nse_cm|11536&nse_cm|22&nse_cm|236";
@@ -53,7 +54,10 @@ const HSSocket = () => {
   function connect() {
     //let url = ""; //document.getElementById("url_tb").value;
     //const HSWebSocket = require("../WebSocket/hslibo.js");
-    userWS = new window.HSWebSocket(url);
+    // userWS = new window.HSWebSocket(url);
+    if (!userWS || userWS == "") {
+      userWS = new window.HSWebSocket(url);
+    }
 
     userWS.onopen = function () {
       displayMessage('[Socket]: Connected to "' + url + '"\n');
@@ -87,7 +91,7 @@ const HSSocket = () => {
   function disconnect() {
     //Call on logoff
     userWS.close();
-    userWS = null;
+    //userWS = null;
   }
 
   function auth() {
@@ -151,18 +155,18 @@ const HSSocket = () => {
     //dataArea.scrollTop = dataArea.scrollHeight;
   }
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "../hslibo.js";
-    script.async = true;
+    //   const script = document.createElement("script");
+    //   script.src = "../hslibo.js";
+    //   script.async = true;
 
-    document.body.appendChild(script);
-    init();
+    //   document.body.appendChild(script);
+    //init();
     connect();
 
-    return () => {
-      document.body.removeChild(script);
-    };
-    auth();
+    //   return () => {
+    //     document.body.removeChild(script);
+    //   };
+    //   auth();
   }, []);
   return (
     <div>

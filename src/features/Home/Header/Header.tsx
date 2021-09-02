@@ -95,7 +95,7 @@ const Header = () => {
             fontSize: "small",
             marginTop: "20px",
 
-            marginLeft: "450px",
+            marginLeft: "0px",
             marginRight: "10px",
           }}
         >

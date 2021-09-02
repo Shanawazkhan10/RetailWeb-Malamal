@@ -1,7 +1,9 @@
 import React, { MouseEvent, useState } from "react";
 import {
+  api,
   ContractSearch,
   GetSymbolDetails,
+  SearchSymbol,
   SubscribeMarketDepth,
 } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
@@ -45,7 +47,7 @@ const Search1 = () => {
   }
 
   // search world trading data for available stock symbols that match the search input
-  const search = (val: string) => {
+  const search = async (val: string) => {
     if (val.length < 3) {
       return;
     }
@@ -63,8 +65,24 @@ const Search1 = () => {
         // "cde_fo",
       ],
     };
-    var result: any = dispatch(FetchSearch(ContractSearchReq));
+    //var result: any = dispatch(FetchSearch(ContractSearchReq));
+    //const asd: IContractSearch[] = SearchSymbol(ContractSearchReq);
     //setResult(result);
+    await api
+      .post(
+        "https://uathsdiscovery.hypertrade.in/htpl/search/symbol",
+        JSON.stringify(ContractSearchReq),
+        {
+          headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+            "x-access-token": localStorage.getItem("sessionKey"),
+            "api-key": "UzL0HZiHPTc1rNVr",
+          },
+        }
+      )
+      .then((response) => setResult(response.data.data))
+
+      .catch((error) => error);
   };
 
   // handles changes to the search input

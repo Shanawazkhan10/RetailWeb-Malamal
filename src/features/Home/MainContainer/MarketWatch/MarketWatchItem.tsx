@@ -8,8 +8,12 @@ import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import { IOrderEntryProps } from "../../../../types/IOrderEntryProps";
 import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
-import HSSocket from "../../../WebSocket/HSSocket";
-import { sendUnsubReq, SubUnsubReq } from "../../../WebSocket/HSSocket1";
+import HSSocket, { userWS } from "../../../WebSocket/HSSocket";
+import {
+  sendUnsubReq,
+  SubUnsubReq,
+  waitForSocketConnection,
+} from "../../../WebSocket/HSSocket1";
 //import { sendUnsubReq, SubUnsubReq } from "../../../WebSocket/HSSocket1";
 import { FetchSocketData } from "../../../WebSocket/WebSocketSlice";
 import {
@@ -35,6 +39,7 @@ import {
   showMore,
 } from "./MarketWatchSlice";
 import Quote from "./Quote";
+//import { userWS } from "./../../../WebSocket/HSSocket1";
 
 export interface scriptInfoReq {
   scripArr: string[];
@@ -154,11 +159,14 @@ const MarketWatchItem = (props: {
       //subscribe Depth API Call
       const SubscribeDepth: ISubscribeDepth = {
         type: "dps",
-        scrips: symbol.scrips,
+        scrips: symbol.scrips.replaceAll(",", "&"),
         //id: propMarketWatch.id,
-        channelnum: propMarketWatch.id,
+        channelnum: propMarketWatch.id + 1,
       };
 
+      waitForSocketConnection(userWS, function () {
+        userWS.send(SubscribeDepth);
+      });
       // dispatch(
       //   getMarketDepthSuccess(SubscribeMarketDepth(propMarketWatch.id, index))
       // );
@@ -166,7 +174,7 @@ const MarketWatchItem = (props: {
       //Unsubscribe Depth API Call
       const SubscribeDepth: ISubscribeDepth = {
         type: "dpu",
-        scrips: symbol.scrips,
+        scrips: symbol.scrips.replaceAll(",", "&"),
         //id: propMarketWatch.id,
         channelnum: propMarketWatch.id + 1,
       };
@@ -187,9 +195,16 @@ const MarketWatchItem = (props: {
     //subscribe Script API Call
     const subUnsubReq: SubUnsubReq = {
       type: "mws",
-      scrips: propMarketWatch.scrips,
+      scrips: propMarketWatch.scrips.replaceAll(",", "&"),
       channelnum: 1,
     };
+    //if (userWS) {
+    let req = JSON.stringify(subUnsubReq);
+    waitForSocketConnection(userWS, function () {
+      userWS.send(req);
+    });
+
+    //}
     sendUnsubReq(subUnsubReq);
     // dispatch(
     //   UpdateSymbolDetails(
