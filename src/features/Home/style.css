@@ -9891,7 +9891,7 @@ a.ui-button:active,
 .content_in_market {
   position: absolute;
   bottom: 5px;
-  top: 35px;
+  top: 60px;
   clear: both;
   padding: 0;
   overflow: hidden;
@@ -9924,7 +9924,7 @@ a.ui-button:active,
 .marketPicturecls tr > th {
   border-collapse: collapse;
   font-weight: lighter;
-  background-image: #0c2b39;
+  background: #0c2b39;
   padding: 10px;
   text-align: right;
 }
@@ -13812,10 +13812,26 @@ tr.HoldingsPosHederWidth th {
 .searchForm__results {
   background: #000;
   display: inline-block;
-  width:100%;
+  width: 100%;
 }
 
 .searchForm__result li {
   float: left;
   width: 100%;
+}
+
+.marketPicture_pop {
+  z-index: 100;
+  position: fixed;
+  width: 500px;
+  height: 350px;
+  background: #000;
+  left: calc(50% - 250px);
+  top: calc(50% - 175px);
+}
+
+.marketPicture_pop .btn_buy,
+.marketPicture_pop .btn_sell {
+  background: #075aff !important;
+  margin: 0 10px;
 }

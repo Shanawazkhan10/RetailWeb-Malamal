@@ -131,6 +131,7 @@ const marketwatchSlice = createSlice({
         if (state.marketWatch.MarketWatchList == undefined) return;
         state.marketWatch.MarketWatchList.forEach(
           (MarketWatch: IMarketWatch) => {
+            if (MarketWatch.SymbolList == undefined) return;
             MarketWatch.SymbolList.forEach((token: IMarketWatchTokenInfo) => {
               if (token.tok == script.tk) {
                 if (script.ltp != undefined) {

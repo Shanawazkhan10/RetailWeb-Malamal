@@ -25,15 +25,7 @@ const MarketPicture = () => {
   const dispatch = useAppDispatch();
   //const { Script } = props;
   return IsShow && script != null && script != undefined ? (
-    <div
-      className="block mr14"
-      id="MarketPicture"
-      style={{
-        zIndex: 100,
-        position: "fixed",
-        background: "rgba(var(--color-bg-default--rgb),.7)",
-      }}
-    >
+    <div className="block mr14 marketPicture_pop" id="MarketPicture">
       <Search></Search>
       <div className="block_head">
         <h1>Market Picture : SBIN-EQ</h1>
