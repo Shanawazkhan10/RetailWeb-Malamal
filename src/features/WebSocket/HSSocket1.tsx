@@ -3,11 +3,13 @@ import { IScriptUpdate } from "../../types/MarketData/IScriptUpdate";
 import {
   DepthUpdatefromSocket,
   ScriptUpdatefromSocket,
+  UpdateDepth,
   UpdateFeed,
 } from "../Home/MainContainer/MarketWatch/MarketWatchSlice";
 import { IMarketDepth } from "../../types/IMarketDepth";
 import { DepthUpdate, IndicesUpdate, ScriptUpdate } from "./WebSocketSlice";
 import { useAppDispatch } from "../../app/hooks";
+import { userWS } from "./HSSocket";
 
 export interface authReq {
   sessionid: string;
@@ -21,10 +23,10 @@ export interface SubUnsubReq {
 }
 //const dispatch = useAppDispatch();
 var url = "wss://uathsmkt.hypertrade.in";
-var userWS: any = null;
+//let userWS: any = new window.HSWebSocket(url);
 var type: any = "mw";
-var scriptList: any =
-  "nse_fo|48740&nse_fo|49053&nse_fo|51892&nse_cm|11536&nse_cm|1330&nse_cm|22&nse_cm|15083&nse_cm|3456&nse_cm|3499"; //"nse_cm|11536&nse_cm|22&nse_cm|236";
+// var scriptList: any =
+//   "nse_fo|48740&nse_fo|49053&nse_fo|51892&nse_cm|11536&nse_cm|1330&nse_cm|22&nse_cm|15083&nse_cm|3456&nse_cm|3499"; //"nse_cm|11536&nse_cm|22&nse_cm|236";
 
 export function init() {
   type = "mw";
@@ -42,7 +44,7 @@ export function init() {
 }
 
 export function connect() {
-  userWS = new window.HSWebSocket(url);
+  //userWS = new window.HSWebSocket(url);
   userWS.onopen = function () {
     displayMessage('[Socket]: Connected to "' + url + '"\n');
     const authReq: authReq = {
@@ -64,8 +66,9 @@ export function connect() {
     if (JSON.parse(msg) && JSON.parse(msg)[0].name == "dp") {
       //dispatch(DepthUpdate(msg as IMarketDepth));
       //dispatch(DepthUpdatefromSocket(msg as IMarketDepth));
-      UpdateFeed(msg);
+      UpdateDepth(msg);
     } else if (JSON.parse(msg) && JSON.parse(msg)[0].name == "sf") {
+      UpdateFeed(msg);
       //dispatch(ScriptUpdate(msg as IScriptUpdate));
       //dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
     } else if (JSON.parse(msg) && JSON.parse(msg)[0].name == "if") {
@@ -80,7 +83,7 @@ export function connect() {
 export function disconnect() {
   //Call on logoff
   userWS.close();
-  userWS = null;
+  //userWS = "";
 }
 
 export function sendUnsubReq(subUnsubReq: SubUnsubReq) {
@@ -102,4 +105,17 @@ export function sendReq(authReq: authReq) {
 export function displayMessage(data: any) {
   //dataArea.value += data;
   //dataArea.scrollTop = dataArea.scrollHeight;
+}
+
+export function waitForSocketConnection(socket: any, callback: any) {
+  setTimeout(function () {
+    if (socket.readyState === 1) {
+      if (callback !== undefined) {
+        callback();
+      }
+      return;
+    } else {
+      waitForSocketConnection(socket, callback);
+    }
+  }, 5);
 }
