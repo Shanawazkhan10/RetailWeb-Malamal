@@ -366,7 +366,7 @@ export function GetSymbolDetails() {
     mwName: "nifty",
     scrips: "bse_cm|16082",
     cmpName: "ACC LIMITED",
-    exch: "NSE",
+    exSeg: "NSE",
     seg: "CASH",
     sym: "ACC",
     exEndDt: "NA",

@@ -92,7 +92,7 @@ const MarketWatchItem = (props: {
     OrderEntryProp.price = symbolInfo.ltp;
     OrderEntryProp.quantity = 1;
     OrderEntryProp.symbol = symbolInfo.sym;
-    OrderEntryProp.exchange = symbolInfo.exch;
+    OrderEntryProp.exchange = symbolInfo.exSeg;
     OrderEntryProp.ltp = symbolInfo.ltp;
     dispatch(setOrderEntryProps(OrderEntryProp));
     dispatch(openBuyOrderEntry());
@@ -102,7 +102,7 @@ const MarketWatchItem = (props: {
     OrderEntryProp.price = symbolInfo.ltp;
     OrderEntryProp.quantity = 1;
     OrderEntryProp.symbol = symbolInfo.sym;
-    OrderEntryProp.exchange = symbolInfo.exch;
+    OrderEntryProp.exchange = symbolInfo.exSeg;
     OrderEntryProp.ltp = symbolInfo.ltp;
     dispatch(setOrderEntryProps(OrderEntryProp));
     dispatch(openSellOrderEntry());
@@ -156,13 +156,13 @@ const MarketWatchItem = (props: {
       //subscribe Depth API Call
       const SubscribeDepth: ISubscribeDepth = {
         type: "dps",
-        scrips: symbol.scrips.replaceAll(",", "&"),
+        scrips: symbol.tok + "|" + symbol.exSeg,
         //id: propMarketWatch.id,
         channelnum: propMarketWatch.id + 1,
       };
 
       waitForSocketConnection(userWS, function () {
-        userWS.send(SubscribeDepth);
+        userWS.send(JSON.stringify(SubscribeDepth));
       });
       // dispatch(
       //   getMarketDepthSuccess(SubscribeMarketDepth(propMarketWatch.id, index))
@@ -171,10 +171,14 @@ const MarketWatchItem = (props: {
       //Unsubscribe Depth API Call
       const SubscribeDepth: ISubscribeDepth = {
         type: "dpu",
-        scrips: symbol.scrips.replaceAll(",", "&"),
+        scrips: symbol.tok + "|" + symbol.exSeg,
         //id: propMarketWatch.id,
         channelnum: propMarketWatch.id + 1,
       };
+
+      waitForSocketConnection(userWS, function () {
+        userWS.send(JSON.stringify(SubscribeDepth));
+      });
       //sendUnsubReq(SubscribeDepth);
       // UnsubscribeMarketDepth(SubscribeDepth);
     }
@@ -215,7 +219,7 @@ const MarketWatchItem = (props: {
     GTTEntryProp.price = symbolInfo.ltp;
     GTTEntryProp.quantity = 1;
     GTTEntryProp.symbol = symbolInfo.sym;
-    GTTEntryProp.exchange = symbolInfo.exch;
+    GTTEntryProp.exchange = symbolInfo.exSeg;
     GTTEntryProp.ltp = +symbolInfo.ltp;
     dispatch(setGTTEntryProps(GTTEntryProp));
     dispatch(openGTTEntry());
@@ -350,7 +354,7 @@ const MarketWatchItem = (props: {
                     id="spnEventStateTooltip"
                     title="Exchange"
                   >
-                    {symbolInfo.exch}
+                    {symbolInfo.exSeg}
                   </span>
                 </div>
               </div>

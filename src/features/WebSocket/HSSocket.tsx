@@ -91,7 +91,7 @@ const HSSocket = () => {
   function disconnect() {
     //Call on logoff
     userWS.close();
-    //userWS = null;
+    userWS = null;
   }
 
   function auth() {
