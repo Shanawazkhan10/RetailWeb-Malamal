@@ -22,7 +22,7 @@ import {
 } from "../../../types/Request/IOrderEntryRequest";
 
 const OrderEntryComp = () => {
-  const { register, formState, handleSubmit } = useForm<IOrderEntryProps>();
+  const { register, formState, handleSubmit,getValues } = useForm<IOrderEntryProps>();
 
   const dispatch = useAppDispatch();
   function onCancelClick() {
@@ -44,7 +44,7 @@ const OrderEntryComp = () => {
       tp: orderEntryState.triggerprice,
       ts: orderEntryState.symbol,
       tt: orderEntryState.isBuy ? "B" : "S",
-      //ig: "",      
+      //ig: "",
       os: "WEB",
       dq: orderEntryState.disclosedQty.toString(),
     };
@@ -177,12 +177,11 @@ const OrderEntryComp = () => {
                     {...register("price", {
                       required: true,
                       maxLength: 8,
-                      min: 0,
+                      min: 1,
                       max: 999999,
                     })}
                     type="number"
                     placeholder=""
-                    data-autocorrect="off"
                     min="0.05"
                     step="0.05"
                     size={8}
@@ -192,6 +191,7 @@ const OrderEntryComp = () => {
                     onChange={(e) => {
                       onPriceChange(e);
                     }}
+                    required={true}
                   />
                 </div>
               </div>
@@ -201,8 +201,9 @@ const OrderEntryComp = () => {
                   <input
                     {...register("triggerprice", {
                       maxLength: 8,
-                      min: 0,
+                      min: 1,
                       max: 999999,
+                      validate: () => Number(getValues("triggerprice")) <= Number(getValues("price")) || "Trigger Price can`t be greater than Price."
                     })}
                     type="number"
                     placeholder=""

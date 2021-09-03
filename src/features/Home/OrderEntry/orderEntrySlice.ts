@@ -19,6 +19,7 @@ const initialState = {
   isDisclosedQtyVisible: true,
   isIOCVisible: true,
   triggerprice: "0",
+  price:"0"
 } as IOrderEntry;
 
 // PRODUCT TYPE
@@ -56,7 +57,10 @@ export const orderEntrySlice = createSlice({
       state.quantity = action.payload.quantity;
       state.symbol = action.payload.symbol;
       state.exchange = action.payload.exchange;
-      state.ltp = action.payload.ltp;      
+      state.ltp = action.payload.ltp;     
+      state.triggerprice="0";
+      state.disclosedQty=0; 
+      
     },
     openBuyOrderEntry: (state) => {
       state.isOrderEntryOpen = true;
