@@ -82,7 +82,7 @@ const Header = () => {
                 title="Chart(C )"
                 onClick={() => socket1()}
               /> */}
-              <HSSocket></HSSocket>
+              {/* <HSSocket></HSSocket> */}
             </li>
           </ul>
         </div>
@@ -94,7 +94,7 @@ const Header = () => {
             fontSize: "small",
             marginTop: "20px",
 
-            marginLeft: "450px",
+            marginLeft: "0px",
             marginRight: "10px",
           }}
         >
