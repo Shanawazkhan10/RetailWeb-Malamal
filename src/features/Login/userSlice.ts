@@ -103,7 +103,7 @@ export const UserLogin =
         dispatch(loggedInError(LoginResponse));
       }
     } catch (err) {
-      dispatch(loggedInError(err.toString()));
+      dispatch(loggedInError(err));
     }
   };
 
