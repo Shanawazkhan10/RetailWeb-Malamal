@@ -90,8 +90,8 @@ export const UserLogin =
     try {
       const LoginResponse = await PostLoginRequest(loginData);
 
-      if (LoginResponse.code == 200) {
-        if(LoginResponse.data.action == 102)
+      if (Number(LoginResponse.code) == 200) {
+        if(Number(LoginResponse.data.action) == 102)
         {
 
         }

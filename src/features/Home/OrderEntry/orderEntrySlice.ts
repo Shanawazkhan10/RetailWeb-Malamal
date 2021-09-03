@@ -19,7 +19,7 @@ const initialState = {
   isDisclosedQtyVisible: true,
   isIOCVisible: true,
   triggerprice: "0",
-  price:"0"
+  price: "0",
 } as IOrderEntry;
 
 // PRODUCT TYPE
@@ -42,25 +42,21 @@ export const orderEntrySlice = createSlice({
   reducers: {
     setOrderEntryProps: (state, action: PayloadAction<any>) => {
       state.token = action.payload.token;
-      if(action.payload.price ===  undefined)
-      {
+      if (action.payload.price === undefined) {
         state.price = "0";
         state.orderType = "MKT";
         state.isPriceEnabled = false;
-      }
-      else
-      {
+      } else {
         state.price = action.payload.price;
         state.orderType = "L";
         state.isPriceEnabled = true;
-      }      
+      }
       state.quantity = action.payload.quantity;
       state.symbol = action.payload.symbol;
       state.exchange = action.payload.exchange;
-      state.ltp = action.payload.ltp;     
-      state.triggerprice="0";
-      state.disclosedQty=0; 
-      
+      state.ltp = action.payload.ltp;
+      state.triggerprice = "0";
+      state.disclosedQty = 0;
     },
     openBuyOrderEntry: (state) => {
       state.isOrderEntryOpen = true;
@@ -144,13 +140,17 @@ export const orderEntrySlice = createSlice({
     setDisclosedQty: (state, action: PayloadAction<number>) => {
       state.disclosedQty = action.payload;
     },
-    onOrderEntrySuccess: (state, action: PayloadAction<any>) => {            
+    onOrderEntrySuccess: (state, action: PayloadAction<any>) => {
       state.isOrderEntryOpen = false;
-      toastNotification("success","Order Placed");
+      toastNotification("success", "Order Placed : "+ action.payload.nOrdNo);
     },
-    onOrderEntryError: (state, action: PayloadAction<any>) => {      
+    onOrderEntryRejected: (state, action: PayloadAction<any>) => {
       state.isOrderEntryOpen = false;
-      toastNotification("error",action.payload.message);
+      toastNotification("error", "Order Rejected : "+action.payload.comment);
+    },
+    onOrderEntryError: (state, action: PayloadAction<any>) => {
+      state.isOrderEntryOpen = false;
+      toastNotification("error", action.payload.message);
     },
   },
 });
@@ -160,7 +160,11 @@ export const placeOrder =
   async (dispatch) => {
     try {
       const orderResponse = await sendOrderEntryRequest(orderentryRequest);
-      dispatch(onOrderEntrySuccess(orderResponse));
+      if (Number(orderResponse.stCode) === 200) {
+        dispatch(onOrderEntrySuccess(orderResponse));
+      } else {
+        dispatch(onOrderEntryRejected(orderResponse));
+      }
     } catch (err) {
       dispatch(onOrderEntryError(err));
     }
@@ -187,7 +191,8 @@ export const {
   setDisclosedQty,
   setOrderEntryProps,
   onOrderEntrySuccess,
-  onOrderEntryError
+  onOrderEntryError,
+  onOrderEntryRejected,
 } = orderEntrySlice.actions;
 
 export default orderEntrySlice.reducer;
