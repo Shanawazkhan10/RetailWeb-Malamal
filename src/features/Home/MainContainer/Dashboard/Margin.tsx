@@ -23,7 +23,7 @@ const Margin = () => {
           <div className="equitytxt">
             <p>Margin Available</p>
             <p>
-              Margin Used <span>{marginState.marginData}</span>
+              Margin Used <span>{marginState.marginData.MarginUsed}</span>
             </p>
             <p>
               Opening Balance <span>168.1</span>

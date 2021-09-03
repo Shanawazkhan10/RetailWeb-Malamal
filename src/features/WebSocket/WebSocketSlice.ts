@@ -18,8 +18,14 @@ const socketdata = createSlice({
     socketdata: InitialSocketData,
   },
   reducers: {
-    ScriptUpdate: (state, action: PayloadAction<IScriptUpdate>) => {
-      state.socketdata.Script[Number(action.payload.tk)] = action.payload;
+    //ScriptUpdate: (state, action: PayloadAction<IScriptUpdate>) => {
+    ScriptUpdate: (state, action) => {
+      //ScriptUpdate: (state, { payload }: PayloadAction<IScriptUpdate>) => {
+      const ScriptList: IScriptUpdate[] = action.payload;
+      //state.socketdata.Script[Number(action.payload.tk)] = action.payload;
+      JSON.parse(action.payload).forEach((script: IScriptUpdate) => {
+        state.socketdata.Script[Number(script.tk)] = script;
+      });
     },
     DepthUpdate: (state, action: PayloadAction<IMarketDepth>) => {
       state.socketdata.Depth[Number(action.payload.tk)] = action.payload;
@@ -52,6 +58,12 @@ const socketdata = createSlice({
     UnSubcribeIndices: (state, action) => {
       state.socketdata.TokenStatus[Number(action)].Depth.status = 0;
     },
+    RecevidedMessage: (state, action) => {
+      state.socketdata.TokenStatus[Number(action)].Depth.status = 0;
+    },
+    FetchSocketData: (state, action) => {
+      //state.socketdata.Script[22].ltp;
+    },
   },
 });
 
@@ -63,4 +75,5 @@ export const {
   IndicesUpdate,
   ChannelPause,
   ChannelResume,
+  FetchSocketData,
 } = socketdata.actions;

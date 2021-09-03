@@ -1,7 +1,9 @@
 import React, { MouseEvent, useState } from "react";
 import {
+  api,
   ContractSearch,
   GetSymbolDetails,
+  SearchSymbol,
   SubscribeMarketDepth,
 } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
@@ -16,8 +18,9 @@ import {
   ShowDepthFromSearch,
   UpdateTokenInfo,
 } from "../MarketPicture/MarketPictureSlice";
+import { FetchSearch } from "./SmartSearchSlice";
 
-const Search1 = () => {
+const SmartSearch = () => {
   const dispatch = useAppDispatch();
   const [cursor, setCursor] = useState(0);
   const [searchValue, setSearchValue] = useState("");
@@ -44,15 +47,42 @@ const Search1 = () => {
   }
 
   // search world trading data for available stock symbols that match the search input
-  const search = (val: string) => {
+  const search = async (val: string) => {
+    if (val.length < 3) {
+      return;
+    }
     //API Call
-    // const ContractSearchReq: IContractSearchReq = {
-    //   limit: 10,
-    //   searchType: "all",
-    //   keyword: val,
-    //   allowed_exchange: 1,
-    // };
-    //setResult(ContractSearch(ContractSearchReq));
+    const ContractSearchReq: IContractSearchReq = {
+      //limit: 10,
+      search_type: "all",
+      keyword: val,
+      allowed_exchange: [
+        "nse_cm",
+        "nse_fo",
+        // "mcx_fo",
+        // "bse_cm",
+        // "bse_fo",
+        // "cde_fo",
+      ],
+    };
+    //var result: any = dispatch(FetchSearch(ContractSearchReq));
+    //const asd: IContractSearch[] = SearchSymbol(ContractSearchReq);
+    //setResult(result);
+    await api
+      .post(
+        "https://uathsdiscovery.hypertrade.in/htpl/search/symbol",
+        JSON.stringify(ContractSearchReq),
+        {
+          headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+            "x-access-token": localStorage.getItem("sessionKey"),
+            "api-key": "UzL0HZiHPTc1rNVr",
+          },
+        }
+      )
+      .then((response) => setResult(response.data.data))
+
+      .catch((error) => error);
   };
 
   // handles changes to the search input
@@ -92,25 +122,17 @@ const Search1 = () => {
   };
   return (
     <div className="search-container">
-      <div className="input-group slideInLeft-element" id="search">
-        <div>
-          <span>
-            <img src="images/search.svg" />
-          </span>
-        </div>
-        <input
-          type="text"
-          className="searchForm__text"
-          placeholder="Search by symbol or name"
-          value={searchValue}
-          onChange={(e) => handleSearchChange(e)}
-          onKeyDown={handleSearchKeyDowns}
-          onBlur={clearSearch}
-        />
-      </div>
-
       <form className="searchForm">
         <div className="searchForm__inputs">
+          <input
+            type="text"
+            className="searchForm__text"
+            placeholder="Search by symbol or name"
+            value={searchValue}
+            onChange={(e) => handleSearchChange(e)}
+            onKeyDown={handleSearchKeyDowns}
+            onBlur={clearSearch}
+          />
           {/* if the search input value is not empty show the clear button */}
           {searchValue !== "" && (
             <button
@@ -202,4 +224,4 @@ const Search1 = () => {
   );
 };
 
-export default Search1;
+export default SmartSearch;

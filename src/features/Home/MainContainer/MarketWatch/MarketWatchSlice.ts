@@ -10,9 +10,11 @@ import { AppThunk } from "../../../../store/store";
 import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { IMarketDepth } from "../../../../types/IMarketDepth";
+import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchList } from "../../../../types/IMarketWatchList";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
+import { IScriptUpdate } from "../../../../types/MarketData/IScriptUpdate";
 import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 import { IDeleteWatchlist } from "./../../../../app/IDeleteWatchlist";
 import { IRenameWatchlist } from "./../../../../types/IRenameWatchlist";
@@ -118,6 +120,68 @@ const marketwatchSlice = createSlice({
     setSymbollistindex: (state, action) => {
       state.marketWatch.Symbollistindex = action.payload;
     },
+    ScriptUpdatefromSocket: (state, action) => {
+      const ScriptList: IScriptUpdate[] = action.payload;
+      JSON.parse(action.payload).forEach((script: IScriptUpdate) => {
+        // state.socketdata.Script[Number(script.tk)] = script;
+        //
+        //state.marketWatch.SymbolList[0].ltp = script.ltp;
+        //state.marketWatch.MarketWatchList[0].SymbolList[0].sym = script.ltp;
+        if (state.marketWatch.MarketWatchList == undefined) return;
+        state.marketWatch.MarketWatchList.forEach(
+          (MarketWatch: IMarketWatch) => {
+            if (MarketWatch.SymbolList == undefined) return;
+            MarketWatch.SymbolList.forEach((token: IMarketWatchTokenInfo) => {
+              if (token.tok == script.tk) {
+                if (script.ltp != undefined) {
+                  token.ltp = script.ltp;
+                }
+                if (script.nc != undefined) {
+                  token.nc = script.nc;
+                }
+                if (script.cng != undefined) {
+                  token.cng = script.cng;
+                }
+                // token.op = script.op;
+                // token.lo = script.lo;
+                // token.h = script.h;
+                // token.c = script.c;
+                // token.v = script.v;
+                // token.ltq = script.ltq;
+                // token.ltt = script.ltt;
+                // token.lcl = script.lcl;
+                // token.ucl = script.ucl;
+              }
+            });
+          }
+        );
+      });
+      //state.marketWatch.SymbolList[0].ltp
+    },
+    DepthUpdatefromSocket: (state, action) => {
+      const MarketDepth: IMarketDepth[] = action.payload;
+      JSON.parse(action.payload).forEach((depth: IMarketDepth) => {
+        state.marketWatch.MarketWatchList.forEach(
+          (MarketWatch: IMarketWatch) => {
+            MarketWatch.SymbolList.forEach((token: IMarketWatchTokenInfo) => {
+              if (token.showDepth && token.tok == depth.tk) {
+                token.marketDepth = depth;
+              }
+            });
+          }
+        );
+      });
+    },
+    // FetchSocketData: (state, action) => {
+    //   // const ScriptData = useSelector(
+    //   //   (state: RootState) => state.socketData.socketdata.Script
+    //   // );
+    //   // state.marketWatch.MarketWatchList[
+    //   //   state.marketWatch.nSelectedWatchList
+    //   // ].SymbolList[0].ltp =
+    //   //   store.getState().socketData.socketdata.Script[22].ltp;
+    //   //const x = store.getState().socketData.socketdata.Script[22].ltp;
+    // },
   },
 });
 
@@ -136,6 +200,9 @@ export const {
   hideMore,
   showMore,
   setSymbollistindex,
+  ScriptUpdatefromSocket,
+  DepthUpdatefromSocket,
+  //FetchSocketData,
 } = marketwatchSlice.actions;
 
 export const FetchWatchList = (): AppThunk => async (dispatch) => {
@@ -189,5 +256,25 @@ export const UpdateWatchlist =
       //dispatch(RenameWatchList(renameWatchlistResponse));
     } catch (err) {
       dispatch(onMarketWatchFailure(err.toString()));
+    }
+  };
+
+export const UpdateFeed =
+  (msg: IScriptUpdate): AppThunk =>
+  async (dispatch) => {
+    try {
+      dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
+    } catch (err) {
+      dispatch(onMarketWatchFailure(err));
+    }
+  };
+
+export const UpdateDepth =
+  (msg: IMarketDepth): AppThunk =>
+  async (dispatch) => {
+    try {
+      dispatch(DepthUpdatefromSocket(msg as IMarketDepth));
+    } catch (err) {
+      dispatch(onMarketWatchFailure(err));
     }
   };

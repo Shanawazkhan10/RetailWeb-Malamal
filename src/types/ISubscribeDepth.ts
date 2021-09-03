@@ -1,6 +1,6 @@
 export interface ISubscribeDepth {
   type: string;
   scrips: string;
-  id: number;
+  //id: number;
   channelnum: number;
 }

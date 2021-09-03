@@ -7,6 +7,15 @@ import { IGTTEntryProps } from "../../../../types/IGTTEntryProps";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import { IOrderEntryProps } from "../../../../types/IOrderEntryProps";
+import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
+import HSSocket, { userWS } from "../../../WebSocket/HSSocket";
+import {
+  sendUnsubReq,
+  SubUnsubReq,
+  waitForSocketConnection,
+} from "../../../WebSocket/HSSocket1";
+//import { sendUnsubReq, SubUnsubReq } from "../../../WebSocket/HSSocket1";
+import { FetchSocketData } from "../../../WebSocket/WebSocketSlice";
 import {
   openGTTEntry,
   setGTTEntryProps,
@@ -26,10 +35,11 @@ import {
   FetchWatchListSymbol,
   getMarketDepthSuccess,
   hideMore,
-  setSymbollistindex,
   ShowMarketDepth,
   showMore,
 } from "./MarketWatchSlice";
+import Quote from "./Quote";
+//import { userWS } from "./../../../WebSocket/HSSocket1";
 
 export interface scriptInfoReq {
   scripArr: string[];
@@ -42,6 +52,9 @@ const MarketWatchItem = (props: {
     (state) => state.marketwatch.marketWatch
   );
   const OrderEntryState = useAppSelector((state) => state.orderEntry);
+  // const ScriptUpdate = useAppSelector(
+  //   (state) => state.socketData.socketdata.Script
+  // );
   const [activeItem, setActiveItem] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [depth, setDepth] = React.useState(null);
@@ -53,6 +66,10 @@ const MarketWatchItem = (props: {
     //dispatch(setSymbollistindex(props.index));
     getSymbol();
     console.log(" MarketWatchItem useEffect");
+  }, []);
+
+  useEffect(() => {
+    var a = dispatch(FetchSocketData(22));
   }, []);
 
   const OrderEntryProp = {
@@ -74,7 +91,7 @@ const MarketWatchItem = (props: {
   } as IGTTEntryProps;
 
   function onBuyOrderEntryClick(symbolInfo: IMarketWatchTokenInfo) {
-    OrderEntryProp.token = symbolInfo.tk;
+    OrderEntryProp.token = symbolInfo.tok;
     OrderEntryProp.price = symbolInfo.ltp;
     OrderEntryProp.quantity = 1;
     OrderEntryProp.symbol = symbolInfo.sym;
@@ -84,7 +101,7 @@ const MarketWatchItem = (props: {
     dispatch(openBuyOrderEntry());
   }
   function onSellOrderEntryClick(symbolInfo: IMarketWatchTokenInfo) {
-    OrderEntryProp.token = symbolInfo.tk;
+    OrderEntryProp.token = symbolInfo.tok;
     OrderEntryProp.price = symbolInfo.ltp;
     OrderEntryProp.quantity = 1;
     OrderEntryProp.symbol = symbolInfo.sym;
@@ -140,23 +157,28 @@ const MarketWatchItem = (props: {
 
     if (!symbol.showDepth) {
       //subscribe Depth API Call
-      // const SubscribeDepth: ISubscribeDepth = {
-      //   type: "dps",
-      //   scrips: symbol.scrips,
-      //   id: propMarketWatch.id,
-      //   channelnum: propMarketWatch.id,
-      // };
-      dispatch(
-        getMarketDepthSuccess(SubscribeMarketDepth(propMarketWatch.id, index))
-      );
+      const SubscribeDepth: ISubscribeDepth = {
+        type: "dps",
+        scrips: symbol.scrips.replaceAll(",", "&"),
+        //id: propMarketWatch.id,
+        channelnum: propMarketWatch.id + 1,
+      };
+
+      waitForSocketConnection(userWS, function () {
+        userWS.send(SubscribeDepth);
+      });
+      // dispatch(
+      //   getMarketDepthSuccess(SubscribeMarketDepth(propMarketWatch.id, index))
+      // );
     } else {
       //Unsubscribe Depth API Call
-      // const SubscribeDepth: ISubscribeDepth = {
-      //   type: "dpu",
-      //   scrips: symbol.scrips,
-      //   id: propMarketWatch.id,
-      //   channelnum: propMarketWatch.id,
-      // };
+      const SubscribeDepth: ISubscribeDepth = {
+        type: "dpu",
+        scrips: symbol.scrips.replaceAll(",", "&"),
+        //id: propMarketWatch.id,
+        channelnum: propMarketWatch.id + 1,
+      };
+      //sendUnsubReq(SubscribeDepth);
       // UnsubscribeMarketDepth(SubscribeDepth);
     }
   }
@@ -169,6 +191,21 @@ const MarketWatchItem = (props: {
     dispatch(
       FetchWatchListSymbol(propMarketWatch.scrips.split(","), props.index)
     );
+
+    //subscribe Script API Call
+    const subUnsubReq: SubUnsubReq = {
+      type: "mws",
+      scrips: propMarketWatch.scrips.replaceAll(",", "&"),
+      channelnum: 1,
+    };
+    //if (userWS) {
+    let req = JSON.stringify(subUnsubReq);
+    waitForSocketConnection(userWS, function () {
+      userWS.send(req);
+    });
+
+    //}
+    sendUnsubReq(subUnsubReq);
     // dispatch(
     //   UpdateSymbolDetails(
     //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
@@ -177,7 +214,7 @@ const MarketWatchItem = (props: {
   }
 
   function onCreateGTTOrderClick(symbolInfo: IMarketWatchTokenInfo) {
-    GTTEntryProp.token = symbolInfo.tk;
+    GTTEntryProp.token = symbolInfo.tok;
     GTTEntryProp.price = symbolInfo.ltp;
     GTTEntryProp.quantity = 1;
     GTTEntryProp.symbol = symbolInfo.sym;
@@ -188,29 +225,163 @@ const MarketWatchItem = (props: {
   }
 
   return (
-    <table className="table table-responsive table-borderless">
-      <tbody>
-        {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
-        {propMarketWatch.SymbolList != null ? (
-          propMarketWatch.SymbolList.map(
-            (symbolInfo: IMarketWatchTokenInfo) => (
-              <tr className="slideInDown-element">
-                <td>
-                  <img src="images/hdfc-logo.jpg" width="35" />
-                  <span> {symbolInfo.sym}</span>
-                </td>
-                <td className="price-box">
-                  <div className="lprice">Rs. 1503.45</div>
-                  <p className="text-green">+2.03 (+1.04%)</p>
-                </td>
-              </tr>
-            )
+    <div>
+      {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
+      {propMarketWatch.SymbolList != null ? (
+        propMarketWatch.SymbolList.map(
+          (symbolInfo: IMarketWatchTokenInfo, nIncreament) => (
+            <div>
+              <div
+                key={symbolInfo.scrips}
+                id={String(nIncreament)}
+                className="mw_block"
+                style={{ width: "400px" }}
+                onMouseLeave={() => {
+                  dispatch(hideMore(nIncreament));
+                }}
+              >
+                <div className="popupCloseButton" title="Delete"></div>
+                <div style={{ display: "none" }} className="mw_status">
+                  <ul>
+                    <li>
+                      <span id="spnEventStatus"></span>
+                    </li>
+                    <li>
+                      <span id="spnMarketStatus"></span>
+                    </li>
+                  </ul>
+                  <div className="status_pop">
+                    <span className="pre_game" id="spnEventStateTooltip"></span>
+                    <span className="open" id="spnMarketStateTooltip"></span>
+                  </div>
+                </div>
+
+                <div id="divLeftV" className="container_mw mw_team1">
+                  <div className="overlay_mw">
+                    <button
+                      className="btn_mw_overlay_2 btn_buy"
+                      title="Depth"
+                      onClick={() => onDepthClick(nIncreament, symbolInfo)}
+                    >
+                      D
+                    </button>
+                    <button
+                      className="btn_mw_overlay_2 btn_buy"
+                      title="Delete"
+                      onClick={() => RemoveSymbol(symbolInfo)}
+                    >
+                      Del
+                    </button>
+                    <button
+                      className="btn_mw_overlay_2 btn_buy"
+                      title="Chart(C )"
+                      onClick={onChartClick}
+                    >
+                      C
+                    </button>
+                    <button
+                      className="btn_mw_overlay_2 btn_buy"
+                      title="BUY"
+                      onClick={() => onBuyOrderEntryClick(symbolInfo)}
+                    >
+                      B
+                    </button>
+                    <button
+                      className="btn_mw_overlay_3 btn_sell"
+                      title="SELL"
+                      onClick={() => onSellOrderEntryClick(symbolInfo)}
+                    >
+                      S
+                    </button>
+                    <button
+                      className="btn_mw_overlay_3 btn_detail"
+                      title="More"
+                      onClick={() => {
+                        symbolInfo.showMore
+                          ? dispatch(hideMore(nIncreament))
+                          : dispatch(showMore(nIncreament));
+                      }}
+                    ></button>
+                  </div>
+
+                  {symbolInfo.showMore && (
+                    <input
+                      type="button"
+                      value="Create GTT"
+                      onClick={() => onCreateGTTOrderClick(symbolInfo)}
+                    />
+                  )}
+
+                  <div className="divLeftV_in">
+                    <div className="mysymbolname">
+                      <span id="spnsymbol" title={symbolInfo.trdSym}>
+                        {symbolInfo.sym}
+                      </span>
+                      <br />
+                      <span id="spnLtt" title="LTT">
+                        {symbolInfo.trdSym}
+                      </span>
+                    </div>
+
+                    <div className="ltp_main">
+                      <span
+                        className="pt_sprd"
+                        id="spnltp"
+                        title="LTP"
+                        style={{ color: "#00bb7e" }}
+                      >
+                        {symbolInfo.ltp}
+                      </span>
+                      <span className="pt_sprd" id="ltpDifference">
+                        {symbolInfo.cng}
+                      </span>
+                      <span className="pt_sprd" id="ltpPercent">
+                        {symbolInfo.nc}%
+                      </span>
+                    </div>
+                  </div>
+                  <span
+                    style={{ display: "none" }}
+                    className="mw_hold"
+                    id="spnPositionTakenLeftV"
+                  ></span>
+                </div>
+
+                <div id="divRightV" className="mw_team2">
+                  <span
+                    className="vertical-text"
+                    id="spnEventStateTooltip"
+                    title="Exchange"
+                  >
+                    {symbolInfo.exch}
+                  </span>
+                </div>
+              </div>
+              {symbolInfo.showDepth &&
+              symbolInfo.marketDepth != null &&
+              symbolInfo.marketDepth != undefined ? (
+                <Collapse in={symbolInfo.showDepth}>
+                  <div className="market-depth" style={{ display: "" }}>
+                    <MarketDepth
+                      index={nIncreament}
+                      depth={symbolInfo.marketDepth}
+                    ></MarketDepth>
+                    <Quote index={nIncreament} tokenInfo={symbolInfo}></Quote>
+                  </div>
+                </Collapse>
+              ) : (
+                ""
+              )}
+              {/* {activeItem && activeIndex == nIncreament + 1
+                ? onDepthClick1(nIncreament + 1)
+                : ""} */}
+            </div>
           )
-        ) : (
-          <div>No Data 2</div>
-        )}
-      </tbody>
-    </table>
+        )
+      ) : (
+        <div>No Data 2</div>
+      )}
+    </div>
   );
 };
 

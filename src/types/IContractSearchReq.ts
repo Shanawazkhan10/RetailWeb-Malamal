@@ -1,6 +1,6 @@
 export interface IContractSearchReq {
-  limit: number;
-  searchType: string;
+  //limit: number;
+  search_type: string;
   keyword: string;
-  allowed_exchange: number;
+  allowed_exchange: string[];
 }

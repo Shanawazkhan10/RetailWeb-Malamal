@@ -1,20 +1,13 @@
-import { stat } from "fs";
 import React, { MouseEvent, useState } from "react";
-import { useSelector } from "react-redux";
+import AutoSuggest from "react-autosuggest";
 import {
   ContractSearch,
   GetSymbolDetails,
-  GetWatchListSymbolDetails,
   SubscribeMarketDepth,
 } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
-import { RootState } from "../../../../store/store";
-import { IContractSearchReq } from "../../../../types/IContractSearchReq";
-import AutoSuggest from "react-autosuggest";
-
-import ReactDOM from "react-dom";
 import { IContractSearch } from "../../../../types/IContractSearch";
-
+import { IContractSearchReq } from "../../../../types/IContractSearchReq";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
@@ -22,7 +15,6 @@ import {
 import { chartContainer, searchDepthContainer } from "../mainContainerSlice";
 import {
   ShowDepthFromSearch,
-  updateMarketDepth,
   UpdateTokenInfo,
 } from "../MarketPicture/MarketPictureSlice";
 
@@ -103,10 +95,17 @@ const Search = () => {
   function getSuggestions(value: string): IContractSearch[] {
     //API Call
     const ContractSearchReq: IContractSearchReq = {
-      limit: 10,
-      searchType: "all",
+      //limit: 10,
+      search_type: "all",
       keyword: value,
-      allowed_exchange: 1,
+      allowed_exchange: [
+        "nse_cm",
+        "nse_fo",
+        "mcx_fo",
+        "bse_cm",
+        "bse_fo",
+        "cde_fo",
+      ],
     };
 
     return ContractSearch(ContractSearchReq);
