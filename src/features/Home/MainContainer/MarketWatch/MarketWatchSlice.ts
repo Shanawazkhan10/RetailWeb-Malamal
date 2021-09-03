@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   getWatchList,
-  GetWatchListSymbolDetails,
   PostScritInfo,
   renameWatchlist,
   updateWatchlist,
@@ -21,11 +20,12 @@ import { IRenameWatchlist } from "./../../../../types/IRenameWatchlist";
 
 const InitialMarketWatch: IMarketWatchList = {
   MarketWatchList: [],
-  nSelectedWatchList: 1,
+  nSelectedWatchList: 0,
   sSelectedWatchList: "",
   bIsBind: false,
   bIsError: false,
   Symbollistindex: 0,
+  SymbolList: [],
 };
 
 const marketwatchSlice = createSlice({
@@ -78,23 +78,22 @@ const marketwatchSlice = createSlice({
         state.marketWatch.MarketWatchList[
           state.marketWatch.Symbollistindex
         ].SymbolList = TokenInfo;
-      // state.marketWatch.MarketWatchList[2].SymbolList = TokenInfo;
-      // state.marketWatch.MarketWatchList[3].SymbolList = TokenInfo;
-      // state.marketWatch.MarketWatchList[4].SymbolList = TokenInfo;
-      // state.marketWatch.MarketWatchList[5].SymbolList = TokenInfo;
+
+      // state.marketWatch.SymbolList[Number(state.marketWatch.Symbollistindex)] =
+      //   action.payload.data;
     },
     getMarketDepthSuccess: (state, action) => {
       let MarketDepth: IMarketDepth = action.payload;
       if (MarketDepth != undefined)
-        state.marketWatch.MarketWatchList[MarketDepth.id - 1].SymbolList[
+        state.marketWatch.MarketWatchList[MarketDepth.id].SymbolList[
           MarketDepth.index
         ].marketDepth = action.payload;
     },
     ShowMarketDepth: (state, action: PayloadAction<IDepthReq>) => {
-      state.marketWatch.MarketWatchList[action.payload.id - 1].SymbolList[
+      state.marketWatch.MarketWatchList[action.payload.id].SymbolList[
         action.payload.index
       ].showDepth =
-        !state.marketWatch.MarketWatchList[action.payload.id - 1].SymbolList[
+        !state.marketWatch.MarketWatchList[action.payload.id].SymbolList[
           action.payload.index
         ].showDepth;
     },
@@ -265,7 +264,7 @@ export const UpdateFeed =
     try {
       dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
     } catch (err) {
-      dispatch(onMarketWatchFailure(err));
+      dispatch(onMarketWatchFailure(err.toString()));
     }
   };
 
@@ -275,6 +274,6 @@ export const UpdateDepth =
     try {
       dispatch(DepthUpdatefromSocket(msg as IMarketDepth));
     } catch (err) {
-      dispatch(onMarketWatchFailure(err));
+      dispatch(onMarketWatchFailure(err.toString()));
     }
   };

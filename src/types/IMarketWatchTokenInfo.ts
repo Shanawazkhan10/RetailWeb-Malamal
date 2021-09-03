@@ -5,7 +5,7 @@ export interface IMarketWatchTokenInfo {
   mwName: string;
   scrips: string;
   cmpName: string;
-  exch: string;
+  exSeg: string;
   seg: string;
   sym: string;
   exEndDt: string;
@@ -35,7 +35,7 @@ export const InitialTokenInfo = {
   mwName: "",
   scrips: "",
   cmpName: "",
-  exch: "",
+  exSeg: "",
   seg: "",
   sym: "",
   exEndDt: "",

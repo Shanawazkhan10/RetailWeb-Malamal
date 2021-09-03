@@ -1,6 +1,6 @@
 import React from "react";
-import { IHolding } from "../../../../types/IHolding";
 import { useAppDispatch } from "../../../../app/hooks";
+import { IHolding } from "../../../../types/Holding/IHolding";
 
 const HoldingView = (props: { holding: IHolding }) => {
   const { holding } = props;

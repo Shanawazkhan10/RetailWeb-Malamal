@@ -1,4 +1,4 @@
-export interface INetPosition {
+export interface IPosition {
   actId: String;
   brdLtQty: number;
   cfBuyAmt: String;

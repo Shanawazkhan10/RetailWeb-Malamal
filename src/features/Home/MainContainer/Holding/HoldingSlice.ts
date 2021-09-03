@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IHolding } from "../../../../types/IHolding";
 import { api, getHolding } from "../../../../app/api";
 import { AppThunk } from "../../../../store/store";
+import { IHolding } from "../../../../types/Holding/IHolding";
 
 const InitialHolding: IHolding[] = [];
 

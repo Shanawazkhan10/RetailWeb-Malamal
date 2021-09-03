@@ -31,6 +31,6 @@ export const FetchSearch =
       const searchResponse = await SearchSymbol(ContractSearchReq);
       dispatch(SearchContractSuccess(searchResponse));
     } catch (err) {
-      dispatch(SearchContractError(err));
+      dispatch(SearchContractError(err.toString()));
     }
   };

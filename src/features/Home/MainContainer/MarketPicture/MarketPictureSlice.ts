@@ -58,4 +58,5 @@ export const {
   ShowDepthFromPosition,
   updateMarketDepth,
   UpdateTokenInfo,
+  CloseDepth,
 } = marketpicture.actions;
