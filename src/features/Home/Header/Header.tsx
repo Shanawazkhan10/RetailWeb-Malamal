@@ -103,7 +103,7 @@ const Header = () => {
               className="dashboard"
               style={{ float: "left", marginRight: "5rem" }}
             >
-              <a href="#" onClick={onDashBoard} style={{ color: "orange" }}>
+              <a href="" onClick={onDashBoard} style={{ color: "orange" }}>
                 <span id="spnDashBoard">Dashboard</span>
               </a>
             </li>
@@ -112,7 +112,7 @@ const Header = () => {
               className="orders"
               style={{ float: "left", marginRight: "5rem" }}
             >
-              <a href="#" onClick={onOrder} style={{ color: "orange" }}>
+              <a href="" onClick={onOrder} style={{ color: "orange" }}>
                 <span id="spnOrders">Orders</span>
               </a>
             </li>
@@ -121,7 +121,7 @@ const Header = () => {
               className="holdings"
               style={{ float: "left", marginRight: "5rem" }}
             >
-              <a href="#" onClick={onHoldings} style={{ color: "orange" }}>
+              <a href="" onClick={onHoldings} style={{ color: "orange" }}>
                 <span id="spnHoldings">Holdings</span>
               </a>
             </li>
@@ -130,7 +130,7 @@ const Header = () => {
               className="positions"
               style={{ float: "left", marginRight: "5rem" }}
             >
-              <a href="#" onClick={onPositions} style={{ color: "orange" }}>
+              <a href="" onClick={onPositions} style={{ color: "orange" }}>
                 <span id="spnPositions">Positions</span>
               </a>
             </li>

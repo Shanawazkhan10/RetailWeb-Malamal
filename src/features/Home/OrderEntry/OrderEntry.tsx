@@ -1,4 +1,3 @@
-import { useForm, SubmitHandler } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   closeOrderEntry,
@@ -22,16 +21,13 @@ import {
 } from "../../../types/Request/IOrderEntryRequest";
 
 const OrderEntryComp = () => {
-  const { register, formState, handleSubmit,getValues } = useForm<IOrderEntryProps>();
-
   const dispatch = useAppDispatch();
   function onCancelClick() {
     dispatch(closeOrderEntry());
   }
   const orderEntryState = useAppSelector((state) => state.orderEntry);
   const userState = useAppSelector((state) => state.user);
-  const onSubmit: SubmitHandler<IOrderEntryProps> = (data) => {
-    console.log(data);
+  function onFormSubmit() {    
     const Jdata: IjData = {
       am: "NO",
       es: orderEntryState.exchange,
@@ -53,8 +49,8 @@ const OrderEntryComp = () => {
       jKey: userState.sessionKey,
       jData: Jdata,
     };
-
     dispatch(placeOrder(orderentryrequest));
+
   };
 
   function onProductCodechange(value: string) {
@@ -67,6 +63,13 @@ const OrderEntryComp = () => {
     dispatch(setPrice(e.target.value));
   }
   function onTriggerPriceChange(e: any) {
+    if (e.target.value > orderEntryState.price) {
+      e.target.setCustomValidity("Trigger Price can`t be greater than Price.");
+    }
+    else
+    {
+      e.target.setCustomValidity("");
+    }
     dispatch(setTriggerPrice(e.target.value));
   }
   function onMoreClick(e: any) {
@@ -75,10 +78,7 @@ const OrderEntryComp = () => {
   }
 
   return (
-    <form
-      className={"order_window " + (orderEntryState.isBuy ? "buy" : "sell")}
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <form className={"order_window " + (orderEntryState.isBuy ? "buy" : "sell")}>
       <div className="drag-handle"></div>
       <OrderEntryHeader />
 
@@ -147,39 +147,24 @@ const OrderEntryComp = () => {
               <div className="four columns quantity">
                 <div className="no su-input-group su-static-label">
                   <label className="su-input-label su-visible">Qty.</label>
-                  <input
-                    {...register("quantity", {
-                      required: true,
-                      maxLength: 8,
-                      min: {
-                        value: 1,
-                        message: "Value must be greater than 0",
-                      },
-                      max: 999999,
-                    })}
+                  <input                    
                     type="number"
                     placeholder=""
-                    data-autocorrect="off"
                     name="quantity"
                     step="1"
                     min="1"
                     value={orderEntryState.quantity}
+                    required={true}
                     onChange={(e) => {
                       onQtyChange(e);
-                    }}
+                    }}                    
                   />
                 </div>
               </div>
               <div className="four columns price">
                 <div className="no su-input-group su-static-label disabled">
                   <label className="su-input-label su-visible">Price</label>
-                  <input
-                    {...register("price", {
-                      required: true,
-                      maxLength: 8,
-                      min: 1,
-                      max: 999999,
-                    })}
+                  <input                   
                     type="number"
                     placeholder=""
                     min="0.05"
@@ -198,13 +183,7 @@ const OrderEntryComp = () => {
               <div className="four columns trigger">
                 <div className="no su-input-group su-static-label disabled">
                   <label className="su-input-label">Trigger price</label>
-                  <input
-                    {...register("triggerprice", {
-                      maxLength: 8,
-                      min: 1,
-                      max: 999999,
-                      validate: () => Number(getValues("triggerprice")) <= Number(getValues("price")) || "Trigger Price can`t be greater than Price."
-                    })}
+                  <input                    
                     type="number"
                     placeholder=""
                     data-autocorrect="off"
@@ -217,6 +196,7 @@ const OrderEntryComp = () => {
                     onChange={(e) => {
                       onTriggerPriceChange(e);
                     }}
+                    required={true}
                   />
                 </div>
               </div>
@@ -269,7 +249,7 @@ const OrderEntryComp = () => {
               </div>
             </div>
             <div className="six columns text-right actions">
-              <button type="submit" className="submit">
+              <button type="button" className="submit" onClick={onFormSubmit}>
                 <span>{orderEntryState.isBuy === true ? "Buy" : "Sell"}</span>
               </button>
               <button
