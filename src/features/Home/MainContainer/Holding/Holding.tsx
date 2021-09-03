@@ -8,29 +8,13 @@ const HoldingView = (props: { holding: IHolding }) => {
 
   return (
     <tr>
-      <td className="netposclsdata" title={holding.Symbol}>
-        {holding.Symbol}
-      </td>
-      <td className="netposclsdata" title={holding.InstrumentName}>
-        {holding.InstrumentName}
-      </td>
-      <td className="netposclsdata" title={holding.ProductType}>
-        {holding.ProductType}
-      </td>
-      <td className="netposclsdata right" title={holding.NeyQty}>
-        {holding.NeyQty}
-      </td>
-      <td
-        className="netposclsdata right"
-        title={holding.Avg}
-        style={{ color: "#00ff00" }}
-      >
-        {holding.Avg}
-      </td>
-      <td className="netposclsdata right" title={holding.LTP} id="tdltp">
-        {holding.LTP}
-      </td>
-      <td
+      <td className="netposclsdata">{holding.bseTrdSym}</td>
+      <td className="netposclsdata">{holding.exSeg1}</td>
+      <td className="netposclsdata">{holding.prod}</td>
+      <td className="netposclsdata right">{holding.whdHldQty}</td>
+
+      <td className="netposclsdata right">{holding.prc}</td>
+      {/* <td
         className="netposclsdata right"
         title={holding.Avg}
         style={{ color: "#ff0000" }}
@@ -45,7 +29,7 @@ const HoldingView = (props: { holding: IHolding }) => {
       </td>
       <td className="netposclsdata" title={holding.Total}>
         {holding.Total}
-      </td>
+      </td> */}
     </tr>
   );
 };

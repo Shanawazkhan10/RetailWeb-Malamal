@@ -1387,13 +1387,13 @@ export async function getNetposition(): Promise<any> {
     .catch((error) => error);
 }
 
-export async function getHolding(): Promise<any> {
-  //const params = new URLSearchParams();
-  //params.append("jData", JSON.stringify(scriptInfo));
+export async function getHolding(Sessionkey: string): Promise<any> {
   return await api
     .post("https://uathsint.hypertrade.in/quick/user/holdings", "", {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "api-key": "UzL0HZiHPTc1rNVr",
+        "x-access-token": Sessionkey,
       },
     })
     .then((response) => response.data)

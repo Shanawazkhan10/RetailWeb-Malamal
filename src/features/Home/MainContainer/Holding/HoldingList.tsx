@@ -10,10 +10,6 @@ const HoldingList = () => {
   const HoldingList = useSelector((state: RootState) => state.holding);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(fetchHolding());
-  }, []);
-
   return HoldingList && HoldingList.holding.length > 0 ? (
     <div className="block_netPosition mr14" id="Holding">
       <div className="block_head">
