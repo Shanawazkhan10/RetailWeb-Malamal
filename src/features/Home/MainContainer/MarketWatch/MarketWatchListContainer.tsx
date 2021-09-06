@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
@@ -20,7 +20,7 @@ const MarketWatchListContainer = (props: any) => {
   }, []);
 
   return WatchListData && WatchListData.length > 0 ? (
-    <div>
+    <Fragment>
       {WatchListData.map((row: IMarketWatch, i) => (
         <div
           className="mw_content"
@@ -63,7 +63,7 @@ const MarketWatchListContainer = (props: any) => {
           </div>
         </div>
       ))}
-    </div>
+    </Fragment>
   ) : (
     <div>Empty List</div>
   );

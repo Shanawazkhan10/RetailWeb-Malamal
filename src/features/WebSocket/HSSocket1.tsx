@@ -66,9 +66,9 @@ export function connect() {
     if (JSON.parse(msg) && JSON.parse(msg)[0].name == "dp") {
       //dispatch(DepthUpdate(msg as IMarketDepth));
       //dispatch(DepthUpdatefromSocket(msg as IMarketDepth));
-      UpdateDepth(msg);
+      //UpdateDepth(msg);
     } else if (JSON.parse(msg) && JSON.parse(msg)[0].name == "sf") {
-      UpdateFeed(msg);
+      //UpdateFeed(msg);
       //dispatch(ScriptUpdate(msg as IScriptUpdate));
       //dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
     } else if (JSON.parse(msg) && JSON.parse(msg)[0].name == "if") {
@@ -89,7 +89,10 @@ export function disconnect() {
 export function sendUnsubReq(subUnsubReq: SubUnsubReq) {
   if (userWS) {
     let req = JSON.stringify(subUnsubReq);
-    userWS.send(req);
+    waitForSocketConnection(userWS, function () {
+      userWS.send(req);
+    });
+
     displayMessage("[Req]: " + req + "\n");
   }
 }
@@ -97,7 +100,9 @@ export function sendUnsubReq(subUnsubReq: SubUnsubReq) {
 export function sendReq(authReq: authReq) {
   if (userWS) {
     let req = JSON.stringify(authReq);
-    userWS.send(req);
+    waitForSocketConnection(userWS, function () {
+      userWS.send(req);
+    });
     displayMessage("[Req]: " + req + "\n");
   }
 }

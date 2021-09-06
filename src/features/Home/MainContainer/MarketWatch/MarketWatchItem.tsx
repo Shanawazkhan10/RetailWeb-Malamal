@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Collapse } from "reactstrap";
 import { GetSymbolDetails, SubscribeMarketDepth } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
@@ -156,7 +156,7 @@ const MarketWatchItem = (props: {
       //subscribe Depth API Call
       const SubscribeDepth: ISubscribeDepth = {
         type: "dps",
-        scrips: symbol.tok + "|" + symbol.exSeg,
+        scrips: symbol.exSeg + "|" + symbol.tok,
         //id: propMarketWatch.id,
         channelnum: propMarketWatch.id + 1,
       };
@@ -171,7 +171,7 @@ const MarketWatchItem = (props: {
       //Unsubscribe Depth API Call
       const SubscribeDepth: ISubscribeDepth = {
         type: "dpu",
-        scrips: symbol.tok + "|" + symbol.exSeg,
+        scrips: symbol.exSeg + "|" + symbol.tok,
         //id: propMarketWatch.id,
         channelnum: propMarketWatch.id + 1,
       };
@@ -206,7 +206,10 @@ const MarketWatchItem = (props: {
     });
 
     //}
-    sendUnsubReq(subUnsubReq);
+    // waitForSocketConnection(userWS, function () {
+    //   sendUnsubReq(subUnsubReq);
+    // });
+
     // dispatch(
     //   UpdateSymbolDetails(
     //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
@@ -226,7 +229,7 @@ const MarketWatchItem = (props: {
   }
 
   return (
-    <div>
+    <Fragment>
       {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
       {propMarketWatch.SymbolList != null ? (
         propMarketWatch.SymbolList.map(
@@ -382,7 +385,7 @@ const MarketWatchItem = (props: {
       ) : (
         <div>No Data 2</div>
       )}
-    </div>
+    </Fragment>
   );
 };
 

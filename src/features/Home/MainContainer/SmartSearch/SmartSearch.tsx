@@ -9,6 +9,11 @@ import {
 import { useAppDispatch } from "../../../../app/hooks";
 import { IContractSearch } from "../../../../types/IContractSearch";
 import { IContractSearchReq } from "../../../../types/IContractSearchReq";
+import { userWS } from "../../../WebSocket/HSSocket";
+import {
+  SubUnsubReq,
+  waitForSocketConnection,
+} from "../../../WebSocket/HSSocket1";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
@@ -18,6 +23,7 @@ import {
   ShowDepthFromSearch,
   UpdateTokenInfo,
 } from "../MarketPicture/MarketPictureSlice";
+import { AddToWatchList } from "../MarketWatch/MarketWatchSlice";
 import { FetchSearch } from "./SmartSearchSlice";
 
 const SmartSearch = () => {
@@ -26,13 +32,13 @@ const SmartSearch = () => {
   const [searchValue, setSearchValue] = useState("");
   const [Result, setResult] = useState<IContractSearch[]>([]);
 
-  const onDepthClick = () => {
+  const onDepthClick = (e:any) => {
     //e.preventDefault();
     //dispatch(searchDepthContainer());
     dispatch(ShowDepthFromSearch(""));
     //Dummy call for fetch
-    dispatch(UpdateTokenInfo(GetSymbolDetails()));
-    dispatch(UpdateTokenInfo(SubscribeMarketDepth(0, 0)));
+    //dispatch(UpdateTokenInfo(GetSymbolDetails()));
+    //dispatch(UpdateTokenInfo(SubscribeMarketDepth(0, 0)));
     //dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
   };
 
@@ -44,6 +50,10 @@ const SmartSearch = () => {
   }
   function onChartClick() {
     dispatch(chartContainer());
+  }
+
+  function onAddClick(e: any) {
+    //dispatch(AddToWatchList(contractSearch));
   }
 
   // search world trading data for available stock symbols that match the search input
@@ -168,7 +178,11 @@ const SmartSearch = () => {
                   <li>
                     <div id="divLeftV" className="container_mw mw_team1">
                       <div className="overlay_mw">
-                        <button className=" btn_buy" title="Add">
+                        <button
+                          className=" btn_buy"
+                          title="Add"
+                          onMouseDown={() => onAddClick}
+                        >
                           A
                         </button>
                         <button

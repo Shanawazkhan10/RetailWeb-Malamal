@@ -12,7 +12,7 @@ const TradeSlice = createSlice({
   },
   reducers: {
     TradeViewSuccess: (state, action) => {
-      state.TradeViewData = action.payload;
+      state.TradeViewData = action.payload.data;
     },
     TradeUpdate(state, action) {
       state.TradeViewData = state.TradeViewData.map((el) =>

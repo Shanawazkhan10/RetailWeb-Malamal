@@ -8,6 +8,10 @@ import {
   DepthUpdatefromSocket,
   ScriptUpdatefromSocket,
 } from "../Home/MainContainer/MarketWatch/MarketWatchSlice";
+import {
+  SearchDepthUpdate,
+  SearchScriptUpdate,
+} from "../Home/MainContainer/MarketPicture/MarketPictureSlice";
 
 export interface authReq {
   sessionid: string;
@@ -73,18 +77,22 @@ const HSSocket = () => {
     };
 
     userWS.onmessage = function (msg: any) {
-      if (JSON.parse(msg) && JSON.parse(msg)[0].name == "dp") {
-        //dispatch(DepthUpdate(msg as IMarketDepth));
-        dispatch(DepthUpdatefromSocket(msg as IMarketDepth));
-      } else if (JSON.parse(msg) && JSON.parse(msg)[0].name == "sf") {
-        //dispatch(ScriptUpdate(msg as IScriptUpdate));
-        dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
-      } else if (JSON.parse(msg) && JSON.parse(msg)[0].name == "if") {
-        dispatch(IndicesUpdate(msg as IIndices));
-      } else {
-        console.log(displayMessage("[Res]: " + msg + "\n"));
-      }
-      displayMessage("[Res]: " + msg + "\n");
+      JSON.parse(msg).forEach((data: any) => {
+        if (data.name == "dp") {
+          //dispatch(DepthUpdate(msg as IMarketDepth));
+          dispatch(DepthUpdatefromSocket(msg as IMarketDepth));
+          dispatch(SearchDepthUpdate(msg as IMarketDepth));
+        } else if (data.name == "sf") {
+          //dispatch(ScriptUpdate(msg as IScriptUpdate));
+          dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
+          dispatch(SearchScriptUpdate(msg as IScriptUpdate));
+        } else if (data.name == "if") {
+          dispatch(IndicesUpdate(msg as IIndices));
+        } else {
+          console.log(displayMessage("[Res]: " + msg + "\n"));
+        }
+        displayMessage("[Res]: " + msg + "\n");
+      });
     };
   }
 

@@ -1,12 +1,21 @@
 export interface INetPosition {
-  Symbol: string;
-  InstrumentName: string;
-  ProductType: string;
-  NeyQty: string;
-  NetPrice: string;
-  MarketPrce: string;
-  MTMGL: string;
-  ExchangeName: string;
-  LastTradedPrice: string;
-  Token: number;
+  actId: String;
+  brdLtQty: Number;
+  cfBuyAmt: String;
+  cfSellAmt: String;
+  cfBuyQty: String;
+  cfSellQty: String;
+  exSeg: String;
+  buyAmt: String;
+  sellAmt: String;
+  flBuyQty: String;
+  flSellQty: String;
+  optTp: String;
+  prod: String;
+  series: String;
+  stkPrc: String;
+  tok: String;
+  trdSym: String;
+  type: String;
+  Sym: String;
 }
