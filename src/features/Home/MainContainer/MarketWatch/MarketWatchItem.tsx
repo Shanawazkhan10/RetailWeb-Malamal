@@ -51,7 +51,7 @@ const MarketWatchItem = (props: {
     (state) => state.marketwatch.marketWatch
   );
   const OrderEntryState = useAppSelector((state) => state.orderEntry);
-  const user = useAppSelector((state) => state.user); 
+  const user = useAppSelector((state) => state.user);
   const [activeItem, setActiveItem] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [depth, setDepth] = React.useState(null);
@@ -206,7 +206,7 @@ const MarketWatchItem = (props: {
     });
 
     //}
-    sendUnsubReq(subUnsubReq);
+    //sendUnsubReq(subUnsubReq);
     // dispatch(
     //   UpdateSymbolDetails(
     //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
