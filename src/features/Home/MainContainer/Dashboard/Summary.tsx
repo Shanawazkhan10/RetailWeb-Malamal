@@ -40,8 +40,8 @@ const Summary = () => {
                 <tbody>
                   {summaryState.summaryData.SummaryList != null ? (
                     summaryState.summaryData.SummaryList.map(
-                      (summarydata: any) => (
-                        <tr>
+                      (summarydata: any,index:number) => (
+                        <tr key={index}>
                           <td>{summarydata.tsym}</td>
                           <td>{summarydata.netchg}</td>
                           <td>{summarydata.chg}</td>

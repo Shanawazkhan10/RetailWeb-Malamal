@@ -25,6 +25,7 @@ const MarketWatchListContainer = (props: any) => {
         <table
           className="table table-responsive table-borderless"
           id={String(i)}
+          key={String(i)}
           style={selectedList == i ? {} : { display: "none" }}
         >
           <MarketWatchItem

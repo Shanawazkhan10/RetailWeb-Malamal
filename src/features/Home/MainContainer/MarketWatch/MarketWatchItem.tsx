@@ -377,20 +377,27 @@ const MarketWatchItem = (props: {
             //       ? onDepthClick1(nIncreament + 1)
             //       : ""} */}
             //   </div>
-            <tr className="slideInDown-element" key={symbolInfo.scrips}>
+            <tr className="slideInDown-element" key={nIncreament}>
               <td>
                 <img src="images/hdfc-logo.jpg" />
                 <span>{symbolInfo.sym}</span>
               </td>
               <td className="price-box">
-                <div className="lprice">Rs.{symbolInfo.ltp==undefined ? "0.00" : symbolInfo.ltp}</div>
-                <p className="text-green">{symbolInfo.cng ==undefined ?"0.00" : symbolInfo.cng} ({symbolInfo.nc==undefined ?"0.00":symbolInfo.nc}%)</p>
+                <div className="lprice">
+                  Rs.{symbolInfo.ltp == undefined ? "0.00" : symbolInfo.ltp}
+                </div>
+                <p className="text-green">
+                  {symbolInfo.cng == undefined ? "0.00" : symbolInfo.cng} (
+                  {symbolInfo.nc == undefined ? "0.00" : symbolInfo.nc}%)
+                </p>
               </td>
             </tr>
           )
         )
       ) : (
-        <div>No Data 2</div>
+        <tr className="slideInDown-element">
+          <td>No Data</td>
+        </tr>
       )}
     </tbody>
   );
