@@ -1,5 +1,6 @@
 import { stat } from "fs";
 import React, { MouseEvent, useState } from "react";
+import { useSelector } from "react-redux";
 import {
   api,
   ContractSearch,
@@ -8,6 +9,7 @@ import {
   SubscribeMarketDepth,
 } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { RootState } from "../../../../store/store";
 import { IContractSearch } from "../../../../types/IContractSearch";
 import { IContractSearchReq } from "../../../../types/IContractSearchReq";
 import {
@@ -19,14 +21,23 @@ import {
   ShowDepthFromSearch,
   UpdateTokenInfo,
 } from "../MarketPicture/MarketPictureSlice";
+import {
+  AddToWatchList,
+  FetchWatchListSymbol,
+  UpdateWatchlist,
+} from "../MarketWatch/MarketWatchSlice";
 import { FetchSearch } from "./SmartSearchSlice";
 
 const SmartSearch = () => {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state)=>state.user);
+  const user = useAppSelector((state) => state.user);
   const [cursor, setCursor] = useState(0);
   const [searchValue, setSearchValue] = useState("");
   const [Result, setResult] = useState<IContractSearch[]>([]);
+
+  const WatchList = useSelector((state: RootState) => state.marketwatch);
+  let selectedList: number;
+  selectedList = WatchList.marketWatch.nSelectedWatchList;
 
   const onDepthClick = () => {
     //e.preventDefault();
@@ -46,6 +57,15 @@ const SmartSearch = () => {
   }
   function onChartClick() {
     dispatch(chartContainer());
+  }
+
+  function onAddWatchList(data: any) {
+    //console.log(data);
+
+    let scrips: string[] = [];
+    scrips.push(data.uomtkn + "|" + data.exseg);
+    //FetchWatchListSymbol(scrips, selectedList, 1);
+    //dispatch(UpdateWatchlist(data));
   }
 
   // search world trading data for available stock symbols that match the search input
@@ -133,7 +153,7 @@ const SmartSearch = () => {
             value={searchValue}
             onChange={(e) => handleSearchChange(e)}
             onKeyDown={handleSearchKeyDowns}
-            onBlur={clearSearch}
+            // onBlur={clearSearch}
           />
           {/* if the search input value is not empty show the clear button */}
           {searchValue !== "" && (
@@ -162,18 +182,22 @@ const SmartSearch = () => {
                   }
                   key={i}
                   // use onMouseDown instead of onClick because it fires before onBlur
-                  onMouseDown={() => {
-                    // handleQuoteChange(symbol);
-                  }}
+                  // onMouseDown={() => {
+                  //   console.log(result);
+                  // }}
                   style={{ cursor: "pointer" }}
                 >
                   <li>
                     <div id="divLeftV" className="container_mw mw_team1">
                       <div className="overlay_mw">
-                        <button className=" btn_buy" title="Add">
+                        <button
+                          className=" btn_buy"
+                          title="Add"
+                          onClick={() => onAddWatchList(result)}
+                        >
                           A
                         </button>
-                        <button
+                        {/* <button
                           className=" btn_buy"
                           title="Chart(C )"
                           onMouseDown={onChartClick}
@@ -200,7 +224,7 @@ const SmartSearch = () => {
                           onMouseDown={onDepthClick}
                         >
                           D
-                        </button>
+                        </button> */}
                       </div>
 
                       <div className="divLeftV_in">

@@ -1,19 +1,13 @@
-import { Socket } from "dgram";
 import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppSelector } from "../../app/hooks";
 import HSSocket from "../WebSocket/HSSocket";
-import { authReq, connect, init, sendReq } from "../WebSocket/HSSocket1";
-// import { connect, init } from "../WebSocket/HSSocket1";
-// import { authReq } from "./../WebSocket/HSSocket";
-// import { sendReq } from "./../WebSocket/HSSocket1";
-import GttOrderEntry from "./GTTOrderEntry/GttOrderEntry";
 import Header from "./Header/Header";
 import MainContainer from "./MainContainer/MainContainer";
-import MarketPicture from "./MainContainer/MarketPicture/MarketPicture";
 import Menu from "./Menu/Menu";
 import OrderEntryComp from "./OrderEntry/OrderEntry";
+import GttOrderEntry from "./GTTOrderEntry/GttOrderEntry";
 
 var url = "wss://uathsmkt.hypertrade.in";
 const script = document.createElement("script");
@@ -54,7 +48,10 @@ const Home = () => {
     };
   }, []);
   return (
-    <>
+    // <div id="MasterSearchDiv">
+    //   <div id="wrapper">
+    <div className="container-scroller mb-2">
+      <HSSocket></HSSocket>
       <Header />
       <MainContainer nWatchList={1} />
       {orderEntryState.isOrderEntryOpen && <OrderEntryComp />}
@@ -66,7 +63,7 @@ const Home = () => {
       <Menu></Menu>
       {/* </div> */}
       <ToastContainer />
-    </>
+    </div>
   );
 };
 

@@ -15,6 +15,7 @@ import {
 
 const MarketWatchHeader = () => {
   const [sName, setName] = useState("");
+  const [bEdit, SetEditFlag] = useState(false);
   // let selectedList: number;
   // const WatchList = useSelector((state: RootState) => state.marketwatch);
   // selectedList = WatchList.marketWatch.nSelectedWatchList;
@@ -61,10 +62,10 @@ const MarketWatchHeader = () => {
   }
 
   function EditWatchList() {
+    //setName(evt.target.value);
     const RenameReq: IRenameWatchlist = {
       oldmwName: sSelectedWatchList,
       newmwName: sName, //from input control
-      id: Number(nSelectedWatchList),
       userId: user.UserId,
     };
     //API Call TO rename watch list
@@ -72,13 +73,62 @@ const MarketWatchHeader = () => {
     //dispatch(RenameWatchList(RenameWatchlist(Input))); //API Call
   }
   return (
-    <div className="input-group slideInDown-element" id="search">
-      <div>
-        <span>
-          <img src="images/search.svg" />
-        </span>
+    <div className="mw_headnew">
+      {/*<h1>
+        <span>market Watch</span>
+         <button id="mw_sort" title="Sort Market Watch">
+          SORT
+        </button> 
+      </h1>*/}
+      {/* <input
+        type="text"
+        id="txtWatchlist"
+        placeholder="Search for a symbol"
+        onChange={(e) => handleChange}
+        value={sName}
+      ></input> */}
+      <SmartSearch></SmartSearch>
+      <div className="mw-head-btns">
+        <button
+          id="btnEditMode"
+          title="Edit"
+          onMouseDown={() => SetEditFlag(!bEdit)}
+        >
+          Edit
+        </button>
+        <button id="btnSave" title="Save" onClick={SaveWatchList}>
+          Save
+        </button>
+        <button
+          id="btnDelete"
+          title="Delete"
+          onClick={(e) => RemoveWatchList()}
+        >
+          Delete
+        </button>
+        <button id="btnCancelMode" title="Close" style={{ display: "none" }}>
+          Cancel
+        </button>
+        {/* <div className="dot-menu">
+          <input id="dot-menu" type="checkbox" className="dot-menu__checkbox" />
+          <label htmlFor="dot-menu" className="dot-menu__label">
+            <span>Menu</span>
+          </label>
+        </div> */}
+        {bEdit && (
+          <div className="Edit Watchlist">
+            <input
+              id="txtNewMW"
+              type="text"
+              className="EditwatchList"
+              onChange={handleChange}
+            ></input>
+            <button id="btnSave" title="Save" onClick={() => EditWatchList()}>
+              Save
+            </button>
+          </div>
+        )}
       </div>
-      <input type="text" placeholder="Search & Add" />
     </div>
 
     // <div className="mw_headnew">

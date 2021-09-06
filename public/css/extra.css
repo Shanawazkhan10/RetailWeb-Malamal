@@ -5340,11 +5340,11 @@
     -ms-transform: perspective(400px) rotateY(0);
     -o-transform: perspective(400px) rotateY(0);
     transform: perspective(400px) rotateY(0);
-    -webkit-animation-timing-function: ease-out;
     -moz-animation-timing-function: ease-out;
     -ms-animation-timing-function: ease-out;
     -o-animation-timing-function: ease-out;
-    animation-timing-function: ease-out;
+    animation-timing-function: ease-out;   -webkit-animation-timing-function: ease-out;
+ 
   }
   40% {
     -webkit-transform: perspective(400px) translateZ(150px) rotateY(170deg);
@@ -11606,9 +11606,7 @@ dl li {
     -ms-flex-direction: row;
     flex-direction: row;
   }
-  .navbar .navbar-brand-wrapper {
-    /*width: 55px;*/
-  }
+
   .navbar .navbar-brand-wrapper .navbar-brand.brand-logo {
     display: none;
   }

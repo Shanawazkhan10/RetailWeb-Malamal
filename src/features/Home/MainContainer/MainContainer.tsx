@@ -81,7 +81,7 @@ const MainContainer = (props: any) => {
         <div className="col-md-6 col-lg-4 col-xl-3">
           <div className="plate-2 fadeIn-element">
             <div className="b-listing">
-              <MarketWatch></MarketWatch>              
+              <MarketWatch></MarketWatch>
               <MarketWatchListContainer></MarketWatchListContainer>
               <MarketWatchPortfolio nWatchList={1}></MarketWatchPortfolio>
             </div>

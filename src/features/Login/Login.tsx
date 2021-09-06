@@ -49,14 +49,13 @@ const Login = () => {
     dispatch(logging(data.clientid));
     console.log(data);
     //dispatch(loggedInSuccess("User"));
-    const loginRequest:ILoginRequest =
-    {
+    const loginRequest: ILoginRequest = {
       uid: data.clientid,
       pwd: md5(data.password),
       brokerId: "TECXLABS",
       source: Source,
-    }
-    //var querystring = JSON.stringify(loginRequest);   
+    };
+    //var querystring = JSON.stringify(loginRequest);
 
     dispatch(UserLogin(loginRequest));
   };
@@ -122,9 +121,10 @@ const Login = () => {
                     </a>
                   </div>
                 </form>
+              ) : user.SetPassword ? (
+                "SetPasword Window Here"
               ) : (
-                (user.SetPassword ?("SetPasword Window Here")
-                :<MPIN />)
+                <MPIN />
               )}
             </div>
           </div>

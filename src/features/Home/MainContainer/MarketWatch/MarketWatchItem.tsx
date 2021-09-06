@@ -201,12 +201,15 @@ const MarketWatchItem = (props: {
     };
     //if (userWS) {
     let req = JSON.stringify(subUnsubReq);
-    waitForSocketConnection(userWS, function () {
-      userWS.send(req);
-    });
+    // waitForSocketConnection(userWS, function () {
+    //   userWS.send(req);
+    // });
 
     //}
-    sendUnsubReq(subUnsubReq);
+    waitForSocketConnection(userWS, function () {
+      sendUnsubReq(subUnsubReq);
+    });
+
     // dispatch(
     //   UpdateSymbolDetails(
     //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)

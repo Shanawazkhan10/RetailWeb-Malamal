@@ -192,13 +192,13 @@ const HSSocket = () => {
       >
         Script
       </button> */}
-      <button
+      {/* <button
         className="btn_mw_overlay_2 btn_buy"
         title="Chart(C )"
         onClick={() => depthSubscribe()}
       >
         Depth
-      </button>
+      </button> */}
     </div>
   );
 };

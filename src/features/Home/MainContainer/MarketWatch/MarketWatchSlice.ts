@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
-  api,
   deleteWatchList,
   getWatchList,
   PostScritInfo,
@@ -40,6 +39,7 @@ const marketwatchSlice = createSlice({
       state.marketWatch.MarketWatchList = action.payload.data;
       state.marketWatch.bIsBind = true;
       state.marketWatch.nSelectedWatchList = 0;
+      state.marketWatch.sSelectedWatchList = action.payload.data[0].mwName;
       state.marketWatch.Symbollistindex = 0;
       state.marketWatch.MarketWatchList.map(
         //(row, i) => GetWatchListSymbolDetails(i + 1, row.scrips) //DUmmy Call for actual call send token info
@@ -257,7 +257,7 @@ export const FetchWatchListSymbol =
       const scriptInfoResponse = await PostScritInfo(scriptInfoReq, sessionkey);
       dispatch(setSymbollistindex(index));
       dispatch(UpdateSymbolDetails(scriptInfoResponse));
-    } catch (err:any) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
@@ -268,7 +268,7 @@ export const DeleteWatchlist =
     try {
       const deleteWatchlistResponse = await deleteWatchList(DelReq, sessionkey);
       dispatch(DeleteWatchList(deleteWatchlistResponse));
-    } catch (err:any) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
@@ -281,8 +281,9 @@ export const RenameWatchlist =
         RenameReq,
         sessionkey
       );
+
       dispatch(RenameWatchList(renameWatchlistResponse));
-    } catch (err:any) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
@@ -296,7 +297,7 @@ export const UpdateWatchlist =
         sessionkey
       );
       //dispatch(RenameWatchList(renameWatchlistResponse));
-    } catch (err:any) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };

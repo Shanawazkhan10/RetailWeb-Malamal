@@ -42,11 +42,15 @@ export const DiscApi = axios.create({
 
 export async function PostLoginRequest(LoginData: ILoginRequest): Promise<any> {
   return await api
-    .post("https://uathsauth.hypertrade.in/api/login", JSON.stringify(LoginData), {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    .post(
+      "https://uathsauth.hypertrade.in/api/login",
+      JSON.stringify(LoginData),
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
     .then((response) => response.data)
     .catch((error) => error);
 }
@@ -1260,25 +1264,25 @@ export const SubscribeMarketDepth: any = (id: number, index: number) => {
 //     .catch((error) => error);
 // }
 
-// export async function DeleteWatchlist(DelReq: IDeleteWatchlist): Promise<any> {
-//   return await api
+export async function deleteWatchlist(DelReq: IDeleteWatchlist): Promise<any> {
+  return await api;
 
-//     .post(
-//       "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/deleteusergroups",
-//       JSON.stringify(DelReq),
-//       {
-//         headers: {
-//           "Content-Type": "application/json; charset=UTF-8",
-//           "x-access-token": localStorage.getItem("sessionKey"),
-//           "api-key": " UzL0HZiHPTc1rNVr",
-//         },
-//       }
-//     )
+  //     .post(
+  //       "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/deleteusergroups",
+  //       JSON.stringify(DelReq),
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json; charset=UTF-8",
+  //           "x-access-token": localStorage.getItem("sessionKey"),
+  //           "api-key": " UzL0HZiHPTc1rNVr",
+  //         },
+  //       }
+  //     )
 
-//     .then((response) => response.data)
+  //     .then((response) => response.data)
 
-//     .catch((error) => error);
-// }
+  //     .catch((error) => error);
+}
 
 export async function PredifinedWatchlist() {
   //const url = `https://api.github.com/repos/${org}/${repo}/issues/${number}`
@@ -1418,7 +1422,7 @@ export async function sendOrderEntryRequest(
     });
 }
 
-export async function GetOrderBook(sessionKey:string): Promise<any> {
+export async function GetOrderBook(sessionKey: string): Promise<any> {
   //const params = new URLSearchParams();
   //params.append("jData", JSON.stringify(scriptInfo));
   return await api
@@ -1435,7 +1439,7 @@ export async function GetOrderBook(sessionKey:string): Promise<any> {
     .catch((error) => error);
 }
 
-export async function GetTradeBook(sessionKey:string): Promise<any> {
+export async function GetTradeBook(sessionKey: string): Promise<any> {
   //const params = new URLSearchParams();
   //params.append("jData", JSON.stringify(scriptInfo));
   return await api
@@ -1452,7 +1456,7 @@ export async function GetTradeBook(sessionKey:string): Promise<any> {
     .catch((error) => error);
 }
 
-export async function getNetposition(sessionKey:string): Promise<any> {
+export async function getNetposition(sessionKey: string): Promise<any> {
   //const params = new URLSearchParams();
   //params.append("jData", JSON.stringify(scriptInfo));
   return await api
@@ -1475,7 +1479,7 @@ export async function getHolding(): Promise<any> {
   return await api
     .post("https://uathsint.hypertrade.in/quick/user/holdings", "", {
       headers: {
-        "x-access-token":localStorage.getItem("sessionKey"),
+        "x-access-token": localStorage.getItem("sessionKey"),
         "Content-Type": "application/x-www-form-urlencoded",
       },
     })
@@ -1533,7 +1537,8 @@ export async function getUserMargin(SessionKey: string): Promise<any> {
 }
 
 export async function SearchSymbol(
-  ContractSearchReq: IContractSearchReq,SessionKey:string
+  ContractSearchReq: IContractSearchReq,
+  SessionKey: string
 ): Promise<any> {
   return await api
     .post(
