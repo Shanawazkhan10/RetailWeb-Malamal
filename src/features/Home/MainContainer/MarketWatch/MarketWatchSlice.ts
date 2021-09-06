@@ -217,46 +217,22 @@ export const fetchmarketWatch =
     }
   };
 
-export const deletemarketWatch =
-  (MarketRequestData: any, sessionkey: string): AppThunk =>
-  async (dispatch) => {
-    try {
-      const MarketWatchData = await getWatchList(MarketRequestData, sessionkey);
-      dispatch(onMarketWatchSuccess(MarketWatchData));
-    } catch (err) {
-      //TO ADD
-    }
-  };
-
-export const updatemarketWatch =
-  (MarketRequestData: any, sessionkey: string): AppThunk =>
-  async (dispatch) => {
-    try {
-      const MarketWatchData = await getWatchList(MarketRequestData, sessionkey);
-      dispatch(onMarketWatchSuccess(MarketWatchData));
-    } catch (err) {
-      //TO ADD
-    }
-  };
-
-export const renamemarketWatch =
-  (MarketRequestData: any, sessionkey: string): AppThunk =>
-  async (dispatch) => {
-    try {
-      const MarketWatchData = await getWatchList(MarketRequestData, sessionkey);
-      dispatch(onMarketWatchSuccess(MarketWatchData));
-    } catch (err) {
-      //TO ADD
-    }
-  };
-
 export const FetchWatchListSymbol =
-  (scriptInfoReq: string[], sessionkey: string, index: number): AppThunk =>
+  (
+    scriptInfoReq: string[],
+    sessionkey: string,
+    index: number,
+    AddorUpdate = 0
+  ): AppThunk =>
   async (dispatch) => {
     try {
       const scriptInfoResponse = await PostScritInfo(scriptInfoReq, sessionkey);
       dispatch(setSymbollistindex(index));
-      dispatch(UpdateSymbolDetails(scriptInfoResponse));
+      if (AddorUpdate) {
+        AddToWatchList(scriptInfoResponse);
+      } else {
+        dispatch(UpdateSymbolDetails(scriptInfoResponse));
+      }
     } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
@@ -292,11 +268,10 @@ export const UpdateWatchlist =
   (UpdateReq: IUpdateWatchlist, sessionkey: string): AppThunk =>
   async (dispatch) => {
     try {
-      const renameWatchlistResponse = await updateWatchList(
+      const updateWatchlistResponse = await updateWatchList(
         UpdateReq,
         sessionkey
       );
-      //dispatch(RenameWatchList(renameWatchlistResponse));
     } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }

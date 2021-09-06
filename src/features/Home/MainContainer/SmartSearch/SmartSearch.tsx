@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import { IContractSearch } from "../../../../types/IContractSearch";
 import { IContractSearchReq } from "../../../../types/IContractSearchReq";
+import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
@@ -38,6 +39,8 @@ const SmartSearch = () => {
   const WatchList = useSelector((state: RootState) => state.marketwatch);
   let selectedList: number;
   selectedList = WatchList.marketWatch.nSelectedWatchList;
+  let selectlistname: string;
+  selectlistname = WatchList.marketWatch.sSelectedWatchList;
 
   const onDepthClick = () => {
     //e.preventDefault();
@@ -61,11 +64,19 @@ const SmartSearch = () => {
 
   function onAddWatchList(data: any) {
     //console.log(data);
+    clearSearch();
+    let newscript: string[] = [];
+    newscript.push(data.exseg + "|" + data.omtkn);
+    let newscrips = WatchList.marketWatch.MarketWatchList[selectedList].scrips;
+    newscrips = newscrips + "," + newscript;
+    const ReqUpdateData: IUpdateWatchlist = {
+      mwName: selectlistname,
+      userid: user.sessionKey,
+      scrips: newscrips,
+    };
 
-    let scrips: string[] = [];
-    scrips.push(data.uomtkn + "|" + data.exseg);
-    //FetchWatchListSymbol(scrips, selectedList, 1);
-    //dispatch(UpdateWatchlist(data));
+    dispatch(UpdateWatchlist(ReqUpdateData, user.sessionKey));
+    dispatch(FetchWatchListSymbol(newscript, user.sessionKey, selectedList, 1));
   }
 
   // search world trading data for available stock symbols that match the search input
@@ -139,65 +150,68 @@ const SmartSearch = () => {
       // Delete -- reset cursor when value is empty
       (e.keyCode === 8 && searchValue.length <= 1)
     ) {
-      clearSearch();
     }
   };
   return (
-    <div className="search-container">
-      <form className="searchForm">
-        <div className="searchForm__inputs">
-          <input
-            type="text"
-            className="searchForm__text"
-            placeholder="Search by symbol or name"
-            value={searchValue}
-            onChange={(e) => handleSearchChange(e)}
-            onKeyDown={handleSearchKeyDowns}
-            // onBlur={clearSearch}
-          />
-          {/* if the search input value is not empty show the clear button */}
-          {searchValue !== "" && (
-            <button
-              className="searchForm__clear"
-              onClick={(e) => {
-                e.preventDefault();
-                clearSearch();
-              }}
-            >
-              clear
-            </button>
-          )}
-        </div>
-        {/* if the search results and search input value are not empty show this dropdown */}
-        {Result != null && searchValue !== "" && (
-          <div className="searchForm__results">
-            {Result.map((result, i) => {
-              //const { symbol, name } = result;
-              return (
-                <ul
-                  className={
-                    cursor === i
-                      ? "searchForm__result active"
-                      : "searchForm__result"
-                  }
-                  key={i}
-                  // use onMouseDown instead of onClick because it fires before onBlur
-                  // onMouseDown={() => {
-                  //   console.log(result);
-                  // }}
-                  style={{ cursor: "pointer" }}
-                >
-                  <li>
-                    <div id="divLeftV" className="container_mw mw_team1">
-                      <div className="overlay_mw">
-                        <button
-                          className=" btn_buy"
-                          title="Add"
-                          onClick={() => onAddWatchList(result)}
-                        >
-                          A
-                        </button>
-                        {/* <button
+    <div className="input-group slideInDown-element" id="search">
+      <div>
+        <span>
+          <img src="images/search.svg" />
+        </span>
+      </div>
+      <input
+        type="text"
+        className="searchForm__text"
+        placeholder="Search & Add"
+        value={searchValue}
+        onChange={(e) => handleSearchChange(e)}
+        onKeyDown={handleSearchKeyDowns}
+        style={{ color: "black" }}
+        // onBlur={clearSearch}
+      />
+      {/* if the search input value is not empty show the clear button */}
+      {/* {searchValue !== "" && (
+        <button
+          className="searchForm__clear"
+          onClick={(e) => {
+            e.preventDefault();
+            clearSearch();
+          }}
+        >
+          clear
+        </button>
+      )} */}
+
+      {/* if the search results and search input value are not empty show this dropdown */}
+      {Result != null && searchValue !== "" && (
+        <div className="searchForm__results">
+          {Result.map((result, i) => {
+            //const { symbol, name } = result;
+            return (
+              <ul
+                className={
+                  cursor === i
+                    ? "searchForm__result active"
+                    : "searchForm__result"
+                }
+                key={i}
+                // use onMouseDown instead of onClick because it fires before onBlur
+                // onMouseDown={() => {
+                //   console.log(result);
+                // }}
+                style={{ cursor: "pointer" }}
+              >
+                <li>
+                  <div id="divLeftV" className="container_mw mw_team1">
+                    <div className="overlay_mw">
+                      <button
+                        className=" btn_buy"
+                        title="Add"
+                        onClick={() => onAddWatchList(result)}
+                      >
+                        A
+                      </button>
+                      {/* <button
                           className=" btn_buy"
                           title="Chart(C )"
                           onMouseDown={onChartClick}
@@ -225,27 +239,26 @@ const SmartSearch = () => {
                         >
                           D
                         </button> */}
-                      </div>
-
-                      <div className="divLeftV_in">
-                        <div className="mysymbolname">
-                          <span id="spnsymbol">{result.tsym}</span>
-                          <br />
-                        </div>
-                      </div>
-                      <span
-                        style={{ display: "none" }}
-                        className="mw_hold"
-                        id="spnPositionTakenLeftV"
-                      ></span>
                     </div>
-                  </li>
-                </ul>
-              );
-            })}
-          </div>
-        )}
-      </form>
+
+                    <div className="divLeftV_in">
+                      <div className="mysymbolname">
+                        <span id="spnsymbol">{result.tsym}</span>
+                        <br />
+                      </div>
+                    </div>
+                    <span
+                      style={{ display: "none" }}
+                      className="mw_hold"
+                      id="spnPositionTakenLeftV"
+                    ></span>
+                  </div>
+                </li>
+              </ul>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };
