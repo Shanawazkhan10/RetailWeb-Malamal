@@ -54,7 +54,7 @@ export const fetchNetposition = () => async (dispatch: any) => {
     await api
       .get<NetpositionSummary[]>("/users")
       .then((response) => dispatch(NetpositionSuccess(response.data)));
-  } catch (e) {
-    return console.error(e.message);
+  } catch (err: any) {
+    return console.error(err.message);
   }
 };
