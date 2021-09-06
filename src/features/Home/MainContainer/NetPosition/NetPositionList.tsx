@@ -11,12 +11,13 @@ import NetPositionSummary from "./NetPositionSummary";
 const NetPositionList = () => {
   //let NetpositionList: any[];
   const NetpositionList = useSelector((state: RootState) => state.netposition);
+  const User = useSelector((state: RootState) => state.user);
   //NetpositionList = Netposition.netposition;
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     //dispatch(NetpositionSuccess(getNetpositionData()));
-    dispatch(fetchNetposition());
+    dispatch(fetchNetposition(User.sessionKey));
   }, []);
 
   return NetpositionList.netposition &&
