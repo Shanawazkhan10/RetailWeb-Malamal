@@ -142,15 +142,38 @@ const marketwatchSlice = createSlice({
                   token.cng = script.cng;
                 }
 
-                // token.op = script.op;
-                // token.lo = script.lo;
-                // token.h = script.h;
-                // token.c = script.c;
-                // token.v = script.v;
-                // token.ltq = script.ltq;
-                // token.ltt = script.ltt;
-                // token.lcl = script.lcl;
-                // token.ucl = script.ucl;
+                if (script.op != undefined) {
+                  token.op = script.op;
+                }
+
+                if (script.lo != undefined) {
+                  token.lo = script.lo;
+                }
+                if (script.h != undefined) {
+                  token.h = script.h;
+                }
+                if (script.c != undefined) {
+                  token.c = script.c;
+                }
+                if (script.ltq != undefined) {
+                  token.ltq = script.ltq;
+                }
+                if (script.ucl != undefined) {
+                  token.ucl = script.ucl;
+                }
+
+                if (script.ltt != undefined) {
+                  token.ltt = script.ltt;
+                }
+                if (script.lcl != undefined) {
+                  token.lcl = script.lcl;
+                }
+                if (script.ap != undefined) {
+                  token.ap = script.ap;
+                }
+                if (script.v != undefined) {
+                  token.v = script.v;
+                }
               }
             });
           }

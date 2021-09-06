@@ -30,6 +30,7 @@ const marketpicture = createSlice({
     ShowDepthFromSearch: (state, action) => {
       state.marketpicture.Type = 1;
       state.marketpicture.IsShow = true;
+      state.marketpicture.TokenInfo.tok = "11536";
     },
     ShowDepthFromPosition: (state, action) => {
       state.marketpicture.Type = 2;
@@ -49,10 +50,14 @@ const marketpicture = createSlice({
     CloseDepth: (state, action) => {
       state.marketpicture.IsShow = false;
     },
-    ScriptUpdatefromSocket: (state, action) => {
+    SearchScriptUpdate: (state, action) => {
       const ScriptList: IScriptUpdate[] = action.payload;
+      //Local Storage check if token is present.
       JSON.parse(action.payload).forEach((script: IScriptUpdate) => {
-        if (state.marketpicture.TokenInfo.tok == script.tk) {
+        if (
+          state.marketpicture.TokenInfo.tok == script.tk &&
+          script.name == "sf"
+        ) {
           const token: IMarketWatchTokenInfo = state.marketpicture.TokenInfo;
           if (script.ltp != undefined) {
             token.ltp = script.ltp;
@@ -98,20 +103,16 @@ const marketpicture = createSlice({
 
       //state.marketWatch.SymbolList[0].ltp
     },
-    // DepthUpdatefromSocket: (state, action) => {
-    //   const MarketDepth: IMarketDepth[] = action.payload;
-    //   JSON.parse(action.payload).forEach((depth: IMarketDepth) => {
-    //     state.marketWatch.MarketWatchList.forEach(
-    //       (MarketWatch: IMarketWatch) => {
-    //         MarketWatch.SymbolList.forEach((token: IMarketWatchTokenInfo) => {
-    //           if (token.showDepth && token.tok == depth.tk) {
-    //             token.marketDepth = depth;
-    //           }
-    //         });
-    //       }
-    //     );
-    //   });
-    // },
+    SearchDepthUpdate: (state, action) => {
+      JSON.parse(action.payload).forEach((depth: IMarketDepth) => {
+        if (
+          state.marketpicture.TokenInfo.tok == depth.tk &&
+          depth.name == "dp"
+        ) {
+          state.marketpicture.Depth = depth;
+        }
+      });
+    },
   },
 });
 
@@ -123,4 +124,6 @@ export const {
   updateMarketDepth,
   UpdateTokenInfo,
   CloseDepth,
+  SearchScriptUpdate,
+  SearchDepthUpdate,
 } = marketpicture.actions;

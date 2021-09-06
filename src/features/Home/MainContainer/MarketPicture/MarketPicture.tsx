@@ -10,6 +10,12 @@ import MarketPicturePrice from "./MarketPicturePrice";
 import { IMarketPicture } from "./../../../../types/IMarketPicture";
 import smartsearch from "./../SmartSearch/SmartSearchSlice";
 import SmartSearch from "../SmartSearch/SmartSearch";
+import {
+  SubUnsubReq,
+  waitForSocketConnection,
+} from "../../../WebSocket/HSSocket1";
+import { userWS } from "../../../WebSocket/HSSocket";
+import { useEffect } from "react";
 
 const MarketPicture = () => {
   const { IsShow, Type, script, TokenInfo, Depth } = useSelector(
@@ -24,6 +30,32 @@ const MarketPicture = () => {
     }
   );
 
+  useEffect(() => {
+    if (script != undefined) {
+      //subscribe Script  & Depth API Call
+      const subUnsubReq: SubUnsubReq = {
+        type: "mws",
+        scrips: "nse_cm|11536",
+        channelnum: 5,
+      };
+
+      let req = JSON.stringify(subUnsubReq);
+      waitForSocketConnection(userWS, function () {
+        userWS.send(req);
+      });
+
+      const subUnsubReqSepth: SubUnsubReq = {
+        type: "dps",
+        scrips: "nse_cm|11536",
+        channelnum: 5,
+      };
+
+      let reqDepth = JSON.stringify(subUnsubReqSepth);
+      waitForSocketConnection(userWS, function () {
+        userWS.send(reqDepth);
+      });
+    }
+  });
   const dispatch = useAppDispatch();
   //const { Script } = props;
   return IsShow && script != null && script != undefined ? (

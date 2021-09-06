@@ -8,6 +8,10 @@ import {
   DepthUpdatefromSocket,
   ScriptUpdatefromSocket,
 } from "../Home/MainContainer/MarketWatch/MarketWatchSlice";
+import {
+  SearchDepthUpdate,
+  SearchScriptUpdate,
+} from "../Home/MainContainer/MarketPicture/MarketPictureSlice";
 
 export interface authReq {
   sessionid: string;
@@ -77,9 +81,11 @@ const HSSocket = () => {
         if (data.name == "dp") {
           //dispatch(DepthUpdate(msg as IMarketDepth));
           dispatch(DepthUpdatefromSocket(msg as IMarketDepth));
+          dispatch(SearchDepthUpdate(msg as IMarketDepth));
         } else if (data.name == "sf") {
           //dispatch(ScriptUpdate(msg as IScriptUpdate));
           dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
+          dispatch(SearchScriptUpdate(msg as IScriptUpdate));
         } else if (data.name == "if") {
           dispatch(IndicesUpdate(msg as IIndices));
         } else {

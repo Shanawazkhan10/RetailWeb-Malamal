@@ -209,7 +209,10 @@ const MarketWatchItem = (props: {
     });
 
     //}
-    sendUnsubReq(subUnsubReq);
+    // waitForSocketConnection(userWS, function () {
+    //   sendUnsubReq(subUnsubReq);
+    // });
+
     // dispatch(
     //   UpdateSymbolDetails(
     //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)

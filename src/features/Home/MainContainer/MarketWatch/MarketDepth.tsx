@@ -133,7 +133,9 @@ const MarketDepth = (props: any) => {
               </td>
             </tr>
             <tr>
-              <td className="rate">{Depth.sp2}</td>{" "}
+              <td className="rate">
+                {Depth.sp2 != undefined ? Depth.sp2 : Depth.sp2}
+              </td>{" "}
               <td className="orders">{Depth.bs2}</td>{" "}
               <td
                 className="text-right quantity"
