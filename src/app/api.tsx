@@ -1417,7 +1417,7 @@ export async function sendOrderEntryRequest(
     });
 }
 
-export async function GetOrderBook(sessionKey:string): Promise<any> {
+export async function GetOrderBook(sessionKey: string): Promise<any> {
   //const params = new URLSearchParams();
   //params.append("jData", JSON.stringify(scriptInfo));
   return await api
@@ -1434,7 +1434,7 @@ export async function GetOrderBook(sessionKey:string): Promise<any> {
     .catch((error) => error);
 }
 
-export async function GetTradeBook(sessionKey:string): Promise<any> {
+export async function GetTradeBook(sessionKey: string): Promise<any> {
   //const params = new URLSearchParams();
   //params.append("jData", JSON.stringify(scriptInfo));
   return await api
@@ -1451,7 +1451,7 @@ export async function GetTradeBook(sessionKey:string): Promise<any> {
     .catch((error) => error);
 }
 
-export async function getNetposition(sessionKey:string): Promise<any> {
+export async function getNetposition(sessionKey: string): Promise<any> {
   //const params = new URLSearchParams();
   //params.append("jData", JSON.stringify(scriptInfo));
   return await api
@@ -1474,7 +1474,7 @@ export async function getHolding(): Promise<any> {
   return await api
     .post("https://uathsint.hypertrade.in/quick/user/holdings", "", {
       headers: {
-        "x-access-token":localStorage.getItem("sessionKey"),
+        "x-access-token": localStorage.getItem("sessionKey"),
         "Content-Type": "application/x-www-form-urlencoded",
       },
     })

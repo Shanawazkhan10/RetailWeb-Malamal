@@ -133,7 +133,7 @@ const marketwatchSlice = createSlice({
           (MarketWatch: IMarketWatch) => {
             if (MarketWatch.SymbolList == undefined) return;
             MarketWatch.SymbolList.forEach((token: IMarketWatchTokenInfo) => {
-              if (token.tok == script.tk) {
+              if (token.tok == script.tk && script.name == "sf") {
                 if (script.ltp != undefined) {
                   token.ltp = script.ltp;
                 }
@@ -143,15 +143,39 @@ const marketwatchSlice = createSlice({
                 if (script.cng != undefined) {
                   token.cng = script.cng;
                 }
-                // token.op = script.op;
-                // token.lo = script.lo;
-                // token.h = script.h;
-                // token.c = script.c;
-                // token.v = script.v;
-                // token.ltq = script.ltq;
-                // token.ltt = script.ltt;
-                // token.lcl = script.lcl;
-                // token.ucl = script.ucl;
+
+                if (script.op != undefined) {
+                  token.op = script.op;
+                }
+
+                if (script.lo != undefined) {
+                  token.lo = script.lo;
+                }
+                if (script.h != undefined) {
+                  token.h = script.h;
+                }
+                if (script.c != undefined) {
+                  token.c = script.c;
+                }
+                if (script.ltq != undefined) {
+                  token.ltq = script.ltq;
+                }
+                if (script.ucl != undefined) {
+                  token.ucl = script.ucl;
+                }
+
+                if (script.ltt != undefined) {
+                  token.ltt = script.ltt;
+                }
+                if (script.lcl != undefined) {
+                  token.lcl = script.lcl;
+                }
+                if (script.ap != undefined) {
+                  token.ap = script.ap;
+                }
+                if (script.v != undefined) {
+                  token.v = script.v;
+                }
               }
             });
           }
@@ -160,14 +184,62 @@ const marketwatchSlice = createSlice({
       //state.marketWatch.SymbolList[0].ltp
     },
     DepthUpdatefromSocket: (state, action) => {
-      const MarketDepth: IMarketDepth[] = action.payload;
+      //const MarketDepth: IMarketDepth[] = action.payload;
       JSON.parse(action.payload).forEach((depth: IMarketDepth) => {
         state.marketWatch.MarketWatchList.forEach(
           (MarketWatch: IMarketWatch) => {
             MarketWatch.SymbolList.forEach((token: IMarketWatchTokenInfo) => {
-              if (token.showDepth && token.tok == depth.tk) {
+              if (
+                token.showDepth &&
+                token.tok == depth.tk &&
+                depth.name == "dp"
+              ) {
                 token.marketDepth = depth;
+                //return Object.assign({}, token, depth);
+                //if (depth.bp != undefined) token.marketDepth.bp = depth.bp;
+                // if (depth.bp2 != undefined) token.marketDepth.bp2 = depth.bp2;
+                // if (depth.bp3 != undefined) token.marketDepth.bp3 = depth.bp3;
+                // if (depth.bp4 != undefined) token.marketDepth.bp4 = depth.bp4;
+                // if (depth.sp != undefined) token.marketDepth.sp = depth.bp2;
+                // if (depth.sp1 != undefined) token.marketDepth.sp1 = depth.sp1;
+                // if (depth.sp2 != undefined) token.marketDepth.sp2 = depth.sp2;
+                // if (depth.sp3 != undefined) token.marketDepth.sp3 = depth.sp3;
+                // if (depth.sp4 != undefined) token.marketDepth.sp4 = depth.sp4;
+                // if (depth.bq != undefined) token.marketDepth.bq = depth.bq;
+                // if (depth.bq1 != undefined) token.marketDepth.bq1 = depth.bq1;
+                // if (depth.bq2 != undefined) token.marketDepth.bq2 = depth.bq2;
+                // if (depth.bq3 != undefined) token.marketDepth.bq3 = depth.bq3;
+                // if (depth.bq4 != undefined) token.marketDepth.bq4 = depth.bq4;
+                // if (depth.bs != undefined) token.marketDepth.bs = depth.bs;
+                // if (depth.bs1 != undefined) token.marketDepth.bs1 = depth.bs1;
+                // if (depth.bs2 != undefined) token.marketDepth.bs2 = depth.bs2;
+                // if (depth.bs3 != undefined) token.marketDepth.bs3 = depth.bs3;
+                // if (depth.bs4 != undefined) token.marketDepth.bs4 = depth.bs4;
+                // if (depth.bno1 != undefined)
+                //   token.marketDepth.bno1 = depth.bno1;
+                // if (depth.bno2 != undefined)
+                //   token.marketDepth.bno2 = depth.bno2;
+                // if (depth.bno3 != undefined)
+                //   token.marketDepth.bno3 = depth.bno3;
+                // if (depth.bno4 != undefined)
+                //   token.marketDepth.bno4 = depth.bno4;
+                // if (depth.bno5 != undefined)
+                //   token.marketDepth.bno5 = depth.bno5;
+                // if (depth.sno1 != undefined)
+                //   token.marketDepth.sno1 = depth.sno1;
+                // if (depth.sno2 != undefined)
+                //   token.marketDepth.sno2 = depth.sno2;
+                // if (depth.sno3 != undefined)
+                //   token.marketDepth.sno3 = depth.sno3;
+                // if (depth.sno4 != undefined)
+                //   token.marketDepth.sno4 = depth.sno4;
+                // if (depth.sno5 != undefined)
+                //   token.marketDepth.sno5 = depth.sno5;
+                // if (depth.mul != undefined) token.marketDepth.mul = depth.mul;
+                // if (depth.prec != undefined)
+                //   token.marketDepth.prec = depth.prec;
               }
+              //return token;
             });
           }
         );

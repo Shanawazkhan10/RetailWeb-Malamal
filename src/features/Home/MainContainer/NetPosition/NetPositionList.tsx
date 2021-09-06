@@ -9,17 +9,19 @@ import { fetchNetposition, NetpositionSuccess } from "./NetPositionSlice";
 import NetPositionSummary from "./NetPositionSummary";
 
 const NetPositionList = () => {
-  let NetpositionList: any[];
-  const Netposition = useSelector((state: RootState) => state.netposition);
-  NetpositionList = Netposition.netposition.NetPosition;
+  //let NetpositionList: any[];
+  const NetpositionList = useSelector((state: RootState) => state.netposition);
+  const User = useSelector((state: RootState) => state.user);
+  //NetpositionList = Netposition.netposition;
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     //dispatch(NetpositionSuccess(getNetpositionData()));
-    dispatch(fetchNetposition());
+    dispatch(fetchNetposition(User.sessionKey));
   }, []);
 
-  return NetpositionList && NetpositionList.length > 0 ? (
+  return NetpositionList.netposition &&
+    NetpositionList.netposition.length > 0 ? (
     <div className="block_netPosition mr14" id="NetPosition">
       <div className="block_head">
         <h1>Net Position</h1>
@@ -38,9 +40,9 @@ const NetPositionList = () => {
         </div>
       </div>
       <div>
-        <NetPositionSummary
+        {/* <NetPositionSummary
           netpositionSummary={Netposition.netposition}
-        ></NetPositionSummary>
+        ></NetPositionSummary> */}
         {/* <NetPositionList></NetPositionList> */}
 
         <div className="netPosTbl">
@@ -114,7 +116,7 @@ const NetPositionList = () => {
               </tr>
             </thead>
             <tbody id="tblnetposid">
-              {NetpositionList.map((netposition: any) => (
+              {NetpositionList.netposition.map((netposition: any) => (
                 <NetPosition
                   key={netposition.Token}
                   netposition={netposition}
