@@ -12,20 +12,20 @@ const NetPositionSummary = (props: {
         {" "}
         Invested:{" "}
         <span id="investedCapitalVal" className="netposclsdata">
-          {netpositionSummary.Invested}
+          {/* {netpositionSummary.Invested} */}
         </span>
       </label>
       <label className="netPoslbl">
         Current:{" "}
         <span id="currentValuationVal" className="netposclsdata">
-          {netpositionSummary.Current}
+          {/* {netpositionSummary.Current} */}
         </span>
       </label>
       <label className="netPoslbl">
         P &amp; L: <span id="cumulativePLVal">-33.30</span>
       </label>
       <label className="netPoslbl" id="cumulativePLPerc">
-        {netpositionSummary.PL}
+        {/* {netpositionSummary.PL} */}
       </label>
       <label>
         {/* <input type="radio" name="dailyExpiry" value="Daily" checked=""/> */}

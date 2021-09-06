@@ -16,7 +16,7 @@ const HoldingList = () => {
     dispatch(fetchHolding());
   }, []);
 
-  return HoldingList && HoldingList.holding.length > 0 ? (
+  return HoldingList.holding != undefined && HoldingList.holding.length > 0 ? (
     <div className="block_netPosition mr14" id="Holding">
       <div className="block_head">
         <h1>Holding</h1>

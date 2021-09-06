@@ -16,7 +16,9 @@ const TradeList = () => {
     dispatch(fetchTradeView());
   }, []);
 
-  return TradeList && TradeList.TradeViewData.length > 0 ? (
+  return TradeList &&
+    TradeList.TradeViewData != undefined &&
+    TradeList.TradeViewData.length > 0 ? (
     <div className="block_netPosition mr14" id="TradeView">
       <div className="block_head">
         <h1>Trades :</h1>

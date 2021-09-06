@@ -18,6 +18,7 @@ import {
   ShowDepthFromSearch,
   UpdateTokenInfo,
 } from "../MarketPicture/MarketPictureSlice";
+import { AddToWatchList } from "../MarketWatch/MarketWatchSlice";
 import { FetchSearch } from "./SmartSearchSlice";
 
 const SmartSearch = () => {
@@ -44,6 +45,10 @@ const SmartSearch = () => {
   }
   function onChartClick() {
     dispatch(chartContainer());
+  }
+
+  function onAddClick(contractSearch: IContractSearch) {
+    dispatch(AddToWatchList(contractSearch));
   }
 
   // search world trading data for available stock symbols that match the search input
@@ -168,7 +173,11 @@ const SmartSearch = () => {
                   <li>
                     <div id="divLeftV" className="container_mw mw_team1">
                       <div className="overlay_mw">
-                        <button className=" btn_buy" title="Add">
+                        <button
+                          className=" btn_buy"
+                          title="Add"
+                          onMouseDown={onChartClick}
+                        >
                           A
                         </button>
                         <button

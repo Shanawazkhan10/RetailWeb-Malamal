@@ -1373,6 +1373,7 @@ export async function getNetposition(): Promise<any> {
     .post("https://uathsint.hypertrade.in/quick/user/positions", "", {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "x-access-token": localStorage.getItem("sessionKey"),
       },
     })
 
@@ -1388,6 +1389,7 @@ export async function getHolding(): Promise<any> {
     .post("https://uathsint.hypertrade.in/quick/user/holdings", "", {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "x-access-token": localStorage.getItem("sessionKey"),
       },
     })
 

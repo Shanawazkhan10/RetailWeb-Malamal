@@ -8,6 +8,8 @@ import MarketPictureOrderEntry from "./MarketPictureOrderEntry";
 import MarketPictureOrder from "./MarketPictureOrderEntry";
 import MarketPicturePrice from "./MarketPicturePrice";
 import { IMarketPicture } from "./../../../../types/IMarketPicture";
+import smartsearch from "./../SmartSearch/SmartSearchSlice";
+import SmartSearch from "../SmartSearch/SmartSearch";
 
 const MarketPicture = () => {
   const { IsShow, Type, script, TokenInfo, Depth } = useSelector(
@@ -26,7 +28,8 @@ const MarketPicture = () => {
   //const { Script } = props;
   return IsShow && script != null && script != undefined ? (
     <div className="block mr14 marketPicture_pop" id="MarketPicture">
-      <Search></Search>
+      <SmartSearch></SmartSearch>
+
       <div className="block_head">
         <h1>Market Picture : SBIN-EQ</h1>
       </div>
