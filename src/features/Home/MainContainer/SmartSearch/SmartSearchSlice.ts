@@ -30,7 +30,7 @@ export const FetchSearch =
     try {
       const searchResponse = await SearchSymbol(ContractSearchReq);
       dispatch(SearchContractSuccess(searchResponse));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(SearchContractError(err.toString()));
     }
   };

@@ -142,11 +142,11 @@ export const orderEntrySlice = createSlice({
     },
     onOrderEntrySuccess: (state, action: PayloadAction<any>) => {
       state.isOrderEntryOpen = false;
-      toastNotification("success", "Order Placed : "+ action.payload.nOrdNo);
+      toastNotification("success", "Order Placed : " + action.payload.nOrdNo);
     },
     onOrderEntryRejected: (state, action: PayloadAction<any>) => {
       state.isOrderEntryOpen = false;
-      toastNotification("error", "Order Rejected : "+action.payload.comment);
+      toastNotification("error", "Order Rejected : " + action.payload.comment);
     },
     onOrderEntryError: (state, action: PayloadAction<any>) => {
       state.isOrderEntryOpen = false;
@@ -165,7 +165,7 @@ export const placeOrder =
       } else {
         dispatch(onOrderEntryRejected(orderResponse));
       }
-    } catch (err) {
+    } catch (err: any) {
       dispatch(onOrderEntryError(err));
     }
   };

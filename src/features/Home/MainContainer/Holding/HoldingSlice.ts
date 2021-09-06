@@ -33,7 +33,7 @@ export const fetchHolding = (): AppThunk => async (dispatch) => {
   try {
     const holdingResponse = await getHolding();
     dispatch(HoldingSuccess(holdingResponse));
-  } catch (err) {
+  } catch (err: any) {
     dispatch(HoldingError(err.toString()));
   }
 };

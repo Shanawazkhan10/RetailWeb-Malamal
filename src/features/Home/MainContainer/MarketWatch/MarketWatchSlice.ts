@@ -212,7 +212,7 @@ export const fetchmarketWatch =
     try {
       const MarketWatchData = await getWatchList(cache, sessionkey);
       dispatch(onMarketWatchSuccess(MarketWatchData));
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
     }
   };
@@ -223,7 +223,7 @@ export const deletemarketWatch =
     try {
       const MarketWatchData = await getWatchList(MarketRequestData, sessionkey);
       dispatch(onMarketWatchSuccess(MarketWatchData));
-    } catch (err) {
+    } catch (err: any) {
       //TO ADD
     }
   };
@@ -234,7 +234,7 @@ export const updatemarketWatch =
     try {
       const MarketWatchData = await getWatchList(MarketRequestData, sessionkey);
       dispatch(onMarketWatchSuccess(MarketWatchData));
-    } catch (err) {
+    } catch (err: any) {
       //TO ADD
     }
   };
@@ -245,7 +245,7 @@ export const renamemarketWatch =
     try {
       const MarketWatchData = await getWatchList(MarketRequestData, sessionkey);
       dispatch(onMarketWatchSuccess(MarketWatchData));
-    } catch (err) {
+    } catch (err: any) {
       //TO ADD
     }
   };
@@ -257,7 +257,7 @@ export const FetchWatchListSymbol =
       const scriptInfoResponse = await PostScritInfo(scriptInfoReq, sessionkey);
       dispatch(setSymbollistindex(index));
       dispatch(UpdateSymbolDetails(scriptInfoResponse));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
@@ -268,7 +268,7 @@ export const DeleteWatchlist =
     try {
       const deleteWatchlistResponse = await deleteWatchList(DelReq, sessionkey);
       dispatch(DeleteWatchList(deleteWatchlistResponse));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
@@ -282,7 +282,7 @@ export const RenameWatchlist =
         sessionkey
       );
       dispatch(RenameWatchList(renameWatchlistResponse));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
@@ -296,7 +296,7 @@ export const UpdateWatchlist =
         sessionkey
       );
       //dispatch(RenameWatchList(renameWatchlistResponse));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
@@ -306,7 +306,7 @@ export const UpdateFeed =
   async (dispatch) => {
     try {
       dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
@@ -316,7 +316,7 @@ export const UpdateDepth =
   async (dispatch) => {
     try {
       dispatch(DepthUpdatefromSocket(msg as IMarketDepth));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
