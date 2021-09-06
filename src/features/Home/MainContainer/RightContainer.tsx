@@ -4,6 +4,7 @@ import IPODetails from "../IPO/IPODetails";
 import UpcomingIPODetails from "../IPO/UpcomingIPODetails";
 import ProfileSummary from "../PersonalDetails/ProfileSummary";
 import MainDashboard from "./Dashboard/MainDashboard";
+import Funds from "./Funds/Funds";
 import HoldingList from "./Holding/HoldingList";
 import NetPositionList from "./NetPosition/NetPositionList";
 import OrderList from "./OrderView/OrderList";
@@ -34,6 +35,12 @@ const RightContainer = () => {
         <div className="col-md-6 col-lg-8 col-xl-9">
           <OrderList></OrderList>
           <TradeList></TradeList>
+        </div>
+      );
+    case 5:
+      return (
+        <div className="col-md-6 col-lg-8 col-xl-9">
+          <Funds></Funds>
         </div>
       );
     case 6:

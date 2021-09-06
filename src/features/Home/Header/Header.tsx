@@ -1,18 +1,15 @@
-import CSS from "csstype";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   dashboardContainer,
-  orderContainer,
+  fundContainer,
   holdingContainer,
-  positionContainer,
   myprofileContainer,
+  orderContainer,
+  positionContainer,
 } from "../MainContainer/mainContainerSlice";
 import { ToggleMenuContainer } from "../Menu/MenuBarSlice";
 import "./Header.css";
-import MenuImage from "../../../assets/menu-ico.png";
-//import { showmenuContainer } from "../Menu/MenuBarSlice";
-import HSSocket from "../../WebSocket/HSSocket";
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -165,6 +162,3 @@ const Header = () => {
 };
 
 export default Header;
-function fundContainer(): any {
-  throw new Error("Function not implemented.");
-}
