@@ -30,13 +30,13 @@ const MPIN = () => {
 
   const onSubmit: SubmitHandler<IMPINInput> = (data) => {
     //Make Web call for Fogot Passwoed Here
-    var querystring = JSON.stringify({
+    var querystring = {
       uid: UserDetailsonLogin.UserId,
       mpin: md5(data.PIN),
       brokerId: "TECXLABS",
       devicempinkey: UserDetailsonLogin.user.data.devicempinkey,
       source: Source,
-    });
+    };
     dispatch(UserMPINLogin(querystring)); //Temp Code need to remove and Set after success response on Login/MPIN : MP
   };
   return (

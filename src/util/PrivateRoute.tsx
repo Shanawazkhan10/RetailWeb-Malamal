@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { IUser } from "../types/IUser";
+import { useEffect } from "react";
+import { useAppDispatch } from "../app/hooks";
+import { loggedout } from "../features/Login/userSlice";
 
 interface IPrivateRoute {
   exact?: boolean;
@@ -13,6 +16,13 @@ const PrivateRoute = ({
   isAuthenticated,
   ...otherProps
 }: IPrivateRoute) => { 
+  const dispatch = useAppDispatch();
+  useEffect(() => {    
+    if(document.cookie.indexOf('userkey')===-1)
+    {
+      dispatch(loggedout());          
+    }
+  }, [])
   return (
       <Route
         {...otherProps}

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IGTTEntry } from "../../../types/IGTTEntry";
+import { IGTTEntry } from "../../../types/OrderEntry/IGTTEntry";
 
 const initialState = {
   isGTTEntryOpen: false,

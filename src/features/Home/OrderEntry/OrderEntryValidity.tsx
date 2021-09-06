@@ -8,8 +8,17 @@ import {
 const OrderEntryValidity = () => {
   const dispatch = useAppDispatch();
   const orderEntryState = useAppSelector((state) => state.orderEntry);
-  function onDisclosedQtyChange(e: any) {
+  function onDisclosedQtyChange(e: any) {    
+    if(e.target.value>orderEntryState.quantity)
+    {
+      e.target.setCustomValidity("Disclosed qty can`t be higher than qty.");
+    }
+    else
+    {
+      e.target.setCustomValidity("");
+    }
     dispatch(setDisclosedQty(e.target.value));
+
   }
   return (
     <div className="row more">

@@ -5,20 +5,23 @@ import { AppThunk } from "../../store/store";
 import { PostLoginRequest, PostMPINRequest } from "../../app/api";
 import { toastNotification } from "../.././app/Notification";
 import { Redirect } from "react-router";
+import Cookies from 'universal-cookie';
+import { ILoginRequest } from "../../types/Request/IloginRequest";
 
 const initialState = {
   isPasswordCheked: localStorage.getItem("userkey") ? true : false,
   isAuthenticated: localStorage.getItem("userkey") ? true : false,
   isError: false,
-  UserId: "",
+  UserId: localStorage.getItem("userID") ? localStorage.getItem("userID") : "",
   user: null,
   sessionKey: localStorage.getItem("userkey")
     ? localStorage.getItem("userkey")
     : "",
   server: "",
+  SetPassword:false,
 } as IUser;
-
-export const userSlice = createSlice({
+const cookies = new Cookies();
+export const userSlice = createSlice({  
   name: "User",
   initialState,
   reducers: {
@@ -27,6 +30,7 @@ export const userSlice = createSlice({
       state.isAuthenticated = false;
       state.isError = false;
       state.UserId = action.payload;
+      localStorage.setItem("userID", action.payload);
       state.user = null;
     },
     loggedInSuccess: (state, action: PayloadAction<any>) => {
@@ -34,6 +38,15 @@ export const userSlice = createSlice({
       state.isAuthenticated = false;
       state.isError = false;
       state.user = action.payload;
+      state.SetPassword= false;
+    },
+    loggedInSuccessSetPassword: (state, action: PayloadAction<any>) => {
+      state.isPasswordCheked = true;
+      state.isAuthenticated = false;
+      state.isError = false;
+      state.user = action.payload;
+      state.SetPassword= true;
+      state.sessionKey= action.payload.data.sessioinkey;
     },
     loggedInError: (state, action: PayloadAction<any>) => {
       state.isPasswordCheked = false;
@@ -49,8 +62,8 @@ export const userSlice = createSlice({
       state.isError = false;
       state.user = action.payload;
       state.sessionKey = state.user.data.sessionKey;
-      state.server = state.user.data.server;
-      localStorage.setItem("sessionKey", action.payload.data.sessionKey);
+      state.server = state.user.data.server;      
+      cookies.set('userkey', action.payload.data.sessionKey, { path: '/',sameSite: 'strict'});
     },
     twofaError: (state, action: PayloadAction<any>) => {
       state.isPasswordCheked = true;
@@ -60,7 +73,10 @@ export const userSlice = createSlice({
       toastNotification("error", action.payload.message);
     },
     loggedout: (state) => {
+      console.log("Logged Out called");
       localStorage.removeItem("userkey");
+      localStorage.removeItem("userID");
+      cookies.remove('userkey');
       state.isPasswordCheked = false;
       state.isAuthenticated = false;
       state.isError = false;
@@ -70,17 +86,24 @@ export const userSlice = createSlice({
 });
 
 export const UserLogin =
-  (loginData: any): AppThunk =>
+  (loginData: ILoginRequest): AppThunk =>
   async (dispatch) => {
     try {
       const LoginResponse = await PostLoginRequest(loginData);
-      if (LoginResponse.code == 200) {
-        dispatch(loggedInSuccess(LoginResponse));
+      if (Number(LoginResponse.code) == 200) {
+        if(Number(LoginResponse.data.action) == 102)
+        {
+
+        }
+        else
+        {
+          dispatch(loggedInSuccess(LoginResponse));
+        }
       } else if (LoginResponse.status == "FAILURE") {
         dispatch(loggedInError(LoginResponse));
       }
     } catch (err) {
-      dispatch(loggedInError(err.toString()));
+      dispatch(loggedInError(err));
     }
   };
 
@@ -89,9 +112,13 @@ export const UserMPINLogin =
   async (dispatch) => {
     try {
       const MPINResponse = await PostMPINRequest(LoginData);
-      dispatch(twofasuccess(MPINResponse));
+      if (MPINResponse.code == 200) {
+        dispatch(twofasuccess(MPINResponse));
+      } else {
+        dispatch(twofaError(MPINResponse));
+      }
     } catch (err) {
-      dispatch(loggedInError(err.toString()));
+      dispatch(twofaError(err));
     }
   };
 

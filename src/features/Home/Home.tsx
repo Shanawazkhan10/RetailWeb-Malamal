@@ -13,10 +13,8 @@ import Header from "./Header/Header";
 import MainContainer from "./MainContainer/MainContainer";
 import MarketPicture from "./MainContainer/MarketPicture/MarketPicture";
 import Menu from "./Menu/Menu";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import "../css/style.css";
-import "../css/extra.css";
 import OrderEntryComp from "./OrderEntry/OrderEntry";
+
 var url = "wss://uathsmkt.hypertrade.in";
 const script = document.createElement("script");
 script.src = "../hslibo.js";
@@ -56,21 +54,19 @@ const Home = () => {
     };
   }, []);
   return (
-    // <div id="MasterSearchDiv">
-    //   <div id="wrapper">
-    <div className="container-scroller mb-2">
+    <>
       <Header />
       <MainContainer nWatchList={1} />
-      {/*}  {orderEntryState.isOrderEntryOpen && <OrderEntryComp />}
-        {gttEntryState.isGTTEntryOpen && <GttOrderEntry />} */}
+      {orderEntryState.isOrderEntryOpen && <OrderEntryComp />}
+      {gttEntryState.isGTTEntryOpen && <GttOrderEntry />}
       {/* <Footer /> */}
       {/* {marketPictureState.marketpicture.IsShow && (
           <MarketPicture></MarketPicture>
-        )} */}
+        )}
       <Menu></Menu>
       {/* </div> */}
       <ToastContainer />
-    </div>
+    </>
   );
 };
 

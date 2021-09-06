@@ -20,11 +20,10 @@ const MarketWatchListContainer = (props: any) => {
   }, []);
 
   return WatchListData && WatchListData.length > 0 ? (
-    <div>
+    <>
       {WatchListData.map((row: IMarketWatch, i) => (
-        <div
-          className="mw_content"
-          key={i}
+        <table
+          className="table table-responsive table-borderless"
           id={String(i)}
           style={selectedList == i ? {} : { display: "none" }}
         >
@@ -33,11 +32,11 @@ const MarketWatchListContainer = (props: any) => {
             propMarketWatch={row}
             index={i}
           ></MarketWatchItem>
-        </div>
+        </table>
       ))}
-    </div>
+    </>
   ) : (
-    <div>Empty List</div>
+    <table className="table table-responsive table-borderless"></table>
   );
 };
 

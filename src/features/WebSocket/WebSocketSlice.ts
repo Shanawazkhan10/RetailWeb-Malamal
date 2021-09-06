@@ -1,5 +1,8 @@
 import { IMarketDepth, InitialMarketDepth } from "../../types/IMarketDepth";
-import { IScriptUpdate } from "../../types/MarketData/IScriptUpdate";
+import {
+  InitialScriptUpdate,
+  IScriptUpdate,
+} from "../../types/MarketData/IScriptUpdate";
 import { ISocketData } from "../../types/MarketData/ISocketData";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IIndices, InitialIndices } from "../../types/MarketData/IIndices";

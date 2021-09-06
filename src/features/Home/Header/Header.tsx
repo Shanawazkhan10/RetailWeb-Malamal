@@ -1,6 +1,6 @@
 import CSS from "csstype";
 import { useState } from "react";
-import { useAppDispatch } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   dashboardContainer,
   orderContainer,
@@ -12,33 +12,42 @@ import { ToggleMenuContainer } from "../Menu/MenuBarSlice";
 import "./Header.css";
 import MenuImage from "../../../assets/menu-ico.png";
 //import { showmenuContainer } from "../Menu/MenuBarSlice";
-import { socket1 } from "./../../WebSocket/Socket";
 import HSSocket from "../../WebSocket/HSSocket";
 
 const Header = () => {
   const dispatch = useAppDispatch();
-
+  const maincontainerState = useAppSelector((state) => state.mainContainer);
   const [flag, SetMenuflag] = useState(false);
 
   dispatch(ToggleMenuContainer(flag));
 
-  function onDashBoard() {
+  function onDashBoard(e: any) {
+    e.preventDefault();
     dispatch(dashboardContainer());
   }
 
-  function onOrder() {
+  function onOrder(e: any) {
+    e.preventDefault();
     dispatch(orderContainer());
   }
 
-  function onHoldings() {
+  function onHoldings(e: any) {
+    e.preventDefault();
     dispatch(holdingContainer());
   }
 
-  function onPositions() {
+  function onFunds(e: any) {
+    e.preventDefault();
+    dispatch(fundContainer());
+  }
+
+  function onPositions(e: any) {
+    e.preventDefault();
     dispatch(positionContainer());
   }
 
-  function onAccount() {
+  function onAccount(e: any) {
+    e.preventDefault();
     dispatch(myprofileContainer());
   }
 
@@ -76,29 +85,64 @@ const Header = () => {
             </div>
           </li>
         </ul>
-        <ul className="navbar-nav mr-auto justify-content-end">
-          <li className="nav-item active">
-            <a className="nav-link" href="#" onClick={onDashBoard}>
+        <ul className="navbar-nav mr-auto justify-content-end" id="menutxt">
+          <li className="nav-item">
+            <a
+              className={
+                "nav-link" +
+                (maincontainerState.rightContainer === 0 ? " active" : "")
+              }
+              href=""
+              onClick={onDashBoard}
+            >
               Dashboard <span className="sr-only">(current)</span>
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#" onClick={onPositions}>
+            <a
+              className={
+                "nav-link" +
+                (maincontainerState.rightContainer === 3 ? " active" : "")
+              }
+              href=""
+              onClick={onPositions}
+            >
               Portfolio
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#" onClick={onOrder}>
+            <a
+              className={
+                "nav-link" +
+                (maincontainerState.rightContainer === 4 ? " active" : "")
+              }
+              href=""
+              onClick={onOrder}
+            >
               Orders
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a
+              className={
+                "nav-link" +
+                (maincontainerState.rightContainer === 5 ? " active" : "")
+              }
+              href=""
+              onClick={onFunds}
+            >
               Funds
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#" onClick={onAccount}>
+            <a
+              className={
+                "nav-link" +
+                (maincontainerState.rightContainer === 6 ? " active" : "")
+              }
+              href=""
+              onClick={onAccount}
+            >
               Account
             </a>
           </li>
@@ -121,3 +165,6 @@ const Header = () => {
 };
 
 export default Header;
+function fundContainer(): any {
+  throw new Error("Function not implemented.");
+}

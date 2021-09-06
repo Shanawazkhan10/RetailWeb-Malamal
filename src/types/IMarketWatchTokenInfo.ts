@@ -53,9 +53,9 @@ export const InitialTokenInfo = {
   v: "",
   showDepth: false,
   tok: "",
-  ltp: "",
-  nc: "",
+  ltp: "0.00",
+  nc: "0.00",
   showMore: false,
   trdSym: "",
-  cng: "",
+  cng: "0.00",
 };

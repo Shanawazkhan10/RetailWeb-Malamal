@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IDeleteWatchlist } from "../../../../app/IDeleteWatchlist";
 import { RootState } from "../../../../store/store";
 import { IRenameWatchlist } from "../../../../types/IRenameWatchlist";
-import Search from "../SmartSearch/Search";
-import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 import SmartSearch from "../SmartSearch/SmartSearch";
+import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
+
 import {
   DeleteWatchlist,
   RenameWatchlist,
@@ -19,7 +19,7 @@ const MarketWatchHeader = () => {
   // const WatchList = useSelector((state: RootState) => state.marketwatch);
   // selectedList = WatchList.marketWatch.nSelectedWatchList;
 
-  const UserId = useSelector((state: RootState) => state.user.UserId);
+  const user = useSelector((state: RootState) => state.user);
   const {
     nSelectedWatchList,
     sSelectedWatchList,
@@ -40,10 +40,9 @@ const MarketWatchHeader = () => {
   function RemoveWatchList() {
     const DeleteReq: IDeleteWatchlist = {
       mwName: sSelectedWatchList,
-
-      userId: UserId,
+      userId: user.UserId,
     };
-    dispatch(DeleteWatchlist(DeleteReq)); //API Call
+    dispatch(DeleteWatchlist(DeleteReq, user.sessionKey)); //API Call
   }
 
   function handleChange(event: any) {
@@ -54,10 +53,10 @@ const MarketWatchHeader = () => {
     const UpdateReq: IUpdateWatchlist = {
       mwName: sName,
       scrips: "",
-      userid: UserId,
+      userid: user.UserId,
     };
 
-    dispatch(UpdateWatchlist(UpdateReq));
+    dispatch(UpdateWatchlist(UpdateReq, user.sessionKey));
     //dispatch(AddToWatchList(setName)); //API Call
   }
 
@@ -66,53 +65,62 @@ const MarketWatchHeader = () => {
       oldmwName: sSelectedWatchList,
       newmwName: sName, //from input control
       id: Number(nSelectedWatchList),
-      userId: UserId,
+      userId: user.UserId,
     };
     //API Call TO rename watch list
-    dispatch(RenameWatchlist(RenameReq));
+    dispatch(RenameWatchlist(RenameReq, user.sessionKey));
     //dispatch(RenameWatchList(RenameWatchlist(Input))); //API Call
   }
   return (
-    <div className="mw_headnew">
-      {/*<h1>
-        <span>market Watch</span>
-         <button id="mw_sort" title="Sort Market Watch">
-          SORT
-        </button> 
-      </h1>*/}
-      {/* <input
-        type="text"
-        id="txtWatchlist"
-        placeholder="Search for a symbol"
-        onChange={(e) => handleChange}
-        value={sName}
-      ></input> */}
-      <SmartSearch></SmartSearch>
-      {/* <div className="mw-head-btns">
-        <button id="btnEditMode" title="Edit" onClick={(e) => EditWatchList()}>
-          Edit
-        </button>
-        <button id="btnSave" title="Save" onClick={SaveWatchList}>
-          Save
-        </button>
-        <button
-          id="btnDelete"
-          title="Delete"
-          onClick={(e) => RemoveWatchList()}
-        >
-          Delete
-        </button>
-        <button id="btnCancelMode" title="Close" style={{ display: "none" }}>
-          Cancel
-        </button>
-        <div className="dot-menu">
-          <input id="dot-menu" type="checkbox" className="dot-menu__checkbox" />
-          <label htmlFor="dot-menu" className="dot-menu__label">
-            <span>Menu</span>
-          </label>
-        </div>
-      </div> */}
+    <div className="input-group slideInDown-element" id="search">
+      <div>
+        <span>
+          <img src="images/search.svg" />
+        </span>
+      </div>
+      <input type="text" placeholder="Search & Add" />
     </div>
+
+    // <div className="mw_headnew">
+    //   {/*<h1>
+    //     <span>market Watch</span>
+    //      <button id="mw_sort" title="Sort Market Watch">
+    //       SORT
+    //     </button>
+    //   </h1>*/}
+    //   {/* <input
+    //     type="text"
+    //     id="txtWatchlist"
+    //     placeholder="Search for a symbol"
+    //     onChange={(e) => handleChange}
+    //     value={sName}
+    //   ></input> */}
+    //   <SmartSearch></SmartSearch>
+    //   {/* <div className="mw-head-btns">
+    //     <button id="btnEditMode" title="Edit" onClick={(e) => EditWatchList()}>
+    //       Edit
+    //     </button>
+    //     <button id="btnSave" title="Save" onClick={SaveWatchList}>
+    //       Save
+    //     </button>
+    //     <button
+    //       id="btnDelete"
+    //       title="Delete"
+    //       onClick={(e) => RemoveWatchList()}
+    //     >
+    //       Delete
+    //     </button>
+    //     <button id="btnCancelMode" title="Close" style={{ display: "none" }}>
+    //       Cancel
+    //     </button>
+    //     <div className="dot-menu">
+    //       <input id="dot-menu" type="checkbox" className="dot-menu__checkbox" />
+    //       <label htmlFor="dot-menu" className="dot-menu__label">
+    //         <span>Menu</span>
+    //       </label>
+    //     </div>
+    //   </div> */}
+    // </div>
   );
 };
 

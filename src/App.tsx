@@ -1,30 +1,22 @@
 // import Amplify from "aws-amplify";
 // import awsConfig from "./aws-exports";
-import "./App.css";
-import Login from "./features/Login/Login";
-import Home from "./features/Home/Home";
-
 import {
-  Router,
-  Switch,
-  Route,
-  Redirect,
-  Link,
-  useHistory,
-  useLocation,
+  Route, Router,
+  Switch
 } from "react-router-dom";
-import PrivateRoute from "./util/PrivateRoute";
-import history from "./util/History";
-// import Chart from "./features/Home/Chart/Chart";
-import ForgotPassword from "./features/Login/ForgotPassword";
-import MPIN from "./features/Login/MPIN";
 // import ChartJS from "./features/Home/Chart/Chartjs";
 // import AdvancedChart from "./features/Home/Chart/AdvancedChart";
-
 // Amplify.configure(awsConfig);
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { NotificationContainer } from "react-notifications";
+import "./App.css";
+import Home from "./features/Home/Home";
+// import Chart from "./features/Home/Chart/Chart";
+import ForgotPassword from "./features/Login/ForgotPassword";
+import Login from "./features/Login/Login";
+import history from "./util/History";
+import PrivateRoute from "./util/PrivateRoute";
+
 
 function App() {
   return (

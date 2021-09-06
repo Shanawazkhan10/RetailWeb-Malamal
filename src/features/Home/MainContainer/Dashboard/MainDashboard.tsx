@@ -6,7 +6,7 @@ import Summary from "./Summary";
 
 const MainDashboard = () => {
   return (
-    <div>
+    <div className="col-md-6 col-lg-8 col-xl-9">
       <div className="row">
         <Margin></Margin>
         <Position></Position>

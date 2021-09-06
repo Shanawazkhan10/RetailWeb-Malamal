@@ -1,3 +1,4 @@
+import { stat } from "fs";
 import React, { MouseEvent, useState } from "react";
 import {
   api,
@@ -6,7 +7,7 @@ import {
   SearchSymbol,
   SubscribeMarketDepth,
 } from "../../../../app/api";
-import { useAppDispatch } from "../../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IContractSearch } from "../../../../types/IContractSearch";
 import { IContractSearchReq } from "../../../../types/IContractSearchReq";
 import {
@@ -22,6 +23,7 @@ import { FetchSearch } from "./SmartSearchSlice";
 
 const SmartSearch = () => {
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state)=>state.user);
   const [cursor, setCursor] = useState(0);
   const [searchValue, setSearchValue] = useState("");
   const [Result, setResult] = useState<IContractSearch[]>([]);
@@ -75,7 +77,7 @@ const SmartSearch = () => {
         {
           headers: {
             "Content-Type": "application/json; charset=UTF-8",
-            "x-access-token": localStorage.getItem("sessionKey"),
+            "x-access-token": user.sessionKey,
             "api-key": "UzL0HZiHPTc1rNVr",
           },
         }

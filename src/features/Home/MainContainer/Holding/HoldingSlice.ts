@@ -11,13 +11,13 @@ const holding = createSlice({
     holding: InitialHolding,
   },
   reducers: {
-    HoldingSuccess: (state, action) => {
+    HoldingSuccess: (state, action: PayloadAction<any>) => {
       state.holding = action.payload;
     },
-    HoldingUpdate: (state, action) => {
-      state.holding = state.holding.map((el) =>
-        el.tok1 == action.payload.Token ? action.payload : el
-      );
+    HoldingUpdate: (state, action: PayloadAction<string>) => {
+      // state.holding = state.holding.map((el) =>
+      //   el.Token == action.payload.Token ? action.payload : el
+      // );
     },
     HoldingError: (state, action) => {
       state.holding = action.payload;
@@ -29,13 +29,11 @@ export default holding.reducer;
 
 export const { HoldingSuccess, HoldingError, HoldingUpdate } = holding.actions;
 
-export const fetchHolding =
-  (Sessionkey: string): AppThunk =>
-  async (dispatch) => {
-    try {
-      const holdingResponse = await getHolding(Sessionkey);
-      dispatch(HoldingSuccess(holdingResponse));
-    } catch (err) {
-      dispatch(HoldingError(err));
-    }
-  };
+export const fetchHolding = (): AppThunk => async (dispatch) => {
+  try {
+    const holdingResponse = await getHolding();
+    dispatch(HoldingSuccess(holdingResponse));
+  } catch (err:any) {
+    dispatch(HoldingError(err.toString()));
+  }
+};

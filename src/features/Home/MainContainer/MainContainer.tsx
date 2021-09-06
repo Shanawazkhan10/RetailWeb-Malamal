@@ -81,15 +81,13 @@ const MainContainer = (props: any) => {
         <div className="col-md-6 col-lg-4 col-xl-3">
           <div className="plate-2 fadeIn-element">
             <div className="b-listing">
-              <MarketWatch></MarketWatch>
-              <MarketWatchPortfolio nWatchList={1}></MarketWatchPortfolio>
+              <MarketWatch></MarketWatch>              
               <MarketWatchListContainer></MarketWatchListContainer>
+              <MarketWatchPortfolio nWatchList={1}></MarketWatchPortfolio>
             </div>
           </div>
         </div>
-        <div className="col-md-6 col-lg-8 col-xl-9">
-          <RightContainer></RightContainer>
-        </div>
+        <RightContainer></RightContainer>
       </div>
     </div>
   );

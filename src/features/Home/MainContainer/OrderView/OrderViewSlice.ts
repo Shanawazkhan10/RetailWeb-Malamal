@@ -28,11 +28,11 @@ export default OrderSlice.reducer;
 
 export const { OrderViewSuccess, OrderError } = OrderSlice.actions;
 
-export const fetchOrderView = (): AppThunk => async (dispatch) => {
+export const fetchOrderView = (sessionKey:string): AppThunk => async (dispatch) => {
   try {
-    const orderResponse = await GetOrderBook();
+    const orderResponse = await GetOrderBook(sessionKey);
     dispatch(OrderViewSuccess(orderResponse));
-  } catch (err) {
+  } catch (err:any) {
     dispatch(OrderError(err.toString()));
   }
 };

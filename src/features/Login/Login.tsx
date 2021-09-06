@@ -15,6 +15,7 @@ import MPIN from "./MPIN";
 import md5 from "md5";
 import { isMobile } from "react-device-detect";
 import "./Login.css";
+import { ILoginRequest } from "../../types/Request/IloginRequest";
 // import "../Home/style1.css";
 
 interface ILoginInput {
@@ -43,18 +44,21 @@ const Login = () => {
   } else {
     Source = "Web";
   }
+
   const onSubmit: SubmitHandler<ILoginInput> = (data) => {
     dispatch(logging(data.clientid));
     console.log(data);
     //dispatch(loggedInSuccess("User"));
-    var querystring = JSON.stringify({
+    const loginRequest:ILoginRequest =
+    {
       uid: data.clientid,
       pwd: md5(data.password),
       brokerId: "TECXLABS",
       source: Source,
-    });
+    }
+    //var querystring = JSON.stringify(loginRequest);   
 
-    dispatch(UserLogin(querystring));
+    dispatch(UserLogin(loginRequest));
   };
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -119,7 +123,8 @@ const Login = () => {
                   </div>
                 </form>
               ) : (
-                <MPIN />
+                (user.SetPassword ?("SetPasword Window Here")
+                :<MPIN />)
               )}
             </div>
           </div>

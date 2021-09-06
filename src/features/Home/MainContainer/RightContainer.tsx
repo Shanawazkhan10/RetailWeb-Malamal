@@ -16,27 +16,47 @@ const RightContainer = () => {
     case 0:
       return <MainDashboard></MainDashboard>;
     case 1:
-      return <div></div>;
+      return (
+        <div className="col-md-6 col-lg-8 col-xl-9">
+          {/* <AdvancedChart></AdvancedChart> */}
+        </div>
+      );
     case 2:
       return <HoldingList></HoldingList>;
     case 3:
-      return <NetPositionList></NetPositionList>;
+      return (
+        <div className="col-md-6 col-lg-8 col-xl-9">
+          <NetPositionList></NetPositionList>
+        </div>
+      );
     case 4:
       return (
-        <div>
+        <div className="col-md-6 col-lg-8 col-xl-9">
           <OrderList></OrderList>
           <TradeList></TradeList>
         </div>
       );
     case 6:
-      return <ProfileSummary></ProfileSummary>;
+      return (
+        <div className="col-md-6 col-lg-8 col-xl-9">
+          <ProfileSummary></ProfileSummary>
+        </div>
+      );
     case 7:
-      return <IPODetails></IPODetails>;
+      return (
+        <div className="col-md-6 col-lg-8 col-xl-9">
+          <IPODetails></IPODetails>
+        </div>
+      );
     case 8:
-      return <UpcomingIPODetails></UpcomingIPODetails>;
+      return (
+        <div className="col-md-6 col-lg-8 col-xl-9">
+          <UpcomingIPODetails></UpcomingIPODetails>
+        </div>
+      );
 
     default:
-      return <div>Empty</div>;
+      return null;
   }
 };
 

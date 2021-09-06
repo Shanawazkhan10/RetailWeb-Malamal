@@ -1,4 +1,3 @@
-import { useForm, SubmitHandler } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   closeOrderEntry,
@@ -15,44 +14,43 @@ import "balloon-css";
 import OrderEntryVariety from "./OrderEntryVariety";
 import OrderEntryType from "./OrderEntryType";
 import OrderEntryValidity from "./OrderEntryValidity";
-import { IOrderEntryProps } from "../../../types/IOrderEntryProps";
-import {IjData, IOrderEntryRequest} from "../../../types/Request/IOrderEntryRequest"
+import { IOrderEntryProps } from "../../../types/OrderEntry/IOrderEntryProps";
+import {
+  IjData,
+  IOrderEntryRequest,
+} from "../../../types/Request/IOrderEntryRequest";
 
 const OrderEntryComp = () => {
-  const {
-    register,
-    formState,
-    handleSubmit,
-  } = useForm<IOrderEntryProps>();
-
   const dispatch = useAppDispatch();
   function onCancelClick() {
     dispatch(closeOrderEntry());
   }
   const orderEntryState = useAppSelector((state) => state.orderEntry);
-  const userState = useAppSelector((state)=>state.user);
-  const onSubmit: SubmitHandler<IOrderEntryProps> = (data) => {
-    console.log(data);    
-    const Jdata:IjData={
-        es: orderEntryState.exchange,
-        pc: orderEntryState.productCode,
-        pr: orderEntryState.price,
-        ot: orderEntryState.orderType,
-        qt: orderEntryState.quantity.toString(),
-        rt: orderEntryState.validity,
-        tk: orderEntryState.token,
-        tp: orderEntryState.triggerprice,
-        ts: orderEntryState.symbol,
-        tt: orderEntryState.isBuy?"B":"S",
-        ig: "erfhj1234xcjid"
-    };
-    
-    const orderentryrequest:IOrderEntryRequest={    
-     jKey:userState.sessionKey,
-     jData:Jdata,       
+  const userState = useAppSelector((state) => state.user);
+  function onFormSubmit() {    
+    const Jdata: IjData = {
+      am: "NO",
+      es: orderEntryState.exchange,
+      pc: orderEntryState.productCode,
+      pr: orderEntryState.price,
+      ot: orderEntryState.orderType,
+      qt: orderEntryState.quantity.toString(),
+      rt: orderEntryState.validity,
+      tk: orderEntryState.token,
+      tp: orderEntryState.triggerprice,
+      ts: orderEntryState.symbol,
+      tt: orderEntryState.isBuy ? "B" : "S",
+      //ig: "",
+      os: "WEB",
+      dq: orderEntryState.disclosedQty.toString(),
     };
 
+    const orderentryrequest: IOrderEntryRequest = {
+      jKey: userState.sessionKey,
+      jData: Jdata,
+    };
     dispatch(placeOrder(orderentryrequest));
+
   };
 
   function onProductCodechange(value: string) {
@@ -65,15 +63,22 @@ const OrderEntryComp = () => {
     dispatch(setPrice(e.target.value));
   }
   function onTriggerPriceChange(e: any) {
+    if (e.target.value > orderEntryState.price) {
+      e.target.setCustomValidity("Trigger Price can`t be greater than Price.");
+    }
+    else
+    {
+      e.target.setCustomValidity("");
+    }
     dispatch(setTriggerPrice(e.target.value));
   }
-  function onMoreClick(e:any) {
+  function onMoreClick(e: any) {
     e.preventDefault();
     dispatch(setValidityWindow());
   }
 
-  return (    
-    <form className={"order_window " + (orderEntryState.isBuy ? "buy" : "sell")} onSubmit={handleSubmit(onSubmit)}>      
+  return (
+    <form className={"order_window " + (orderEntryState.isBuy ? "buy" : "sell")}>
       <div className="drag-handle"></div>
       <OrderEntryHeader />
 
@@ -125,7 +130,9 @@ const OrderEntryComp = () => {
                     data-label="Longterm <span>CNC</span>"
                     className="su-radio"
                     value={"CNC"}
-                    checked={orderEntryState.productCode === "CNC" ? true : false}
+                    checked={
+                      orderEntryState.productCode === "CNC" ? true : false
+                    }
                     onChange={() => {}}
                   />
                   <label htmlFor="radio-259" className="su-radio-label">
@@ -140,31 +147,26 @@ const OrderEntryComp = () => {
               <div className="four columns quantity">
                 <div className="no su-input-group su-static-label">
                   <label className="su-input-label su-visible">Qty.</label>
-                  <input
-                    {...register("quantity", { required: true, maxLength: 8,
-                      min:{value:1,
-                      message:"Value must be greater than 0"},max:999999 })}
+                  <input                    
                     type="number"
                     placeholder=""
-                    data-autocorrect="off"
                     name="quantity"
                     step="1"
                     min="1"
                     value={orderEntryState.quantity}
+                    required={true}
                     onChange={(e) => {
                       onQtyChange(e);
-                    }}
-                  />     
-                </div>                
+                    }}                    
+                  />
+                </div>
               </div>
               <div className="four columns price">
                 <div className="no su-input-group su-static-label disabled">
                   <label className="su-input-label su-visible">Price</label>
-                  <input
-                    {...register("price", { required: true, maxLength: 8,min:1,max:999999 })}
+                  <input                   
                     type="number"
                     placeholder=""
-                    data-autocorrect="off"
                     min="0.05"
                     step="0.05"
                     size={8}
@@ -174,14 +176,14 @@ const OrderEntryComp = () => {
                     onChange={(e) => {
                       onPriceChange(e);
                     }}
+                    required={true}
                   />
                 </div>
               </div>
               <div className="four columns trigger">
                 <div className="no su-input-group su-static-label disabled">
                   <label className="su-input-label">Trigger price</label>
-                  <input
-                    {...register("triggerprice", { maxLength: 8,min:1,max:999999 })}
+                  <input                    
                     type="number"
                     placeholder=""
                     data-autocorrect="off"
@@ -194,16 +196,28 @@ const OrderEntryComp = () => {
                     onChange={(e) => {
                       onTriggerPriceChange(e);
                     }}
+                    required={true}
                   />
                 </div>
               </div>
             </div>
             <div className="row">
               <div className="four columns">
-                <a href="" onClick={onMoreClick} className="text-xsmall more-options">
+                <a
+                  href=""
+                  onClick={onMoreClick}
+                  className="text-xsmall more-options"
+                >
                   <span aria-label="More options" data-balloon-pos="up">
-                    {orderEntryState.isValidityOpen ? "Hide": "More"}
-                     <span className={"icon" + (orderEntryState.isValidityOpen? " icon-chevron-up": " icon-chevron-down")}></span>
+                    {orderEntryState.isValidityOpen ? "Hide" : "More"}
+                    <span
+                      className={
+                        "icon" +
+                        (orderEntryState.isValidityOpen
+                          ? " icon-chevron-up"
+                          : " icon-chevron-down")
+                      }
+                    ></span>
                   </span>
                 </a>
               </div>
@@ -235,7 +249,7 @@ const OrderEntryComp = () => {
               </div>
             </div>
             <div className="six columns text-right actions">
-              <button type="submit" className="submit"> 
+              <button type="button" className="submit" onClick={onFormSubmit}>
                 <span>{orderEntryState.isBuy === true ? "Buy" : "Sell"}</span>
               </button>
               <button

@@ -1,17 +1,8 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
-import { fetchHolding } from "../Holding/HoldingSlice";
+import { useAppDispatch } from "../../../../app/hooks";
 import { holdingContainer } from "../mainContainerSlice";
 
 const Holdings = () => {
   const dispatch = useAppDispatch();
-
-  const userState = useAppSelector((state) => state.user);
-  const holding = useAppSelector((state) => state.holding);
-
-  useEffect(() => {
-    dispatch(fetchHolding(userState.sessionKey));
-  }, []);
 
   function OpenHolding(e: any) {
     e.preventDefault();
