@@ -8,8 +8,17 @@ import {
 const OrderEntryValidity = () => {
   const dispatch = useAppDispatch();
   const orderEntryState = useAppSelector((state) => state.orderEntry);
-  function onDisclosedQtyChange(e: any) {
+  function onDisclosedQtyChange(e: any) {    
+    if(e.target.value>orderEntryState.quantity)
+    {
+      e.target.setCustomValidity("Disclosed qty can`t be higher than qty.");
+    }
+    else
+    {
+      e.target.setCustomValidity("");
+    }
     dispatch(setDisclosedQty(e.target.value));
+
   }
   return (
     <div className="row more">
@@ -19,7 +28,7 @@ const OrderEntryValidity = () => {
           <div
             className={
               "su-radio-wrap " +
-              (orderEntryState.validity === 0 ? " checked" : "")
+              (orderEntryState.validity === "DAY" ? " checked" : "")
             }
             aria-label="Regular day order"
             data-balloon-pos="up"
@@ -32,7 +41,7 @@ const OrderEntryValidity = () => {
               title="Regular day order"
               className="su-radio"
               value={0}
-              checked={orderEntryState.validity === 0 ? true : false}
+              checked={orderEntryState.validity === "DAY" ? true : false}
               onChange={() => {}}
             />
             <label className="su-radio-label">Day</label>
@@ -41,7 +50,7 @@ const OrderEntryValidity = () => {
             <div
               className={
                 "su-radio-wrap " +
-                (orderEntryState.validity === 1 ? " checked" : "")
+                (orderEntryState.validity === "IOC" ? " checked" : "")
               }
               aria-label="Immediate or Cancel"
               data-balloon-pos="up"
@@ -54,10 +63,10 @@ const OrderEntryValidity = () => {
                 title="Immediate or Cancel"
                 className="su-radio"
                 value={1}
-                checked={orderEntryState.validity === 1 ? true : false}
+                checked={orderEntryState.validity === "IOC" ? true : false}
                 onChange={() => {}}
               />
-              <label data-for="radio-274" className="su-radio-label">
+              <label htmlFor="radio-274" className="su-radio-label">
                 Immediate or Cancel <span>IOC</span>
               </label>
             </div>

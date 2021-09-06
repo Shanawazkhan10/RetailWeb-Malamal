@@ -1,4 +1,5 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+
 import userReducer from "../features/Login/userSlice";
 import chartReducer from "../features/Home/Chart/chartSlice";
 import forgotpasswordReducer from "../features/Login/forgotpasswordSlice";
@@ -9,6 +10,14 @@ import TradeVIewSlice from "../features/Home/MainContainer/TradeView/TradeVIewSl
 import orderEntrySlice from "../features/Home/OrderEntry/orderEntrySlice";
 import MarketWatchSlice from "../features/Home/MainContainer/MarketWatch/MarketWatchSlice";
 import mainContainerSlice from "../features/Home/MainContainer/mainContainerSlice";
+import MenuBarSlice from "../features/Home/Menu/MenuBarSlice";
+import PersonalDetailsSlice from "../features/Home/PersonalDetails/PersonalDetailsSlice";
+import AccountSummaryDetailsSlice from "../features/Home/Account/AccountSummaryDetailsSlice";
+import IPODetailsSlice from "../features/Home/IPO/IPODetailsSlice";
+import gttEntrySlice from "../features/Home/GTTOrderEntry/gttEntrySlice";
+import WebSocketSlice from "../features/WebSocket/WebSocketSlice";
+import SmartSearchSlice from "../features/Home/MainContainer/SmartSearch/SmartSearchSlice";
+import MarketPictureSlice from "../features/Home/MainContainer/MarketPicture/MarketPictureSlice";
 
 const store = configureStore({
   reducer: {
@@ -22,6 +31,14 @@ const store = configureStore({
     orderEntry: orderEntrySlice,
     marketwatch: MarketWatchSlice,
     mainContainer: mainContainerSlice,
+    personalContainer: PersonalDetailsSlice,
+    accountContainer: AccountSummaryDetailsSlice,
+    menuContainer: MenuBarSlice,
+    ipoContainer: IPODetailsSlice,
+    smartSearch: SmartSearchSlice,
+    gttEntry: gttEntrySlice,
+    marketpicture: MarketPictureSlice,
+    socketData: WebSocketSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -33,5 +50,7 @@ const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
+
+export type AppThunk = ThunkAction<void, RootState, null, Action<string>>;
 
 export default store;

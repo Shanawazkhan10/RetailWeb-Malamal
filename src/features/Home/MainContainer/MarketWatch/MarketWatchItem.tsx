@@ -1,320 +1,228 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect } from "react";
+import { Collapse } from "reactstrap";
+import { GetSymbolDetails, SubscribeMarketDepth } from "../../../../app/api";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { IDepthReq } from "../../../../types/IDepthReq";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
-import { useAppDispatch } from "../../../../app/hooks";
+import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
+import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
+import { IGTTEntryProps } from "../../../../types/OrderEntry/IGTTEntryProps";
+import { IOrderEntryProps } from "../../../../types/OrderEntry/IOrderEntryProps";
+import HSSocket, { userWS } from "../../../WebSocket/HSSocket";
+import {
+  sendUnsubReq,
+  SubUnsubReq,
+  waitForSocketConnection,
+} from "../../../WebSocket/HSSocket1";
+//import { sendUnsubReq, SubUnsubReq } from "../../../WebSocket/HSSocket1";
+import { FetchSocketData } from "../../../WebSocket/WebSocketSlice";
+import {
+  openGTTEntry,
+  setGTTEntryProps,
+} from "../../GTTOrderEntry/gttEntrySlice";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
+  setOrderEntryProps,
 } from "../../OrderEntry/orderEntrySlice";
 import { chartContainer } from "../mainContainerSlice";
-
-import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import {
-  GetWatchListSymbolDetails,
-  SubscribeMarketDepth,
-} from "../../../../app/api";
-import { getMarketDepthSuccess, UpdateSymbolDetails } from "./MarketWatchSlice";
+  updateMarketDepth,
+  UpdateTokenInfo,
+} from "../MarketPicture/MarketPictureSlice";
 import MarketDepth from "./MarketDepth";
-//import Collapse from "react-bootstrap/Collapse";
-import { Collapse, Button, CardBody, Card } from "reactstrap";
+import {
+  FetchWatchListSymbol,
+  hideMore,
+  ShowMarketDepth,
+  showMore,
+} from "./MarketWatchSlice";
+import Quote from "./Quote";
+//import { userWS } from "./../../../WebSocket/HSSocket1";
 
-const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
+export interface scriptInfoReq {
+  scripArr: string[];
+}
+const MarketWatchItem = (props: {
+  propMarketWatch: IMarketWatch;
+  index: number;
+}) => {
+  const marketWatchState = useAppSelector(
+    (state) => state.marketwatch.marketWatch
+  );
+  const OrderEntryState = useAppSelector((state) => state.orderEntry);
+  const user = useAppSelector((state) => state.user); 
   const [activeItem, setActiveItem] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [depth, setDepth] = React.useState(null);
   const { propMarketWatch } = props;
   const dispatch = useAppDispatch();
+  const options = ["one", "two", "three"];
 
-  // useEffect(() => {
-  //   getSymbol();
-  //   console.log(" MarketWatchItem useEffect");
-  // }, []);
+  useEffect(() => {
+    //dispatch(setSymbollistindex(props.index));
+    getSymbol();
+    console.log(" MarketWatchItem useEffect");
+  }, []);
 
-  function onBuyOrderEntryClick() {
+  useEffect(() => {
+    var a = dispatch(FetchSocketData(22));
+  }, []);
+
+  const OrderEntryProp = {
+    token: "",
+    exchange: "",
+    quantity: 0,
+    price: "",
+    triggerprice: "",
+    symbol: "",
+  } as IOrderEntryProps;
+
+  const GTTEntryProp = {
+    token: "",
+    exchange: "",
+    quantity: 0,
+    price: "",
+    triggerprice: "",
+    symbol: "",
+  } as IGTTEntryProps;
+
+  function onBuyOrderEntryClick(symbolInfo: IMarketWatchTokenInfo) {
+    OrderEntryProp.token = symbolInfo.tok;
+    OrderEntryProp.price = symbolInfo.ltp;
+    OrderEntryProp.quantity = 1;
+    OrderEntryProp.symbol = symbolInfo.sym;
+    OrderEntryProp.exchange = symbolInfo.exSeg;
+    OrderEntryProp.ltp = symbolInfo.ltp;
+    dispatch(setOrderEntryProps(OrderEntryProp));
     dispatch(openBuyOrderEntry());
   }
-  function onSellOrderEntryClick() {
+  function onSellOrderEntryClick(symbolInfo: IMarketWatchTokenInfo) {
+    OrderEntryProp.token = symbolInfo.tok;
+    OrderEntryProp.price = symbolInfo.ltp;
+    OrderEntryProp.quantity = 1;
+    OrderEntryProp.symbol = symbolInfo.sym;
+    OrderEntryProp.exchange = symbolInfo.exSeg;
+    OrderEntryProp.ltp = symbolInfo.ltp;
+    dispatch(setOrderEntryProps(OrderEntryProp));
     dispatch(openSellOrderEntry());
   }
   function onChartClick() {
     dispatch(chartContainer());
   }
-  //function onDepthClick1(index: number) {
+  function RemoveSymbol(tokenInfo: IMarketWatchTokenInfo) {
+    dispatch(UpdateTokenInfo(GetSymbolDetails()));
 
-  function onDepthClick1(index: number) {
-    //setActiveItem(!activeItem);
-    let result = (
-      <Collapse in={activeItem} key={index}>
-        {/* <div id="example-collapse-text">
-          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-          terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
-          labore wes anderson cred nesciunt sapiente ea proident.
-        </div> */}
-        <div className="market-depth" style={{ display: "" }}>
-          <div className="depth-table">
-            <div className="row">
-              <table className="six columns buy">
-                <thead>
-                  <tr>
-                    <th className="order-price">
-                      <span>Bid</span>{" "}
-                    </th>{" "}
-                    <th className="orders">Orders</th>{" "}
-                    <th className="text-right quantity">Qty.</th>
-                  </tr>
-                </thead>{" "}
-                <tbody>
-                  <tr>
-                    <td className="rate">2691.85</td>{" "}
-                    <td className="orders">1</td>{" "}
-                    <td
-                      className="text-right quantity"
-                      style={{
-                        background:
-                          "linear-gradient(to left, rgba(65, 132, 243, 0.1) 1.46199%, transparent 1.46199%);",
-                      }}
-                    >
-                      6
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="rate">2691.80</td>{" "}
-                    <td className="orders">9</td>{" "}
-                    <td
-                      className="text-right quantity"
-                      style={{
-                        background:
-                          "linear-gradient(to left, rgba(65, 132, 243, 0.1) 100%, transparent 100%)",
-                      }}
-                    >
-                      343
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="rate">2691.60</td>{" "}
-                    <td className="orders">7</td>{" "}
-                    <td
-                      className="text-right quantity"
-                      style={{
-                        background:
-                          "linear-gradient(to left, rgba(65, 132, 243, 0.1) 60.8187%, transparent 60.8187%);",
-                      }}
-                    >
-                      209
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="rate">2691.40</td>{" "}
-                    <td className="orders">1</td>{" "}
-                    <td
-                      className="text-right quantity"
-                      style={{
-                        background:
-                          "linear-gradient(to left, rgba(65, 132, 243, 0.1) 5%, transparent 5%);",
-                      }}
-                    >
-                      1
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="rate">2691.35</td>{" "}
-                    <td className="orders">2</td>{" "}
-                    <td
-                      className="text-right quantity"
-                      style={{
-                        background:
-                          "linear-gradient(to left, rgba(65, 132, 243, 0.1) 8.18713%, transparent 8.18713%);",
-                      }}
-                    >
-                      29
-                    </td>
-                  </tr>
-                </tbody>{" "}
-                <tfoot>
-                  <tr>
-                    <td>Total</td>{" "}
-                    <td colSpan={2} className="text-right">
-                      1,11,454
-                    </td>{" "}
-                  </tr>
-                </tfoot>
-              </table>
-              <table className="six columns sell">
-                <thead>
-                  <tr>
-                    <th className="order-price">
-                      {" "}
-                      <span>Offer</span>
-                    </th>{" "}
-                    <th className="orders">Orders</th>{" "}
-                    <th className="text-right quantity">Qty.</th>
-                  </tr>
-                </thead>{" "}
-                <tbody>
-                  <tr>
-                    <td className="rate">2692.35</td>{" "}
-                    <td className="orders">2</td>{" "}
-                    <td
-                      className="text-right quantity"
-                      style={{
-                        background:
-                          "linear-gradient(to left, rgba(255, 87, 34, 0.1) 20.9302%, transparent 20.9302%);",
-                      }}
-                    >
-                      28
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="rate">2692.40</td>{" "}
-                    <td className="orders">2</td>{" "}
-                    <td
-                      className="text-right quantity"
-                      style={{
-                        background:
-                          "linear-gradient(to left, rgba(255, 87, 34, 0.1) 8.52713%, transparent 8.52713%);",
-                      }}
-                    >
-                      12
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="rate">2692.85</td>{" "}
-                    <td className="orders">3</td>{" "}
-                    <td
-                      className="text-right quantity"
-                      style={{
-                        background:
-                          "linear-gradient(to left, rgba(255, 87, 34, 0.1) 100%, transparent 100%);",
-                      }}
-                    >
-                      130
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="rate">2692.90</td>{" "}
-                    <td className="orders">1</td>{" "}
-                    <td
-                      className="text-right quantity"
-                      style={{
-                        background:
-                          "linear-gradient(to left, rgba(255, 87, 34, 0.1) 87.5969%, transparent 87.5969%);",
-                      }}
-                    >
-                      114
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="rate">2692.95</td>{" "}
-                    <td className="orders">1</td>{" "}
-                    <td
-                      className="text-right quantity"
-                      style={{
-                        background:
-                          "linear-gradient(to left, rgba(255, 87, 34, 0.1) 5%, transparent 5%);",
-                      }}
-                    >
-                      1
-                    </td>
-                  </tr>
-                </tbody>{" "}
-                <tfoot>
-                  <tr>
-                    <td>Total</td>{" "}
-                    <td colSpan={2} className="text-right">
-                      2,59,574
-                    </td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>{" "}
-            <div className="depth-toggle">
-              {" "}
-              <a href="" className="text-center">
-                <span className="icon icon-chevron-down"></span> View 20 depth
-              </a>
-            </div>
-          </div>{" "}
-          <div className="ohlc">
-            <div className="row">
-              <div className="six columns">
-                <label>Open</label> <span className="value">2662.00</span>
-              </div>{" "}
-              <div className="six columns">
-                <label>High</label> <span className="value">2707.70</span>
-              </div>
-            </div>{" "}
-            <div className="row">
-              <div className="six columns">
-                <label>Low</label> <span className="value">2662.00</span>
-              </div>{" "}
-              <div className="six columns">
-                <label>Prev. Close</label>{" "}
-                <span className="value">2668.75</span>
-              </div>
-            </div>{" "}
-            <div className="row">
-              <div className="six columns">
-                <label>Volume</label> <span className="value">9,26,331</span>
-              </div>{" "}
-              <div className="six columns">
-                <label>Avg. price</label> <span className="value">2695.70</span>
-              </div>
-            </div>{" "}
-            <div className="row">
-              <div className="six columns">
-                <label>LTQ</label> <span className="value">1</span>
-              </div>{" "}
-              <div className="six columns">
-                <label>LTT</label>{" "}
-                <span className="value">2021-08-13 10:31:03</span>
-              </div>
-            </div>
-            <div className="row">
-              <div className="six columns">
-                <label>Lower circuit</label>{" "}
-                <span className="value">2401.90</span>
-              </div>{" "}
-              <div className="six columns">
-                <label>Upper circuit</label>{" "}
-                <span className="value">2935.60</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Collapse>
-    );
-    return result;
-  }
-  function RemoveSymbol(index: number) {
-    //API Call update List
-  }
+    dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
 
-  function onDepthClick(index: number) {
-    //dispatch(chartContainer());
-    setActiveItem(!activeItem);
-    setActiveIndex(index);
-    dispatch(getMarketDepthSuccess(SubscribeMarketDepth()));
-    // <DepthItem
-    //   title="Circulars"
-    //   setActiveItem={setActiveItem}
-    //   index={index}
-    //   activeItem={activeItem}
-    // ></DepthItem>;
+    //API Call update List & on success call dispatch
+    // const RemoveFromWatch: IRemoveFromWatch = {
+    //   mwName: propMarketWatch.mwName,
+    //   scrips: removeValue(propMarketWatch.scrips, tokenInfo.scrips, "|"),
+    //   id: tokenInfo.mwId,
+    //   userId: "Test User",
+    // };
+    // dispatch(RemoveSymbolFromWatchlist(RemoveFromWatch));
+    //Unsubscribe Depth API Call
+    // if (symbol.showDepth) {
+    //   const SubscribeDepth: ISubscribeDepth = {
+    //     type: "dpu",
+    //     scrips: symbol.scrips,
+    //     id: propMarketWatch.id,
+    //     channelnum: propMarketWatch.id,
+    //   };
+    //   UnsubscribeMarketDepth(SubscribeDepth);
+    // }
   }
+  function removeValue(list: string, value: string, separator: string) {
+    separator = ",";
+    var values = list.split(separator);
+    for (var i = 0; i < values.length; i++) {
+      if (values[i] == value) {
+        values.splice(i, 1);
+        return values.join(separator);
+      }
+    }
+    return list;
+  }
+  function onDepthClick(index: number, symbol: IMarketWatchTokenInfo) {
+    const DepthReq: IDepthReq = {
+      id: propMarketWatch.id,
+      index: index,
+    };
+    dispatch(ShowMarketDepth(DepthReq));
 
-  //let itemExcArray = propMarketWatch.scrips.split(",");
-  useEffect(() => {
-    //dispatch(NetpositionSuccess(getNetpositionData()));
-    getSymbol();
-    console.log(" MarketWatchItem useEffect");
-  }, []);
+    if (!symbol.showDepth) {
+      //subscribe Depth API Call
+      const SubscribeDepth: ISubscribeDepth = {
+        type: "dps",
+        scrips: symbol.tok + "|" + symbol.exSeg,
+        //id: propMarketWatch.id,
+        channelnum: propMarketWatch.id + 1,
+      };
+
+      waitForSocketConnection(userWS, function () {
+        userWS.send(JSON.stringify(SubscribeDepth));
+      });
+      // dispatch(
+      //   getMarketDepthSuccess(SubscribeMarketDepth(propMarketWatch.id, index))
+      // );
+    } else {
+      //Unsubscribe Depth API Call
+      const SubscribeDepth: ISubscribeDepth = {
+        type: "dpu",
+        scrips: symbol.tok + "|" + symbol.exSeg,
+        //id: propMarketWatch.id,
+        channelnum: propMarketWatch.id + 1,
+      };
+
+      waitForSocketConnection(userWS, function () {
+        userWS.send(JSON.stringify(SubscribeDepth));
+      });
+      //sendUnsubReq(SubscribeDepth);
+      // UnsubscribeMarketDepth(SubscribeDepth);
+    }
+  }
 
   function getSymbol() {
     dispatch(
-      UpdateSymbolDetails(
-        GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
+      FetchWatchListSymbol(
+        propMarketWatch.scrips.split(","),
+        user.sessionKey,
+        props.index
       )
-    ); //DUmmy Call for actual call send token info
+    );
+
+    //subscribe Script API Call
+    const subUnsubReq: SubUnsubReq = {
+      type: "mws",
+      scrips: propMarketWatch.scrips.replaceAll(",", "&"),
+      channelnum: 1,
+    };
+    //if (userWS) {
+    let req = JSON.stringify(subUnsubReq);
+    waitForSocketConnection(userWS, function () {
+      userWS.send(req);
+    });
+
+    //}
+    sendUnsubReq(subUnsubReq);
+    // dispatch(
+    //   UpdateSymbolDetails(
+    //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
+    //   )
+    // );
+  }
+
+  function onCreateGTTOrderClick(symbolInfo: IMarketWatchTokenInfo) {
+    GTTEntryProp.token = symbolInfo.tok;
+    GTTEntryProp.price = symbolInfo.ltp;
+    GTTEntryProp.quantity = 1;
+    GTTEntryProp.symbol = symbolInfo.sym;
+    GTTEntryProp.exchange = symbolInfo.exSeg;
+    GTTEntryProp.ltp = +symbolInfo.ltp;
+    dispatch(setGTTEntryProps(GTTEntryProp));
+    dispatch(openGTTEntry());
   }
 
   return (
@@ -325,10 +233,13 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
           (symbolInfo: IMarketWatchTokenInfo, nIncreament) => (
             <div>
               <div
-                key={nIncreament}
-                id={String(nIncreament + 1)}
+                key={symbolInfo.scrips}
+                id={String(nIncreament)}
                 className="mw_block"
-                style={{ width: "455px" }}
+                style={{ width: "400px" }}
+                onMouseLeave={() => {
+                  dispatch(hideMore(nIncreament));
+                }}
               >
                 <div className="popupCloseButton" title="Delete"></div>
                 <div style={{ display: "none" }} className="mw_status">
@@ -351,18 +262,16 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
                     <button
                       className="btn_mw_overlay_2 btn_buy"
                       title="Depth"
-                      onClick={() => onDepthClick(nIncreament + 1)}
-                      // onClick={() => onDepthClick(nIncreament + 1)}
+                      onClick={() => onDepthClick(nIncreament, symbolInfo)}
                     >
-                      Depth
+                      D
                     </button>
                     <button
                       className="btn_mw_overlay_2 btn_buy"
                       title="Delete"
-                      onClick={() => onDepthClick(nIncreament + 1)}
-                      // onClick={() => onDepthClick(nIncreament + 1)}
+                      onClick={() => RemoveSymbol(symbolInfo)}
                     >
-                      D
+                      Del
                     </button>
                     <button
                       className="btn_mw_overlay_2 btn_buy"
@@ -374,31 +283,44 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
                     <button
                       className="btn_mw_overlay_2 btn_buy"
                       title="BUY"
-                      onClick={onBuyOrderEntryClick}
+                      onClick={() => onBuyOrderEntryClick(symbolInfo)}
                     >
                       B
                     </button>
                     <button
                       className="btn_mw_overlay_3 btn_sell"
                       title="SELL"
-                      onClick={onSellOrderEntryClick}
+                      onClick={() => onSellOrderEntryClick(symbolInfo)}
                     >
                       S
                     </button>
                     <button
-                      className="btn_mw_overlay_1 btn_detail"
-                      title="Market Depth"
+                      className="btn_mw_overlay_3 btn_detail"
+                      title="More"
+                      onClick={() => {
+                        symbolInfo.showMore
+                          ? dispatch(hideMore(nIncreament))
+                          : dispatch(showMore(nIncreament));
+                      }}
                     ></button>
                   </div>
 
+                  {symbolInfo.showMore && (
+                    <input
+                      type="button"
+                      value="Create GTT"
+                      onClick={() => onCreateGTTOrderClick(symbolInfo)}
+                    />
+                  )}
+
                   <div className="divLeftV_in">
                     <div className="mysymbolname">
-                      <span id="spnsymbol" title={symbolInfo.sym}>
+                      <span id="spnsymbol" title={symbolInfo.trdSym}>
                         {symbolInfo.sym}
                       </span>
                       <br />
                       <span id="spnLtt" title="LTT">
-                        2021-07-06 16:59:58
+                        {symbolInfo.trdSym}
                       </span>
                     </div>
 
@@ -409,13 +331,13 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
                         title="LTP"
                         style={{ color: "#00bb7e" }}
                       >
-                        88.5100
+                        {symbolInfo.ltp}
                       </span>
                       <span className="pt_sprd" id="ltpDifference">
-                        0.05
+                        {symbolInfo.cng}
                       </span>
                       <span className="pt_sprd" id="ltpPercent">
-                        0.06%
+                        {symbolInfo.nc}%
                       </span>
                     </div>
                   </div>
@@ -432,22 +354,21 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
                     id="spnEventStateTooltip"
                     title="Exchange"
                   >
-                    {symbolInfo.exch}
+                    {symbolInfo.exSeg}
                   </span>
                 </div>
               </div>
-              {activeItem &&
-              activeIndex == nIncreament + 1 &&
+              {symbolInfo.showDepth &&
               symbolInfo.marketDepth != null &&
               symbolInfo.marketDepth != undefined ? (
-                <Collapse in={activeItem}>
-                  <MarketDepth
-                    setActiveItem={setActiveItem}
-                    index={nIncreament + 1}
-                    activeItem={activeItem}
-                    depth={symbolInfo.marketDepth}
-                    tokenInfo={symbolInfo}
-                  ></MarketDepth>
+                <Collapse in={symbolInfo.showDepth}>
+                  <div className="market-depth" style={{ display: "" }}>
+                    <MarketDepth
+                      index={nIncreament}
+                      depth={symbolInfo.marketDepth}
+                    ></MarketDepth>
+                    <Quote index={nIncreament} tokenInfo={symbolInfo}></Quote>
+                  </div>
                 </Collapse>
               ) : (
                 ""
@@ -461,11 +382,8 @@ const MarketWatchItem = (props: { propMarketWatch: IMarketWatch }) => {
       ) : (
         <div>No Data 2</div>
       )}
-      {/* <MarketDepth></MarketDepth> */}
     </div>
   );
 };
-
-MarketWatchItem.propTypes = {};
 
 export default MarketWatchItem;

@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { api } from "../../../../app/api";
+import { api, GetOrderBook } from "../../../../app/api";
+import { AppThunk } from "../../../../store/store";
 import { IOrderView } from "../../../../types/IOrderView";
+import { IOrderResponse } from "./../../../../types/Order/IOrderResponse";
 
-const InitialOrderView: IOrderView[] = [];
+const InitialOrderView: IOrderResponse[] = [];
 
 const OrderSlice = createSlice({
   name: "OrderSlice",
@@ -10,27 +12,27 @@ const OrderSlice = createSlice({
     OrderViewData: InitialOrderView,
   },
   reducers: {
-    OrderViewSuccess(state, action) {
-      state.OrderViewData = action.payload;
+    OrderViewSuccess: (state, action) => {
+      state.OrderViewData = action.payload.data;
     },
-    OrderUpdate(state, action) {
-      state.OrderViewData = state.OrderViewData.map((el) =>
-        el.Token == action.payload.Token ? action.payload : el
-      );
+    OrderUpdate: (state, action) => {
+      // state.OrderViewData = state.OrderViewData.map((el) =>
+      //   el.tk == action.payload.Token ? action.payload : el
+      // );
     },
+    OrderError: (state, action) => {},
   },
 });
 
 export default OrderSlice.reducer;
 
-export const { OrderViewSuccess } = OrderSlice.actions;
+export const { OrderViewSuccess, OrderError } = OrderSlice.actions;
 
-export const fetchOrderView = () => async (dispatch: any) => {
+export const fetchOrderView = (sessionKey:string): AppThunk => async (dispatch) => {
   try {
-    await api
-      .get<IOrderView[]>("/users")
-      .then((response) => dispatch(OrderViewSuccess(response.data)));
-  } catch (e) {
-    return console.error(e.message);
+    const orderResponse = await GetOrderBook(sessionKey);
+    dispatch(OrderViewSuccess(orderResponse));
+  } catch (err) {
+    dispatch(OrderError(err.toString()));
   }
 };

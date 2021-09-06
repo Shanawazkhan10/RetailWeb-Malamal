@@ -9,12 +9,17 @@ import {
   loggedInError,
   twofasuccess,
   twofaError,
+  UserLogin,
 } from "./userSlice";
 import MPIN from "./MPIN";
+import md5 from "md5";
+import { isMobile } from "react-device-detect";
 
 interface ILoginInput {
   clientid: string;
   password: string;
+  brokerId: string;
+  source: string;
   pin: number;
 }
 
@@ -28,37 +33,36 @@ const Login = () => {
 
   const history = useHistory();
   const user = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();  
+
+  var Source = "";
+  if (isMobile) {
+    Source = "Mobile";
+  } else {
+    Source = "Web";
+  }
 
   const onSubmit: SubmitHandler<ILoginInput> = (data) => {
-    dispatch(logging());
+    dispatch(logging(data.clientid));
     console.log(data);
+    //dispatch(loggedInSuccess("User"));
+    var querystring = JSON.stringify({
+      uid: data.clientid,
+      pwd: md5(data.password),
+      brokerId: "TECXLABS",
+      source: Source,
+    });
 
-    dispatch(loggedInSuccess("User"));
-    // var querystring = require("querystring");
-    // axios
-    //   .post(
-    //     "http://localhost/Gateway" + "/token",
-    //     querystring.stringify({
-    //       grant_type: "password",
-    //       username: data.clientid,
-    //       password: data.password,
-    //       //loginTPIN: data.pin,
-    //     }),
-    //     {
-    //       headers: {
-    //         "Content-Type": "application/x-www-form-urlencoded",
-    //       },
-    //     }
-    //   )
-    //   .then(function (response) {
-    //     dispatch(loggedInSuccess(response.data));
-    //     history.push("/home");
-    //   });
+    dispatch(UserLogin(querystring));
   };
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
+
+  if(user.isAuthenticated)
+  {
+    history.push("/home");
+  }
   return (
     <div className="retail_login">
       <div className="Login container-login-main">
@@ -78,7 +82,6 @@ const Login = () => {
                       name="clientid"
                       placeholder="User ID"
                       type="text"
-                      maxLength={10}
                     />
                     <span className="input-ico user"></span>
                   </div>
@@ -87,18 +90,12 @@ const Login = () => {
                     <input
                       {...register("password", {
                         required: "Password is required",
-                        minLength: {
-                          value: 8,
-                          message:
-                            "Password must be at least 8 characters long.",
-                        },
                       })}
                       className="input100 txtLofinPasss"
                       id="password"
                       name="password"
                       placeholder="Password"
                       type={passwordShown ? "text" : "password"}
-                      maxLength={8}
                     />
                     <span className="input-ico pswd"></span>
                     <span
@@ -122,7 +119,8 @@ const Login = () => {
                   </div>
                 </form>
               ) : (
-                <MPIN />
+                (user.SetPassword ?("SetPasword Window Here")
+                :<MPIN />)
               )}
             </div>
           </div>

@@ -1,23 +1,48 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { IDeleteWatchlist } from "../../../../app/IDeleteWatchlist";
 import { RootState } from "../../../../store/store";
+import { IRenameWatchlist } from "../../../../types/IRenameWatchlist";
+import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 import "../../style.css";
+import SmartSearch from "../SmartSearch/SmartSearch";
 import {
-  AddToWatchList,
-  DeleteWatchList,
-  RenameWatchList,
+  DeleteWatchlist,
+  RenameWatchlist,
+  UpdateWatchlist,
 } from "./MarketWatchSlice";
 
 const MarketWatchHeader = () => {
   const [sName, setName] = useState("");
-  let selectedList: number;
-  const WatchList = useSelector((state: RootState) => state.marketwatch);
-  selectedList = WatchList.marketWatch.nSelectedWatchList;
+  // let selectedList: number;
+  // const WatchList = useSelector((state: RootState) => state.marketwatch);
+  // selectedList = WatchList.marketWatch.nSelectedWatchList;
+
+  const user = useSelector((state: RootState) => state.user);
+  const {
+    nSelectedWatchList,
+    sSelectedWatchList,
+    bIsBind,
+    bIsError,
+    WatchList,
+  } = useSelector((state: RootState) => {
+    return {
+      nSelectedWatchList: state.marketwatch.marketWatch.sSelectedWatchList,
+      sSelectedWatchList: state.marketwatch.marketWatch.sSelectedWatchList,
+      bIsBind: state.marketwatch.marketWatch.bIsBind,
+      bIsError: state.marketwatch.marketWatch.bIsError,
+      WatchList: state.marketwatch.marketWatch.MarketWatchList,
+    };
+  });
+
   const dispatch = useAppDispatch();
   function RemoveWatchList() {
-    dispatch(DeleteWatchList(selectedList)); //API Call
-    WatchList.marketWatch.nSelectedWatchList = 1;
+    const DeleteReq: IDeleteWatchlist = {
+      mwName: sSelectedWatchList,
+      userId: user.UserId,
+    };
+    dispatch(DeleteWatchlist(DeleteReq, user.sessionKey)); //API Call
   }
 
   function handleChange(event: any) {
@@ -25,12 +50,26 @@ const MarketWatchHeader = () => {
   }
 
   function SaveWatchList() {
-    dispatch(AddToWatchList(setName)); //API Call
+    const UpdateReq: IUpdateWatchlist = {
+      mwName: sName,
+      scrips: "",
+      userid: user.UserId,
+    };
+
+    dispatch(UpdateWatchlist(UpdateReq,user.sessionKey));
+    //dispatch(AddToWatchList(setName)); //API Call
   }
 
   function EditWatchList() {
-    //setName("12345");
-    //dispatch(RenameWatchList(setName)); //API Call
+    const RenameReq: IRenameWatchlist = {
+      oldmwName: sSelectedWatchList,
+      newmwName: sName, //from input control
+      id: Number(nSelectedWatchList),
+      userId: user.UserId,
+    };
+    //API Call TO rename watch list
+    dispatch(RenameWatchlist(RenameReq,user.sessionKey));
+    //dispatch(RenameWatchList(RenameWatchlist(Input))); //API Call
   }
   return (
     <div className="mw_headnew">
@@ -40,13 +79,14 @@ const MarketWatchHeader = () => {
           SORT
         </button> 
       </h1>*/}
-      <input
+      {/* <input
         type="text"
         id="txtWatchlist"
         placeholder="Search for a symbol"
         onChange={(e) => handleChange}
         value={sName}
-      ></input>
+      ></input> */}
+      <SmartSearch></SmartSearch>
       <div className="mw-head-btns">
         <button id="btnEditMode" title="Edit" onClick={(e) => EditWatchList()}>
           Edit

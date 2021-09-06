@@ -1,42 +1,42 @@
-import {
-    BrowserRouter as Router,
-    Route,    
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { IUser } from "../types/IUser";
-import history from "./History";
+import { useEffect } from "react";
+import { useAppDispatch } from "../app/hooks";
+import { loggedout } from "../features/Login/userSlice";
 
 interface IPrivateRoute {
-    exact?: boolean;
-    isAuthenticated: boolean | null;
-    path: string;
-    component: React.ComponentType<any>;
+  exact?: boolean;
+  isAuthenticated: boolean | null;
+  path: string;
+  component: React.ComponentType<any>;
 }
 const PrivateRoute = ({
-    component: Component,
-    isAuthenticated,
-    ...otherProps
-}: IPrivateRoute) => {
-    if (isAuthenticated === false) {
-        history.push("/login");
-        alert("this is a logged in route, you are logged out, redirected to log in");
-      }
-    return(
-        <>
-        <Route render={otherProps => (
-          <>
-            <Component {...otherProps} />
-          </>
-        )}/>
-      </>
-    );
+  component: Component,
+  isAuthenticated,
+  ...otherProps
+}: IPrivateRoute) => { 
+  const dispatch = useAppDispatch();
+  useEffect(() => {    
+    if(document.cookie.indexOf('userkey')===-1)
+    {
+      dispatch(loggedout());          
+    }
+  }, [])
+  return (
+      <Route
+        {...otherProps}
+        render={(props) =>
+          isAuthenticated ? <Component {...props} /> : <Redirect to="/login" />
+        }
+      />    
+  );
 };
 
-const mapStateToProps = (state: IUser) => ({
-    isAuthenticated: state.isAuthenticated
-  });
+const mapStateToProps = (state: IUser) => {
+  return {
+    isAuthenticated: state.user.isAuthenticated,
+  };
+};
 
-
-export default connect(
-    mapStateToProps
-  )(PrivateRoute);
+export default connect(mapStateToProps)(PrivateRoute);

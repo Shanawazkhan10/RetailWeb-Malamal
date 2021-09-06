@@ -3,23 +3,24 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
 import { useAppDispatch } from "../../../../app/hooks";
-import { TradeViewSuccess } from "./TradeVIewSlice";
+import { fetchTradeView, TradeViewSuccess } from "./TradeVIewSlice";
 import { getOrderData } from "../../../../app/api";
-import tradeView from "./Trade";
 import TradeView from "./Trade";
 
 const TradeList = () => {
   const TradeList = useSelector((state: RootState) => state.TradeView);
+  const user = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(TradeViewSuccess(getOrderData()));
+    //dispatch(TradeViewSuccess(getOrderData()));
+    dispatch(fetchTradeView(user.sessionKey));
   }, []);
 
-  return (
+  return TradeList && TradeList.TradeViewData.length > 0 ? (
     <div className="block_netPosition mr14" id="TradeView">
       <div className="block_head">
-        <h1>Holding</h1>
+        <h1>Trades :</h1>
         <div className="mw_opt" id="mw_opt">
           <div>
             <ul id="ulTab" className="scroll_tabs_container">
@@ -111,6 +112,8 @@ const TradeList = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <div>Empty...</div>
   );
 };
 
