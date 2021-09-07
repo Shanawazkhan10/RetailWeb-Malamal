@@ -1,16 +1,11 @@
 import axios from "axios";
-import { UpdateSymbolDetails } from "../features/Home/MainContainer/MarketWatch/MarketWatchSlice";
-import { loggedInSuccess } from "../features/Login/userSlice";
-import { ILogin } from "../types/ILogin";
 import { IContractSearchReq } from "../types/IContractSearchReq";
 import { IMarketWatchTokenInfo } from "../types/IMarketWatchTokenInfo";
-import { IRemoveFromWatch } from "../types/IRemoveFromWatch";
 import { IRenameWatchlist } from "../types/IRenameWatchlist";
+import { ILoginRequest } from "../types/Request/IloginRequest";
 import { IOrderEntryRequest } from "../types/Request/IOrderEntryRequest";
-import { useAppSelector } from "./hooks";
 import { IUpdateWatchlist } from "../types/WatchList/IUpdateWatchList";
 import { IDeleteWatchlist } from "./IDeleteWatchlist";
-import { ILoginRequest } from "../types/Request/IloginRequest";
 //import parseLink, { Links } from 'parse-link-header';
 
 // export async function getComments(url: string) {
@@ -277,7 +272,7 @@ export async function updateWatchList(
 ): Promise<any> {
   return await api
     .post(
-      "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/getusergroups",
+      "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/updatewatchlist",
       JSON.stringify(UpdateReq),
       {
         headers: {
