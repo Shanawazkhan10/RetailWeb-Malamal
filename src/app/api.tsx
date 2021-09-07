@@ -1557,3 +1557,20 @@ export async function SearchSymbol(
 
     .catch((error) => error);
 }
+
+export async function Getallindicesdata(SessionKey: string): Promise<any> {
+  return await api
+    .post(
+      "https://uathsdiscovery.hypertrade.in/htpl/market/getallindicesdata",
+      null,
+      {
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+          "x-access-token": SessionKey,
+          "api-key": "UzL0HZiHPTc1rNVr",
+        },
+      }
+    )
+    .then((response) => response.data)
+    .catch((error) => error);
+}

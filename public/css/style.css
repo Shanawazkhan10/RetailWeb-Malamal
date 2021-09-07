@@ -17,36 +17,15 @@ h6{font-size: .9375rem;}
 
 ::-webkit-scrollbar {width: 4px;}
 /*::-webkit-scrollbar-track {background-color: #efefef}*/
-::-webkit-scrollbar-thumb {background-color: #6344f2;border-radius: 15px;}
+::-webkit-scrollbar-thumb {background-color: rgb(99 68 242 / 50%);border-radius: 20px;}
 /*::-webkit-scrollbar-thumb:hover {background-color: #efefef;}*/
-
-/*@font-face {
-  font-family: 'helvetica_neue_ltmedium';
-  src: url("../font/helvetica_neue_lt_65_medium-webfont.eot");
-  src: url("../font/helvetica_neue_lt_65_medium-webfont.eot?#iefix") format("embedded-opentype"),
-  url("../font/helvetica_neue_lt_65_medium-webfont.woff2") format("woff2"),
-  url("../font/helvetica_neue_lt_65_medium-webfont.woff") format("woff"),
-  url("../font/helvetica_neue_lt_65_medium-webfont.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'helvetica_neue_ltbold';
-  src: url("../font/helvetica_neue_lt_75_bold-webfont.eot");
-  src: url("../font/helvetica_neue_lt_75_bold-webfont.eot?#iefix") format("embedded-opentype"),
-  url("../font/helvetica_neue_lt_75_bold-webfont.woff2") format("woff2"),
-  url("../font/helvetica_neue_lt_75_bold-webfont.woff") format("woff"),
-  url("../font/helvetica_neue_lt_75_bold-webfont.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}*/
 
 .navbar{padding:6px 28px;}
 .navbar-brand{margin-right: 30px;}
 
 #menutxt .nav-item a{font-weight:400;font-size: 15px;color: #ffffff;padding: 4px 20px;}
 #menutxt .nav-item a.active{font-weight:600;font-size: 16px;color: #ffffff;}
-#menutxt .nav-item .active:after{content: " ";display: block;height: 2px;background-color: #ffffff;border-radius: 10px;color: #ffffff;}
+#menutxt .nav-item .active:after{content: " ";display: block;height: 4px;background-color: #ffffff;border-radius: 10px;color: #ffffff;}
 
 #mainbox{margin-top:100px;}
 
@@ -76,7 +55,7 @@ h6{font-size: .9375rem;}
 .page-item .page-link:hover{color: #ffffff;border:1px solid #d2d0e1!important;background-color: #6a4eee;}
 .page-item .page-link:focus{box-shadow: none;}
 
-.b-listing{padding: 30px;}
+.b-listing{/*padding: 30px;*/}
 .b-listing table{margin: 12px 0 12px 0;width: fit-content;width: 100%;}
 .b-listing nav{display: inline-block;margin-right: 10px;}
 .b-listing tr td{padding: 6px 0;}
@@ -121,9 +100,10 @@ h6{font-size: .9375rem;}
 .holdingleft p{color: #a5a7a4;margin-bottom:  20px;font-weight:600;}
 .holdingbtn span a{font-size: 16px;font-weight: 600;color: #6344f2;float: right;}
 
-#search{border: transparent;border-bottom: 1px solid #6344f2;}
+#search{border: transparent;border-bottom: 1px solid #6344f2;
+	padding: 30px 0px 0 0px;margin: 0px 30px;display: -webkit-inline-box;width: -webkit-fill-available;}
 #search span{vertical-align: -webkit-baseline-middle;}
-#search input{border: transparent;padding: 8px 14px;font-size: 16px;font-weight: 400;width: 90%;background: transparent;}
+#search input{border: transparent;padding: 8px 14px;font-size: 16px;font-weight: 400;width: 80%;background: transparent;}
 #search ::placeholder{color: #cacaca;}
 
 .menu-bar {position: absolute;top: 20px;    left: 50%;height: 14px;margin-left: -10px;}
@@ -137,16 +117,44 @@ h6{font-size: .9375rem;}
 
 .slideInDown-element {
 	animation: slideInDown; /* referring directly to the animation's @keyframe declaration */
-	animation-duration: 3s; /* don't forget to set a duration! */
-}
+	animation-duration: 3s; /* don't forget to set a duration! */}
 .slideInLeft-element {
 	animation: slideInLeft; /* referring directly to the animation's @keyframe declaration */
-	animation-duration: 3s; /* don't forget to set a duration! */
-}
+	animation-duration: 3s; /* don't forget to set a duration! */}
 .fadeIn-element {
 	animation: fadeIn; /* referring directly to the animation's @keyframe declaration */
-	animation-duration: 2s; /* don't forget to set a duration! */
-}
+	animation-duration: 2s; /* don't forget to set a duration! */}
+
+
+
+td {position: relative;}
+div.watchlistbox {display:none;position: absolute;right: 0;top: 30%;padding-right: 30px;}
+div.watchlistbox .dropdown-menu.show{box-shadow: 0 2px 10px 0 rgb(0 0 0 / 14%);border: none;}
+div.watchlistbox .dropdown-menu{top: 10px!important;left: -24px!important;}
+div.watchlistbox .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-primary.dropdown-toggle:focus{box-shadow: none;}
+div.watchlistbox .wbuy{background-color: #1964e4;}
+div.watchlistbox .wsell{background-color: #f31813;}
+div.watchlistbox .wmarketdepth{background: url(../images/watchlist/market-depth.svg) center center no-repeat #ffffff;border: 1px solid #a5a7a4;}
+div.watchlistbox .wmarketdepth:hover{background: url(../images/watchlist/market-depth-w.svg) center center no-repeat #6344f2;}
+div.watchlistbox .wchart{background: url(../images/watchlist/chart.svg) center center no-repeat #ffffff;border: 1px solid #a5a7a4;}
+div.watchlistbox .wchart:hover {background: url(../images/watchlist/chart-w.svg) center center no-repeat #6344f2;}
+div.watchlistbox .wdelete{background: url(../images/watchlist/delete.svg) center center no-repeat #ffffff;border: 1px solid #a5a7a4;}
+div.watchlistbox .wdelete:hover{background: url(../images/watchlist/delete-r.svg) center center no-repeat #ffffff;}
+div.watchlistbox .wmore{background: url(../images/watchlist/more.svg) center center no-repeat #ffffff;border: 1px solid #a5a7a4;}
+div.watchlistbox .wmore:hover{background: url(../images/watchlist/more-w.svg) center center no-repeat #6344f2;}
+
+div.watchlistbox .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle{background-color: #6344f2;border-color: #6344f2;background: url(../images/watchlist/more-w.svg) center center no-repeat #6344f2;}
+
+div.watchlistbox button.bg-white:hover{background-color: #6344f2;}
+tr:hover div.watchlistbox {display:block;}
+
+.watchlistbox button{padding: 0px;z-index: 1;border:none;border-radius: 6px;width: 40px;height: 30px;}
+tr td .watchlistbox img{width: 15px;height: 15px;border:none;margin:0; }
+.watchlistbox button.dropdown-toggle::after{display: none;}
+.watchlistbox .dropdown-menu a{font-size: 12px;padding: 9px 0px;border-bottom: 0.5px solid #d2d0e1;}
+.watchlistbox .dropdown-menu.show a:nth-last-child(1){border-bottom:none;}
+.watchlistbox .dropdown-menu a img{margin: 0 10px;}
+
 
 /*Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {
@@ -178,7 +186,7 @@ h6{font-size: .9375rem;}
 	.marketlive{height: 40px;}
 	.niftymain{margin: 6px 0;}
 	#mainbox {margin-top: 82px;}
-	.b-listing table{margin: 8px 0 8px 0;height:66vh;overflow:auto;padding:0 12px 0 0;}
+	.b-listing table{margin: 8px 0 8px 0;height:66vh;overflow:auto;/*padding:0 12px 0 0;*/}
 	.b-listing tr span{max-width: 70%;}
 	.b-listing{padding: 20px 20px;}
 	.b-listing tr img{width:35px;height:35px;margin-right: 6px;}
@@ -201,7 +209,7 @@ h6{font-size: .9375rem;}
 @media (min-width: 1500px) {
 	.plate{height: 33vh;padding: 30px;}
 	.plate-2{height: 88vh;}
-	.b-listing table{height:68vh;overflow:auto;padding:0 12px 0 0;}
+	.b-listing table{height:68vh;overflow:auto;/*padding:0 12px 0 0;*/}
 	.b-listing tr td{width: 100%;padding: 10px 0;}
 	.b-listing tr span{font-size: 16px;}
 	.price-box .lprice{font-size: 18px;}
@@ -233,7 +241,7 @@ h6{font-size: .9375rem;}
 	#mainbox{margin-top:94px;}
 	.plate{height: 50vh;padding: 30px;}
 	.plate-2{height: 88vh;}
-	.b-listing table{margin: 10px 0 10px 0;height:69vh;overflow:auto;padding:0 12px 0 0;}
+	.b-listing table{margin: 10px 0 10px 0;height:69vh;overflow:auto;/*padding:0 12px 0 0;*/}
 	.b-listing tr td{width: 100%;padding: 8px 0;}
 	.b-listing tr span{font-size: 16px;}
 	.price-box .lprice{font-size: 18px;}
@@ -263,8 +271,8 @@ h6{font-size: .9375rem;}
 @media (min-width:1600px){
 	.plate{height: 33vh;padding: 30px;}
 	.plate-2{height: 88vh;}
-	.b-listing table{height:72vh;overflow:auto;padding:0 12px 0 0;}
-	.b-listing tr td{width: 100%;padding: 10px 0;}
+	.b-listing table{height:72vh;overflow:auto;/*padding:0 12px 0 0;*/}
+	.b-listing tr td{width: 100%;padding: 10px 30px;}
 	.b-listing tr span{font-size: 16px;}
 	.price-box .lprice{font-size: 18px;}
 	.price-box p{font-size: 12px;}
@@ -287,6 +295,6 @@ h6{font-size: .9375rem;}
 	.marketlive .mpercent{font-size: 20px;}
 	.marketlive .pred{font-size: 20px;}
 	.niftymain{margin: 10px 0;}
-	#menutxt .nav-item a.active{font-size:25px;}
-	#menutxt .nav-item a{font-size:24px;}
+	#menutxt .nav-item a.active{font-size:20px;}
+	#menutxt .nav-item a{font-size:19px;}
 }

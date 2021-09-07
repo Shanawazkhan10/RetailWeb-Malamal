@@ -20,6 +20,7 @@ import SmartSearchSlice from "../features/Home/MainContainer/SmartSearch/SmartSe
 import MarketPictureSlice from "../features/Home/MainContainer/MarketPicture/MarketPictureSlice";
 import SummarySlice from "../features/Home/MainContainer/Dashboard/SummarySlice";
 import MarginSlice from "../features/Home/MainContainer/Dashboard/MarginSlice";
+import indicesSlice from "../features/Home/Header/IndicesSlice";
 
 const store = configureStore({
   reducer: {
@@ -43,6 +44,7 @@ const store = configureStore({
     socketData: WebSocketSlice,
     summary: SummarySlice,
     margin: MarginSlice,
+    indices:indicesSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

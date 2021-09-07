@@ -13,6 +13,7 @@ import "./Header.css";
 import MenuImage from "../../../assets/menu-ico.png";
 //import { showmenuContainer } from "../Menu/MenuBarSlice";
 import HSSocket from "../../WebSocket/HSSocket";
+import HeaderIndices from "./HeaderIndices";
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -70,19 +71,8 @@ const Header = () => {
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav">
-          <li className="nav-item nav-search d-none d-lg-block ml-0">
-            <div className="marketlive">
-              <div className="niftymain">
-                <div className="nname">Nifty 50</div>
-                <div className="pgreen">10121.40</div>
-                <div className="mpercent">0.27%</div>
-              </div>
-              <div className="sensexmain">
-                <div className="nname">Sensex</div>
-                <div className="pred">32998.65</div>
-                <div className="mpercent">0.23%</div>
-              </div>
-            </div>
+          <li className="nav-item nav-search d-none d-lg-block ml-0">            
+            <HeaderIndices></HeaderIndices>
           </li>
         </ul>
         <ul className="navbar-nav mr-auto justify-content-end" id="menutxt">
