@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getNetpositionData } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
@@ -7,6 +7,9 @@ import "../../style.css";
 import NetPosition from "./NetPosition";
 import { fetchNetposition, NetpositionSuccess } from "./NetPositionSlice";
 import NetPositionSummary from "./NetPositionSummary";
+import SmartSearch from "./../SmartSearch/SmartSearch";
+import MarketPicture from "../MarketPicture/MarketPicture";
+import { ShowDepthFromPosition } from "../MarketPicture/MarketPictureSlice";
 
 const NetPositionList = () => {
   //let NetpositionList: any[];
@@ -14,6 +17,9 @@ const NetPositionList = () => {
   //NetpositionList = Netposition.netposition;
   const dispatch = useAppDispatch();
 
+  function showDepth() {
+    dispatch(ShowDepthFromPosition(""));
+  }
   useEffect(() => {
     //dispatch(NetpositionSuccess(getNetpositionData()));
     dispatch(fetchNetposition());
@@ -127,7 +133,7 @@ const NetPositionList = () => {
       </div>
     </div>
   ) : (
-    <div>Empty......</div>
+    <div>{showDepth}</div>
   );
 };
 

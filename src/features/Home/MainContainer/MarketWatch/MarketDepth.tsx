@@ -20,8 +20,12 @@ const MarketDepth = (props: any) => {
           </thead>{" "}
           <tbody>
             <tr>
-              <td className="rate">{Depth.bp}</td>{" "}
-              <td className="orders">{Depth.bq}</td>{" "}
+              <td className="rate">
+                {Depth.bp != undefined ? Depth.bp : "0.00"}
+              </td>{" "}
+              <td className="orders">
+                {Depth.bq != undefined ? Depth.bq : "0.00"}
+              </td>{" "}
               <td
                 className="text-right quantity"
                 style={{
@@ -33,8 +37,12 @@ const MarketDepth = (props: any) => {
               </td>
             </tr>
             <tr>
-              <td className="rate">{Depth.bp1}</td>{" "}
-              <td className="orders">{Depth.bq1}</td>{" "}
+              <td className="rate">
+                {Depth.bp1 != undefined ? Depth.bp1 : "0.00"}
+              </td>{" "}
+              <td className="orders">
+                {Depth.bq1 != undefined ? Depth.bq1 : "0.00"}
+              </td>{" "}
               <td
                 className="text-right quantity"
                 style={{
@@ -46,8 +54,12 @@ const MarketDepth = (props: any) => {
               </td>
             </tr>
             <tr>
-              <td className="rate">{Depth.bp2}</td>{" "}
-              <td className="orders">{Depth.bq2}</td>{" "}
+              <td className="rate">
+                {Depth.bp2 != undefined ? Depth.bp2 : "0.00"}
+              </td>{" "}
+              <td className="orders">
+                {Depth.bq2 != undefined ? Depth.bq2 : "0.00"}
+              </td>{" "}
               <td
                 className="text-right quantity"
                 style={{
@@ -59,8 +71,12 @@ const MarketDepth = (props: any) => {
               </td>
             </tr>
             <tr>
-              <td className="rate">{Depth.bp3}</td>{" "}
-              <td className="orders">{Depth.bp3}</td>{" "}
+              <td className="rate">
+                {Depth.bp3 != undefined ? Depth.bp3 : "0.00"}
+              </td>{" "}
+              <td className="orders">
+                {Depth.bq3 != undefined ? Depth.bq3 : "0.00"}
+              </td>{" "}
               <td
                 className="text-right quantity"
                 style={{
@@ -72,8 +88,12 @@ const MarketDepth = (props: any) => {
               </td>
             </tr>
             <tr>
-              <td className="rate">{Depth.bp4}</td>{" "}
-              <td className="orders">{Depth.bq4}</td>{" "}
+              <td className="rate">
+                {Depth.bp4 != undefined ? Depth.bp4 : "0.00"}
+              </td>{" "}
+              <td className="orders">
+                {Depth.bq4 != undefined ? Depth.bq4 : "0.00"}
+              </td>{" "}
               <td
                 className="text-right quantity"
                 style={{
@@ -107,8 +127,12 @@ const MarketDepth = (props: any) => {
           </thead>{" "}
           <tbody>
             <tr>
-              <td className="rate">{Depth.sp}</td>{" "}
-              <td className="orders">{Depth.bs}</td>{" "}
+              <td className="rate">
+                {Depth.sp != undefined ? Depth.sp : "0.00"}
+              </td>{" "}
+              <td className="orders">
+                {Depth.bs != undefined ? Depth.bs : "0.00"}
+              </td>{" "}
               <td
                 className="text-right quantity"
                 style={{
@@ -116,12 +140,16 @@ const MarketDepth = (props: any) => {
                     "linear-gradient(to left, rgba(255, 87, 34, 0.1) 20.9302%, transparent 20.9302%)",
                 }}
               >
-                {Depth.sno1}
+                {Depth.sno1 != undefined ? Depth.sno1 : "0.00"}
               </td>
             </tr>
             <tr>
-              <td className="rate">{Depth.sp1}</td>{" "}
-              <td className="orders">{Depth.bs1}</td>{" "}
+              <td className="rate">
+                {Depth.sp1 != undefined ? Depth.sp1 : "0.00"}
+              </td>{" "}
+              <td className="orders">
+                {Depth.bs1 != undefined ? Depth.bs1 : "0.00"}
+              </td>{" "}
               <td
                 className="text-right quantity"
                 style={{
@@ -134,9 +162,11 @@ const MarketDepth = (props: any) => {
             </tr>
             <tr>
               <td className="rate">
-                {Depth.sp2 != undefined ? Depth.sp2 : Depth.sp2}
+                {Depth.sp2 != undefined ? Depth.sp2 : "0.00"}
               </td>{" "}
-              <td className="orders">{Depth.bs2}</td>{" "}
+              <td className="orders">
+                {Depth.bs2 != undefined ? Depth.bs2 : "0.00"}
+              </td>{" "}
               <td
                 className="text-right quantity"
                 style={{
@@ -148,8 +178,12 @@ const MarketDepth = (props: any) => {
               </td>
             </tr>
             <tr>
-              <td className="rate">{Depth.sp3}</td>{" "}
-              <td className="orders">{Depth.bs3}</td>{" "}
+              <td className="rate">
+                {Depth.sp3 != undefined ? Depth.sp3 : "0.00"}
+              </td>{" "}
+              <td className="orders">
+                {Depth.bs3 != undefined ? Depth.bs3 : "0.00"}
+              </td>{" "}
               <td
                 className="text-right quantity"
                 style={{
@@ -161,8 +195,12 @@ const MarketDepth = (props: any) => {
               </td>
             </tr>
             <tr>
-              <td className="rate">{Depth.sp4}</td>{" "}
-              <td className="orders">{Depth.bs4}</td>{" "}
+              <td className="rate">
+                {Depth.sp4 != undefined ? Depth.sp4 : "0.00"}
+              </td>{" "}
+              <td className="orders">
+                {Depth.bs4 != undefined ? Depth.bs4 : "0.00"}
+              </td>{" "}
               <td
                 className="text-right quantity"
                 style={{
@@ -170,7 +208,7 @@ const MarketDepth = (props: any) => {
                     "linear-gradient(to left, rgba(255, 87, 34, 0.1) 5%, transparent 5%)",
                 }}
               >
-                {Depth.sno4}
+                {Depth.sno4 != undefined ? Depth.sno4 : "0.00"}
               </td>
             </tr>
           </tbody>{" "}

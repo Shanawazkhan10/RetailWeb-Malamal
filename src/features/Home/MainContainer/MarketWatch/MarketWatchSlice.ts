@@ -193,16 +193,32 @@ const marketwatchSlice = createSlice({
                 depth.name == "dp"
               ) {
                 token.marketDepth = depth;
+
                 //return Object.assign({}, token, depth);
-                //if (depth.bp != undefined) token.marketDepth.bp = depth.bp;
-                // if (depth.bp2 != undefined) token.marketDepth.bp2 = depth.bp2;
-                // if (depth.bp3 != undefined) token.marketDepth.bp3 = depth.bp3;
-                // if (depth.bp4 != undefined) token.marketDepth.bp4 = depth.bp4;
-                // if (depth.sp != undefined) token.marketDepth.sp = depth.bp2;
-                // if (depth.sp1 != undefined) token.marketDepth.sp1 = depth.sp1;
-                // if (depth.sp2 != undefined) token.marketDepth.sp2 = depth.sp2;
-                // if (depth.sp3 != undefined) token.marketDepth.sp3 = depth.sp3;
-                // if (depth.sp4 != undefined) token.marketDepth.sp4 = depth.sp4;
+                // if (depth.bp != undefined) {
+                //   token.marketDepth.bp = depth.bp;
+                // }
+                // if (depth.bp2 != undefined) {
+                //   token.marketDepth.bp2 = depth.bp2;
+                // }
+                // if (depth.bp3 != undefined) {
+                //   token.marketDepth.bp3 = depth.bp3;
+                // }
+                // if (depth.bp4 != undefined) {
+                //   token.marketDepth.bp4 = depth.bp4;
+                // }
+                // if (depth.sp != undefined) {
+                //   token.marketDepth.sp = depth.bp2;
+                // }
+                // if (depth.sp1 != undefined) {
+                //   token.marketDepth.sp2 = depth.sp2;
+                // }
+                // if (depth.sp3 != undefined) {
+                //   token.marketDepth.sp3 = depth.sp3;
+                // }
+                // if (depth.sp4 != undefined) {
+                //   token.marketDepth.sp4 = depth.sp4;
+                // }
                 // if (depth.bq != undefined) token.marketDepth.bq = depth.bq;
                 // if (depth.bq1 != undefined) token.marketDepth.bq1 = depth.bq1;
                 // if (depth.bq2 != undefined) token.marketDepth.bq2 = depth.bq2;
