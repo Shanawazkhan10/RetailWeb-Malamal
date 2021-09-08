@@ -27,7 +27,7 @@ const OrderEntryComp = () => {
   }
   const orderEntryState = useAppSelector((state) => state.orderEntry);
   const userState = useAppSelector((state) => state.user);
-  function onFormSubmit() {    
+  function onFormSubmit() {
     const Jdata: IjData = {
       am: "NO",
       es: orderEntryState.exchange,
@@ -50,8 +50,7 @@ const OrderEntryComp = () => {
       jData: Jdata,
     };
     dispatch(placeOrder(orderentryrequest));
-
-  };
+  }
 
   function onProductCodechange(value: string) {
     dispatch(selectProductCode(value));
@@ -65,9 +64,7 @@ const OrderEntryComp = () => {
   function onTriggerPriceChange(e: any) {
     if (e.target.value > orderEntryState.price) {
       e.target.setCustomValidity("Trigger Price can`t be greater than Price.");
-    }
-    else
-    {
+    } else {
       e.target.setCustomValidity("");
     }
     dispatch(setTriggerPrice(e.target.value));
@@ -78,7 +75,9 @@ const OrderEntryComp = () => {
   }
 
   return (
-    <form className={"order_window " + (orderEntryState.isBuy ? "buy" : "sell")}>
+    <form
+      className={"order_window " + (orderEntryState.isBuy ? "buy" : "sell")}
+    >
       <div className="drag-handle"></div>
       <OrderEntryHeader />
 
@@ -147,7 +146,7 @@ const OrderEntryComp = () => {
               <div className="four columns quantity">
                 <div className="no su-input-group su-static-label">
                   <label className="su-input-label su-visible">Qty.</label>
-                  <input                    
+                  <input
                     type="number"
                     placeholder=""
                     name="quantity"
@@ -157,14 +156,14 @@ const OrderEntryComp = () => {
                     required={true}
                     onChange={(e) => {
                       onQtyChange(e);
-                    }}                    
+                    }}
                   />
                 </div>
               </div>
               <div className="four columns price">
                 <div className="no su-input-group su-static-label disabled">
                   <label className="su-input-label su-visible">Price</label>
-                  <input                   
+                  <input
                     type="number"
                     placeholder=""
                     min="0.05"
@@ -183,7 +182,7 @@ const OrderEntryComp = () => {
               <div className="four columns trigger">
                 <div className="no su-input-group su-static-label disabled">
                   <label className="su-input-label">Trigger price</label>
-                  <input                    
+                  <input
                     type="number"
                     placeholder=""
                     data-autocorrect="off"

@@ -267,8 +267,7 @@ export async function getWatchList(
 }
 
 export async function updateWatchList(
-  UpdateReq: IUpdateWatchlist,
-  sessionKey: string
+  UpdateReq: IUpdateWatchlist
 ): Promise<any> {
   return await api
     .post(
@@ -277,7 +276,7 @@ export async function updateWatchList(
       {
         headers: {
           "api-key": "UzL0HZiHPTc1rNVr",
-          "x-access-token": sessionKey,
+          "x-access-token": UpdateReq.userid,
         },
       }
     )
@@ -292,7 +291,7 @@ export async function deleteWatchList(
   return await api
 
     .post(
-      "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/getusergroups",
+      "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/deleteusergroups",
       JSON.stringify(DelReq),
       {
         headers: {

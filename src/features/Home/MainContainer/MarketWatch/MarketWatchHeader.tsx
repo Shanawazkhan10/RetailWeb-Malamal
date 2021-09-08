@@ -57,7 +57,7 @@ const MarketWatchHeader = () => {
       userid: user.UserId,
     };
 
-    dispatch(UpdateWatchlist(UpdateReq, user.sessionKey));
+    dispatch(UpdateWatchlist(UpdateReq));
     //dispatch(AddToWatchList(setName)); //API Call
   }
 

@@ -173,6 +173,9 @@ const marketwatchSlice = createSlice({
         );
       });
     },
+    AddNewWatchList: (state, action) => {
+      state.marketWatch.MarketWatchList.push(action.payload);
+    },
     // FetchSocketData: (state, action) => {
     //   // const ScriptData = useSelector(
     //   //   (state: RootState) => state.socketData.socketdata.Script
@@ -204,6 +207,7 @@ export const {
   ScriptUpdatefromSocket,
   DepthUpdatefromSocket,
   //FetchSocketData,
+  AddNewWatchList,
 } = marketwatchSlice.actions;
 
 export const fetchmarketWatch =
@@ -243,6 +247,7 @@ export const DeleteWatchlist =
   async (dispatch) => {
     try {
       const deleteWatchlistResponse = await deleteWatchList(DelReq, sessionkey);
+      console.log(deleteWatchlistResponse);
       dispatch(DeleteWatchList(deleteWatchlistResponse));
     } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
@@ -265,13 +270,11 @@ export const RenameWatchlist =
   };
 
 export const UpdateWatchlist =
-  (UpdateReq: IUpdateWatchlist, sessionkey: string): AppThunk =>
+  (UpdateReq: IUpdateWatchlist): AppThunk =>
   async (dispatch) => {
     try {
-      const updateWatchlistResponse = await updateWatchList(
-        UpdateReq,
-        sessionkey
-      );
+      const updateWatchlistResponse = await updateWatchList(UpdateReq);
+      console.log(updateWatchlistResponse);
     } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
@@ -295,4 +298,12 @@ export const UpdateDepth =
     } catch (err) {
       dispatch(onMarketWatchFailure(err));
     }
+  };
+
+export const NewWatchList =
+  (newWatchList: IMarketWatch): AppThunk =>
+  (dispatch) => {
+    try {
+      dispatch(AddNewWatchList(newWatchList));
+    } catch (err: any) {}
   };
