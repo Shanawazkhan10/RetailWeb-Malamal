@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getNetpositionData } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
@@ -6,19 +6,26 @@ import { RootState } from "../../../../store/store";
 import NetPosition from "./NetPosition";
 import { fetchNetposition, NetpositionSuccess } from "./NetPositionSlice";
 import NetPositionSummary from "./NetPositionSummary";
+import SmartSearch from "./../SmartSearch/SmartSearch";
+import MarketPicture from "../MarketPicture/MarketPicture";
+import { ShowDepthFromPosition } from "../MarketPicture/MarketPictureSlice";
 
 const NetPositionList = () => {
-  let NetpositionList: any[];
-  const Netposition = useSelector((state: RootState) => state.netposition);
-  NetpositionList = Netposition.netposition.NetPosition;
+  //let NetpositionList: any[];
+  const NetpositionList = useSelector((state: RootState) => state.netposition);
+  //NetpositionList = Netposition.netposition;
   const dispatch = useAppDispatch();
 
+  function showDepth() {
+    dispatch(ShowDepthFromPosition(""));
+  }
   useEffect(() => {
     //dispatch(NetpositionSuccess(getNetpositionData()));
     dispatch(fetchNetposition());
   }, []);
 
-  return NetpositionList && NetpositionList.length > 0 ? (
+  return NetpositionList.netposition &&
+    NetpositionList.netposition.length > 0 ? (
     <div className="block_netPosition mr14" id="NetPosition">
       <div className="block_head">
         <h1>Net Position</h1>
@@ -37,9 +44,9 @@ const NetPositionList = () => {
         </div>
       </div>
       <div>
-        <NetPositionSummary
+        {/* <NetPositionSummary
           netpositionSummary={Netposition.netposition}
-        ></NetPositionSummary>
+        ></NetPositionSummary> */}
         {/* <NetPositionList></NetPositionList> */}
 
         <div className="netPosTbl">
@@ -113,7 +120,7 @@ const NetPositionList = () => {
               </tr>
             </thead>
             <tbody id="tblnetposid">
-              {NetpositionList.map((netposition: any) => (
+              {NetpositionList.netposition.map((netposition: any) => (
                 <NetPosition
                   key={netposition.Token}
                   netposition={netposition}
@@ -125,7 +132,7 @@ const NetPositionList = () => {
       </div>
     </div>
   ) : (
-    <div>Empty......</div>
+    <div>{showDepth}</div>
   );
 };
 

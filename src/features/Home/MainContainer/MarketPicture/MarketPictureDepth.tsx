@@ -1,6 +1,10 @@
+import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import { IMarketDepth } from "./../../../../types/IMarketDepth";
 
-const MarketPictureDepth = (props: { Depth: IMarketDepth }) => {
+const MarketPictureDepth = (props: {
+  Depth: IMarketDepth;
+  TokenInfo: IMarketWatchTokenInfo;
+}) => {
   return (
     <div id="tblMarketPictureHeader">
       <div>
@@ -59,10 +63,10 @@ const MarketPictureDepth = (props: { Depth: IMarketDepth }) => {
             </tr>
             <tr className="cls4">
               <td className="cls1 cls2 cls4">Total</td>
-              <td className="cls1 cls2  cls4">0 </td>
+              <td className="cls1 cls2  cls4">{props.TokenInfo.tbq} </td>
               <td className="cls4"></td>
               <td className="cls1 cls4 cls3">Total </td>
-              <td className="cls1 cls4 cls3"> 0 </td>
+              <td className="cls1 cls4 cls3"> {props.TokenInfo.tsq}</td>
               <td></td>
             </tr>
           </tbody>

@@ -13,12 +13,18 @@ import { RootState } from "../../../../store/store";
 import { IContractSearch } from "../../../../types/IContractSearch";
 import { IContractSearchReq } from "../../../../types/IContractSearchReq";
 import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
+import { userWS } from "../../../WebSocket/HSSocket";
+import {
+  SubUnsubReq,
+  waitForSocketConnection,
+} from "../../../WebSocket/HSSocket1";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
 } from "../../OrderEntry/orderEntrySlice";
 import { chartContainer, searchDepthContainer } from "../mainContainerSlice";
 import {
+  ShowDepthFromPosition,
   ShowDepthFromSearch,
   UpdateTokenInfo,
 } from "../MarketPicture/MarketPictureSlice";
@@ -29,7 +35,7 @@ import {
 } from "../MarketWatch/MarketWatchSlice";
 import { FetchSearch } from "./SmartSearchSlice";
 
-const SmartSearch = () => {
+const SmartSearch = (props: { Type: Number }) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
   const [cursor, setCursor] = useState(0);
@@ -41,14 +47,15 @@ const SmartSearch = () => {
   selectedList = WatchList.nSelectedWatchList;
   let selectlistname: string;
   selectlistname = WatchList.sSelectedWatchList;
-
-  const onDepthClick = () => {
+  const nIsOpenFrom = props.Type;
+  const onDepthClick = (data: IContractSearch) => {
     //e.preventDefault();
     //dispatch(searchDepthContainer());
-    dispatch(ShowDepthFromSearch(""));
+    dispatch(ShowDepthFromSearch(data.exseg + "|" + data.omtkn));
+    clearSearch();
     //Dummy call for fetch
-    dispatch(UpdateTokenInfo(GetSymbolDetails()));
-    dispatch(UpdateTokenInfo(SubscribeMarketDepth(0, 0)));
+    //dispatch(UpdateTokenInfo(GetSymbolDetails()));
+    //dispatch(UpdateTokenInfo(SubscribeMarketDepth(0, 0)));
     //dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
   };
 
@@ -85,6 +92,14 @@ const SmartSearch = () => {
     dispatch(UpdateWatchlist(ReqUpdateData));
     dispatch(FetchWatchListSymbol(newscript, user.sessionKey, selectedList, 1));
   }
+  const onAddClick = (data: IContractSearch) => {
+    if (props.Type == 2) {
+      dispatch(ShowDepthFromPosition(data.exseg + "|" + data.omtkn));
+      clearSearch();
+    } else {
+    }
+    //dispatch(AddToWatchList(contractSearch));
+  };
 
   // search world trading data for available stock symbols that match the search input
   const search = async (val: string) => {
@@ -149,7 +164,7 @@ const SmartSearch = () => {
       // Return -- select symbol & show details
     } else if (e.keyCode === 13) {
       e.preventDefault();
-      //handleQuoteChange(Result[cursor].tsym);
+      //handleQuoteChange();
       clearSearch();
       // Esc -- clear search and reset cursor
     } else if (
@@ -242,7 +257,7 @@ const SmartSearch = () => {
                         <button
                           className=" btn_sell"
                           title="Depth"
-                          onMouseDown={onDepthClick}
+                          onMouseDown={(e) => onDepthClick(result)}
                         >
                           D
                         </button> */}

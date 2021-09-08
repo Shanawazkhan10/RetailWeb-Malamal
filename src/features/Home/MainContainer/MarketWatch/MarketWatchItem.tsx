@@ -1,4 +1,6 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
+import { Collapse } from "reactstrap";
+import { GetSymbolDetails, SubscribeMarketDepth } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
@@ -25,6 +27,7 @@ import {
   setOrderEntryProps,
 } from "../../OrderEntry/orderEntrySlice";
 import { chartContainer } from "../mainContainerSlice";
+import MarketDepth from "./MarketDepth";
 import {
   DeleteWatchlist,
   FetchWatchListSymbol,
@@ -33,6 +36,7 @@ import {
   showMore,
   UpdateWatchlist,
 } from "./MarketWatchSlice";
+import Quote from "./Quote";
 //import { userWS } from "./../../../WebSocket/HSSocket1";
 
 export interface scriptInfoReq {
@@ -168,7 +172,7 @@ const MarketWatchItem = (props: {
       //subscribe Depth API Call
       const SubscribeDepth: ISubscribeDepth = {
         type: "dps",
-        scrips: symbol.tok + "|" + symbol.exSeg,
+        scrips: symbol.exSeg + "|" + symbol.tok,
         //id: propMarketWatch.id,
         channelnum: propMarketWatch.id + 1,
       };
@@ -183,7 +187,7 @@ const MarketWatchItem = (props: {
       //Unsubscribe Depth API Call
       const SubscribeDepth: ISubscribeDepth = {
         type: "dpu",
-        scrips: symbol.tok + "|" + symbol.exSeg,
+        scrips: symbol.exSeg + "|" + symbol.tok,
         //id: propMarketWatch.id,
         channelnum: propMarketWatch.id + 1,
       };
@@ -222,6 +226,11 @@ const MarketWatchItem = (props: {
       sendUnsubReq(subUnsubReq);
     });
 
+    //}
+    // waitForSocketConnection(userWS, function () {
+    //   sendUnsubReq(subUnsubReq);
+    // });
+
     // dispatch(
     //   UpdateSymbolDetails(
     //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
@@ -249,148 +258,167 @@ const MarketWatchItem = (props: {
   };
 
   return (
-    <tbody>
-      {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
-      {propMarketWatch.SymbolList != null &&
-      propMarketWatch.SymbolList != [] ? (
-        propMarketWatch.SymbolList.map(
-          (symbolInfo: IMarketWatchTokenInfo, nIncreament) => (
-            //     {symbolInfo.showDepth &&
-            //     symbolInfo.marketDepth != null &&
-            //     symbolInfo.marketDepth != undefined ? (
-            //       <Collapse in={symbolInfo.showDepth}>
-            //         <div className="market-depth" style={{ display: "" }}>
-            //           <MarketDepth
-            //             index={nIncreament}
-            //             depth={symbolInfo.marketDepth}
-            //           ></MarketDepth>
-            //           <Quote index={nIncreament} tokenInfo={symbolInfo}></Quote>
-            //         </div>
-            //       </Collapse>
-            //     ) : (
-            //       ""
-            //     )}
-            //     {/* {activeItem && activeIndex == nIncreament + 1
-            //       ? onDepthClick1(nIncreament + 1)
-            //       : ""} */}
-            <tr
-              className="slideInDown-element"
-              key={nIncreament}
-              onMouseLeave={() => {
-                dispatch(hideMore(nIncreament));
-              }}
-            >
-              <td>
-                <img src="images/hdfc-logo.jpg" />
-                <span>{symbolInfo.sym}</span>
-              </td>
-              <td className="price-box">
-                <div className="watchlistbox">
-                  <button
-                    type="button"
-                    className="btn btn-primary wbuy"
-                    title="BUY"
-                    onClick={() => onBuyOrderEntryClick(symbolInfo)}
-                  >
-                    B
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-primary wsell"
-                    title="SELL"
-                    onClick={() => onSellOrderEntryClick(symbolInfo)}
-                  >
-                    S
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-primary wmarketdepth"
-                    title="Depth"
-                    onClick={() => onDepthClick(nIncreament, symbolInfo)}
-                  ></button>
-                  <button
-                    type="button"
-                    className="btn btn-primary wchart"
-                    title="Chart(C )"
-                    onClick={onChartClick}
-                  ></button>
-                  <button
-                    type="button"
-                    className="btn btn-primary wdelete"
-                    title="Delete"
-                    onClick={() => RemoveSymbol(symbolInfo)}
-                  ></button>
-                  <button
-                    type="button"
-                    className="btn btn-primary wmore dropdown-toggle"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                    title="More"
-                    onClick={() => {
-                      symbolInfo.showMore
-                        ? dispatch(hideMore(nIncreament))
-                        : dispatch(showMore(nIncreament));
-                    }}
-                  ></button>
+    <Fragment>
+      <tbody>
+        {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
+        {propMarketWatch.SymbolList != null &&
+        propMarketWatch.SymbolList != [] ? (
+          propMarketWatch.SymbolList.map(
+            (symbolInfo: IMarketWatchTokenInfo, nIncreament) => (
+              //     {symbolInfo.showDepth &&
+              //     symbolInfo.marketDepth != null &&
+              //     symbolInfo.marketDepth != undefined ? (
+              //       <Collapse in={symbolInfo.showDepth}>
+              //         <div className="market-depth" style={{ display: "" }}>
+              //           <MarketDepth
+              //             index={nIncreament}
+              //             depth={symbolInfo.marketDepth}
+              //           ></MarketDepth>
+              //           <Quote index={nIncreament} tokenInfo={symbolInfo}></Quote>
+              //         </div>
+              //       </Collapse>
+              //     ) : (
+              //       ""
+              //     )}
+              //     {/* {activeItem && activeIndex == nIncreament + 1
+              //       ? onDepthClick1(nIncreament + 1)
+              //       : ""} */}
+              <tr
+                className="slideInDown-element"
+                key={nIncreament}
+                onMouseLeave={() => {
+                  dispatch(hideMore(nIncreament));
+                }}
+              >
+                <td>
+                  <img src="images/hdfc-logo.jpg" />
+                  <span>{symbolInfo.sym}</span>
+                </td>
+                <td className="price-box">
+                  <div className="watchlistbox">
+                    <button
+                      type="button"
+                      className="btn btn-primary wbuy"
+                      title="BUY"
+                      onClick={() => onBuyOrderEntryClick(symbolInfo)}
+                    >
+                      B
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary wsell"
+                      title="SELL"
+                      onClick={() => onSellOrderEntryClick(symbolInfo)}
+                    >
+                      S
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary wmarketdepth"
+                      title="Depth"
+                      onClick={() => onDepthClick(nIncreament, symbolInfo)}
+                    ></button>
+                    <button
+                      type="button"
+                      className="btn btn-primary wchart"
+                      title="Chart(C )"
+                      onClick={onChartClick}
+                    ></button>
+                    <button
+                      type="button"
+                      className="btn btn-primary wdelete"
+                      title="Delete"
+                      onClick={() => RemoveSymbol(symbolInfo)}
+                    ></button>
+                    <button
+                      type="button"
+                      className="btn btn-primary wmore dropdown-toggle"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      title="More"
+                      onClick={() => {
+                        symbolInfo.showMore
+                          ? dispatch(hideMore(nIncreament))
+                          : dispatch(showMore(nIncreament));
+                      }}
+                    ></button>
 
+                    <div
+                      className={
+                        "dropdown-menu" + (symbolInfo.showMore ? " show" : "")
+                      }
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <a className="dropdown-item" href="">
+                        <img src="images/watchlist/pin.svg" /> Pin
+                      </a>
+                      <a
+                        className="dropdown-item"
+                        href=""
+                        onClick={(e) => onCreateGTTOrderClick(symbolInfo, e)}
+                      >
+                        <img src="images/watchlist/create-gtt.svg" /> Create GTT
+                      </a>
+                      <a className="dropdown-item" href="">
+                        <img src="images/watchlist/chart.svg" /> Chart
+                      </a>
+                      <a className="dropdown-item" href="">
+                        <img src="" style={fundamentalStyle} /> Fundamentals
+                      </a>
+                      <a className="dropdown-item" href="">
+                        <img src="" style={fundamentalStyle} /> Technicals
+                      </a>
+                      <a className="dropdown-item" href="">
+                        <img src="images/watchlist/alert.svg" /> Set Alerts
+                      </a>
+                    </div>
+                  </div>
                   <div
                     className={
-                      "dropdown-menu" + (symbolInfo.showMore ? " show" : "")
+                      "lprice" +
+                      (Number(symbolInfo.nc) > 0
+                        ? " text-green"
+                        : Number(symbolInfo.nc) < 0
+                        ? " text-red"
+                        : "")
                     }
-                    aria-labelledby="dropdownMenuButton"
                   >
-                    <a className="dropdown-item" href="">
-                      <img src="images/watchlist/pin.svg" /> Pin
-                    </a>
-                    <a
-                      className="dropdown-item"
-                      href=""
-                      onClick={(e) => onCreateGTTOrderClick(symbolInfo, e)}
-                    >
-                      <img src="images/watchlist/create-gtt.svg" /> Create GTT
-                    </a>
-                    <a className="dropdown-item" href="">
-                      <img src="images/watchlist/chart.svg" /> Chart
-                    </a>
-                    <a className="dropdown-item" href="">
-                      <img src="" style={fundamentalStyle} /> Fundamentals
-                    </a>
-                    <a className="dropdown-item" href="">
-                      <img src="" style={fundamentalStyle} /> Technicals
-                    </a>
-                    <a className="dropdown-item" href="">
-                      <img src="images/watchlist/alert.svg" /> Set Alerts
-                    </a>
+                    Rs.{symbolInfo.ltp == undefined ? "0.00" : symbolInfo.ltp}
                   </div>
-                </div>
-                <div
-                  className={
-                    "lprice" +
-                    (Number(symbolInfo.nc) > 0
-                      ? " text-green"
-                      : Number(symbolInfo.nc) < 0
-                      ? " text-red"
-                      : "")
-                  }
-                >
-                  Rs.{symbolInfo.ltp == undefined ? "0.00" : symbolInfo.ltp}
-                </div>
-                <p>
-                  {symbolInfo.cng == undefined ? "0.00" : symbolInfo.cng} (
-                  {symbolInfo.nc == undefined ? "0.00" : symbolInfo.nc}%)
-                </p>
-              </td>
-            </tr>
+                  <p>
+                    {symbolInfo.cng == undefined ? "0.00" : symbolInfo.cng} (
+                    {symbolInfo.nc == undefined ? "0.00" : symbolInfo.nc}%)
+                  </p>
+                </td>
+
+                {symbolInfo.showDepth &&
+                symbolInfo.marketDepth != null &&
+                symbolInfo.marketDepth != undefined ? (
+                  <Collapse in={symbolInfo.showDepth}>
+                    <div className="market-depth" style={{ display: "" }}>
+                      <MarketDepth
+                        index={nIncreament}
+                        depth={symbolInfo.marketDepth}
+                        tokenInfo={symbolInfo}
+                      ></MarketDepth>
+                      <Quote index={nIncreament} tokenInfo={symbolInfo}></Quote>
+                    </div>
+                  </Collapse>
+                ) : (
+                  ""
+                )}
+              </tr>
+            )
           )
-        )
-      ) : (
-        <tr className="slideInDown-element">
-          <td>No Data</td>
-        </tr>
-      )}
-    </tbody>
+        ) : (
+          <tr className="slideInDown-element">
+            <td>No Data</td>
+          </tr>
+        )}
+      </tbody>
+    </Fragment>
   );
 };
 

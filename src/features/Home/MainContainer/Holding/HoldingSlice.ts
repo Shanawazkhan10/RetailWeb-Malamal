@@ -11,8 +11,8 @@ const holding = createSlice({
     holding: InitialHolding,
   },
   reducers: {
-    HoldingSuccess: (state, action: PayloadAction<any>) => {
-      state.holding = action.payload;
+    HoldingSuccess: (state, action) => {
+      state.holding = action.payload.hldVal;
     },
     HoldingUpdate: (state, action: PayloadAction<string>) => {
       // state.holding = state.holding.map((el) =>
@@ -33,7 +33,7 @@ export const fetchHolding = (): AppThunk => async (dispatch) => {
   try {
     const holdingResponse = await getHolding();
     dispatch(HoldingSuccess(holdingResponse));
-  } catch (err:any) {
+  } catch (err: any) {
     dispatch(HoldingError(err.toString()));
   }
 };
