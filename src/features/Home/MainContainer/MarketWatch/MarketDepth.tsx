@@ -5,6 +5,7 @@ const MarketDepth = (props: any) => {
 
   //const symbolInfo = props.tokenInfo;
   const Depth = props.depth;
+  const SymbolInfo = props.tokenInfo;
   return Depth != undefined ? (
     <div className="depth-table">
       <div className="row">
@@ -109,7 +110,9 @@ const MarketDepth = (props: any) => {
             <tr>
               <td>Total</td>{" "}
               <td colSpan={2} className="text-right">
-                1,11,454
+                {SymbolInfo && SymbolInfo.tbq != undefined
+                  ? SymbolInfo.tbq
+                  : "0"}
               </td>{" "}
             </tr>
           </tfoot>
@@ -216,7 +219,9 @@ const MarketDepth = (props: any) => {
             <tr>
               <td>Total</td>{" "}
               <td colSpan={2} className="text-right">
-                2,59,574
+                {SymbolInfo && SymbolInfo.tsq != undefined
+                  ? SymbolInfo.tsq
+                  : "0"}
               </td>
             </tr>
           </tfoot>

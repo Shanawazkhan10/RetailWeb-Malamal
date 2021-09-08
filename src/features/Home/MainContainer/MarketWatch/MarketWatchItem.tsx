@@ -372,6 +372,7 @@ const MarketWatchItem = (props: {
                     <MarketDepth
                       index={nIncreament}
                       depth={symbolInfo.marketDepth}
+                      tokenInfo={symbolInfo}
                     ></MarketDepth>
                     <Quote index={nIncreament} tokenInfo={symbolInfo}></Quote>
                   </div>

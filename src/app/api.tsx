@@ -1383,10 +1383,14 @@ export async function getNetposition(): Promise<any> {
 }
 
 export async function getHolding(): Promise<any> {
-  //const params = new URLSearchParams();
-  //params.append("jData", JSON.stringify(scriptInfo));
+  var holdingsReq: any = {
+    brkName: "TECXLABS",
+    prod: "CNC",
+  };
+  const params = new URLSearchParams();
+  params.append("jData", JSON.stringify(holdingsReq));
   return await api
-    .post("https://uathsint.hypertrade.in/quick/user/holdings", "", {
+    .post("https://uathsint.hypertrade.in/quick/user/holdings", params, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         "x-access-token": localStorage.getItem("sessionKey"),

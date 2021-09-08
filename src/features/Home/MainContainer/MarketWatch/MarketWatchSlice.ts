@@ -17,6 +17,7 @@ import { IScriptUpdate } from "../../../../types/MarketData/IScriptUpdate";
 import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 import { IDeleteWatchlist } from "./../../../../app/IDeleteWatchlist";
 import { IRenameWatchlist } from "./../../../../types/IRenameWatchlist";
+import MarketDepth from "./MarketDepth";
 
 const InitialMarketWatch: IMarketWatchList = {
   MarketWatchList: [],
@@ -182,6 +183,7 @@ const marketwatchSlice = createSlice({
       //state.marketWatch.SymbolList[0].ltp
     },
     DepthUpdatefromSocket: (state, action) => {
+      // let newState = { ...state };
       //const MarketDepth: IMarketDepth[] = action.payload;
       JSON.parse(action.payload).forEach((depth: IMarketDepth) => {
         state.marketWatch.MarketWatchList.forEach(
@@ -192,12 +194,15 @@ const marketwatchSlice = createSlice({
                 token.tok == depth.tk &&
                 depth.name == "dp"
               ) {
-                token.marketDepth = depth;
+                //void (token.marketDepth = depth);
 
                 //return Object.assign({}, token, depth);
-                // if (depth.bp != undefined) {
-                //   token.marketDepth.bp = depth.bp;
-                // }
+                if (token.marketDepth == undefined) {
+                  //token.marketDepth = [];
+                }
+                if (depth.bp != undefined) {
+                  token.marketDepth.bp = depth.bp;
+                }
                 // if (depth.bp2 != undefined) {
                 //   token.marketDepth.bp2 = depth.bp2;
                 // }
@@ -258,6 +263,7 @@ const marketwatchSlice = createSlice({
           }
         );
       });
+      //return newState;
     },
     // FetchSocketData: (state, action) => {
     //   // const ScriptData = useSelector(
@@ -296,7 +302,7 @@ export const FetchWatchList = (): AppThunk => async (dispatch) => {
   try {
     const watchListResponse = await getWatchList();
     dispatch(onMarketWatchSuccess(watchListResponse));
-  } catch (err) {
+  } catch (err: any) {
     dispatch(onMarketWatchFailure(err.toString()));
   }
 };
@@ -308,7 +314,7 @@ export const FetchWatchListSymbol =
       const scriptInfoResponse = await PostScritInfo(scriptInfoReq);
       dispatch(setSymbollistindex(index));
       dispatch(UpdateSymbolDetails(scriptInfoResponse));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
@@ -319,7 +325,7 @@ export const DeleteWatchlist =
     try {
       const deleteWatchlistResponse = await DeleteWatchlist(DelReq);
       dispatch(DeleteWatchList(deleteWatchlistResponse));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
@@ -330,7 +336,7 @@ export const RenameWatchlist =
     try {
       const renameWatchlistResponse = await renameWatchlist(RenameReq);
       dispatch(RenameWatchList(renameWatchlistResponse));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
@@ -341,7 +347,7 @@ export const UpdateWatchlist =
     try {
       const renameWatchlistResponse = await updateWatchlist(UpdateReq);
       //dispatch(RenameWatchList(renameWatchlistResponse));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
@@ -351,7 +357,7 @@ export const UpdateFeed =
   async (dispatch) => {
     try {
       dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
@@ -361,7 +367,7 @@ export const UpdateDepth =
   async (dispatch) => {
     try {
       dispatch(DepthUpdatefromSocket(msg as IMarketDepth));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };

@@ -94,6 +94,14 @@ const marketpicture = createSlice({
           if (script.ts != undefined) {
             token.trdSym = script.ts;
           }
+
+          if (script.tbq != undefined) {
+            token.tbq = script.tbq;
+          }
+
+          if (script.tsq != undefined) {
+            token.tsq = script.tsq;
+          }
           // token.op = script.op;
           // token.lo = script.lo;
           // token.h = script.h;
