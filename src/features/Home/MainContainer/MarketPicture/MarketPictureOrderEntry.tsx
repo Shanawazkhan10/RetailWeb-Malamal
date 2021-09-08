@@ -8,13 +8,13 @@ import {
 } from "../../../WebSocket/HSSocket1";
 import { userWS } from "../../../WebSocket/HSSocket";
 import { IMarketWatchTokenInfo } from "./../../../../types/IMarketWatchTokenInfo";
-import { IOrderEntryProps } from "../../../../types/IOrderEntryProps";
-import { IGTTEntryProps } from "../../../../types/IGTTEntryProps";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
   setOrderEntryProps,
 } from "../../OrderEntry/orderEntrySlice";
+import { IOrderEntryProps } from "../../../../types/OrderEntry/IOrderEntryProps";
+import { IGTTEntryProps } from "../../../../types/OrderEntry/IGTTEntryProps";
 
 const MarketPictureOrderEntry = (props: {
   TokenInfo: IMarketWatchTokenInfo;

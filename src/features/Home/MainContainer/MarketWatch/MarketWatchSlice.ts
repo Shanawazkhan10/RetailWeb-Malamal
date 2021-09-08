@@ -298,7 +298,7 @@ export const {
   //FetchSocketData,
 } = marketwatchSlice.actions;
 
-export const FetchWatchList =
+export const fetchmarketWatch =
   (cache: boolean, sessionkey: string): AppThunk =>
   async (dispatch) => {
     try {

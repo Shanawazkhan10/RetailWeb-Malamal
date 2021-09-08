@@ -32,7 +32,7 @@ import {
 } from "../MarketPicture/MarketPictureSlice";
 import MarketDepth from "./MarketDepth";
 import {
-  FetchWatchListSymbol,
+  fetchmarketSymbol,
   hideMore,
   ShowMarketDepth,
   showMore,
@@ -51,7 +51,7 @@ const MarketWatchItem = (props: {
     (state) => state.marketwatch.marketWatch
   );
   const OrderEntryState = useAppSelector((state) => state.orderEntry);
-  const user = useAppSelector((state) => state.user); 
+  const user = useAppSelector((state) => state.user);
   const [activeItem, setActiveItem] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [depth, setDepth] = React.useState(null);
@@ -186,7 +186,7 @@ const MarketWatchItem = (props: {
 
   function getSymbol() {
     dispatch(
-      FetchWatchListSymbol(
+      fetchmarketSymbol(
         propMarketWatch.scrips.split(","),
         user.sessionKey,
         props.index

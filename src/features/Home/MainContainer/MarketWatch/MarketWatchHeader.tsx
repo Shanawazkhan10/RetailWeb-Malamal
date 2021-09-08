@@ -8,9 +8,9 @@ import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 import "../../style.css";
 import SmartSearch from "../SmartSearch/SmartSearch";
 import {
-  DeleteWatchlist,
-  RenameWatchlist,
-  UpdateWatchlist,
+  deletemarketWatch,
+  renamemarketWatch,
+  updatemarketWatch,
 } from "./MarketWatchSlice";
 
 const MarketWatchHeader = () => {
@@ -42,7 +42,7 @@ const MarketWatchHeader = () => {
       mwName: sSelectedWatchList,
       userId: user.UserId,
     };
-    dispatch(DeleteWatchlist(DeleteReq, user.sessionKey)); //API Call
+    dispatch(deletemarketWatch(DeleteReq, user.sessionKey)); //API Call
   }
 
   function handleChange(event: any) {
@@ -56,7 +56,7 @@ const MarketWatchHeader = () => {
       userid: user.UserId,
     };
 
-    dispatch(UpdateWatchlist(UpdateReq,user.sessionKey));
+    dispatch(updatemarketWatch(UpdateReq, user.sessionKey));
     //dispatch(AddToWatchList(setName)); //API Call
   }
 
@@ -68,7 +68,7 @@ const MarketWatchHeader = () => {
       userId: user.UserId,
     };
     //API Call TO rename watch list
-    dispatch(RenameWatchlist(RenameReq,user.sessionKey));
+    dispatch(renamemarketWatch(RenameReq, user.sessionKey));
     //dispatch(RenameWatchList(RenameWatchlist(Input))); //API Call
   }
   return (
