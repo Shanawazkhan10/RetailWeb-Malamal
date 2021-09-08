@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
-  api,
   deleteWatchList,
   getWatchList,
   PostScritInfo,
@@ -184,6 +183,7 @@ const marketwatchSlice = createSlice({
       //state.marketWatch.SymbolList[0].ltp
     },
     DepthUpdatefromSocket: (state, action) => {
+      // let newState = { ...state };
       //const MarketDepth: IMarketDepth[] = action.payload;
       JSON.parse(action.payload).forEach((depth: IMarketDepth) => {
         state.marketWatch.MarketWatchList.forEach(
@@ -194,17 +194,36 @@ const marketwatchSlice = createSlice({
                 token.tok == depth.tk &&
                 depth.name == "dp"
               ) {
-                token.marketDepth = depth;
+                //void (token.marketDepth = depth);
+
                 //return Object.assign({}, token, depth);
-                //if (depth.bp != undefined) token.marketDepth.bp = depth.bp;
-                // if (depth.bp2 != undefined) token.marketDepth.bp2 = depth.bp2;
-                // if (depth.bp3 != undefined) token.marketDepth.bp3 = depth.bp3;
-                // if (depth.bp4 != undefined) token.marketDepth.bp4 = depth.bp4;
-                // if (depth.sp != undefined) token.marketDepth.sp = depth.bp2;
-                // if (depth.sp1 != undefined) token.marketDepth.sp1 = depth.sp1;
-                // if (depth.sp2 != undefined) token.marketDepth.sp2 = depth.sp2;
-                // if (depth.sp3 != undefined) token.marketDepth.sp3 = depth.sp3;
-                // if (depth.sp4 != undefined) token.marketDepth.sp4 = depth.sp4;
+                if (token.marketDepth == undefined) {
+                  //token.marketDepth = [];
+                }
+                if (depth.bp != undefined) {
+                  token.marketDepth.bp = depth.bp;
+                }
+                // if (depth.bp2 != undefined) {
+                //   token.marketDepth.bp2 = depth.bp2;
+                // }
+                // if (depth.bp3 != undefined) {
+                //   token.marketDepth.bp3 = depth.bp3;
+                // }
+                // if (depth.bp4 != undefined) {
+                //   token.marketDepth.bp4 = depth.bp4;
+                // }
+                // if (depth.sp != undefined) {
+                //   token.marketDepth.sp = depth.bp2;
+                // }
+                // if (depth.sp1 != undefined) {
+                //   token.marketDepth.sp2 = depth.sp2;
+                // }
+                // if (depth.sp3 != undefined) {
+                //   token.marketDepth.sp3 = depth.sp3;
+                // }
+                // if (depth.sp4 != undefined) {
+                //   token.marketDepth.sp4 = depth.sp4;
+                // }
                 // if (depth.bq != undefined) token.marketDepth.bq = depth.bq;
                 // if (depth.bq1 != undefined) token.marketDepth.bq1 = depth.bq1;
                 // if (depth.bq2 != undefined) token.marketDepth.bq2 = depth.bq2;
@@ -244,6 +263,7 @@ const marketwatchSlice = createSlice({
           }
         );
       });
+      //return newState;
     },
     // FetchSocketData: (state, action) => {
     //   // const ScriptData = useSelector(
@@ -278,74 +298,41 @@ export const {
   //FetchSocketData,
 } = marketwatchSlice.actions;
 
-export const fetchmarketWatch =
+export const FetchWatchList =
   (cache: boolean, sessionkey: string): AppThunk =>
   async (dispatch) => {
     try {
-      const MarketWatchData = await getWatchList(cache, sessionkey);
-      dispatch(onMarketWatchSuccess(MarketWatchData));
-    } catch (err) {
-      console.log(err);
+      const watchListResponse = await getWatchList(cache, sessionkey);
+      dispatch(onMarketWatchSuccess(watchListResponse));
+    } catch (err: any) {
+      dispatch(onMarketWatchFailure(err.toString()));
     }
   };
 
-export const deletemarketWatch =
-  (MarketRequestData: any, sessionkey: string): AppThunk =>
-  async (dispatch) => {
-    try {
-      const MarketWatchData = await getWatchList(MarketRequestData, sessionkey);
-      dispatch(onMarketWatchSuccess(MarketWatchData));
-    } catch (err) {
-      //TO ADD
-    }
-  };
-
-export const updatemarketWatch =
-  (MarketRequestData: any, sessionkey: string): AppThunk =>
-  async (dispatch) => {
-    try {
-      const MarketWatchData = await getWatchList(MarketRequestData, sessionkey);
-      dispatch(onMarketWatchSuccess(MarketWatchData));
-    } catch (err) {
-      //TO ADD
-    }
-  };
-
-export const renamemarketWatch =
-  (MarketRequestData: any, sessionkey: string): AppThunk =>
-  async (dispatch) => {
-    try {
-      const MarketWatchData = await getWatchList(MarketRequestData, sessionkey);
-      dispatch(onMarketWatchSuccess(MarketWatchData));
-    } catch (err) {
-      //TO ADD
-    }
-  };
-
-export const FetchWatchListSymbol =
+export const fetchmarketSymbol =
   (scriptInfoReq: string[], sessionkey: string, index: number): AppThunk =>
   async (dispatch) => {
     try {
       const scriptInfoResponse = await PostScritInfo(scriptInfoReq, sessionkey);
       dispatch(setSymbollistindex(index));
       dispatch(UpdateSymbolDetails(scriptInfoResponse));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
 
-export const DeleteWatchlist =
+export const deletemarketWatch =
   (DelReq: IDeleteWatchlist, sessionkey: string): AppThunk =>
   async (dispatch) => {
     try {
       const deleteWatchlistResponse = await deleteWatchList(DelReq, sessionkey);
       dispatch(DeleteWatchList(deleteWatchlistResponse));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
 
-export const RenameWatchlist =
+export const renamemarketWatch =
   (RenameReq: IRenameWatchlist, sessionkey: string): AppThunk =>
   async (dispatch) => {
     try {
@@ -354,12 +341,12 @@ export const RenameWatchlist =
         sessionkey
       );
       dispatch(RenameWatchList(renameWatchlistResponse));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
 
-export const UpdateWatchlist =
+export const updatemarketWatch =
   (UpdateReq: IUpdateWatchlist, sessionkey: string): AppThunk =>
   async (dispatch) => {
     try {
@@ -368,7 +355,7 @@ export const UpdateWatchlist =
         sessionkey
       );
       //dispatch(RenameWatchList(renameWatchlistResponse));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
@@ -378,7 +365,7 @@ export const UpdateFeed =
   async (dispatch) => {
     try {
       dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
@@ -388,7 +375,7 @@ export const UpdateDepth =
   async (dispatch) => {
     try {
       dispatch(DepthUpdatefromSocket(msg as IMarketDepth));
-    } catch (err) {
+    } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };

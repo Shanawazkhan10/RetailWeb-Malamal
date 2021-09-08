@@ -107,7 +107,7 @@ const HSSocket = () => {
     // jObj["sessionid"] = "S1";
     // jObj["type"] = "cn";
     const authReq: authReq = {
-      sessionid: "S101",
+      sessionid: String(localStorage.getItem("sessionKey")),
       type: "cn",
     };
     sendReq(authReq);

@@ -17,6 +17,7 @@ const InitialMarketPicture: IMarketPicture = {
   IsShow: false,
   Type: 0,
   script: "",
+  token: "",
   TokenInfo: InitialTokenInfo,
   Depth: InitialMarketDepth,
 };
@@ -28,13 +29,16 @@ const marketpicture = createSlice({
   },
   reducers: {
     ShowDepthFromSearch: (state, action) => {
-      state.marketpicture.Type = 1;
+      state.marketpicture.Type = 2;
       state.marketpicture.IsShow = true;
-      state.marketpicture.TokenInfo.tok = "11536";
+      state.marketpicture.script = action.payload;
+      state.marketpicture.token = state.marketpicture.script.split("|")[1];
     },
     ShowDepthFromPosition: (state, action) => {
       state.marketpicture.Type = 2;
       state.marketpicture.IsShow = true;
+      state.marketpicture.script = action.payload;
+      state.marketpicture.token = state.marketpicture.script.split("|")[1];
     },
     updateMarketDepth: (state, action: PayloadAction<IMarketDepth>) => {
       state.marketpicture.Depth = action.payload;
@@ -54,10 +58,7 @@ const marketpicture = createSlice({
       const ScriptList: IScriptUpdate[] = action.payload;
       //Local Storage check if token is present.
       JSON.parse(action.payload).forEach((script: IScriptUpdate) => {
-        if (
-          state.marketpicture.TokenInfo.tok == script.tk &&
-          script.name == "sf"
-        ) {
+        if (state.marketpicture.token == script.tk && script.name == "sf") {
           const token: IMarketWatchTokenInfo = state.marketpicture.TokenInfo;
           if (script.ltp != undefined) {
             token.ltp = script.ltp;
@@ -89,6 +90,18 @@ const marketpicture = createSlice({
           if (script.h != undefined) {
             token.h = script.h;
           }
+
+          if (script.ts != undefined) {
+            token.trdSym = script.ts;
+          }
+
+          if (script.tbq != undefined) {
+            token.tbq = script.tbq;
+          }
+
+          if (script.tsq != undefined) {
+            token.tsq = script.tsq;
+          }
           // token.op = script.op;
           // token.lo = script.lo;
           // token.h = script.h;
@@ -105,10 +118,7 @@ const marketpicture = createSlice({
     },
     SearchDepthUpdate: (state, action) => {
       JSON.parse(action.payload).forEach((depth: IMarketDepth) => {
-        if (
-          state.marketpicture.TokenInfo.tok == depth.tk &&
-          depth.name == "dp"
-        ) {
+        if (state.marketpicture.token == depth.tk && depth.name == "dp") {
           state.marketpicture.Depth = depth;
         }
       });

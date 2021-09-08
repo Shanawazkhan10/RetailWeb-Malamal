@@ -86,7 +86,7 @@ const MarketWatchHeader = () => {
         onChange={(e) => handleChange}
         value={sName}
       ></input> */}
-      <SmartSearch></SmartSearch>
+      <SmartSearch Type={1}></SmartSearch>
       <div className="mw-head-btns">
         <button id="btnEditMode" title="Edit" onClick={(e) => EditWatchList()}>
           Edit

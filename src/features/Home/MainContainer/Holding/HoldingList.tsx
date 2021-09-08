@@ -14,7 +14,7 @@ const HoldingList = () => {
   useEffect(() => {
     //dispatch(HoldingSuccess(getHoldingData()));
     dispatch(fetchHolding());
-  }, []);
+  }, [HoldingList]);
 
   return HoldingList.holding != undefined && HoldingList.holding.length > 0 ? (
     <div className="block_netPosition mr14" id="Holding">

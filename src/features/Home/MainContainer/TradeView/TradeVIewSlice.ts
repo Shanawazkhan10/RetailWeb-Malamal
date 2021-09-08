@@ -31,7 +31,7 @@ export const fetchTradeView = (sessionKey:string): AppThunk => async (dispatch) 
   try {
     const tradeResponse = await GetTradeBook(sessionKey);
     dispatch(TradeViewSuccess(tradeResponse));
-  } catch (err) {
+  } catch (err: any) {
     dispatch(TradeError(err.toString()));
   }
 };
