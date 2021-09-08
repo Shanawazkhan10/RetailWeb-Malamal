@@ -194,15 +194,15 @@ const marketwatchSlice = createSlice({
                 token.tok == depth.tk &&
                 depth.name == "dp"
               ) {
-                //void (token.marketDepth = depth);
+                void (token.marketDepth = depth);
 
                 //return Object.assign({}, token, depth);
-                if (token.marketDepth == undefined) {
-                  //token.marketDepth = [];
-                }
-                if (depth.bp != undefined) {
-                  token.marketDepth.bp = depth.bp;
-                }
+                //if (token.marketDepth == undefined) {
+                //token.marketDepth = [];
+                //}
+                // if (depth.bp != undefined) {
+                //  token.marketDepth.bp = depth.bp;
+                // }
                 // if (depth.bp2 != undefined) {
                 //   token.marketDepth.bp2 = depth.bp2;
                 // }

@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
 import { useAppDispatch } from "../../../../app/hooks";
 import { fetchTradeView, TradeViewSuccess } from "./TradeVIewSlice";
-import { getOrderData } from "../../../../app/api";
 import TradeView from "./Trade";
 
 const TradeList = () => {

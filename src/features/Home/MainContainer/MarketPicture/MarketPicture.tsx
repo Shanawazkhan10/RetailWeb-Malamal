@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
-import Search from "../SmartSearch/Search";
 import MarketPictureDepth from "./MarketPictureDepth";
 import MarketPictureOrderEntry from "./MarketPictureOrderEntry";
 import MarketPictureOrder from "./MarketPictureOrderEntry";

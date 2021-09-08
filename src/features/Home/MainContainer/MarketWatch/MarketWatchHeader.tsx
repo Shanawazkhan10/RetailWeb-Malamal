@@ -10,10 +10,6 @@ import "../../style.css";
 import SmartSearch from "../SmartSearch/SmartSearch";
 import {
   deletemarketWatch,
-<<<<<<< Updated upstream
-=======
-  DeleteWatchList,
->>>>>>> Stashed changes
   renamemarketWatch,
   updatemarketWatch,
 } from "./MarketWatchSlice";
