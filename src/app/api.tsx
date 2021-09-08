@@ -1,6 +1,7 @@
 import axios from "axios";
 import { IContractSearchReq } from "../types/IContractSearchReq";
 import { IMarketWatchTokenInfo } from "../types/IMarketWatchTokenInfo";
+import { IGetIndicesRequest } from "../types/Indices/IGetIndicesRequest";
 import { IRenameWatchlist } from "../types/IRenameWatchlist";
 import { ILoginRequest } from "../types/Request/IloginRequest";
 import { IOrderEntryRequest } from "../types/Request/IOrderEntryRequest";
@@ -1553,19 +1554,18 @@ export async function SearchSymbol(
     .catch((error) => error);
 }
 
-export async function Getallindicesdata(SessionKey: string): Promise<any> {
+export async function Getallindicesdata(getIndeicesRequest:IGetIndicesRequest,SessionKey: string): Promise<any> {
+  const params = new URLSearchParams();
+  params.append("exchange_segment",getIndeicesRequest.exchange_segment);
+  params.append("scrip_token", getIndeicesRequest.scrip_token);
   return await api
-    .post(
-      "https://uathsdiscovery.hypertrade.in/htpl/market/getallindicesdata",
-      null,
-      {
-        headers: {
-          "Content-Type": "application/json; charset=UTF-8",
-          "x-access-token": SessionKey,
-          "api-key": "UzL0HZiHPTc1rNVr",
-        },
-      }
-    )
+    .post("https://uathsdiscovery.hypertrade.in/htpl/market/getallindicesdata", params, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "x-access-token": SessionKey,
+        "api-key": "UzL0HZiHPTc1rNVr",
+      },
+    })
     .then((response) => response.data)
     .catch((error) => error);
 }

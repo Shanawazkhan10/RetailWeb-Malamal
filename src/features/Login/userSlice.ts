@@ -112,7 +112,7 @@ export const UserMPINLogin =
   async (dispatch) => {
     try {
       const MPINResponse = await PostMPINRequest(LoginData);
-      if (MPINResponse.code == 200) {
+      if (Number(MPINResponse.code) == 200) {
         dispatch(twofasuccess(MPINResponse));
       } else {
         dispatch(twofaError(MPINResponse));

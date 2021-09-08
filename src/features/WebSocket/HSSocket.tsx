@@ -8,6 +8,7 @@ import {
   DepthUpdatefromSocket,
   ScriptUpdatefromSocket,
 } from "../Home/MainContainer/MarketWatch/MarketWatchSlice";
+import { onIndiceUpdate } from "../Home/Header/IndicesSlice";
 
 export interface authReq {
   sessionid: string;
@@ -73,18 +74,37 @@ const HSSocket = () => {
     };
 
     userWS.onmessage = function (msg: any) {
-      if (JSON.parse(msg) && JSON.parse(msg)[0].name == "dp") {
-        //dispatch(DepthUpdate(msg as IMarketDepth));
-        dispatch(DepthUpdatefromSocket(msg as IMarketDepth));
-      } else if (JSON.parse(msg) && JSON.parse(msg)[0].name == "sf") {
-        //dispatch(ScriptUpdate(msg as IScriptUpdate));
-        dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
-      } else if (JSON.parse(msg) && JSON.parse(msg)[0].name == "if") {
-        dispatch(IndicesUpdate(msg as IIndices));
-      } else {
-        console.log(displayMessage("[Res]: " + msg + "\n"));
-      }
-      displayMessage("[Res]: " + msg + "\n");
+      JSON.parse(msg).forEach((element: any) => {
+        switch (element.name) {
+          case "dp":
+            dispatch(DepthUpdatefromSocket(element));
+            break;
+          case "sf":
+            dispatch(ScriptUpdatefromSocket(element));
+            break;
+          case "if":
+            dispatch(onIndiceUpdate(element));
+            break;
+
+          default:
+            console.log(msg);
+            break;
+        }
+      });
+      // if (JSON.parse(msg) && JSON.parse(msg)[0].name == "dp") {
+      //   //dispatch(DepthUpdate(msg as IMarketDepth));
+      //   dispatch(DepthUpdatefromSocket(msg as IMarketDepth));
+      // } else if (JSON.parse(msg) && JSON.parse(msg)[0].name == "sf") {
+      //   //dispatch(ScriptUpdate(msg as IScriptUpdate));
+      //   dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
+      // } else if (JSON.parse(msg) && JSON.parse(msg)[0].name == "if") {
+      //   //dispatch(IndicesUpdate(msg as IIndices));
+      //   dispatch(onIndiceUpdate(msg as IIndices));
+      // } else {
+      //   console.log(displayMessage("[Res]: " + msg + "\n"));
+      // }
+      // console.log(msg);
+      // displayMessage("[Res]: " + msg + "\n");
     };
   }
 

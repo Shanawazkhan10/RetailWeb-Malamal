@@ -122,55 +122,49 @@ const marketwatchSlice = createSlice({
       state.marketWatch.Symbollistindex = action.payload;
     },
     ScriptUpdatefromSocket: (state, action) => {
-      const ScriptList: IScriptUpdate[] = action.payload;
-      JSON.parse(action.payload).forEach((script: IScriptUpdate) => {
-        // state.socketdata.Script[Number(script.tk)] = script;
-        //
-        //state.marketWatch.SymbolList[0].ltp = script.ltp;
-        //state.marketWatch.MarketWatchList[0].SymbolList[0].sym = script.ltp;
-        if (state.marketWatch.MarketWatchList == undefined) return;
-        state.marketWatch.MarketWatchList.forEach(
-          (MarketWatch: IMarketWatch) => {
-            if (MarketWatch.SymbolList == undefined) return;
-            MarketWatch.SymbolList.forEach((token: IMarketWatchTokenInfo) => {
-              if (token.tok == script.tk) {
-                if (script.ltp != undefined) {
-                  token.ltp = script.ltp;
-                }
-                if (script.nc != undefined) {
-                  token.nc = script.nc;
-                }
-                if (script.cng != undefined) {
-                  token.cng = script.cng;
-                }
-                // token.op = script.op;
-                // token.lo = script.lo;
-                // token.h = script.h;
-                // token.c = script.c;
-                // token.v = script.v;
-                // token.ltq = script.ltq;
-                // token.ltt = script.ltt;
-                // token.lcl = script.lcl;
-                // token.ucl = script.ucl;
-              }
-            });
+      const scripUpdate: IScriptUpdate = action.payload;
+
+      // state.socketdata.Script[Number(script.tk)] = script;
+      //
+      //state.marketWatch.SymbolList[0].ltp = script.ltp;
+      //state.marketWatch.MarketWatchList[0].SymbolList[0].sym = script.ltp;
+      if (state.marketWatch.MarketWatchList == undefined) return;
+      state.marketWatch.MarketWatchList.forEach((MarketWatch: IMarketWatch) => {
+        if (MarketWatch.SymbolList == undefined) return;
+        MarketWatch.SymbolList.forEach((token: IMarketWatchTokenInfo) => {
+          if (token.tok == scripUpdate.tk) {
+            if (scripUpdate.ltp != undefined) {
+              token.ltp = scripUpdate.ltp;
+            }
+            if (scripUpdate.nc != undefined) {
+              token.nc = scripUpdate.nc;
+            }
+            if (scripUpdate.cng != undefined) {
+              token.cng = scripUpdate.cng;
+            }
+            // token.op = script.op;
+            // token.lo = script.lo;
+            // token.h = script.h;
+            // token.c = script.c;
+            // token.v = script.v;
+            // token.ltq = script.ltq;
+            // token.ltt = script.ltt;
+            // token.lcl = script.lcl;
+            // token.ucl = script.ucl;
           }
-        );
+        });
       });
+
       //state.marketWatch.SymbolList[0].ltp
     },
     DepthUpdatefromSocket: (state, action) => {
-      const MarketDepth: IMarketDepth[] = action.payload;
-      JSON.parse(action.payload).forEach((depth: IMarketDepth) => {
-        state.marketWatch.MarketWatchList.forEach(
-          (MarketWatch: IMarketWatch) => {
-            MarketWatch.SymbolList.forEach((token: IMarketWatchTokenInfo) => {
-              if (token.showDepth && token.tok == depth.tk) {
-                token.marketDepth = depth;
-              }
-            });
+      const MarketDepth: IMarketDepth = action.payload;
+      state.marketWatch.MarketWatchList.forEach((MarketWatch: IMarketWatch) => {
+        MarketWatch.SymbolList.forEach((token: IMarketWatchTokenInfo) => {
+          if (token.showDepth && token.tok == MarketDepth.tk) {
+            token.marketDepth = MarketDepth;
           }
-        );
+        });
       });
     },
     // FetchSocketData: (state, action) => {
