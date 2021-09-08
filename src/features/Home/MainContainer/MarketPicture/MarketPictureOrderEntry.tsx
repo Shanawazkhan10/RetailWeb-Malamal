@@ -1,20 +1,19 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { useAppDispatch } from "../../../../app/hooks";
-import { CloseDepth } from "./MarketPictureSlice";
+import { IGTTEntryProps } from "../../../../types/OrderEntry/IGTTEntryProps";
+import { IOrderEntryProps } from "../../../../types/OrderEntry/IOrderEntryProps";
+import { userWS } from "../../../WebSocket/HSSocket";
 import {
   SubUnsubReq,
   waitForSocketConnection,
 } from "../../../WebSocket/HSSocket1";
-import { userWS } from "../../../WebSocket/HSSocket";
-import { IMarketWatchTokenInfo } from "./../../../../types/IMarketWatchTokenInfo";
-import { IOrderEntryProps } from "../../../../types/IOrderEntryProps";
-import { IGTTEntryProps } from "../../../../types/IGTTEntryProps";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
   setOrderEntryProps,
 } from "../../OrderEntry/orderEntrySlice";
+import { IMarketWatchTokenInfo } from "./../../../../types/IMarketWatchTokenInfo";
+import { CloseDepth } from "./MarketPictureSlice";
 
 const MarketPictureOrderEntry = (props: {
   TokenInfo: IMarketWatchTokenInfo;

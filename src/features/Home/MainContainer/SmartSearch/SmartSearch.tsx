@@ -31,6 +31,7 @@ import {
 import {
   AddToWatchList,
   FetchWatchListSymbol,
+  NewScripWatchList,
   UpdateWatchlist,
 } from "../MarketWatch/MarketWatchSlice";
 import { FetchSearch } from "./SmartSearchSlice";
@@ -69,34 +70,35 @@ const SmartSearch = (props: { Type: Number }) => {
     dispatch(chartContainer());
   }
 
-  function onAddWatchList(data: any) {
-    //console.log(data);
-    clearSearch();
-    let newscript: string[] = []; // DM: To fetch[TODO]
-    let newscrips: string = "";
-    newscript.push(data.exseg + "|" + data.omtkn);
-    if (WatchList.MarketWatchList.length >= selectedList) {
-      newscrips = WatchList.MarketWatchList[selectedList].scrips;
-      newscrips = newscrips + "," + newscript;
-    } else {
-      newscrips = newscript[0]; //DM: new added symbol will be always first
-      selectlistname = selectlistname;
-    }
-
-    const ReqUpdateData: IUpdateWatchlist = {
-      mwName: selectlistname,
-      userid: user.sessionKey,
-      scrips: newscrips,
-    };
-
-    dispatch(UpdateWatchlist(ReqUpdateData));
-    dispatch(FetchWatchListSymbol(newscript, user.sessionKey, selectedList, 1));
-  }
   const onAddClick = (data: IContractSearch) => {
-    if (props.Type == 2) {
+    clearSearch();
+    if (props.Type == 1) {
+      let newscript: string[] = []; // DM: To fetch[TODO]
+      let newscrips: string = "";
+      newscript.push(data.exseg + "|" + data.omtkn);
+      if (WatchList.MarketWatchList.length >= selectedList) {
+        newscrips = WatchList.MarketWatchList[selectedList].scrips;
+        newscrips = newscrips + "," + newscript;
+      } else {
+        newscrips = newscript[0]; //DM: new added symbol will be always first
+        selectlistname = selectlistname;
+      }
+
+      const ReqUpdateData: IUpdateWatchlist = {
+        mwName: selectlistname,
+        userid: user.sessionKey,
+        scrips: newscrips,
+      };
+
+      dispatch(UpdateWatchlist(ReqUpdateData));
+      dispatch(
+        FetchWatchListSymbol(newscript, user.sessionKey, selectedList, 1)
+      );
+    } else if (props.Type == 2) {
       dispatch(ShowDepthFromPosition(data.exseg + "|" + data.omtkn));
       clearSearch();
-    } else {
+    } else if (props.Type == 3) {
+      NewScripWatchList(data.exseg + "|" + data.omtkn);
     }
     //dispatch(AddToWatchList(contractSearch));
   };
@@ -229,7 +231,7 @@ const SmartSearch = (props: { Type: Number }) => {
                       <button
                         className=" btn_buy"
                         title="Add"
-                        onClick={() => onAddWatchList(result)}
+                        onClick={() => onAddClick(result)}
                       >
                         A
                       </button>

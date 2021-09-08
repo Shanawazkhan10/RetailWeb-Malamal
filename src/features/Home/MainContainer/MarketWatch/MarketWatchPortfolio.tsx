@@ -50,9 +50,9 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
   function AddWatchList() {
     const ReqData: IMarketWatch = {
       mwName: sName,
-      scrips: "",
+      scrips: WatchList.newScrip,
       id: selectedList + 1,
-      SymbolList: [],
+      SymbolList: WatchList.marketWatch.SymbolList,
     };
 
     dispatch(NewWatchList(ReqData));
@@ -131,7 +131,7 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
               <button id="btnSave" title="Save" onClick={() => AddWatchList()}>
                 Save
               </button>
-              <SmartSearch></SmartSearch>
+              <SmartSearch Type={3}></SmartSearch>
             </div>
           </div>
         </Popup>

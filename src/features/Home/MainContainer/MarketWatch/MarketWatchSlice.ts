@@ -30,10 +30,13 @@ const InitialMarketWatch: IMarketWatchList = {
   SymbolList: [],
 };
 
+let newScrip: String = "";
+
 const marketwatchSlice = createSlice({
   name: "marketwatch",
   initialState: {
     marketWatch: InitialMarketWatch,
+    newScrip: "",
   },
   reducers: {
     onMarketWatchSuccess: (state, action) => {
@@ -270,6 +273,10 @@ const marketwatchSlice = createSlice({
     AddNewWatchList: (state, action) => {
       state.marketWatch.MarketWatchList.push(action.payload);
     },
+    NewScripWatchList: (state, action) => {
+      //state.marketWatch.SymbolList.push(action.payload);
+      state.newScrip = action.payload;
+    },
     // FetchSocketData: (state, action) => {
     //   // const ScriptData = useSelector(
     //   //   (state: RootState) => state.socketData.socketdata.Script
@@ -302,6 +309,7 @@ export const {
   DepthUpdatefromSocket,
   //FetchSocketData,
   AddNewWatchList,
+  NewScripWatchList,
 } = marketwatchSlice.actions;
 
 export const fetchmarketWatch =
