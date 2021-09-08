@@ -23,7 +23,7 @@ const MarketWatchListContainer = (props: any) => {
     <>
       {WatchListData.map((row: IMarketWatch, i) => (
         <table
-          className="table table-responsive table-borderless"
+          className="table table-responsive table-borderless table-hover"
           id={String(i)}
           key={String(i)}
           style={selectedList == i ? {} : { display: "none" }}
@@ -37,7 +37,7 @@ const MarketWatchListContainer = (props: any) => {
       ))}
     </>
   ) : (
-    <table className="table table-responsive table-borderless"></table>
+    <table className="table table-responsive table-borderless table-hover"></table>
   );
 };
 

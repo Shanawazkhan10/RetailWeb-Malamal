@@ -1,5 +1,6 @@
 import { useAppDispatch } from "../../../../app/hooks";
 import { holdingContainer } from "../mainContainerSlice";
+import PieChart from "../PieChart/PieChart";
 
 const Holdings = () => {
   const dispatch = useAppDispatch();
@@ -48,7 +49,8 @@ const Holdings = () => {
             </div>
           </div>
           <div className="col-md-6 mt-4">
-            <img src="images/pie-chart.png" className="img-fluid" />
+            {/* <img src="images/pie-chart.png" className="img-fluid" /> */}
+            <PieChart></PieChart>
           </div>
         </div>
       </div>

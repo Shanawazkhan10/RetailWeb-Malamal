@@ -76,7 +76,7 @@ const MainContainer = (props: any) => {
     //dispatch(loggedout());
   }
   return (
-    <div className="container-fluid" style={{ marginTop: "25px" }}>
+    <div className="container-fluid" id="mainbox">
       <div className="row">
         <div className="col-md-6 col-lg-4 col-xl-3">
           <div className="plate-2 fadeIn-element">

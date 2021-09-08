@@ -50,7 +50,7 @@ const Header = () => {
   }
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top d-flex flex-row">
       <a className="navbar-brand" href="/Home">
         <img src="images/logo.png" alt="logo" />
       </a>
@@ -72,7 +72,7 @@ const Header = () => {
             <HeaderIndices></HeaderIndices>
           </li>
         </ul>
-        <ul className="navbar-nav mr-auto justify-content-end" id="menutxt">
+        <ul className="navbar-nav ml-auto justify-content-end" id="menutxt">
           <li className="nav-item">
             <a
               className={

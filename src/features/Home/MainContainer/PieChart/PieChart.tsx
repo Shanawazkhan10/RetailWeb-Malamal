@@ -4,8 +4,8 @@ import Chart from "react-google-charts";
 const PieChart = () => {
   return (
     <Chart
-      width={"600px"}
-      height={"350px"}
+      width={"100%"}
+      height={"100%"}
       chartType="PieChart"
       loader={<div>Loading Chart</div>}
       data={[
@@ -20,7 +20,7 @@ const PieChart = () => {
         title: "",
         pieHole: 0.60,
         is3D: false,
-        backgroundColor:"#1f1e2c",
+        backgroundColor:"#ffffff00",
         fill:"#fff",  
         showScale:false,      
         // slices: {   2: {offset:-0.0125},
