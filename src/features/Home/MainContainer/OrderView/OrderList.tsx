@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { getOrderData } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import "../../style.css";

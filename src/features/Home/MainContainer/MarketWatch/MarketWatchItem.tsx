@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect } from "react";
 import { Collapse } from "reactstrap";
-import { GetSymbolDetails, SubscribeMarketDepth } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
@@ -8,9 +7,8 @@ import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
 import { IGTTEntryProps } from "../../../../types/OrderEntry/IGTTEntryProps";
 import { IOrderEntryProps } from "../../../../types/OrderEntry/IOrderEntryProps";
-import HSSocket, { userWS } from "../../../WebSocket/HSSocket";
+import { userWS } from "../../../WebSocket/HSSocket";
 import {
-  sendUnsubReq,
   SubUnsubReq,
   waitForSocketConnection,
 } from "../../../WebSocket/HSSocket1";
@@ -111,10 +109,8 @@ const MarketWatchItem = (props: {
     dispatch(chartContainer());
   }
   function RemoveSymbol(tokenInfo: IMarketWatchTokenInfo) {
-    dispatch(UpdateTokenInfo(GetSymbolDetails()));
-
-    dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
-
+    //dispatch(UpdateTokenInfo(GetSymbolDetails()));
+    //dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
     //API Call update List & on success call dispatch
     // const RemoveFromWatch: IRemoveFromWatch = {
     //   mwName: propMarketWatch.mwName,

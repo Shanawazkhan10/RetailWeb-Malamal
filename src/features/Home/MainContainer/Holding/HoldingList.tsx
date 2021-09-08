@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
 import { useAppDispatch } from "../../../../app/hooks";
-import { getHoldingData } from "../../../../app/api";
 import { fetchHolding, HoldingSuccess } from "./HoldingSlice";
 import Holding from "./Holding";
 

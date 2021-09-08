@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { getNetpositionData } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import "../../style.css";

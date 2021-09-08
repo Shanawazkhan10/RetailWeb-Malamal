@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { deleteWatchList } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IDeleteWatchlist } from "../../../../app/IDeleteWatchlist";
 import { RootState } from "../../../../store/store";
@@ -9,6 +10,10 @@ import "../../style.css";
 import SmartSearch from "../SmartSearch/SmartSearch";
 import {
   deletemarketWatch,
+<<<<<<< Updated upstream
+=======
+  DeleteWatchList,
+>>>>>>> Stashed changes
   renamemarketWatch,
   updatemarketWatch,
 } from "./MarketWatchSlice";

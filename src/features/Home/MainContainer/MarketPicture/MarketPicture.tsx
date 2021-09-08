@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import { ContractSearch } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import Search from "../SmartSearch/Search";
