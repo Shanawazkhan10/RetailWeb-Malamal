@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import { Collapse } from "reactstrap";
-import { GetSymbolDetails, SubscribeMarketDepth } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
@@ -8,7 +6,8 @@ import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
 import { IGTTEntryProps } from "../../../../types/OrderEntry/IGTTEntryProps";
 import { IOrderEntryProps } from "../../../../types/OrderEntry/IOrderEntryProps";
-import HSSocket, { userWS } from "../../../WebSocket/HSSocket";
+import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
+import { userWS } from "../../../WebSocket/HSSocket";
 import {
   sendUnsubReq,
   SubUnsubReq,
@@ -27,17 +26,13 @@ import {
 } from "../../OrderEntry/orderEntrySlice";
 import { chartContainer } from "../mainContainerSlice";
 import {
-  updateMarketDepth,
-  UpdateTokenInfo,
-} from "../MarketPicture/MarketPictureSlice";
-import MarketDepth from "./MarketDepth";
-import {
+  DeleteWatchlist,
   FetchWatchListSymbol,
   hideMore,
   ShowMarketDepth,
   showMore,
+  UpdateWatchlist,
 } from "./MarketWatchSlice";
-import Quote from "./Quote";
 //import { userWS } from "./../../../WebSocket/HSSocket1";
 
 export interface scriptInfoReq {
@@ -50,6 +45,10 @@ const MarketWatchItem = (props: {
   const marketWatchState = useAppSelector(
     (state) => state.marketwatch.marketWatch
   );
+  let selectedList: number;
+  selectedList = marketWatchState.nSelectedWatchList;
+  let selectlistname: string;
+  selectlistname = marketWatchState.sSelectedWatchList;
   const OrderEntryState = useAppSelector((state) => state.orderEntry);
   const user = useAppSelector((state) => state.user);
   const [activeItem, setActiveItem] = React.useState(false);
@@ -111,10 +110,8 @@ const MarketWatchItem = (props: {
     dispatch(chartContainer());
   }
   function RemoveSymbol(tokenInfo: IMarketWatchTokenInfo) {
-    dispatch(UpdateTokenInfo(GetSymbolDetails()));
-
-    dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
-
+    // dispatch(UpdateTokenInfo(GetSymbolDetails()));
+    // dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
     //API Call update List & on success call dispatch
     // const RemoveFromWatch: IRemoveFromWatch = {
     //   mwName: propMarketWatch.mwName,
@@ -133,6 +130,21 @@ const MarketWatchItem = (props: {
     //   };
     //   UnsubscribeMarketDepth(SubscribeDepth);
     // }
+
+    let oldscrips: string = "";
+    let newscrip = tokenInfo.exSeg + "|" + tokenInfo.tok;
+    if (marketWatchState.MarketWatchList.length >= selectedList) {
+      oldscrips = marketWatchState.MarketWatchList[selectedList].scrips;
+      oldscrips = oldscrips.replace(newscrip + ",", "");
+    }
+
+    const ReqUpdateData: IUpdateWatchlist = {
+      mwName: selectlistname,
+      userid: user.sessionKey,
+      scrips: oldscrips,
+    };
+
+    dispatch(UpdateWatchlist(ReqUpdateData));
   }
   function removeValue(list: string, value: string, separator: string) {
     separator = ",";
@@ -239,7 +251,8 @@ const MarketWatchItem = (props: {
   return (
     <tbody>
       {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
-      {propMarketWatch.SymbolList != null ? (
+      {propMarketWatch.SymbolList != null &&
+      propMarketWatch.SymbolList != [] ? (
         propMarketWatch.SymbolList.map(
           (symbolInfo: IMarketWatchTokenInfo, nIncreament) => (
             //     {symbolInfo.showDepth &&

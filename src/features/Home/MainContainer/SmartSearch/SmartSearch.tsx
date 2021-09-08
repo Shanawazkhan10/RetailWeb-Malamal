@@ -36,11 +36,11 @@ const SmartSearch = () => {
   const [searchValue, setSearchValue] = useState("");
   const [Result, setResult] = useState<IContractSearch[]>([]);
 
-  const WatchList = useSelector((state: RootState) => state.marketwatch);
+  const WatchList = useAppSelector((state) => state.marketwatch.marketWatch);
   let selectedList: number;
-  selectedList = WatchList.marketWatch.nSelectedWatchList;
+  selectedList = WatchList.nSelectedWatchList;
   let selectlistname: string;
-  selectlistname = WatchList.marketWatch.sSelectedWatchList;
+  selectlistname = WatchList.sSelectedWatchList;
 
   const onDepthClick = () => {
     //e.preventDefault();
@@ -65,17 +65,24 @@ const SmartSearch = () => {
   function onAddWatchList(data: any) {
     //console.log(data);
     clearSearch();
-    let newscript: string[] = [];
+    let newscript: string[] = []; // DM: To fetch[TODO]
+    let newscrips: string = "";
     newscript.push(data.exseg + "|" + data.omtkn);
-    let newscrips = WatchList.marketWatch.MarketWatchList[selectedList].scrips;
-    newscrips = newscrips + "," + newscript;
+    if (WatchList.MarketWatchList.length >= selectedList) {
+      newscrips = WatchList.MarketWatchList[selectedList].scrips;
+      newscrips = newscrips + "," + newscript;
+    } else {
+      newscrips = newscript[0]; //DM: new added symbol will be always first
+      selectlistname = selectlistname;
+    }
+
     const ReqUpdateData: IUpdateWatchlist = {
       mwName: selectlistname,
       userid: user.sessionKey,
       scrips: newscrips,
     };
 
-    dispatch(UpdateWatchlist(ReqUpdateData, user.sessionKey));
+    dispatch(UpdateWatchlist(ReqUpdateData));
     dispatch(FetchWatchListSymbol(newscript, user.sessionKey, selectedList, 1));
   }
 
