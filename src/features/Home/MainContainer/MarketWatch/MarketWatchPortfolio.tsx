@@ -22,7 +22,7 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
 
   const handleChange = (event: any) => {
     event.preventDefault();
-    //event.stopPropagation();
+
     const ChangeWatchlist: IChangeWatchlist = {
       id: Number(event.currentTarget.id),
       mwname: event.currentTarget.value,
@@ -31,7 +31,6 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
   };
 
   return WatchListData && WatchListData.length > 0 ? (
-    // !WatchList.marketWatch.bIsBind ? (
     <div className="mw_head" id="mw_head">
       <ul id="ulTab" className="scroll_tabs_container">
         <div
@@ -57,10 +56,6 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
           }}
         >
           {WatchListData.map((WatchList: any) => (
-            // <MarketWatchTabLayout
-            //   key={WatchList.id}
-            //   MarketWatchProps={WatchList}
-            // />
             <li
               key={WatchList.id}
               className={

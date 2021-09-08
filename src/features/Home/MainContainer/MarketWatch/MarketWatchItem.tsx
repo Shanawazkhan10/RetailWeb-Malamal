@@ -63,7 +63,6 @@ const MarketWatchItem = (props: {
   const options = ["one", "two", "three"];
 
   useEffect(() => {
-    //dispatch(setSymbollistindex(props.index));
     getSymbol();
     console.log(" MarketWatchItem useEffect");
   }, []);
@@ -119,23 +118,8 @@ const MarketWatchItem = (props: {
     dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
 
     //API Call update List & on success call dispatch
-    // const RemoveFromWatch: IRemoveFromWatch = {
-    //   mwName: propMarketWatch.mwName,
-    //   scrips: removeValue(propMarketWatch.scrips, tokenInfo.scrips, "|"),
-    //   id: tokenInfo.mwId,
-    //   userId: "Test User",
-    // };
-    // dispatch(RemoveSymbolFromWatchlist(RemoveFromWatch));
+
     //Unsubscribe Depth API Call
-    // if (symbol.showDepth) {
-    //   const SubscribeDepth: ISubscribeDepth = {
-    //     type: "dpu",
-    //     scrips: symbol.scrips,
-    //     id: propMarketWatch.id,
-    //     channelnum: propMarketWatch.id,
-    //   };
-    //   UnsubscribeMarketDepth(SubscribeDepth);
-    // }
   }
   function removeValue(list: string, value: string, separator: string) {
     separator = ",";
@@ -160,38 +144,28 @@ const MarketWatchItem = (props: {
       const SubscribeDepth: ISubscribeDepth = {
         type: "dps",
         scrips: symbol.exSeg + "|" + symbol.tok,
-        //id: propMarketWatch.id,
         channelnum: propMarketWatch.id + 1,
       };
 
       waitForSocketConnection(userWS, function () {
         userWS.send(JSON.stringify(SubscribeDepth));
       });
-      // dispatch(
-      //   getMarketDepthSuccess(SubscribeMarketDepth(propMarketWatch.id, index))
-      // );
     } else {
       //Unsubscribe Depth API Call
       const SubscribeDepth: ISubscribeDepth = {
         type: "dpu",
         scrips: symbol.exSeg + "|" + symbol.tok,
-        //id: propMarketWatch.id,
         channelnum: propMarketWatch.id + 1,
       };
 
       waitForSocketConnection(userWS, function () {
         userWS.send(JSON.stringify(SubscribeDepth));
       });
-      //sendUnsubReq(SubscribeDepth);
-      // UnsubscribeMarketDepth(SubscribeDepth);
     }
   }
   function getSymbol() {
     //API call to bind Token info (Scrip Info Request)
-    // var scrpitArray:string[]=propMarketWatch.scrips.split(",");
-    //  const scriptInfoReq:scriptInfoReq {
-    //   scripArr:scrpitArray
-    // }
+
     dispatch(
       FetchWatchListSymbol(propMarketWatch.scrips.split(","), props.index)
     );
@@ -233,7 +207,6 @@ const MarketWatchItem = (props: {
 
   return (
     <Fragment>
-      {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
       {propMarketWatch.SymbolList != null ? (
         propMarketWatch.SymbolList.map(
           (symbolInfo: IMarketWatchTokenInfo, nIncreament) => (
@@ -380,9 +353,6 @@ const MarketWatchItem = (props: {
               ) : (
                 ""
               )}
-              {/* {activeItem && activeIndex == nIncreament + 1
-                ? onDepthClick1(nIncreament + 1)
-                : ""} */}
             </div>
           )
         )
