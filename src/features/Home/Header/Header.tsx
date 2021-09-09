@@ -9,7 +9,6 @@ import {
   positionContainer,
 } from "../MainContainer/mainContainerSlice";
 import { ToggleMenuContainer } from "../Menu/MenuBarSlice";
-import "./Header.css";
 import HeaderIndices from "./HeaderIndices";
 
 const Header = () => {

@@ -1,7 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Getallindicesdata } from "../../../app/api";
 import { AppThunk } from "../../../store/store";
+import { IGetIndicesRequest } from "../../../types/Indices/IGetIndicesRequest";
 import { IIndicesList } from "../../../types/Indices/IIndicesList";
+import { IIndices } from "../../../types/MarketData/IIndices";
+import { SubUnsubReq, userWS } from "../../WebSocket/HSSocket";
+import {
+  sendUnsubReq,
+  waitForSocketConnection,
+} from "../../WebSocket/HSSocket1";
 
 const initialState = {
   IndicesList: [],
@@ -17,27 +24,62 @@ export const indicesSlice = createSlice({
     },
     onIndicesFetchSuccess: (state, action: PayloadAction<any>) => {
       state.isError = false;
+      state.IndicesList.push(action.payload.data);
     },
     onIndicesFetchError: (state, action: PayloadAction<any>) => {
       state.isError = true;
     },
+    onIndiceUpdate: (state, action: PayloadAction<any>) => {
+      const searchIndex = state.IndicesList.find(
+        (x) => x.omtkn === action.payload.tk
+      );
+      if (searchIndex !== undefined) {
+        searchIndex.last = action.payload.iv;
+        searchIndex.chg = action.payload.cng;
+        searchIndex.netchg = action.payload.nc;
+      }
+    },
   },
 });
 
-export const{onIndicesLoading,onIndicesFetchSuccess,onIndicesFetchError}=indicesSlice.actions;
+export const {
+  onIndicesLoading,
+  onIndicesFetchSuccess,
+  onIndicesFetchError,
+  onIndiceUpdate,
+} = indicesSlice.actions;
 
 export default indicesSlice.reducer;
 
 export const GetAllIndicesData =
-  (sessionkey:string): AppThunk =>
+  (getIndeicesRequest: IGetIndicesRequest, sessionkey: string): AppThunk =>
   async (dispatch) => {
     try {
-      const indicesRepsonse = await Getallindicesdata(sessionkey);
-
-      
+      const indicesRepsonse = await Getallindicesdata(
+        getIndeicesRequest,
+        sessionkey
+      );
+      if (Number(indicesRepsonse.code) == 200) {
+        dispatch(onIndicesFetchSuccess(indicesRepsonse));
+      } else {
+        dispatch(onIndicesFetchError(indicesRepsonse));
+      }
     } catch (error) {
       dispatch(onIndicesFetchError);
-    } 
+    }
   };
 
-
+export const SendIndiceSubRequest =
+  (indexList: any): AppThunk =>
+  async (dispatch) => {
+    //subscribe Script API Call
+    const subUnsubReq: SubUnsubReq = {
+      type: "ifs",
+      scrips: indexList,
+      channelnum: 1,
+    };
+    let req = JSON.stringify(subUnsubReq);
+    waitForSocketConnection(userWS, function () {
+      sendUnsubReq(subUnsubReq);
+    });
+  };
