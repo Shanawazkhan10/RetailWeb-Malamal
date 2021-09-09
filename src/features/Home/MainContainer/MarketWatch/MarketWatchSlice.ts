@@ -29,9 +29,6 @@ const InitialMarketWatch: IMarketWatchList = {
   Symbollistindex: 0,
   SymbolList: [],
 };
-
-let newScrip: String = "";
-
 const marketwatchSlice = createSlice({
   name: "marketwatch",
   initialState: {
@@ -60,12 +57,7 @@ const marketwatchSlice = createSlice({
       // state.marketWatch.bIsBind = true;
     },
     DeleteWatchList: (state, action) => {
-      //state.marketWatch.nSelectedWatchList = 1;
-      state.marketWatch.MarketWatchList =
-        state.marketWatch.MarketWatchList.filter(
-          (row) => row.id != action.payload
-        );
-      state.marketWatch.nSelectedWatchList = 1;
+      //No of occurences code remaining
     },
     AddToWatchList: (state, action) => {
       state.marketWatch.MarketWatchList[
@@ -73,10 +65,12 @@ const marketwatchSlice = createSlice({
       ].SymbolList.push(action.payload);
     },
     RenameWatchList: (state, action) => {
-      state.marketWatch.MarketWatchList =
-        state.marketWatch.MarketWatchList.filter(
-          (row) => row.id == action.payload
-        );
+      // state.marketWatch.MarketWatchList =
+      //   state.marketWatch.MarketWatchList.filter(
+      //     (row) => row.id == action.payload
+      //   );
+
+      state.marketWatch.sSelectedWatchList = action.payload.newmwName; //DM: Changing name
     },
     UpdateSymbolDetails: (state, action) => {
       let TokenInfo: IMarketWatchTokenInfo[] = action.payload.data;
@@ -272,6 +266,14 @@ const marketwatchSlice = createSlice({
     },
     AddNewWatchList: (state, action) => {
       state.marketWatch.MarketWatchList.push(action.payload);
+      state.marketWatch.bIsBind = true;
+      state.marketWatch.nSelectedWatchList = action.payload.nSelectedWatchList;
+      state.marketWatch.sSelectedWatchList = action.payload.mwName;
+      state.marketWatch.Symbollistindex = 0;
+      state.marketWatch.MarketWatchList.map(
+        //(row, i) => GetWatchListSymbolDetails(i + 1, row.scrips) //DUmmy Call for actual call send token info
+        (row, i) => (row.id = i)
+      );
     },
     NewScripWatchList: (state, action) => {
       //state.marketWatch.SymbolList.push(action.payload);
@@ -365,17 +367,20 @@ export const RenameWatchlist =
         sessionkey
       );
 
-      dispatch(RenameWatchList(renameWatchlistResponse));
+      dispatch(RenameWatchList(RenameReq));
     } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
 
 export const UpdateWatchlist =
-  (UpdateReq: IUpdateWatchlist): AppThunk =>
+  (UpdateReq: IUpdateWatchlist, sessionKey: string): AppThunk =>
   async (dispatch) => {
     try {
-      const updateWatchlistResponse = await updateWatchList(UpdateReq);
+      const updateWatchlistResponse = await updateWatchList(
+        UpdateReq,
+        sessionKey
+      );
       console.log(updateWatchlistResponse);
     } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));

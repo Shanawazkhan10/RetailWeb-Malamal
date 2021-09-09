@@ -1,40 +1,24 @@
-import { stat } from "fs";
-import React, { MouseEvent, useState } from "react";
-import { useSelector } from "react-redux";
-import {
-  api,
-  ContractSearch,
-  GetSymbolDetails,
-  SearchSymbol,
-  SubscribeMarketDepth,
-} from "../../../../app/api";
+import React, { useState } from "react";
+import { api } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
-import { RootState } from "../../../../store/store";
 import { IContractSearch } from "../../../../types/IContractSearch";
 import { IContractSearchReq } from "../../../../types/IContractSearchReq";
+import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
-import { userWS } from "../../../WebSocket/HSSocket";
-import {
-  SubUnsubReq,
-  waitForSocketConnection,
-} from "../../../WebSocket/HSSocket1";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
 } from "../../OrderEntry/orderEntrySlice";
-import { chartContainer, searchDepthContainer } from "../mainContainerSlice";
+import { chartContainer } from "../mainContainerSlice";
 import {
   ShowDepthFromPosition,
   ShowDepthFromSearch,
-  UpdateTokenInfo,
 } from "../MarketPicture/MarketPictureSlice";
 import {
-  AddToWatchList,
-  FetchWatchListSymbol,
+  AddNewWatchList,
   NewScripWatchList,
   UpdateWatchlist,
 } from "../MarketWatch/MarketWatchSlice";
-import { FetchSearch } from "./SmartSearchSlice";
 
 const SmartSearch = (props: { Type: Number }) => {
   const dispatch = useAppDispatch();
@@ -86,14 +70,20 @@ const SmartSearch = (props: { Type: Number }) => {
 
       const ReqUpdateData: IUpdateWatchlist = {
         mwName: selectlistname,
-        userid: user.sessionKey,
+        userid: user.UserId,
         scrips: newscrips,
       };
 
-      dispatch(UpdateWatchlist(ReqUpdateData));
-      dispatch(
-        FetchWatchListSymbol(newscript, user.sessionKey, selectedList, 1)
-      );
+      dispatch(UpdateWatchlist(ReqUpdateData, user.sessionKey));
+
+      const ReqData: IMarketWatch = {
+        mwName: selectlistname,
+        scrips: data.exseg + "|" + data.omtkn,
+        id: selectedList + 1,
+        SymbolList: WatchList.SymbolList,
+      };
+
+      dispatch(AddNewWatchList(ReqData));
     } else if (props.Type == 2) {
       dispatch(ShowDepthFromPosition(data.exseg + "|" + data.omtkn));
       clearSearch();

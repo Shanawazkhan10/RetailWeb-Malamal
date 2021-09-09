@@ -144,11 +144,11 @@ const MarketWatchItem = (props: {
 
     const ReqUpdateData: IUpdateWatchlist = {
       mwName: selectlistname,
-      userid: user.sessionKey,
+      userid: user.UserId,
       scrips: oldscrips,
     };
 
-    dispatch(UpdateWatchlist(ReqUpdateData));
+    dispatch(UpdateWatchlist(ReqUpdateData, user.sessionKey));
   }
   function removeValue(list: string, value: string, separator: string) {
     separator = ",";

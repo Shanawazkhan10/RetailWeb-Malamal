@@ -267,7 +267,8 @@ export async function getWatchList(
 }
 
 export async function updateWatchList(
-  UpdateReq: IUpdateWatchlist
+  UpdateReq: IUpdateWatchlist,
+  sessionKey: string
 ): Promise<any> {
   return await api
     .post(
@@ -276,7 +277,7 @@ export async function updateWatchList(
       {
         headers: {
           "api-key": "UzL0HZiHPTc1rNVr",
-          "x-access-token": UpdateReq.userid,
+          "x-access-token": sessionKey,
         },
       }
     )
@@ -310,7 +311,7 @@ export async function renameWatchList(
 ): Promise<any> {
   return await api
     .post(
-      "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/getusergroups",
+      "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/renamewatchlist",
       JSON.stringify(RenameReq),
       {
         headers: {
@@ -322,7 +323,6 @@ export async function renameWatchList(
     .then((response) => response.data)
     .catch((error) => error);
 }
-
 export async function PostScritInfo(
   scriptInfo: string[],
   sessionKey: string

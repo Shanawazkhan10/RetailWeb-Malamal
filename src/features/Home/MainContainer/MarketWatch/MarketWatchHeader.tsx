@@ -57,7 +57,7 @@ const MarketWatchHeader = () => {
       userid: user.UserId,
     };
 
-    dispatch(UpdateWatchlist(UpdateReq));
+    dispatch(UpdateWatchlist(UpdateReq, user.sessionKey));
     //dispatch(AddToWatchList(setName)); //API Call
   }
 
@@ -71,6 +71,7 @@ const MarketWatchHeader = () => {
     //API Call TO rename watch list
     dispatch(RenameWatchlist(RenameReq, user.sessionKey));
     //dispatch(RenameWatchList(RenameWatchlist(Input))); //API Call
+    SetEditFlag(false);
   }
   return (
     <div className="mw_headnew">
