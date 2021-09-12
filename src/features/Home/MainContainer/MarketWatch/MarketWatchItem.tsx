@@ -385,7 +385,7 @@ const MarketWatchItem = (props: {
                         : "")
                     }
                   >
-                    Rs.{symbolInfo.ltp == undefined ? "0.00" : symbolInfo.ltp}
+                    {symbolInfo.ltp == undefined ? "0.00" : symbolInfo.ltp}
                   </div>
                   <p>
                     {symbolInfo.cng == undefined ? "0.00" : symbolInfo.cng} (

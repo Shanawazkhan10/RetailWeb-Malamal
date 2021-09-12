@@ -5,6 +5,7 @@ import { IContractSearch } from "../../../../types/IContractSearch";
 import { IContractSearchReq } from "../../../../types/IContractSearchReq";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
+import { INewWatchList } from "../../../../types/WatchList/INewWatchList";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
@@ -16,9 +17,9 @@ import {
 } from "../MarketPicture/MarketPictureSlice";
 import {
   AddNewWatchList,
-  NewScripWatchList,
   UpdateWatchlist,
 } from "../MarketWatch/MarketWatchSlice";
+import { onNewWatchList } from "../MarketWatch/AddWatchListSlice";
 
 const SmartSearch = (props: { Type: Number }) => {
   const dispatch = useAppDispatch();
@@ -32,6 +33,7 @@ const SmartSearch = (props: { Type: Number }) => {
   selectedList = WatchList.nSelectedWatchList;
   let selectlistname: string;
   selectlistname = WatchList.sSelectedWatchList;
+  let newScrip: string[] = [];
   const nIsOpenFrom = props.Type;
   const onDepthClick = (data: IContractSearch) => {
     //e.preventDefault();
@@ -88,7 +90,18 @@ const SmartSearch = (props: { Type: Number }) => {
       dispatch(ShowDepthFromPosition(data.exseg + "|" + data.omtkn));
       clearSearch();
     } else if (props.Type == 3) {
-      NewScripWatchList(data.exseg + "|" + data.omtkn);
+      if (newScrip != []) {
+        newScrip.push(data.exseg + "|" + data.omtkn);
+      } else {
+        newScrip.push(data.exseg + "|" + data.omtkn);
+      }
+
+      const RequestData: INewWatchList = {
+        scrips: newScrip,
+        symbol: data.usym,
+      };
+
+      dispatch(onNewWatchList(RequestData));
     }
     //dispatch(AddToWatchList(contractSearch));
   };

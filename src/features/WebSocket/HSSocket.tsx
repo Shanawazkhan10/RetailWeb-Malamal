@@ -94,8 +94,7 @@ const HSSocket = () => {
         }
         displayMessage("[Res]: " + msg + "\n");
       });
-     
-      });
+
       // if (JSON.parse(msg) && JSON.parse(msg)[0].name == "dp") {
       //   //dispatch(DepthUpdate(msg as IMarketDepth));
       //   dispatch(DepthUpdatefromSocket(msg as IMarketDepth));

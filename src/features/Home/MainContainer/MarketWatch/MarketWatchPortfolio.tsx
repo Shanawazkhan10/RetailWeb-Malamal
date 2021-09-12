@@ -1,21 +1,18 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import Popup from "reactjs-popup";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
+import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IWatchListProps } from "../../../../types/IWatchListProps";
+import SmartSearch from "../SmartSearch/SmartSearch";
+import AddWatchListItem from "./AddWatchListItem";
 import {
-  AddToWatchList,
   ChangeWatchList,
   fetchmarketWatch,
   NewWatchList,
-  onMarketWatchSuccess,
 } from "./MarketWatchSlice";
-import { useAppSelector } from "../../../../app/hooks";
-import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
-import { IMarketWatch } from "../../../../types/IMarketWatch";
-import Popup from "reactjs-popup";
-import SmartSearch from "../SmartSearch/SmartSearch";
 
 const MarketWatchPortfolio = (props: IWatchListProps) => {
   const dispatch = useAppDispatch();
@@ -25,11 +22,9 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
   const userState = useSelector((state: RootState) => state.user);
   selectedList = Number(WatchList.marketWatch.nSelectedWatchList);
   WatchListData = WatchList.marketWatch.MarketWatchList;
-
-  const [sName, setName] = useState("");
-
-  // const userState = useAppSelector((state) => state.user);
   const [bAddButton, setAddButton] = useState(false);
+  // const userState = useAppSelector((state) => state.user);
+
   let bShowAddButton = WatchListData.length < 5 ? true : false;
 
   useEffect(() => {
@@ -46,23 +41,6 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
     };
     dispatch(ChangeWatchList(ChangeWatchlist));
   };
-
-  function AddWatchList() {
-    const ReqData: IMarketWatch = {
-      mwName: sName,
-      scrips: WatchList.newScrip,
-      id: selectedList + 1,
-      SymbolList: WatchList.marketWatch.SymbolList,
-    };
-
-    dispatch(NewWatchList(ReqData));
-
-    setAddButton(false);
-  }
-
-  function AddNewName(event: any) {
-    setName(event.target.value);
-  }
 
   return (
     //onClick={() => AddWatchList()
@@ -119,21 +97,7 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
           }
           position="top left"
         >
-          <div className="modal-container" style={{}}>
-            {/* {bAddButton && ( */}
-            <div className="Add Watchlist">
-              <input
-                id="txtNewMW"
-                type="text"
-                className="AddWatchList"
-                onChange={AddNewName}
-              ></input>
-              <button id="btnSave" title="Save" onClick={() => AddWatchList()}>
-                Save
-              </button>
-              <SmartSearch Type={3}></SmartSearch>
-            </div>
-          </div>
+          <AddWatchListItem></AddWatchListItem>
         </Popup>
       </ul>
     </nav>

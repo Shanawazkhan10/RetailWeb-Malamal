@@ -65,12 +65,14 @@ const marketwatchSlice = createSlice({
       ].SymbolList.push(action.payload);
     },
     RenameWatchList: (state, action) => {
-      // state.marketWatch.MarketWatchList =
-      //   state.marketWatch.MarketWatchList.filter(
-      //     (row) => row.id == action.payload
-      //   );
-
-      state.marketWatch.sSelectedWatchList = action.payload.newmwName; //DM: Changing name
+      let selectedid = state.marketWatch.MarketWatchList.find(
+        (row) => row.mwName == action.payload.oldmwName
+      )?.id;
+      if (selectedid != undefined) {
+        state.marketWatch.MarketWatchList[selectedid].mwName =
+          action.payload.newmwName;
+        state.marketWatch.sSelectedWatchList = action.payload.newmwName; //DM: Changing name
+      }
     },
     UpdateSymbolDetails: (state, action) => {
       let TokenInfo: IMarketWatchTokenInfo[] = action.payload.data;
@@ -98,9 +100,18 @@ const marketwatchSlice = createSlice({
         ].showDepth;
     },
 
-    RemoveSymbolFromWatchlist(state, action: PayloadAction<IRemoveFromWatch>) {
-      state.marketWatch.MarketWatchList[action.payload.id].scrips =
-        action.payload.scrips;
+    RemoveSymbolFromWatchlist(state, action) {
+      let selectedid = state.marketWatch.MarketWatchList.find(
+        (row) => row.mwName == action.payload.mwName
+      )?.id;
+      if (selectedid != undefined) {
+        state.marketWatch.MarketWatchList[selectedid].scrips =
+          action.payload.scrips;
+        state.marketWatch.MarketWatchList[selectedid].SymbolList =
+          state.marketWatch.MarketWatchList[selectedid].SymbolList.filter(
+            (row) => row.scrips !== action.payload.scrips
+          );
+      }
     },
     showMore: (state, action: PayloadAction<number>) => {
       state.marketWatch.MarketWatchList[
@@ -366,13 +377,14 @@ export const RenameWatchlist =
         RenameReq,
         sessionkey
       );
-
+      //handle error & add validations for MW Name
       dispatch(RenameWatchList(RenameReq));
     } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
 
+//Used for Adding and removing Symbol from watchlist
 export const UpdateWatchlist =
   (UpdateReq: IUpdateWatchlist, sessionKey: string): AppThunk =>
   async (dispatch) => {
@@ -382,6 +394,8 @@ export const UpdateWatchlist =
         sessionKey
       );
       console.log(updateWatchlistResponse);
+      //condition for add or remove
+      dispatch(RemoveSymbolFromWatchlist(UpdateReq));
     } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
