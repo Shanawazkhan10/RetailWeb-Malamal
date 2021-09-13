@@ -26,7 +26,7 @@ const Holdings = () => {
           </div>
           <div className="col-md-6 holdingleft mt-4">
             <div>
-              <h3 className="c-blue">399.75</h3>
+              <h3 className="c-purple">399.75</h3>
               <p>Total Investment</p>
             </div>
             <div>

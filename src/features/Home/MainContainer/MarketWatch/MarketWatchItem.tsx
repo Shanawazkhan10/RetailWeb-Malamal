@@ -302,12 +302,23 @@ const MarketWatchItem = (props: {
                   >
                     S
                   </button>
-                  <button
+                  <div className="d-inline-block" id="accordionExample">
+                    <div id="headingOne">
+                      <button
+                        className="btn btn-primary wmarketdepth"
+                        data-toggle="collapse"
+                        data-target="#collapseOne"
+                        aria-expanded="true"
+                        aria-controls="collapseOne"
+                      ></button>
+                    </div>
+                  </div>
+                  {/* <button
                     type="button"
                     className="btn btn-primary wmarketdepth"
                     title="Depth"
                     onClick={() => onDepthClick(nIncreament, symbolInfo)}
-                  ></button>
+                  ></button> */}
                   <button
                     type="button"
                     className="btn btn-primary wchart"
