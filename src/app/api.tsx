@@ -1491,7 +1491,7 @@ export async function getSummaryData(SessionKey: string): Promise<any> {
     exchange_segment: "nse_cm",
     type: "gainer",
     indexname: "nifty50",
-    limit: "5",
+    limit: "10",
     day: "1",
   };
 
@@ -1557,18 +1557,25 @@ export async function SearchSymbol(
     .catch((error) => error);
 }
 
-export async function Getallindicesdata(getIndeicesRequest:IGetIndicesRequest,SessionKey: string): Promise<any> {
+export async function Getallindicesdata(
+  getIndeicesRequest: IGetIndicesRequest,
+  SessionKey: string
+): Promise<any> {
   const params = new URLSearchParams();
-  params.append("exchange_segment",getIndeicesRequest.exchange_segment);
+  params.append("exchange_segment", getIndeicesRequest.exchange_segment);
   params.append("scrip_token", getIndeicesRequest.scrip_token);
   return await api
-    .post("https://uathsdiscovery.hypertrade.in/htpl/market/getallindicesdata", params, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        "x-access-token": SessionKey,
-        "api-key": "UzL0HZiHPTc1rNVr",
-      },
-    })
+    .post(
+      "https://uathsdiscovery.hypertrade.in/htpl/market/getallindicesdata",
+      params,
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "x-access-token": SessionKey,
+          "api-key": "UzL0HZiHPTc1rNVr",
+        },
+      }
+    )
     .then((response) => response.data)
     .catch((error) => error);
 }

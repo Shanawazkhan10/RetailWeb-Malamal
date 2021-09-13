@@ -1,4 +1,4 @@
 export interface INewWatchList {
-  scrips: string[];
+  scrips: string;
   symbol: String;
 }

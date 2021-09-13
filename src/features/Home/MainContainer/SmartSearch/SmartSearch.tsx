@@ -33,7 +33,7 @@ const SmartSearch = (props: { Type: Number }) => {
   selectedList = WatchList.nSelectedWatchList;
   let selectlistname: string;
   selectlistname = WatchList.sSelectedWatchList;
-  let newScrip: string[] = [];
+
   const nIsOpenFrom = props.Type;
   const onDepthClick = (data: IContractSearch) => {
     //e.preventDefault();
@@ -90,11 +90,7 @@ const SmartSearch = (props: { Type: Number }) => {
       dispatch(ShowDepthFromPosition(data.exseg + "|" + data.omtkn));
       clearSearch();
     } else if (props.Type == 3) {
-      if (newScrip != []) {
-        newScrip.push(data.exseg + "|" + data.omtkn);
-      } else {
-        newScrip.push(data.exseg + "|" + data.omtkn);
-      }
+      let newScrip = data.exseg + "|" + data.omtkn;
 
       const RequestData: INewWatchList = {
         scrips: newScrip,

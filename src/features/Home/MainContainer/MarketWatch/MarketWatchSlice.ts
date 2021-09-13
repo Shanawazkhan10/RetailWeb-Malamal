@@ -420,11 +420,3 @@ export const UpdateDepth =
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
-
-export const NewWatchList =
-  (newWatchList: IMarketWatch): AppThunk =>
-  (dispatch) => {
-    try {
-      dispatch(AddNewWatchList(newWatchList));
-    } catch (err: any) {}
-  };

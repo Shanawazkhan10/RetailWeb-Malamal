@@ -1,60 +1,118 @@
 import { useState } from "react";
-import { useAppSelector } from "../../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { IMarketWatch } from "../../../../types/IMarketWatch";
 import SmartSearch from "../SmartSearch/SmartSearch";
+import { AddNewWatchList, FetchWatchListSymbol } from "./MarketWatchSlice";
 
-const AddWatchListItem = () => {
+const AddWatchListItem = (index: any) => {
+  const dispatch = useAppDispatch();
+
   const [sName, setName] = useState("");
-  const [bAddButton, setAddButton] = useState(false);
+  const [bCloseButton, setCloseButton] = useState(false);
+  let newScript: String[] = [];
 
-  const marketWatch = useAppSelector(
-    (state) => state.addwatch.newlyaddedWatchList
-  );
+  const newlist = useAppSelector((state) => state.addwatch.newlyaddedWatchList);
+  const user = useAppSelector((state) => state.user);
+  const marketwatch = useAppSelector((state) => state.marketwatch.marketWatch);
+  newScript = newlist.scrips.split(",");
 
   function AddNewName(event: any) {
     setName(event.target.value);
   }
 
   function AddWatchList() {
-    // const ReqData: IMarketWatch = {
-    //   mwName: sName,
-    //   scrips: WatchList.newScrip,
-    //   id: selectedList + 1,
-    //   SymbolList: WatchList.marketWatch.SymbolList,
-    // };
+    const ReqData: IMarketWatch = {
+      mwName: sName,
+      scrips: newlist.scrips,
+      id: index,
+      SymbolList: [],
+    };
 
-    // dispatch(NewWatchList(ReqData));
+    dispatch(AddNewWatchList(ReqData));
 
-    setAddButton(false);
+    dispatch(
+      FetchWatchListSymbol(newlist.scrips.split(","), user.sessionKey, index, 1)
+    );
   }
 
   return (
-    <div className="modal-container" style={{}}>
-      {/* {bAddButton && ( */}
-      <div className="Add Watchlist">
-        <input
-          id="txtNewMW"
-          type="text"
-          className="AddWatchList"
-          onChange={AddNewName}
-        ></input>
-        <button id="btnSave" title="Save" onClick={() => AddWatchList()}>
-          Save
-        </button>
-        <SmartSearch Type={3}></SmartSearch>
-        <tbody>
-          <tr className="slideInDown-element">
-            <td className="price-box">
-              {marketWatch != null &&
-                marketWatch.scrips.map((symbolInfo) => (
+    <div
+      className="modal fade show"
+      id="AddModal"
+      data-tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-modal="true"
+      style={{ display: "block", paddingRight: "4px" }}
+    >
+      <div className="modal-dialog" role="document">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalLabel">
+              Add Watchlist
+            </h5>
+            <button
+              type="button"
+              className="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              onClick={() => setCloseButton(true)}
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div className="modal-body">
+            <div className="">
+              <form>
+                <div className="form">
+                  <input
+                    type="text"
+                    id="userid"
+                    className="form__input"
+                    data-autocomplete="off"
+                    placeholder=" "
+                    data-required=""
+                  ></input>
+                  <label data-for="userid" className="form__label">
+                    Watchlist Name
+                  </label>
+                  <span className="icon-inside">
+                    <i className="far fa-envelope"></i>
+                  </span>
+                </div>
+                <div className="form">
+                  <div className="input-group slideInDown-element" id="search">
+                    <SmartSearch Type={3}></SmartSearch>
+                  </div>
+                </div>
+
+                <tbody>
                   <tr className="slideInDown-element">
-                    <td>
-                      <span>{symbolInfo}</span>
+                    <td className="price-box">
+                      {newScript != [] &&
+                        newScript.map(() => (
+                          <tr className="slideInDown-element">
+                            <td>
+                              <span>{newlist.symbol}</span>
+                            </td>
+                          </tr>
+                        ))}
                     </td>
                   </tr>
-                ))}
-            </td>
-          </tr>
-        </tbody>
+                </tbody>
+                <div className="form">
+                  <button
+                    type="submit"
+                    className="btn btn-primary w-100 submitbtn"
+                    onClick={() => AddWatchList()}
+                  >
+                    Add
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

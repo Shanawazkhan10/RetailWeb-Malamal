@@ -90,13 +90,6 @@ const MarketWatchHeader = () => {
       ></input> */}
       <SmartSearch Type={1}></SmartSearch>
       <div className="mw-head-btns">
-        <button
-          id="btnEditMode"
-          title="Edit"
-          onMouseDown={() => SetEditFlag(!bEdit)}
-        >
-          Edit
-        </button>
         <button id="btnSave" title="Save" onClick={SaveWatchList}>
           Save
         </button>

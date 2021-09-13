@@ -11606,9 +11606,7 @@ dl li {
     -ms-flex-direction: row;
     flex-direction: row;
   }
-  .navbar .navbar-brand-wrapper {
-    /*width: 55px;*/
-  }
+ 
   .navbar .navbar-brand-wrapper .navbar-brand.brand-logo {
     display: none;
   }
