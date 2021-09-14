@@ -38,13 +38,6 @@ const MarketWatchHeader = () => {
   });
 
   const dispatch = useAppDispatch();
-  function RemoveWatchList() {
-    const DeleteReq: IDeleteWatchlist = {
-      mwName: sSelectedWatchList,
-      userId: user.UserId,
-    };
-    dispatch(DeleteWatchlist(DeleteReq, user.sessionKey)); //API Call
-  }
 
   function handleChange(event: any) {
     setName(event.target.value);
@@ -93,13 +86,7 @@ const MarketWatchHeader = () => {
         <button id="btnSave" title="Save" onClick={SaveWatchList}>
           Save
         </button>
-        <button
-          id="btnDelete"
-          title="Delete"
-          onClick={(e) => RemoveWatchList()}
-        >
-          Delete
-        </button>
+
         <button id="btnCancelMode" title="Close" style={{ display: "none" }}>
           Cancel
         </button>

@@ -28,12 +28,18 @@ const MainSummary = () => {
           <div className="col-md-12">
             <div className="equity-summary">
               <div className="toptxt">
-                <p>Top Gainers</p>
+                <ul className="nav nav-tabs nav-flex" id="EquitySummry">
+                  <li>Top Gainers</li>
+                  <li>Top Losers</li>
+                  <li> Most Active by Value</li>
+                  <li>Most Active by Volume</li>
+                </ul>
               </div>
               <table className="table table-responsive table-borderless">
                 <thead>
                   <tr>
                     <th>Stock Name</th>
+                    <th>CMP</th>
                     <th>Change ₹</th>
                     <th>Change %</th>
                   </tr>
@@ -44,6 +50,7 @@ const MainSummary = () => {
                       (summarydata: any, index: number) => (
                         <tr key={index}>
                           <td>{summarydata.tsym}</td>
+                          <td>{summarydata.ltp}</td>
                           <td>{summarydata.netchg}</td>
                           <td>{summarydata.chg}</td>
                         </tr>
