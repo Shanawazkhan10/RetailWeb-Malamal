@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect } from "react";
 import { Collapse } from "reactstrap";
-import { GetSymbolDetails, SubscribeMarketDepth } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { IGTTEntryProps } from "../../../../types/IGTTEntryProps";
@@ -8,9 +7,9 @@ import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import { IOrderEntryProps } from "../../../../types/IOrderEntryProps";
 import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
-import HSSocket, { userWS } from "../../../WebSocket/HSSocket";
+import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
+import { userWS } from "../../../WebSocket/HSSocket";
 import {
-  sendUnsubReq,
   SubUnsubReq,
   waitForSocketConnection,
 } from "../../../WebSocket/HSSocket1";
@@ -26,17 +25,14 @@ import {
   setOrderEntryProps,
 } from "../../OrderEntry/orderEntrySlice";
 import { chartContainer } from "../mainContainerSlice";
-import {
-  updateMarketDepth,
-  UpdateTokenInfo,
-} from "../MarketPicture/MarketPictureSlice";
 import MarketDepth from "./MarketDepth";
 import {
   FetchWatchListSymbol,
-  getMarketDepthSuccess,
   hideMore,
+  setRemovedSymbol,
   ShowMarketDepth,
   showMore,
+  UpdateWatchlist,
 } from "./MarketWatchSlice";
 import Quote from "./Quote";
 //import { userWS } from "./../../../WebSocket/HSSocket1";
@@ -112,13 +108,19 @@ const MarketWatchItem = (props: {
   function onChartClick() {
     dispatch(chartContainer());
   }
-  function RemoveSymbol(tokenInfo: IMarketWatchTokenInfo) {
-    dispatch(UpdateTokenInfo(GetSymbolDetails()));
-
-    dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
+  function RemoveSymbol(symbol: IMarketWatchTokenInfo) {
+    dispatch(setRemovedSymbol(symbol.tok));
 
     //API Call update List & on success call dispatch
-
+    const updateWatchlist: IUpdateWatchlist = {
+      mwName: propMarketWatch.mwName,
+      scrips: removeValue(
+        propMarketWatch.scrips,
+        symbol.exSeg + "|" + symbol.tok,
+        ","
+      ),
+    };
+    dispatch(UpdateWatchlist(updateWatchlist));
     //Unsubscribe Depth API Call
   }
   function removeValue(list: string, value: string, separator: string) {
@@ -216,9 +218,9 @@ const MarketWatchItem = (props: {
                 id={String(nIncreament)}
                 className="mw_block"
                 style={{ width: "400px" }}
-                onMouseLeave={() => {
-                  dispatch(hideMore(nIncreament));
-                }}
+                // onMouseLeave={() => {
+                //   dispatch(hideMore(nIncreament));
+                // }}
               >
                 <div className="popupCloseButton" title="Delete"></div>
                 <div style={{ display: "none" }} className="mw_status">

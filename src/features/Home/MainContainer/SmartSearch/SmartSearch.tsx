@@ -1,11 +1,5 @@
 import React, { MouseEvent, useState } from "react";
-import {
-  api,
-  ContractSearch,
-  GetSymbolDetails,
-  SearchSymbol,
-  SubscribeMarketDepth,
-} from "../../../../app/api";
+import { api, ContractSearch, SearchSymbol } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
 import { IContractSearch } from "../../../../types/IContractSearch";
 import { IContractSearchReq } from "../../../../types/IContractSearchReq";

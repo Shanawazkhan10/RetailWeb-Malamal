@@ -51,7 +51,7 @@ const MarketWatchHeader = () => {
     const UpdateReq: IUpdateWatchlist = {
       mwName: sName,
       scrips: "",
-      userid: UserId,
+      // userid: UserId,
     };
 
     dispatch(UpdateWatchlist(UpdateReq));

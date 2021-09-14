@@ -26,7 +26,8 @@ const InitialMarketWatch: IMarketWatchList = {
   bIsBind: false,
   bIsError: false,
   Symbollistindex: 0,
-  SymbolList: [],
+  sRemovedSymbol: "",
+  //SymbolList: [],
 };
 
 const marketwatchSlice = createSlice({
@@ -91,9 +92,21 @@ const marketwatchSlice = createSlice({
         ].showDepth;
     },
 
-    RemoveSymbolFromWatchlist(state, action: PayloadAction<IRemoveFromWatch>) {
-      state.marketWatch.MarketWatchList[action.payload.id].scrips =
-        action.payload.scrips;
+    RemoveSymbolFromWatchlist(state, action: PayloadAction<IUpdateWatchlist>) {
+      state.marketWatch.MarketWatchList[
+        state.marketWatch.nSelectedWatchList
+      ].scrips = action.payload.scrips;
+
+      state.marketWatch.MarketWatchList[
+        state.marketWatch.nSelectedWatchList
+      ].SymbolList = state.marketWatch.MarketWatchList[
+        state.marketWatch.nSelectedWatchList
+      ].SymbolList.filter(
+        (row) => row.token != state.marketWatch.sRemovedSymbol
+      );
+    },
+    setRemovedSymbol: (state, action) => {
+      state.marketWatch.sRemovedSymbol = action.payload;
     },
     showMore: (state, action: PayloadAction<number>) => {
       state.marketWatch.MarketWatchList[
@@ -262,6 +275,7 @@ export const {
   setSymbollistindex,
   ScriptUpdatefromSocket,
   DepthUpdatefromSocket,
+  setRemovedSymbol,
   //FetchSocketData,
 } = marketwatchSlice.actions;
 
@@ -313,7 +327,7 @@ export const UpdateWatchlist =
   async (dispatch) => {
     try {
       const renameWatchlistResponse = await updateWatchlist(UpdateReq);
-      //dispatch(RenameWatchList(renameWatchlistResponse));
+      dispatch(RemoveSymbolFromWatchlist(UpdateReq));
     } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }

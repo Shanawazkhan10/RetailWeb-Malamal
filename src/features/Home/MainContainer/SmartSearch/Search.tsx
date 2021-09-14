@@ -1,28 +1,17 @@
-import { stat } from "fs";
 import React, { MouseEvent, useState } from "react";
-import { useSelector } from "react-redux";
-import {
-  ContractSearch,
-  GetSymbolDetails,
-  GetWatchListSymbolDetails,
-  SubscribeMarketDepth,
-} from "../../../../app/api";
-import { useAppDispatch } from "../../../../app/hooks";
-import { RootState } from "../../../../store/store";
-import { IContractSearchReq } from "../../../../types/IContractSearchReq";
 import AutoSuggest from "react-autosuggest";
-
-import ReactDOM from "react-dom";
+import { ContractSearch } from "../../../../app/api";
+import { useAppDispatch } from "../../../../app/hooks";
 import { IContractSearch } from "../../../../types/IContractSearch";
-import "../../style.css";
+import { IContractSearchReq } from "../../../../types/IContractSearchReq";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
 } from "../../OrderEntry/orderEntrySlice";
+import "../../style.css";
 import { chartContainer, searchDepthContainer } from "../mainContainerSlice";
 import {
   ShowDepthFromSearch,
-  updateMarketDepth,
   UpdateTokenInfo,
 } from "../MarketPicture/MarketPictureSlice";
 
@@ -126,8 +115,8 @@ const Search = () => {
     dispatch(searchDepthContainer());
     dispatch(ShowDepthFromSearch(""));
     //Dummy call for fetch
-    dispatch(UpdateTokenInfo(GetSymbolDetails()));
-    dispatch(UpdateTokenInfo(SubscribeMarketDepth(0, 0)));
+    //dispatch(UpdateTokenInfo(GetSymbolDetails()));
+    //dispatch(UpdateTokenInfo(SubscribeMarketDepth(0, 0)));
     //dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
   };
   // Render Each Option
