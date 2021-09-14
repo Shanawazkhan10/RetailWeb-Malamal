@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
 import SmartSearch from "../SmartSearch/SmartSearch";
-import { AddNewWatchList, FetchWatchListSymbol } from "./MarketWatchSlice";
+import { FetchWatchListSymbol } from "./MarketWatchSlice";
 
 const AddWatchListItem = (index: any) => {
   const dispatch = useAppDispatch();
@@ -21,15 +21,6 @@ const AddWatchListItem = (index: any) => {
   }
 
   function AddWatchList() {
-    const ReqData: IMarketWatch = {
-      mwName: sName,
-      scrips: newlist.scrips,
-      id: index,
-      SymbolList: [],
-    };
-
-    dispatch(AddNewWatchList(ReqData));
-
     dispatch(
       FetchWatchListSymbol(newlist.scrips.split(","), user.sessionKey, index, 1)
     );
