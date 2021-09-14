@@ -102,7 +102,7 @@ const marketwatchSlice = createSlice({
       ].SymbolList = state.marketWatch.MarketWatchList[
         state.marketWatch.nSelectedWatchList
       ].SymbolList.filter(
-        (row) => row.token != state.marketWatch.sRemovedSymbol
+        (row) => row.tok !== state.marketWatch.sRemovedSymbol
       );
     },
     setRemovedSymbol: (state, action) => {
