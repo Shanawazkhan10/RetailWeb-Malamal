@@ -1,9 +1,6 @@
 import React from "react";
 
 const MarketDepth = (props: any) => {
-  //const expanded = props.activeItem === props.index;
-
-  //const symbolInfo = props.tokenInfo;
   const Depth = props.depth;
   const SymbolInfo = props.tokenInfo;
   return Depth != undefined ? (

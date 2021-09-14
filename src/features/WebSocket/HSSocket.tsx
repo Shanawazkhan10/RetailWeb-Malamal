@@ -78,21 +78,24 @@ const HSSocket = () => {
     };
 
     userWS.onmessage = function (msg: any) {
-      JSON.parse(msg).forEach((data: any) => {
-        if (data.name == "dp") {
-          //dispatch(DepthUpdate(msg as IMarketDepth));
-          dispatch(DepthUpdatefromSocket(msg as IMarketDepth));
-          dispatch(SearchDepthUpdate(msg as IMarketDepth));
-        } else if (data.name == "sf") {
-          //dispatch(ScriptUpdate(msg as IScriptUpdate));
-          dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
-          dispatch(SearchScriptUpdate(msg as IScriptUpdate));
-        } else if (data.name == "if") {
-          dispatch(onIndiceUpdate(msg as IIndices));
-        } else {
-          console.log(displayMessage("[Res]: " + msg + "\n"));
+      JSON.parse(msg).forEach((element: any) => {
+        switch (element.name) {
+          case "dp":
+            dispatch(DepthUpdatefromSocket(element));
+            dispatch(SearchDepthUpdate(element));
+            break;
+          case "sf":
+            dispatch(ScriptUpdatefromSocket(element));
+            dispatch(SearchScriptUpdate(element));
+            break;
+          case "if":
+            dispatch(onIndiceUpdate(element as IIndices));
+            break;
+
+          default:
+            console.log(element);
+            break;
         }
-        displayMessage("[Res]: " + msg + "\n");
       });
 
       // if (JSON.parse(msg) && JSON.parse(msg)[0].name == "dp") {

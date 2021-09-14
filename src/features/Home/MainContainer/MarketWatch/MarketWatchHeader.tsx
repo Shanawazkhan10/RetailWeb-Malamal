@@ -47,7 +47,7 @@ const MarketWatchHeader = () => {
     const UpdateReq: IUpdateWatchlist = {
       mwName: sName,
       scrips: "",
-      userid: user.UserId,
+      // userid: UserId,
     };
 
     dispatch(UpdateWatchlist(UpdateReq, user.sessionKey));
@@ -68,19 +68,6 @@ const MarketWatchHeader = () => {
   }
   return (
     <div className="mw_headnew">
-      {/*<h1>
-        <span>market Watch</span>
-         <button id="mw_sort" title="Sort Market Watch">
-          SORT
-        </button> 
-      </h1>*/}
-      {/* <input
-        type="text"
-        id="txtWatchlist"
-        placeholder="Search for a symbol"
-        onChange={(e) => handleChange}
-        value={sName}
-      ></input> */}
       <SmartSearch Type={1}></SmartSearch>
       <div className="mw-head-btns">
         <button id="btnSave" title="Save" onClick={SaveWatchList}>

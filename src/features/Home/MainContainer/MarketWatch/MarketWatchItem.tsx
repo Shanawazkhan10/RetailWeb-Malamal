@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect } from "react";
 import { Collapse } from "reactstrap";
-import { GetSymbolDetails, SubscribeMarketDepth } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
@@ -32,6 +31,7 @@ import {
   DeleteWatchlist,
   FetchWatchListSymbol,
   hideMore,
+  setRemovedSymbol,
   ShowMarketDepth,
   showMore,
   UpdateWatchlist,
@@ -63,7 +63,6 @@ const MarketWatchItem = (props: {
   const options = ["one", "two", "three"];
 
   useEffect(() => {
-    //dispatch(setSymbollistindex(props.index));
     getSymbol();
     console.log(" MarketWatchItem useEffect");
   }, []);
@@ -113,42 +112,20 @@ const MarketWatchItem = (props: {
   function onChartClick() {
     dispatch(chartContainer());
   }
-  function RemoveSymbol(tokenInfo: IMarketWatchTokenInfo) {
-    // dispatch(UpdateTokenInfo(GetSymbolDetails()));
-    // dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
+  function RemoveSymbol(symbol: IMarketWatchTokenInfo) {
+    dispatch(setRemovedSymbol(symbol.tok));
+
     //API Call update List & on success call dispatch
-    // const RemoveFromWatch: IRemoveFromWatch = {
-    //   mwName: propMarketWatch.mwName,
-    //   scrips: removeValue(propMarketWatch.scrips, tokenInfo.scrips, "|"),
-    //   id: tokenInfo.mwId,
-    //   userId: "Test User",
-    // };
-    // dispatch(RemoveSymbolFromWatchlist(RemoveFromWatch));
-    //Unsubscribe Depth API Call
-    // if (symbol.showDepth) {
-    //   const SubscribeDepth: ISubscribeDepth = {
-    //     type: "dpu",
-    //     scrips: symbol.scrips,
-    //     id: propMarketWatch.id,
-    //     channelnum: propMarketWatch.id,
-    //   };
-    //   UnsubscribeMarketDepth(SubscribeDepth);
-    // }
-
-    let oldscrips: string = "";
-    let newscrip = tokenInfo.exSeg + "|" + tokenInfo.tok;
-    if (marketWatchState.MarketWatchList.length >= selectedList) {
-      oldscrips = marketWatchState.MarketWatchList[selectedList].scrips;
-      oldscrips = oldscrips.replace(newscrip + ",", "");
-    }
-
-    const ReqUpdateData: IUpdateWatchlist = {
-      mwName: selectlistname,
-      userid: user.UserId,
-      scrips: oldscrips,
+    const updateWatchlist: IUpdateWatchlist = {
+      mwName: propMarketWatch.mwName,
+      scrips: removeValue(
+        propMarketWatch.scrips,
+        symbol.exSeg + "|" + symbol.tok,
+        ","
+      ),
     };
-
-    dispatch(UpdateWatchlist(ReqUpdateData, user.sessionKey));
+    dispatch(UpdateWatchlist(updateWatchlist, user.sessionKey));
+    //Unsubscribe Depth API Call
   }
   function removeValue(list: string, value: string, separator: string) {
     separator = ",";
@@ -173,34 +150,29 @@ const MarketWatchItem = (props: {
       const SubscribeDepth: ISubscribeDepth = {
         type: "dps",
         scrips: symbol.exSeg + "|" + symbol.tok,
-        //id: propMarketWatch.id,
         channelnum: propMarketWatch.id + 1,
       };
 
       waitForSocketConnection(userWS, function () {
         userWS.send(JSON.stringify(SubscribeDepth));
       });
-      // dispatch(
-      //   getMarketDepthSuccess(SubscribeMarketDepth(propMarketWatch.id, index))
-      // );
     } else {
       //Unsubscribe Depth API Call
       const SubscribeDepth: ISubscribeDepth = {
         type: "dpu",
         scrips: symbol.exSeg + "|" + symbol.tok,
-        //id: propMarketWatch.id,
         channelnum: propMarketWatch.id + 1,
       };
 
       waitForSocketConnection(userWS, function () {
         userWS.send(JSON.stringify(SubscribeDepth));
       });
-      //sendUnsubReq(SubscribeDepth);
-      // UnsubscribeMarketDepth(SubscribeDepth);
     }
   }
 
   function getSymbol() {
+    //API call to bind Token info (Scrip Info Request)
+
     dispatch(
       FetchWatchListSymbol(
         propMarketWatch.scrips.split(","),

@@ -30,7 +30,7 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
 
   const handleChange = (event: any, mwName: string) => {
     event.preventDefault();
-    //event.stopPropagation();
+
     const ChangeWatchlist: IChangeWatchlist = {
       id: Number(event.currentTarget.id),
       mwname: mwName,

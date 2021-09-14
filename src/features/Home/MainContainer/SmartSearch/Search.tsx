@@ -1,10 +1,6 @@
 import React, { MouseEvent, useState } from "react";
 import AutoSuggest from "react-autosuggest";
-import {
-  ContractSearch,
-  GetSymbolDetails,
-  SubscribeMarketDepth,
-} from "../../../../app/api";
+import { ContractSearch } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
 import { IContractSearch } from "../../../../types/IContractSearch";
 import { IContractSearchReq } from "../../../../types/IContractSearchReq";
@@ -12,6 +8,7 @@ import {
   openBuyOrderEntry,
   openSellOrderEntry,
 } from "../../OrderEntry/orderEntrySlice";
+import "../../style.css";
 import { chartContainer, searchDepthContainer } from "../mainContainerSlice";
 import {
   ShowDepthFromSearch,
@@ -118,8 +115,8 @@ const Search = () => {
     dispatch(searchDepthContainer());
     dispatch(ShowDepthFromSearch(""));
     //Dummy call for fetch
-    dispatch(UpdateTokenInfo(GetSymbolDetails()));
-    dispatch(UpdateTokenInfo(SubscribeMarketDepth(0, 0)));
+    //dispatch(UpdateTokenInfo(GetSymbolDetails()));
+    //dispatch(UpdateTokenInfo(SubscribeMarketDepth(0, 0)));
     //dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
   };
   // Render Each Option

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { api } from "../../../../app/api";
+import React, { MouseEvent, useState } from "react";
+import { api, ContractSearch, SearchSymbol } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IContractSearch } from "../../../../types/IContractSearch";
 import { IContractSearchReq } from "../../../../types/IContractSearchReq";
@@ -15,10 +15,7 @@ import {
   ShowDepthFromPosition,
   ShowDepthFromSearch,
 } from "../MarketPicture/MarketPictureSlice";
-import {
-  AddNewWatchList,
-  UpdateWatchlist,
-} from "../MarketWatch/MarketWatchSlice";
+import { UpdateWatchlist } from "../MarketWatch/MarketWatchSlice";
 import { onNewWatchList } from "../MarketWatch/AddWatchListSlice";
 
 const SmartSearch = (props: { Type: Number }) => {
@@ -72,20 +69,10 @@ const SmartSearch = (props: { Type: Number }) => {
 
       const ReqUpdateData: IUpdateWatchlist = {
         mwName: selectlistname,
-        userid: user.UserId,
         scrips: newscrips,
       };
 
       dispatch(UpdateWatchlist(ReqUpdateData, user.sessionKey));
-
-      const ReqData: IMarketWatch = {
-        mwName: selectlistname,
-        scrips: data.exseg + "|" + data.omtkn,
-        id: selectedList + 1,
-        SymbolList: WatchList.SymbolList,
-      };
-
-      dispatch(AddNewWatchList(ReqData));
     } else if (props.Type == 2) {
       dispatch(ShowDepthFromPosition(data.exseg + "|" + data.omtkn));
       clearSearch();
