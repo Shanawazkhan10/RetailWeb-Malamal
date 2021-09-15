@@ -1,7 +1,7 @@
 import { MouseEventHandler, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { mainSummaryContainer } from "../mainContainerSlice";
-import { FetchGainer, OnTopGainers } from "./SummarySlice";
+import { FetchSummary, OnTopGainers } from "./SummarySlice";
 
 const Summary = () => {
   const dispatch = useAppDispatch();
@@ -10,7 +10,7 @@ const Summary = () => {
   const summaryState = useAppSelector((state) => state.summary);
 
   useEffect(() => {
-    dispatch(FetchGainer(userState.sessionKey));
+    dispatch(FetchSummary(userState.sessionKey, "gainer"));
   }, []);
 
   function RedirecttoSummary(e: any) {

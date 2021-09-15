@@ -13,6 +13,7 @@ import {
   SearchScriptUpdate,
 } from "../Home/MainContainer/MarketPicture/MarketPictureSlice";
 import { onIndiceUpdate } from "../Home/Header/IndicesSlice";
+import { NetpositionUpdate } from "../Home/MainContainer/NetPosition/NetPositionSlice";
 
 export interface authReq {
   sessionid: string;
@@ -87,6 +88,7 @@ const HSSocket = () => {
           case "sf":
             dispatch(ScriptUpdatefromSocket(element));
             dispatch(SearchScriptUpdate(element));
+            dispatch(NetpositionUpdate(element));
             break;
           case "if":
             dispatch(onIndiceUpdate(element as IIndices));
@@ -97,21 +99,6 @@ const HSSocket = () => {
             break;
         }
       });
-
-      // if (JSON.parse(msg) && JSON.parse(msg)[0].name == "dp") {
-      //   //dispatch(DepthUpdate(msg as IMarketDepth));
-      //   dispatch(DepthUpdatefromSocket(msg as IMarketDepth));
-      // } else if (JSON.parse(msg) && JSON.parse(msg)[0].name == "sf") {
-      //   //dispatch(ScriptUpdate(msg as IScriptUpdate));
-      //   dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
-      // } else if (JSON.parse(msg) && JSON.parse(msg)[0].name == "if") {
-      //   //dispatch(IndicesUpdate(msg as IIndices));
-      //   dispatch(onIndiceUpdate(msg as IIndices));
-      // } else {
-      //   console.log(displayMessage("[Res]: " + msg + "\n"));
-      // }
-      // console.log(msg);
-      // displayMessage("[Res]: " + msg + "\n");
     };
   }
 

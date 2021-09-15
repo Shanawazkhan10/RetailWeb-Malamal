@@ -8,10 +8,11 @@ import Holding from "./Holding";
 
 const HoldingList = () => {
   const HoldingList = useSelector((state: RootState) => state.holding);
+  const user = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchHolding());
+    dispatch(fetchHolding(user.sessionKey));
   }, [HoldingList]);
 
   return HoldingList.holding != undefined && HoldingList.holding.length > 0 ? (
@@ -34,7 +35,10 @@ const HoldingList = () => {
       </div>
       <div>
         <div className="netPosTbl">
-          <table className="netposcls" id="tblnetposid">
+          <table
+            className="table table-responsive table-borderless"
+            id="tblnetposid"
+          >
             <thead>
               <tr className="sticky">
                 <th className="tblHeaderNP" title="Symbol">

@@ -18,17 +18,17 @@ const HeaderIndices = () => {
       exchange_segment: "nse_cm",
       scrip_token: "niftybank",
     };
-    dispatch(GetAllIndicesData(getIndicesNiftyBankRequest, user.sessionKey));    
+    dispatch(GetAllIndicesData(getIndicesNiftyBankRequest, user.sessionKey));
 
-    const indexOne ="nse_cm|Nifty 50";
-    dispatch(SendIndiceSubRequest(indexOne));   
+    const indexOne = "nse_cm|Nifty 50";
+    dispatch(SendIndiceSubRequest(indexOne));
 
-    const indexTwo="nse_cm|Nifty Bank";
-    dispatch(SendIndiceSubRequest(indexTwo));    
+    const indexTwo = "nse_cm|Nifty Bank";
+    dispatch(SendIndiceSubRequest(indexTwo));
   }, []);
   return (
     <div className="marketlive">
-      {idicesState.IndicesList.length > 0 && (                
+      {idicesState.IndicesList.length > 0 && (
         <>
           {idicesState.IndicesList[0] != undefined && (
             <div className="niftymain">
@@ -40,7 +40,9 @@ const HeaderIndices = () => {
               >
                 {idicesState.IndicesList[0].last}
               </div>
-              <div className="mpercent">{idicesState.IndicesList[0].chg}%</div>
+              <div className="mpercent">
+                {idicesState.IndicesList[0].netchg}%
+              </div>
             </div>
           )}
           {idicesState.IndicesList[1] != undefined && (
@@ -48,12 +50,16 @@ const HeaderIndices = () => {
               <div className="nname">{idicesState.IndicesList[1].omtkn}</div>
               <div
                 className={
-                  Number(idicesState.IndicesList[1].chg) > 0 ? "pgreen" : "pred"
+                  Number(idicesState.IndicesList[1].netchg) > 0
+                    ? "pgreen"
+                    : "pred"
                 }
               >
                 {idicesState.IndicesList[1].last}
               </div>
-              <div className="mpercent">{idicesState.IndicesList[1].chg}%</div>
+              <div className="mpercent">
+                {idicesState.IndicesList[1].netchg}%
+              </div>
             </div>
           )}
         </>

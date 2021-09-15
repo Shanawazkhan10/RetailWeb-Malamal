@@ -291,8 +291,8 @@ export const fetchmarketWatch =
     try {
       const MarketWatchData = await getWatchList(cache, sessionkey);
       dispatch(onMarketWatchSuccess(MarketWatchData));
-    } catch (err) {
-      console.log(err);
+    } catch (err: any) {
+      dispatch(onMarketWatchFailure(err.toString()));
     }
   };
 

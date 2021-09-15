@@ -1398,17 +1398,18 @@ export async function getNetposition(sessionKey: string): Promise<any> {
     .catch((error) => error);
 }
 
-export async function getHolding(): Promise<any> {
+export async function getHolding(sessionKey: string): Promise<any> {
   var holdingsReq: any = {
     brkName: "TECXLABS",
     prod: "CNC",
   };
   const params = new URLSearchParams();
+  params.append("jKey", sessionKey);
   params.append("jData", JSON.stringify(holdingsReq));
   return await api
     .post("https://uathsint.hypertrade.in/quick/user/holdings", params, {
       headers: {
-        "x-access-token": localStorage.getItem("sessionKey"),
+        "x-access-token": sessionKey,
         "Content-Type": "application/x-www-form-urlencoded",
       },
     })
@@ -1416,12 +1417,15 @@ export async function getHolding(): Promise<any> {
     .catch((error) => error);
 }
 
-export async function getSummaryData(SessionKey: string): Promise<any> {
+export async function getSummaryData(
+  SessionKey: string,
+  FilterType: string
+): Promise<any> {
   const request = {
     exchange_segment: "nse_cm",
-    type: "gainer",
+    type: FilterType,
     indexname: "nifty50",
-    limit: "10",
+    limit: "50",
     day: "1",
   };
 

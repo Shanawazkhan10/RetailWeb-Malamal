@@ -66,7 +66,7 @@ const RightContainer = () => {
     case 10:
       return (
         <div className="col-md-6 col-lg-8 col-xl-9">
-          <MainSummary></MainSummary>;
+          <MainSummary></MainSummary>
         </div>
       );
     default:

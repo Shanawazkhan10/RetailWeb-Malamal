@@ -9,7 +9,7 @@ const HoldingView = (props: { holding: IHolding }) => {
   return (
     <tr>
       <td className="netposclsdata">{holding.nseTrdSym}</td>
-      <td className="netposclsdata">{holding.prod}</td>
+      <td className="netposclsdata">{holding.exSeg1}</td>
       <td className="netposclsdata">{holding.prod}</td>
       <td className="netposclsdata right">{holding.hldQty}</td>
       <td className="netposclsdata right" style={{ color: "#00ff00" }}>

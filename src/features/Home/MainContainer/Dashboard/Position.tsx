@@ -1,4 +1,48 @@
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Progress } from "reactstrap";
+import { useAppDispatch } from "../../../../app/hooks";
+import { RootState } from "../../../../store/store";
+import { INetPosition } from "../../../../types/INetposition";
+import { userWS } from "../../../WebSocket/HSSocket";
+import {
+  sendUnsubReq,
+  SubUnsubReq,
+  waitForSocketConnection,
+} from "../../../WebSocket/HSSocket1";
+import { fetchNetposition } from "../NetPosition/NetPositionSlice";
+
 const Position = () => {
+  function onprogress(netposition: INetPosition) {
+    let pnl = Math.ceil(Number(netposition.ltp) / Number(netposition.buyAmt));
+    console.log(netposition.ltp + "  " + pnl);
+    return String(pnl);
+  }
+
+  const dispatch = useAppDispatch();
+
+  const user = useSelector((state: RootState) => state.user);
+
+  useEffect(() => {
+    dispatch(fetchNetposition(user.sessionKey));
+    getSymbol();
+  }, []);
+
+  function getSymbol() {
+    //subscribe Script API Call
+    const subUnsubReq: SubUnsubReq = {
+      type: "mws",
+      scrips: NetpositionList.netposition.map((x) => x.trdSym).join("&"),
+      channelnum: 1,
+    };
+
+    waitForSocketConnection(userWS, function () {
+      sendUnsubReq(subUnsubReq);
+    });
+  }
+
+  const NetpositionList = useSelector((state: RootState) => state.netposition);
+
   return (
     <div className="col-sm-12 col-md-12 col-lg-6 col-xl-4">
       <div className="plate fadeIn-element">
@@ -6,140 +50,48 @@ const Position = () => {
           <div className="col-md-12">
             <img src="images/positions.svg" /> <span>Positions</span>
           </div>
+
           <div className="col-md-12 positions mt-4" id="bar-graph">
-            <div className="row">
-              <div className="col-md-6">
-                <div className="progress flex-row-reverse">
-                  <div
+            {NetpositionList.netposition &&
+            NetpositionList.netposition.length > 0 ? (
+              NetpositionList.netposition.map(
+                (netpostion: INetPosition, increment: number) => (
+                  <div className="row">
+                    <div className="col-md-6">
+                      <Progress
+                        className="flex-row-reverse"
+                        value={onprogress(netpostion)}
+                        min="0"
+                        max="5"
+                      ></Progress>
+                      {/* <div
                     className="progress-bar"
                     role="progressbar"
                     data-aria-valuenow="1"
                     data-aria-valuemin="0"
                     data-aria-valuemax="100"
                     style={{ width: "100%" }}
-                  ></div>
+                  ></div> */}
+                    </div>
+                    <div className="col-md-6">
+                      <p>{netpostion.sym}</p>
+                    </div>
+                  </div>
+                )
+              )
+            ) : (
+              <div className="plate fadeIn-element">
+                <div className="row slideInDown-element">
+                  <div>
+                    <p>You don't have any positions yet</p>
+                  </div>
+                  <br />
+                  <button type="button" className="button-blue">
+                    Get started
+                  </button>
                 </div>
               </div>
-              <div className="col-md-6">
-                <p>HDFC</p>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-6">
-                <p className="text-right">HINDUNILVR</p>
-              </div>
-              <div className="col-md-6 c-red">
-                <div className="progress">
-                  <div
-                    className="progress-bar"
-                    role="progressbar"
-                    data-aria-valuenow="1"
-                    data-aria-valuemin="0"
-                    data-aria-valuemax="100"
-                    style={{ width: "25%" }}
-                    data-toggle="tooltip"
-                    data-placement="right"
-                  ></div>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="progress flex-row-reverse">
-                  <div
-                    className="progress-bar"
-                    role="progressbar"
-                    data-aria-valuenow="1"
-                    data-aria-valuemin="0"
-                    data-aria-valuemax="100"
-                    style={{ width: "40%" }}
-                    data-toggle="tooltip"
-                    data-placement="right"
-                  ></div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <p>INFY</p>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="progress flex-row-reverse">
-                  <div
-                    className="progress-bar"
-                    role="progressbar"
-                    data-aria-valuenow="1"
-                    data-aria-valuemin="0"
-                    data-aria-valuemax="100"
-                    style={{ width: "20%" }}
-                    data-toggle="tooltip"
-                    data-placement="right"
-                  ></div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <p>ONGC</p>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-6">
-                <p className="text-right">TCS</p>
-              </div>
-              <div className="col-md-6">
-                <div className="progress c-red">
-                  <div
-                    className="progress-bar"
-                    role="progressbar"
-                    data-aria-valuenow="1"
-                    data-aria-valuemin="0"
-                    data-aria-valuemax="100"
-                    style={{ width: "100%" }}
-                    data-toggle="tooltip"
-                    data-placement="right"
-                  ></div>
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-6">
-                <div className="progress flex-row-reverse">
-                  <div
-                    className="progress-bar"
-                    role="progressbar"
-                    data-aria-valuenow="1"
-                    data-aria-valuemin="0"
-                    data-aria-valuemax="100"
-                    style={{ width: "70%" }}
-                    data-toggle="tooltip"
-                    data-placement="right"
-                  ></div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <p>DOWN JONES</p>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-6">
-                <p className="text-right">HDFC</p>
-              </div>
-              <div className="col-md-6">
-                <div className="progress">
-                  <div
-                    className="progress-bar"
-                    role="progressbar"
-                    data-aria-valuenow="1"
-                    data-aria-valuemin="0"
-                    data-aria-valuemax="100"
-                    style={{ width: "60%" }}
-                    data-toggle="tooltip"
-                    data-placement="right"
-                  ></div>
-                </div>
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
