@@ -21,11 +21,11 @@ const SummarySlice = createSlice({
 export default SummarySlice.reducer;
 export const { OnTopGainers } = SummarySlice.actions;
 
-export const FetchGainer =
-  (SessionKey: string): AppThunk =>
+export const FetchSummary =
+  (SessionKey: string, FilterType: string): AppThunk =>
   async (dispatch) => {
     try {
-      const SummaryData = await getSummaryData(SessionKey);
+      const SummaryData = await getSummaryData(SessionKey, FilterType);
       dispatch(OnTopGainers(SummaryData));
     } catch (err) {
       //dispatch(onMarketWatchFailure(err.toString()));

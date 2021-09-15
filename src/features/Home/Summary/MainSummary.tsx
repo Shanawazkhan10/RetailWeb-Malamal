@@ -1,13 +1,20 @@
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { FetchSummary } from "../MainContainer/Dashboard/SummarySlice";
 import { dashboardContainer } from "../MainContainer/mainContainerSlice";
 
 const MainSummary = () => {
   const dispatch = useAppDispatch();
   const summaryState = useAppSelector((state) => state.summary);
+  const userState = useAppSelector((state) => state.user);
 
   function OnDashBoard(e: any) {
     e.preventDefault();
     dispatch(dashboardContainer());
+  }
+
+  function OnMenuClick(e: any, FilterType: string) {
+    e.preventDefault();
+    dispatch(FetchSummary(userState.sessionKey, FilterType));
   }
 
   return (
@@ -29,10 +36,42 @@ const MainSummary = () => {
             <div className="equity-summary">
               <div className="toptxt">
                 <ul className="nav nav-tabs nav-flex" id="EquitySummry">
-                  <li>Top Gainers</li>
-                  <li>Top Losers</li>
-                  <li> Most Active by Value</li>
-                  <li>Most Active by Volume</li>
+                  <li className="nav-item">
+                    <a
+                      className="nav-link"
+                      href=""
+                      onClick={(e) => OnMenuClick(e, "gainer")}
+                    >
+                      Top Gainers
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a
+                      className="nav-link"
+                      href=""
+                      onClick={(e) => OnMenuClick(e, "loser")}
+                    >
+                      Top Losers
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a
+                      className="nav-link"
+                      href=""
+                      onClick={(e) => OnMenuClick(e, "mostactivebyvalue")}
+                    >
+                      Most Active by Value
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a
+                      className="nav-link"
+                      href=""
+                      onClick={(e) => OnMenuClick(e, "mostactivebyvolume")}
+                    >
+                      Most Active by Volume
+                    </a>
+                  </li>
                 </ul>
               </div>
               <table className="table table-responsive table-borderless">

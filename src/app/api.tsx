@@ -1416,12 +1416,15 @@ export async function getHolding(): Promise<any> {
     .catch((error) => error);
 }
 
-export async function getSummaryData(SessionKey: string): Promise<any> {
+export async function getSummaryData(
+  SessionKey: string,
+  FilterType: string
+): Promise<any> {
   const request = {
     exchange_segment: "nse_cm",
-    type: "gainer",
+    type: FilterType,
     indexname: "nifty50",
-    limit: "10",
+    limit: "20",
     day: "1",
   };
 

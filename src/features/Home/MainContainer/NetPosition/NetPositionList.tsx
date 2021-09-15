@@ -13,6 +13,7 @@ import { ShowDepthFromPosition } from "../MarketPicture/MarketPictureSlice";
 const NetPositionList = () => {
   //let NetpositionList: any[];
   const NetpositionList = useSelector((state: RootState) => state.netposition);
+  const user = useSelector((state: RootState) => state.user);
   //NetpositionList = Netposition.netposition;
   const dispatch = useAppDispatch();
 
@@ -21,7 +22,7 @@ const NetPositionList = () => {
   }
   useEffect(() => {
     //dispatch(NetpositionSuccess(getNetpositionData()));
-    dispatch(fetchNetposition());
+    dispatch(fetchNetposition(user.sessionKey));
   }, []);
 
   return NetpositionList.netposition &&

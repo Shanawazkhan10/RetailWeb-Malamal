@@ -56,12 +56,13 @@ export const { NetpositionSuccess, NetpositionUpdate } = netposition.actions;
 //   }
 // };
 
-export const fetchNetposition = (): AppThunk => async (dispatch) => {
-  try {
-    await api
-      .get<NetpositionSummary[]>("/users")
-      .then((response) => dispatch(NetpositionSuccess(response.data)));
-  } catch (e: any) {
-    return console.error(e.message);
-  }
-};
+export const fetchNetposition =
+  (sessionKey: string): AppThunk =>
+  async (dispatch) => {
+    try {
+      const positionResponse = await getNetposition(sessionKey);
+      dispatch(NetpositionSuccess(positionResponse));
+    } catch (err) {
+      //dispatch(TradeError(err.toString()));
+    }
+  };
