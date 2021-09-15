@@ -13,6 +13,7 @@ import {
   SearchScriptUpdate,
 } from "../Home/MainContainer/MarketPicture/MarketPictureSlice";
 import { onIndiceUpdate } from "../Home/Header/IndicesSlice";
+import { NetpositionUpdate } from "../Home/MainContainer/NetPosition/NetPositionSlice";
 
 export interface authReq {
   sessionid: string;
@@ -87,6 +88,7 @@ const HSSocket = () => {
           case "sf":
             dispatch(ScriptUpdatefromSocket(element));
             dispatch(SearchScriptUpdate(element));
+            dispatch(NetpositionUpdate(element));
             break;
           case "if":
             dispatch(onIndiceUpdate(element as IIndices));
