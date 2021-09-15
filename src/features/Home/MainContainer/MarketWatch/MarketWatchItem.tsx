@@ -36,6 +36,7 @@ import {
   showMore,
   UpdateWatchlist,
 } from "./MarketWatchSlice";
+import Quote from "./Quote";
 //import { userWS } from "./../../../WebSocket/HSSocket1";
 
 export interface scriptInfoReq {
@@ -63,7 +64,7 @@ const MarketWatchItem = (props: {
 
   useEffect(() => {
     getSymbol();
-    console.log(" MarketWatchItem useEffect");
+    console.log("MarketWatchItem useEffect");
   }, []);
 
   useEffect(() => {
@@ -122,7 +123,7 @@ const MarketWatchItem = (props: {
         symbol.exSeg + "|" + symbol.tok,
         ","
       ),
-      userid:user.sessionKey,
+      userid: user.sessionKey,
     };
     dispatch(UpdateWatchlist(updateWatchlist));
     //Unsubscribe Depth API Call
@@ -229,151 +230,164 @@ const MarketWatchItem = (props: {
   };
 
   return (
-    <tbody>
+    <>
       {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
       {propMarketWatch.SymbolList != null &&
       propMarketWatch.SymbolList != [] ? (
         propMarketWatch.SymbolList.map(
           (symbolInfo: IMarketWatchTokenInfo, nIncreament) => (
-            //     {symbolInfo.showDepth &&
-            //     symbolInfo.marketDepth != null &&
-            //     symbolInfo.marketDepth != undefined ? (
-            //       <Collapse in={symbolInfo.showDepth}>
-            //         <div className="market-depth" style={{ display: "" }}>
-            //           <MarketDepth
-            //             index={nIncreament}
-            //             depth={symbolInfo.marketDepth}
-            //           ></MarketDepth>
-            //           <Quote index={nIncreament} tokenInfo={symbolInfo}></Quote>
-            //         </div>
-            //       </Collapse>
-            //     ) : (
-            //       ""
-            //     )}
-            //     {/* {activeItem && activeIndex == nIncreament + 1
-            //       ? onDepthClick1(nIncreament + 1)
-            //       : ""} */}
-            <tr
-              className="slideInDown-element"
-              key={nIncreament}
-              onMouseLeave={() => {
-                dispatch(hideMore(nIncreament));
-              }}
-            >
-              <td>
-                <img src="images/hdfc-logo.jpg" />
-                <span>{symbolInfo.sym}</span>
-              </td>
-              <td className="price-box">
-                <div className="watchlistbox">
-                  <button
-                    type="button"
-                    className="btn btn-primary wbuy"
-                    title="BUY"
-                    onClick={() => onBuyOrderEntryClick(symbolInfo)}
-                  >
-                    B
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-primary wsell"
-                    title="SELL"
-                    onClick={() => onSellOrderEntryClick(symbolInfo)}
-                  >
-                    S
-                  </button>
-                  <div className="d-inline-block" id="accordionExample">
-                    <div id="headingOne">
-                      <button
-                        className="btn btn-primary wmarketdepth"
-                        data-toggle="collapse"
-                        data-target="#collapseOne"
-                        aria-expanded="true"
-                        aria-controls="collapseOne"
-                      ></button>
+            <tbody key={nIncreament}>
+              <tr
+                className="slideInDown-element"
+                key={nIncreament}
+                onMouseLeave={() => {
+                  dispatch(hideMore(nIncreament));
+                }}
+              >
+                <td>
+                  <img src="images/hdfc-logo.jpg" />
+                  <span>{symbolInfo.sym}</span>
+                </td>
+                <td className="price-box">
+                  <div className="watchlistbox">
+                    <button
+                      type="button"
+                      className="btn btn-primary wbuy"
+                      title="BUY"
+                      onClick={() => onBuyOrderEntryClick(symbolInfo)}
+                    >
+                      B
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary wsell"
+                      title="SELL"
+                      onClick={() => onSellOrderEntryClick(symbolInfo)}
+                    >
+                      S
+                    </button>
+                    <div className="d-inline-block" id="accordionExample">
+                      <div id="headingOne">
+                        <button
+                          className="btn btn-primary wmarketdepth"
+                          data-toggle="collapse"
+                          data-target="#collapseOne"
+                          aria-expanded="true"
+                          aria-controls="collapseOne"
+                          title="Depth"
+                          onClick={() => onDepthClick(nIncreament, symbolInfo)}
+                        ></button>
+                      </div>
                     </div>
-                  </div>
-                  {/* <button
+                    {/* <button
                     type="button"
                     className="btn btn-primary wmarketdepth"
                     title="Depth"
                     onClick={() => onDepthClick(nIncreament, symbolInfo)}
                   ></button> */}
-                  <button
-                    type="button"
-                    className="btn btn-primary wchart"
-                    title="Chart(C )"
-                    onClick={onChartClick}
-                  ></button>
-                  <button
-                    type="button"
-                    className="btn btn-primary wdelete"
-                    title="Delete"
-                    onClick={() => RemoveSymbol(symbolInfo)}
-                  ></button>
-                  <button
-                    type="button"
-                    className="btn btn-primary wmore dropdown-toggle"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                    title="More"
-                    onClick={() => {
-                      symbolInfo.showMore
-                        ? dispatch(hideMore(nIncreament))
-                        : dispatch(showMore(nIncreament));
-                    }}
-                  ></button>
+                    <button
+                      type="button"
+                      className="btn btn-primary wchart"
+                      title="Chart(C )"
+                      onClick={onChartClick}
+                    ></button>
+                    <button
+                      type="button"
+                      className="btn btn-primary wdelete"
+                      title="Delete"
+                      onClick={() => RemoveSymbol(symbolInfo)}
+                    ></button>
+                    <button
+                      type="button"
+                      className="btn btn-primary wmore dropdown-toggle"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      title="More"
+                      onClick={() => {
+                        symbolInfo.showMore
+                          ? dispatch(hideMore(nIncreament))
+                          : dispatch(showMore(nIncreament));
+                      }}
+                    ></button>
 
+                    <div
+                      className={
+                        "dropdown-menu" + (symbolInfo.showMore ? " show" : "")
+                      }
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <a className="dropdown-item" href="">
+                        <img src="images/watchlist/pin.svg" /> Pin
+                      </a>
+                      <a
+                        className="dropdown-item"
+                        href=""
+                        onClick={(e) => onCreateGTTOrderClick(symbolInfo, e)}
+                      >
+                        <img src="images/watchlist/create-gtt.svg" /> Create GTT
+                      </a>
+                      <a className="dropdown-item" href="">
+                        <img src="images/watchlist/chart.svg" /> Chart
+                      </a>
+                      <a className="dropdown-item" href="">
+                        <img src="" style={fundamentalStyle} /> Fundamentals
+                      </a>
+                      <a className="dropdown-item" href="">
+                        <img src="" style={fundamentalStyle} /> Technicals
+                      </a>
+                      <a className="dropdown-item" href="">
+                        <img src="images/watchlist/alert.svg" /> Set Alerts
+                      </a>
+                    </div>
+                  </div>
                   <div
                     className={
-                      "dropdown-menu" + (symbolInfo.showMore ? " show" : "")
+                      "lprice" +
+                      (Number(symbolInfo.nc) > 0
+                        ? " text-green"
+                        : Number(symbolInfo.nc) < 0
+                        ? " text-red"
+                        : "")
                     }
-                    aria-labelledby="dropdownMenuButton"
                   >
-                    <a className="dropdown-item" href="">
-                      <img src="images/watchlist/pin.svg" /> Pin
-                    </a>
-                    <a
-                      className="dropdown-item"
-                      href=""
-                      onClick={(e) => onCreateGTTOrderClick(symbolInfo, e)}
-                    >
-                      <img src="images/watchlist/create-gtt.svg" /> Create GTT
-                    </a>
-                    <a className="dropdown-item" href="">
-                      <img src="images/watchlist/chart.svg" /> Chart
-                    </a>
-                    <a className="dropdown-item" href="">
-                      <img src="" style={fundamentalStyle} /> Fundamentals
-                    </a>
-                    <a className="dropdown-item" href="">
-                      <img src="" style={fundamentalStyle} /> Technicals
-                    </a>
-                    <a className="dropdown-item" href="">
-                      <img src="images/watchlist/alert.svg" /> Set Alerts
-                    </a>
+                    {symbolInfo.ltp == undefined ? "0.00" : symbolInfo.ltp}
                   </div>
-                </div>
-                <div
-                  className={
-                    "lprice" +
-                    (Number(symbolInfo.nc) > 0
-                      ? " text-green"
-                      : Number(symbolInfo.nc) < 0
-                      ? " text-red"
-                      : "")
-                  }
-                >
-                  {symbolInfo.ltp == undefined ? "0.00" : symbolInfo.ltp}
-                </div>
-                <p>
-                  {symbolInfo.cng == undefined ? "0.00" : symbolInfo.cng} (
-                  {symbolInfo.nc == undefined ? "0.00" : symbolInfo.nc}%)
-                </p>
-              </td>
-            </tr>
+                  <p>
+                    {symbolInfo.cng == undefined ? "0.00" : symbolInfo.cng} (
+                    {symbolInfo.nc == undefined ? "0.00" : symbolInfo.nc}%)
+                  </p>
+                </td>
+              </tr>
+              {symbolInfo.showDepth &&
+              symbolInfo.marketDepth != null &&
+              symbolInfo.marketDepth != undefined ? (
+                <>
+                  <tr
+                    id="collapseOne"
+                    className="collapse show"
+                    aria-labelledby="headingOne"
+                    data-parent="#accordionExample"
+                  >
+                    <MarketDepth
+                      index={nIncreament}
+                      depth={symbolInfo.marketDepth}
+                    ></MarketDepth>
+                  </tr>
+                  <tr
+                    id="collapseOne"
+                    className="collapse show"
+                    aria-labelledby="headingOne"
+                    data-parent="#accordionExample"
+                  >
+                    <Quote index={nIncreament} tokenInfo={symbolInfo}></Quote>
+                  </tr>
+                </>
+              ) : (
+                ""
+              )}
+            </tbody>
           )
         )
       ) : (
@@ -381,7 +395,7 @@ const MarketWatchItem = (props: {
           <td>No Data</td>
         </tr>
       )}
-    </tbody>
+    </>
   );
 };
 

@@ -4,227 +4,90 @@ const MarketDepth = (props: any) => {
   const Depth = props.depth;
   const SymbolInfo = props.tokenInfo;
   return Depth != undefined ? (
-    <div className="depth-table">
-      <div className="row">
-        <table className="six columns buy">
+    <>
+      <td>
+        <table
+          id="watchlistinner"
+          className="c-blue table table-responsive table-borderless"
+        >
           <thead>
             <tr>
-              <th className="order-price">
-                <span>Bid</span>{" "}
-              </th>{" "}
-              <th className="orders">Orders</th>{" "}
-              <th className="text-right quantity">Qty.</th>
+              <th>Bid</th>
+              <th>Orders</th>
+              <th>Qty</th>
             </tr>
-          </thead>{" "}
+          </thead>
           <tbody>
             <tr>
-              <td className="rate">
-                {Depth.bp != undefined ? Depth.bp : "0.00"}
-              </td>{" "}
-              <td className="orders">
-                {Depth.bq != undefined ? Depth.bq : "0.00"}
-              </td>{" "}
-              <td
-                className="text-right quantity"
-                style={{
-                  background:
-                    "linear-gradient(to left, rgba(65, 132, 243, 0.1) 1.46199%, transparent 1.46199%)",
-                }}
-              >
-                {Depth.bno1}
-              </td>
+              <td>{Depth.bp != undefined ? Depth.bp : "0.00"}</td>
+              <td>{Depth.bq != undefined ? Depth.bq : "0"}</td>
+              <td>{Depth.bno1 !== undefined ? Depth.bno1 : "0"}</td>
             </tr>
             <tr>
-              <td className="rate">
-                {Depth.bp1 != undefined ? Depth.bp1 : "0.00"}
-              </td>{" "}
-              <td className="orders">
-                {Depth.bq1 != undefined ? Depth.bq1 : "0.00"}
-              </td>{" "}
-              <td
-                className="text-right quantity"
-                style={{
-                  background:
-                    "linear-gradient(to left, rgba(65, 132, 243, 0.1) 100%, transparent 100%)",
-                }}
-              >
-                {Depth.bno2}
-              </td>
+              <td>{Depth.bp1 != undefined ? Depth.bp1 : "0.00"}</td>
+              <td>{Depth.bq1 != undefined ? Depth.bq1 : "0"}</td>
+              <td>{Depth.bno2 !== undefined ? Depth.bno2 : "0"}</td>
             </tr>
             <tr>
-              <td className="rate">
-                {Depth.bp2 != undefined ? Depth.bp2 : "0.00"}
-              </td>{" "}
-              <td className="orders">
-                {Depth.bq2 != undefined ? Depth.bq2 : "0.00"}
-              </td>{" "}
-              <td
-                className="text-right quantity"
-                style={{
-                  background:
-                    "linear-gradient(to left, rgba(65, 132, 243, 0.1) 60.8187%, transparent 60.8187%)",
-                }}
-              >
-                {Depth.bno3}
-              </td>
+              <td>{Depth.bp2 != undefined ? Depth.bp2 : "0.00"}</td>
+              <td>{Depth.bq2 != undefined ? Depth.bq2 : "0"}</td>
+              <td>{Depth.bno3 !== undefined ? Depth.bno3 : "0"}</td>
             </tr>
             <tr>
-              <td className="rate">
-                {Depth.bp3 != undefined ? Depth.bp3 : "0.00"}
-              </td>{" "}
-              <td className="orders">
-                {Depth.bq3 != undefined ? Depth.bq3 : "0.00"}
-              </td>{" "}
-              <td
-                className="text-right quantity"
-                style={{
-                  background:
-                    "linear-gradient(to left, rgba(65, 132, 243, 0.1) 5%, transparent 5%)",
-                }}
-              >
-                {Depth.bno4}
-              </td>
+              <td>{Depth.bp3 != undefined ? Depth.bp3 : "0.00"}</td>
+              <td>{Depth.bq3 != undefined ? Depth.bq3 : "0"}</td>
+              <td>{Depth.bno4 !== undefined ? Depth.bno4 : "0"}</td>
             </tr>
             <tr>
-              <td className="rate">
-                {Depth.bp4 != undefined ? Depth.bp4 : "0.00"}
-              </td>{" "}
-              <td className="orders">
-                {Depth.bq4 != undefined ? Depth.bq4 : "0.00"}
-              </td>{" "}
-              <td
-                className="text-right quantity"
-                style={{
-                  background:
-                    "linear-gradient(to left, rgba(65, 132, 243, 0.1) 8.18713%, transparent 8.18713%)",
-                }}
-              >
-                {Depth.bno5}
-              </td>
+              <td>{Depth.bp4 != undefined ? Depth.bp4 : "0.00"}</td>
+              <td>{Depth.bq4 != undefined ? Depth.bq4 : "0"}</td>
+              <td>{Depth.bno5 !== undefined ? Depth.bno5 : "0"}</td>
             </tr>
-          </tbody>{" "}
-          <tfoot>
-            <tr>
-              <td>Total</td>{" "}
-              <td colSpan={2} className="text-right">
-                {SymbolInfo && SymbolInfo.tbq != undefined
-                  ? SymbolInfo.tbq
-                  : "0"}
-              </td>{" "}
-            </tr>
-          </tfoot>
+          </tbody>
         </table>
-        <table className="six columns sell">
+      </td>
+      <td>
+        <table
+          id="watchlistinner"
+          className="c-red table table-responsive table-borderless"
+        >
           <thead>
             <tr>
-              <th className="order-price">
-                {" "}
-                <span>Offer</span>
-              </th>{" "}
-              <th className="orders">Orders</th>{" "}
-              <th className="text-right quantity">Qty.</th>
+              <th>Offers</th>
+              <th>Orders</th>
+              <th>Qty</th>
             </tr>
-          </thead>{" "}
+          </thead>
           <tbody>
             <tr>
-              <td className="rate">
-                {Depth.sp != undefined ? Depth.sp : "0.00"}
-              </td>{" "}
-              <td className="orders">
-                {Depth.bs != undefined ? Depth.bs : "0.00"}
-              </td>{" "}
-              <td
-                className="text-right quantity"
-                style={{
-                  background:
-                    "linear-gradient(to left, rgba(255, 87, 34, 0.1) 20.9302%, transparent 20.9302%)",
-                }}
-              >
-                {Depth.sno1 != undefined ? Depth.sno1 : "0.00"}
-              </td>
+              <td>{Depth.sp != undefined ? Depth.sp : "0.00"}</td>
+              <td>{Depth.bs != undefined ? Depth.bs : "0"}</td>
+              <td>{Depth.sno1 != undefined ? Depth.sno1 : "0"}</td>
             </tr>
             <tr>
-              <td className="rate">
-                {Depth.sp1 != undefined ? Depth.sp1 : "0.00"}
-              </td>{" "}
-              <td className="orders">
-                {Depth.bs1 != undefined ? Depth.bs1 : "0.00"}
-              </td>{" "}
-              <td
-                className="text-right quantity"
-                style={{
-                  background:
-                    "linear-gradient(to left, rgba(255, 87, 34, 0.1) 8.52713%, transparent 8.52713%)",
-                }}
-              >
-                {Depth.sno2}
-              </td>
+              <td>{Depth.sp1 != undefined ? Depth.sp1 : "0.00"}</td>
+              <td>{Depth.bs1 != undefined ? Depth.bs1 : "0"}</td>
+              <td>{Depth.sno2 != undefined ? Depth.sno2 : "0"}</td>
             </tr>
             <tr>
-              <td className="rate">
-                {Depth.sp2 != undefined ? Depth.sp2 : "0.00"}
-              </td>{" "}
-              <td className="orders">
-                {Depth.bs2 != undefined ? Depth.bs2 : "0.00"}
-              </td>{" "}
-              <td
-                className="text-right quantity"
-                style={{
-                  background:
-                    "linear-gradient(to left, rgba(255, 87, 34, 0.1) 100%, transparent 100%)",
-                }}
-              >
-                {Depth.sno3}
-              </td>
+              <td>{Depth.sp2 != undefined ? Depth.sp2 : "0.00"}</td>
+              <td>{Depth.bs2 != undefined ? Depth.bs2 : "0"}</td>
+              <td>{Depth.sno3 != undefined ? Depth.sno3 : "0"}</td>
             </tr>
             <tr>
-              <td className="rate">
-                {Depth.sp3 != undefined ? Depth.sp3 : "0.00"}
-              </td>{" "}
-              <td className="orders">
-                {Depth.bs3 != undefined ? Depth.bs3 : "0.00"}
-              </td>{" "}
-              <td
-                className="text-right quantity"
-                style={{
-                  background:
-                    "linear-gradient(to left, rgba(255, 87, 34, 0.1) 87.5969%, transparent 87.5969%)",
-                }}
-              >
-                {Depth.sno4}
-              </td>
+              <td>{Depth.sp3 != undefined ? Depth.sp3 : "0.00"}</td>
+              <td>{Depth.bs3 != undefined ? Depth.bs3 : "0"}</td>
+              <td>{Depth.sno4 != undefined ? Depth.sno4 : "0"}</td>
             </tr>
             <tr>
-              <td className="rate">
-                {Depth.sp4 != undefined ? Depth.sp4 : "0.00"}
-              </td>{" "}
-              <td className="orders">
-                {Depth.bs4 != undefined ? Depth.bs4 : "0.00"}
-              </td>{" "}
-              <td
-                className="text-right quantity"
-                style={{
-                  background:
-                    "linear-gradient(to left, rgba(255, 87, 34, 0.1) 5%, transparent 5%)",
-                }}
-              >
-                {Depth.sno4 != undefined ? Depth.sno4 : "0.00"}
-              </td>
+              <td>{Depth.sp4 != undefined ? Depth.sp4 : "0.00"}</td>
+              <td>{Depth.bs4 != undefined ? Depth.bs4 : "0"}</td>
+              <td>{Depth.sno5 != undefined ? Depth.sno5 : "0"}</td>
             </tr>
-          </tbody>{" "}
-          <tfoot>
-            <tr>
-              <td>Total</td>{" "}
-              <td colSpan={2} className="text-right">
-                {SymbolInfo && SymbolInfo.tsq != undefined
-                  ? SymbolInfo.tsq
-                  : "0"}
-              </td>
-            </tr>
-          </tfoot>
+          </tbody>
         </table>
-      </div>{" "}
-    </div>
+      </td>
+    </>
   ) : (
     <div> asa </div>
   );
