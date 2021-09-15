@@ -8,8 +8,8 @@ import {
 } from "../../../WebSocket/HSSocket1";
 import { userWS } from "../../../WebSocket/HSSocket";
 import { IMarketWatchTokenInfo } from "./../../../../types/IMarketWatchTokenInfo";
-import { IOrderEntryProps } from "../../../../types/IOrderEntryProps";
-import { IGTTEntryProps } from "../../../../types/IGTTEntryProps";
+import { IOrderEntryProps } from "../../../../types/OrderEntry/IOrderEntryProps";
+import { IGTTEntryProps } from "../../../../types/OrderEntry/IGTTEntryProps";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
