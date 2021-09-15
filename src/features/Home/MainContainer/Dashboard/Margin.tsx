@@ -22,22 +22,19 @@ const Margin = () => {
           </div>
           <div className="equitytxt">
             <p>Margin Available</p>
-            <div className="row">
-              <div className="col-md-9">
-                <p>Margin Used</p>
-              </div>
-              <div className="col-md-3">
-                <span>8.85</span>
-              </div>
-              <div className="col-md-9">
-                <p>Opening Balance</p>
-              </div>
-              <div className="col-md-3">
-                <span>168.1</span>
-              </div>
-            </div>
+            <p>
+              Margin Used <span>{marginState.marginData.MarginUsed}</span>
+            </p>
+            <p>
+              Opening Balance <span>168.1</span>
+            </p>
           </div>
-          <div className="equitybtn"><a href="#"><img src="images/eye-web.svg"/>View Statement</a></div>
+          <div className="equitybtn">
+            <a href="#">
+              <img src="" />
+              View Statement
+            </a>
+          </div>
         </div>
       </div>
     </div>

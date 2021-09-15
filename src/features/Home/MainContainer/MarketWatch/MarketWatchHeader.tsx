@@ -16,6 +16,10 @@ import {
 const MarketWatchHeader = () => {
   const [sName, setName] = useState("");
   const [bEdit, SetEditFlag] = useState(false);
+  // let selectedList: number;
+  // const WatchList = useSelector((state: RootState) => state.marketwatch);
+  // selectedList = WatchList.marketWatch.nSelectedWatchList;
+
   const user = useSelector((state: RootState) => state.user);
   const {
     nSelectedWatchList,
@@ -25,7 +29,7 @@ const MarketWatchHeader = () => {
     WatchList,
   } = useSelector((state: RootState) => {
     return {
-      nSelectedWatchList: state.marketwatch.marketWatch.nSelectedWatchList,
+      nSelectedWatchList: state.marketwatch.marketWatch.sSelectedWatchList,
       sSelectedWatchList: state.marketwatch.marketWatch.sSelectedWatchList,
       bIsBind: state.marketwatch.marketWatch.bIsBind,
       bIsError: state.marketwatch.marketWatch.bIsError,
@@ -71,7 +75,7 @@ const MarketWatchHeader = () => {
   }
   return (
     <div className="mw_headnew">
-      <SmartSearch Type={nSelectedWatchList}></SmartSearch>
+      <SmartSearch Type={1}></SmartSearch>
       <div className="mw-head-btns">
         <button id="btnEditMode" title="Edit">
           Edit

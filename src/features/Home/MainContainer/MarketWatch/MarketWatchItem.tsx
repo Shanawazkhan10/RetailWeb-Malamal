@@ -64,7 +64,7 @@ const MarketWatchItem = (props: {
 
   useEffect(() => {
     getSymbol();
-    console.log("MarketWatchItem useEffect");
+    console.log(" MarketWatchItem useEffect");
   }, []);
 
   useEffect(() => {
@@ -173,6 +173,7 @@ const MarketWatchItem = (props: {
 
   function getSymbol() {
     //API call to bind Token info (Scrip Info Request)
+
     dispatch(
       FetchWatchListSymbol(
         propMarketWatch.scrips.split(","),

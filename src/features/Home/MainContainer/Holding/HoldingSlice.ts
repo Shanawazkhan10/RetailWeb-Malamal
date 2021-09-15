@@ -11,7 +11,7 @@ const holding = createSlice({
     holding: InitialHolding,
   },
   reducers: {
-    HoldingSuccess: (state, action: PayloadAction<any>) => {
+    HoldingSuccess: (state, action) => {
       state.holding = action.payload.hldVal;
     },
     HoldingUpdate: (state, action: PayloadAction<string>) => {
