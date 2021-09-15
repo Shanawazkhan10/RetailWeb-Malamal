@@ -31,7 +31,6 @@ const SmartSearch = (props: { Type: Number }) => {
   let selectlistname: string;
   selectlistname = WatchList.sSelectedWatchList;
 
-  const nIsOpenFrom = props.Type;
   const onDepthClick = (data: IContractSearch) => {
     //e.preventDefault();
     //dispatch(searchDepthContainer());
