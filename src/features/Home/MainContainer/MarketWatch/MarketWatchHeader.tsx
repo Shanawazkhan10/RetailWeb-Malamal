@@ -34,6 +34,13 @@ const MarketWatchHeader = () => {
   });
 
   const dispatch = useAppDispatch();
+  function RemoveWatchList() {
+    const DeleteReq: IDeleteWatchlist = {
+      mwName: sSelectedWatchList,
+      userId: user.UserId,
+    };
+    dispatch(DeleteWatchlist(DeleteReq, user.sessionKey)); //API Call
+  }
 
   function handleChange(event: any) {
     setName(event.target.value);
@@ -43,6 +50,7 @@ const MarketWatchHeader = () => {
     const UpdateReq: IUpdateWatchlist = {
       mwName: sName,
       scrips: "",
+      userid: user.UserId,
       // userid: UserId,
     };
 
@@ -60,16 +68,24 @@ const MarketWatchHeader = () => {
     //API Call TO rename watch list
     dispatch(RenameWatchlist(RenameReq, user.sessionKey));
     //dispatch(RenameWatchList(RenameWatchlist(Input))); //API Call
-    SetEditFlag(false);
   }
   return (
     <div className="mw_headnew">
       <SmartSearch Type={nSelectedWatchList}></SmartSearch>
       <div className="mw-head-btns">
+        <button id="btnEditMode" title="Edit">
+          Edit
+        </button>
         <button id="btnSave" title="Save" onClick={SaveWatchList}>
           Save
         </button>
-
+        <button
+          id="btnDelete"
+          title="Delete"
+          onClick={(e) => RemoveWatchList()}
+        >
+          Delete
+        </button>
         <button id="btnCancelMode" title="Close" style={{ display: "none" }}>
           Cancel
         </button>
