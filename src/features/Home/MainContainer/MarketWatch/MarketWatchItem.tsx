@@ -230,92 +230,102 @@ const MarketWatchItem = (props: {
   };
 
   return (
-    <Fragment>
-      <tbody>
-        {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
-        {propMarketWatch.SymbolList != null &&
-        propMarketWatch.SymbolList != [] ? (
-          propMarketWatch.SymbolList.map(
-            (symbolInfo: IMarketWatchTokenInfo, nIncreament) => (
-              //     {symbolInfo.showDepth &&
-              //     symbolInfo.marketDepth != null &&
-              //     symbolInfo.marketDepth != undefined ? (
-              //       <Collapse in={symbolInfo.showDepth}>
-              //         <div className="market-depth" style={{ display: "" }}>
-              //           <MarketDepth
-              //             index={nIncreament}
-              //             depth={symbolInfo.marketDepth}
-              //           ></MarketDepth>
-              //           <Quote index={nIncreament} tokenInfo={symbolInfo}></Quote>
-              //         </div>
-              //       </Collapse>
-              //     ) : (
-              //       ""
-              //     )}
-              //     {/* {activeItem && activeIndex == nIncreament + 1
-              //       ? onDepthClick1(nIncreament + 1)
-              //       : ""} */}
-              <tr
-                className="slideInDown-element"
-                key={nIncreament}
-                onMouseLeave={() => {
-                  dispatch(hideMore(nIncreament));
-                }}
-              >
-                <td>
-                  <img src="images/hdfc-logo.jpg" />
-                  <span>{symbolInfo.sym}</span>
-                </td>
-                <td className="price-box">
-                  <div className="watchlistbox">
-                    <button
-                      type="button"
-                      className="btn btn-primary wbuy"
-                      title="BUY"
-                      onClick={() => onBuyOrderEntryClick(symbolInfo)}
-                    >
-                      B
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-primary wsell"
-                      title="SELL"
-                      onClick={() => onSellOrderEntryClick(symbolInfo)}
-                    >
-                      S
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-primary wmarketdepth"
-                      title="Depth"
-                      onClick={() => onDepthClick(nIncreament, symbolInfo)}
-                    ></button>
-                    <button
-                      type="button"
-                      className="btn btn-primary wchart"
-                      title="Chart(C )"
-                      onClick={onChartClick}
-                    ></button>
-                    <button
-                      type="button"
-                      className="btn btn-primary wdelete"
-                      title="Delete"
-                      onClick={() => RemoveSymbol(symbolInfo)}
-                    ></button>
-                    <button
-                      type="button"
-                      className="btn btn-primary wmore dropdown-toggle"
-                      id="dropdownMenuButton"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                      title="More"
-                      onClick={() => {
-                        symbolInfo.showMore
-                          ? dispatch(hideMore(nIncreament))
-                          : dispatch(showMore(nIncreament));
-                      }}
-                    ></button>
+    <tbody>
+      {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
+      {propMarketWatch.SymbolList != null &&
+      propMarketWatch.SymbolList != [] ? (
+        propMarketWatch.SymbolList.map(
+          (symbolInfo: IMarketWatchTokenInfo, nIncreament) => (
+            //     {symbolInfo.showDepth &&
+            //     symbolInfo.marketDepth != null &&
+            //     symbolInfo.marketDepth != undefined ? (
+            //       <Collapse in={symbolInfo.showDepth}>
+            //         <div className="market-depth" style={{ display: "" }}>
+            //           <MarketDepth
+            //             index={nIncreament}
+            //             depth={symbolInfo.marketDepth}
+            //           ></MarketDepth>
+            //           <Quote index={nIncreament} tokenInfo={symbolInfo}></Quote>
+            //         </div>
+            //       </Collapse>
+            //     ) : (
+            //       ""
+            //     )}
+            //     {/* {activeItem && activeIndex == nIncreament + 1
+            //       ? onDepthClick1(nIncreament + 1)
+            //       : ""} */}
+            <tr
+              className="slideInDown-element"
+              key={nIncreament}
+              onMouseLeave={() => {
+                dispatch(hideMore(nIncreament));
+              }}
+            >
+              <td>
+                <img src="images/hdfc-logo.jpg" />
+                <span>{symbolInfo.sym}</span>
+              </td>
+              <td className="price-box">
+                <div className="watchlistbox">
+                  <button
+                    type="button"
+                    className="btn btn-primary wbuy"
+                    title="BUY"
+                    onClick={() => onBuyOrderEntryClick(symbolInfo)}
+                  >
+                    B
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-primary wsell"
+                    title="SELL"
+                    onClick={() => onSellOrderEntryClick(symbolInfo)}
+                  >
+                    S
+                  </button>
+                  <div className="d-inline-block" id="accordionExample">
+                    <div id="headingOne">
+                      <button
+                        className="btn btn-primary wmarketdepth"
+                        data-toggle="collapse"
+                        data-target="#collapseOne"
+                        aria-expanded="true"
+                        aria-controls="collapseOne"
+                      ></button>
+                    </div>
+                  </div>
+                  {/* <button
+                    type="button"
+                    className="btn btn-primary wmarketdepth"
+                    title="Depth"
+                    onClick={() => onDepthClick(nIncreament, symbolInfo)}
+                  ></button> */}
+                  <button
+                    type="button"
+                    className="btn btn-primary wchart"
+                    title="Chart(C )"
+                    onClick={onChartClick}
+                  ></button>
+                  <button
+                    type="button"
+                    className="btn btn-primary wdelete"
+                    title="Delete"
+                    onClick={() => RemoveSymbol(symbolInfo)}
+                  ></button>
+                  <button
+                    type="button"
+                    className="btn btn-primary wmore dropdown-toggle"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    title="More"
+                    onClick={() => {
+                      symbolInfo.showMore
+                        ? dispatch(hideMore(nIncreament))
+                        : dispatch(showMore(nIncreament));
+                    }}
+                  ></button>
 
                     <div
                       className={

@@ -1017,7 +1017,8 @@ tr:hover div.watchlistbox {
     height: 88vh;
   }
 
-.plate-2.fadeIn-element {}
+  .plate-2.fadeIn-element {
+  }
   .b-listing #mainwatchlist {
     height: 73vh;
     overflow: auto; /*padding:0 12px 0 0;*/
