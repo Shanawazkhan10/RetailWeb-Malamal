@@ -70,7 +70,6 @@ const SmartSearch = (props: { Type: Number }) => {
       const ReqUpdateData: IUpdateWatchlist = {
         mwName: selectlistname,
         scrips: newscrips,
-        userid: user.UserId,
       };
 
       dispatch(UpdateWatchlist(ReqUpdateData, user.sessionKey));

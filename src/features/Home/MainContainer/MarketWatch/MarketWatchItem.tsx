@@ -123,7 +123,6 @@ const MarketWatchItem = (props: {
         symbol.exSeg + "|" + symbol.tok,
         ","
       ),
-      userid: user.UserId,
     };
     dispatch(UpdateWatchlist(updateWatchlist, user.sessionKey));
     //Unsubscribe Depth API Call
