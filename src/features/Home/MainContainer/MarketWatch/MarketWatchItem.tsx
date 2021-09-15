@@ -278,13 +278,7 @@ const MarketWatchItem = (props: {
                           onClick={() => onDepthClick(nIncreament, symbolInfo)}
                         ></button>
                       </div>
-                    </div>
-                    {/* <button
-                    type="button"
-                    className="btn btn-primary wmarketdepth"
-                    title="Depth"
-                    onClick={() => onDepthClick(nIncreament, symbolInfo)}
-                  ></button> */}
+                    </div>                    
                     <button
                       type="button"
                       className="btn btn-primary wchart"
