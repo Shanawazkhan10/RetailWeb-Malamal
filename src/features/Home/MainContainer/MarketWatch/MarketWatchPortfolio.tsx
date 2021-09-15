@@ -39,7 +39,7 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
 
   const handleChange = (event: any, mwName: string) => {
     event.preventDefault();
-    //event.stopPropagation();
+
     const ChangeWatchlist: IChangeWatchlist = {
       id: Number(event.currentTarget.id),
       mwname: mwName,
@@ -131,7 +131,7 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
               <button id="btnSave" title="Save" onClick={() => AddWatchList()}>
                 Save
               </button>
-              <SmartSearch></SmartSearch>
+              <SmartSearch Type={selectedList} ></SmartSearch>
             </div>
           </div>
         </Popup>

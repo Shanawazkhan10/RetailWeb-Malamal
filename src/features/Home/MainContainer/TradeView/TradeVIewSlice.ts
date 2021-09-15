@@ -12,7 +12,7 @@ const TradeSlice = createSlice({
   },
   reducers: {
     TradeViewSuccess: (state, action) => {
-      state.TradeViewData = action.payload;
+      state.TradeViewData = action.payload.data;
     },
     TradeUpdate(state, action) {
       state.TradeViewData = state.TradeViewData.map((el) =>
@@ -31,7 +31,7 @@ export const fetchTradeView = (sessionKey:string): AppThunk => async (dispatch) 
   try {
     const tradeResponse = await GetTradeBook(sessionKey);
     dispatch(TradeViewSuccess(tradeResponse));
-  } catch (err:any) {
+  } catch (err: any) {
     dispatch(TradeError(err.toString()));
   }
 };

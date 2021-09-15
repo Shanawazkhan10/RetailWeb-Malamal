@@ -16,10 +16,6 @@ import {
 const MarketWatchHeader = () => {
   const [sName, setName] = useState("");
   const [bEdit, SetEditFlag] = useState(false);
-  // let selectedList: number;
-  // const WatchList = useSelector((state: RootState) => state.marketwatch);
-  // selectedList = WatchList.marketWatch.nSelectedWatchList;
-
   const user = useSelector((state: RootState) => state.user);
   const {
     nSelectedWatchList,
@@ -29,7 +25,7 @@ const MarketWatchHeader = () => {
     WatchList,
   } = useSelector((state: RootState) => {
     return {
-      nSelectedWatchList: state.marketwatch.marketWatch.sSelectedWatchList,
+      nSelectedWatchList: state.marketwatch.marketWatch.nSelectedWatchList,
       sSelectedWatchList: state.marketwatch.marketWatch.sSelectedWatchList,
       bIsBind: state.marketwatch.marketWatch.bIsBind,
       bIsError: state.marketwatch.marketWatch.bIsError,
@@ -55,6 +51,7 @@ const MarketWatchHeader = () => {
       mwName: sName,
       scrips: "",
       userid: user.UserId,
+      // userid: UserId,
     };
 
     dispatch(UpdateWatchlist(UpdateReq));
@@ -74,25 +71,11 @@ const MarketWatchHeader = () => {
   }
   return (
     <div className="mw_headnew">
-      {/*<h1>
-        <span>market Watch</span>
-         <button id="mw_sort" title="Sort Market Watch">
-          SORT
-        </button> 
-      </h1>*/}
-      {/* <input
-        type="text"
-        id="txtWatchlist"
-        placeholder="Search for a symbol"
-        onChange={(e) => handleChange}
-        value={sName}
-      ></input> */}
-      <SmartSearch></SmartSearch>
+      <SmartSearch Type={nSelectedWatchList}></SmartSearch>
       <div className="mw-head-btns">
         <button
           id="btnEditMode"
           title="Edit"
-          onMouseDown={() => SetEditFlag(!bEdit)}
         >
           Edit
         </button>

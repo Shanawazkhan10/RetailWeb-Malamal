@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { api } from "../../../../app/api";
+import { api, getNetposition } from "../../../../app/api";
+import { AppThunk } from "../../../../store/store";
 import { NetpositionSummary } from "../../../../types/INetpositionSummary";
+import { INetPosition } from "./../../../../types/INetposition";
 
 // interface NetpositionState {
 //   //isLoading: boolean;
@@ -14,12 +16,7 @@ import { NetpositionSummary } from "../../../../types/INetpositionSummary";
 //   NetpositionList: [],
 // };
 
-const InitialNetposition: NetpositionSummary = {
-  Invested: "",
-  Current: "",
-  PL: "",
-  NetPosition: [],
-};
+const InitialNetposition: INetPosition[] = [];
 
 // const InitialNetposition: NetpositionSummary = {
 //     Invested: null,
@@ -38,9 +35,9 @@ const netposition = createSlice({
       state.netposition = action.payload.data;
     },
     NetpositionUpdate(state, action) {
-      state.netposition.NetPosition = state.netposition.NetPosition.map((el) =>
-        el.Token == action.payload.Token ? action.payload : el
-      );
+      // state.netposition.NetPosition = state.netposition.NetPosition.map((el) =>
+      // el.Token == action.payload.Token ? action.payload : el
+      //);
     },
   },
 });
@@ -49,12 +46,21 @@ export default netposition.reducer;
 
 export const { NetpositionSuccess, NetpositionUpdate } = netposition.actions;
 
-export const fetchNetposition = () => async (dispatch: any) => {
+// export const fetchNetposition = () => async (dispatch: any) => {
+//   try {
+//     await api
+//       .get<NetpositionSummary[]>("/users")
+//       .then((response) => dispatch(NetpositionSuccess(response.data)));
+//   } catch (e) {
+//     return console.error(e.message);
+//   }
+// };
+
+export const fetchNetposition = (sessionKey:string): AppThunk => async (dispatch) => {
   try {
-    await api
-      .get<NetpositionSummary[]>("/users")
-      .then((response) => dispatch(NetpositionSuccess(response.data)));
-  } catch (e:any) {
-    return console.error(e.message);
+    const positionResponse = await getNetposition(sessionKey);
+    dispatch(NetpositionSuccess(positionResponse));
+  } catch (err) {
+    //dispatch(TradeError(err.toString()));
   }
 };

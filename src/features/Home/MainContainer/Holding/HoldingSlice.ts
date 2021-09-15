@@ -12,7 +12,7 @@ const holding = createSlice({
   },
   reducers: {
     HoldingSuccess: (state, action: PayloadAction<any>) => {
-      state.holding = action.payload;
+      state.holding = action.payload.hldVal;
     },
     HoldingUpdate: (state, action: PayloadAction<string>) => {
       // state.holding = state.holding.map((el) =>

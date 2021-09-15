@@ -23,36 +23,6 @@ const NetPositionV = (props: { netposition: IPosition }) => {
         {netposition.cfBuyAmt}
       </td>
       <td className="netposclsdata">{netposition.exSeg}</td>
-      <td className="netposclsdata">
-        <button
-          className="buysellbtn buyNetPos"
-          id="buyAddBtn"
-          title="BUY"
-          disabled
-        >
-          Buy
-        </button>
-        <button className="buysellbtn sellNetPos" id="sellAddBtn" title="SELL">
-          Sell
-        </button>
-      </td>
-      <td className="netposclsdata">
-        <button
-          className="buysellbtn buyNetPos netPosExit"
-          id="buyExitBtn"
-          title="BUY"
-        >
-          Buy
-        </button>
-        <button
-          className="buysellbtn sellNetPos netPosExit"
-          id="sellExitBtn"
-          title="SELL"
-          disabled
-        >
-          Sell
-        </button>
-      </td>
     </tr>
   );
 };
