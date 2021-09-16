@@ -23,10 +23,16 @@ const Position = () => {
 
   const user = useSelector((state: RootState) => state.user);
 
+  const NetpositionList = useSelector((state: RootState) => state.netposition);
+
   useEffect(() => {
     dispatch(fetchNetposition(user.sessionKey));
-    getSymbol();
+    if (NetpositionList.netposition != undefined) getSymbol();
   }, []);
+
+  function Something() {
+    alert("Hello");
+  }
 
   function getSymbol() {
     //subscribe Script API Call
@@ -40,8 +46,6 @@ const Position = () => {
       sendUnsubReq(subUnsubReq);
     });
   }
-
-  const NetpositionList = useSelector((state: RootState) => state.netposition);
 
   return (
     <div className="col-sm-12 col-md-12 col-lg-6 col-xl-4">
@@ -86,7 +90,11 @@ const Position = () => {
                     <p>You don't have any positions yet</p>
                   </div>
                   <br />
-                  <button type="button" className="button-blue">
+                  <button
+                    type="button"
+                    className="button-blue"
+                    onClick={Something}
+                  >
                     Get started
                   </button>
                 </div>

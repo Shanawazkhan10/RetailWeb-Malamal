@@ -74,7 +74,10 @@ const MainSummary = () => {
                   </li>
                 </ul>
               </div>
-              <table className="table table-responsive table-borderless">
+              <table
+                className="table table-responsive table-borderless"
+                style={{ height: "700px", overflowY: "scroll" }}
+              >
                 <thead>
                   <tr>
                     <th>Stock Name</th>
@@ -88,7 +91,7 @@ const MainSummary = () => {
                     summaryState.summaryData.SummaryList.map(
                       (summarydata: any, index: number) => (
                         <tr key={index}>
-                          <td>{summarydata.tsym}</td>
+                          <td>{summarydata.cname}</td>
                           <td>{summarydata.ltp}</td>
                           <td>{summarydata.netchg}</td>
                           <td>{summarydata.chg}</td>
