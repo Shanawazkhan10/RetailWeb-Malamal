@@ -36,12 +36,13 @@ const netposition = createSlice({
     },
     NetpositionUpdate(state, action) {
       const depth = action.payload;
-
-      state.netposition.forEach((netposition: INetPosition) => {
-        if (netposition.tok == depth.tk && depth.name == "sf") {
-          netposition.ltp = depth.ltp;
-        }
-      });
+      if (state.netposition !== undefined) {
+        state.netposition.forEach((netposition: INetPosition) => {
+          if (netposition.tok == depth.tk && depth.name == "sf") {
+            netposition.ltp = depth.ltp;
+          }
+        });
+      }
     },
   },
 });
