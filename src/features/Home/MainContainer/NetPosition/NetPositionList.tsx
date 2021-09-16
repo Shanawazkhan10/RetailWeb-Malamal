@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { useAppSelector } from "../../../../app/hooks";
+import { useSelector } from "react-redux";
 import { getNetpositionData } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
@@ -12,10 +12,8 @@ import { ShowDepthFromPosition } from "../MarketPicture/MarketPictureSlice";
 
 const NetPositionList = () => {
   //let NetpositionList: any[];
-  const NetpositionList = useAppSelector(
-    (state: RootState) => state.netposition
-  );
-  const user = useAppSelector((state: RootState) => state.user);
+  const NetpositionList = useSelector((state: RootState) => state.netposition);
+  const user = useSelector((state: RootState) => state.user);
   //NetpositionList = Netposition.netposition;
   const dispatch = useAppDispatch();
 
