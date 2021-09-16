@@ -20,11 +20,11 @@ const MarketWatchListContainer = (props: any) => {
   }, []);
 
   return WatchListData && WatchListData.length > 0 ? (
-    <>
+    <Fragment>
       {WatchListData.map((row: IMarketWatch, i) => (
         <table
+          className="table table-responsive table-borderless table-hover"
           id="mainwatchlist"
-          className="table table-responsive table-borderless"
           key={String(i)}
           style={selectedList == i ? {} : { display: "none" }}
         >
@@ -35,7 +35,7 @@ const MarketWatchListContainer = (props: any) => {
           ></MarketWatchItem>
         </table>
       ))}
-    </>
+    </Fragment>
   ) : (
     <table className="table table-responsive table-borderless table-hover"></table>
   );

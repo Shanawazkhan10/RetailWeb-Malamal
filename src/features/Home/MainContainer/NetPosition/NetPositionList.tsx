@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { useAppSelector } from "../../../../app/hooks";
+import { useSelector } from "react-redux";
 import { getNetpositionData } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
@@ -12,8 +12,8 @@ import { ShowDepthFromPosition } from "../MarketPicture/MarketPictureSlice";
 
 const NetPositionList = () => {
   //let NetpositionList: any[];
-  const NetpositionList = useAppSelector((state: RootState) => state.netposition);
-  const user = useAppSelector((state:RootState) => state.user);
+  const NetpositionList = useSelector((state: RootState) => state.netposition);
+  const user = useSelector((state: RootState) => state.user);
   //NetpositionList = Netposition.netposition;
   const dispatch = useAppDispatch();
 
@@ -22,7 +22,7 @@ const NetPositionList = () => {
   }
   useEffect(() => {
     //dispatch(NetpositionSuccess(getNetpositionData()));
-  dispatch(fetchNetposition(user.sessionKey));
+    dispatch(fetchNetposition(user.sessionKey));
   }, []);
 
   return NetpositionList.netposition &&
@@ -51,7 +51,10 @@ const NetPositionList = () => {
         {/* <NetPositionList></NetPositionList> */}
 
         <div className="netPosTbl">
-          <table className="netposcls" id="tblnetposid">
+          <table
+            className="table table-responsive table-borderless"
+            id="tblnetposid"
+          >
             <thead>
               <tr className="sticky">
                 <th
@@ -61,14 +64,7 @@ const NetPositionList = () => {
                 >
                   <span>Symbol</span>
                 </th>
-                <th
-                  className="tblHeaderNP"
-                  data-value="InstrumentName"
-                  style={{ width: "111px" }}
-                  title="Instrument Name"
-                >
-                  <span>Instrument Name</span>
-                </th>
+
                 <th
                   className="tblHeaderNP"
                   data-value="ProductType"
@@ -76,6 +72,7 @@ const NetPositionList = () => {
                 >
                   <span>Product Type</span>
                 </th>
+
                 <th
                   className="tblHeaderNP right"
                   data-value="NetQty"
@@ -83,6 +80,7 @@ const NetPositionList = () => {
                 >
                   <span>Net Qty</span>
                 </th>
+
                 <th
                   className="tblHeaderNP right"
                   data-value="NetAvg"
@@ -90,6 +88,7 @@ const NetPositionList = () => {
                 >
                   <span>Net Price</span>
                 </th>
+
                 <th
                   className="tblHeaderNP right"
                   data-value="LastTradedPrice"
@@ -97,6 +96,7 @@ const NetPositionList = () => {
                 >
                   <span>Market Price</span>
                 </th>
+
                 <th
                   className="tblHeaderNP right"
                   data-value="MTMPL"
@@ -104,6 +104,7 @@ const NetPositionList = () => {
                 >
                   <span>MTMGL</span>
                 </th>
+
                 <th
                   className="tblHeaderNP"
                   data-value="nExchangeId"
@@ -111,12 +112,6 @@ const NetPositionList = () => {
                   title="Exchange Name"
                 >
                   <span>Exchange Name</span>
-                </th>
-                <th className="" title="Add">
-                  <span>Add</span>
-                </th>
-                <th className="" title="Exit">
-                  <span>Exit</span>
                 </th>
               </tr>
             </thead>

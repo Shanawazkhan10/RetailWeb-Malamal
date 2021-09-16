@@ -59,7 +59,7 @@ export const InitialTokenInfo = {
   nc: "0.00",
   showMore: false,
   trdSym: "",
-  cng: "0.00",
+  cng: "",
   tbq: "",
   tsq: "",
 };

@@ -802,8 +802,7 @@ h2.log_subhead {
   background-image: #000;
 }
 
-input[type="password"],
-input[type="text"] {
+input[type="password"] {
   position: relative;
   width: 100%;
   font-size: 13px;

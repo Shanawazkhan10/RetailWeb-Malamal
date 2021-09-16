@@ -1,5 +1,4 @@
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
-import "../../style.css";
 import { IMarketDepth } from "./../../../../types/IMarketDepth";
 
 const MarketPictureDepth = (props: {

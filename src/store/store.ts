@@ -21,6 +21,7 @@ import MarketPictureSlice from "../features/Home/MainContainer/MarketPicture/Mar
 import SummarySlice from "../features/Home/MainContainer/Dashboard/SummarySlice";
 import MarginSlice from "../features/Home/MainContainer/Dashboard/MarginSlice";
 import indicesSlice from "../features/Home/Header/IndicesSlice";
+import AddWatchListSlice from "../features/Home/MainContainer/MarketWatch/AddWatchListSlice";
 
 const store = configureStore({
   reducer: {
@@ -44,7 +45,8 @@ const store = configureStore({
     socketData: WebSocketSlice,
     summary: SummarySlice,
     margin: MarginSlice,
-    indices:indicesSlice,
+    indices: indicesSlice,
+    addwatch: AddWatchListSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

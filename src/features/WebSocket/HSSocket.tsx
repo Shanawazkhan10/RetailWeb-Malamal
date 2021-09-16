@@ -8,11 +8,12 @@ import {
   DepthUpdatefromSocket,
   ScriptUpdatefromSocket,
 } from "../Home/MainContainer/MarketWatch/MarketWatchSlice";
-import { onIndiceUpdate } from "../Home/Header/IndicesSlice";
 import {
   SearchDepthUpdate,
   SearchScriptUpdate,
 } from "../Home/MainContainer/MarketPicture/MarketPictureSlice";
+import { onIndiceUpdate } from "../Home/Header/IndicesSlice";
+import { NetpositionUpdate } from "../Home/MainContainer/NetPosition/NetPositionSlice";
 
 export interface authReq {
   sessionid: string;
@@ -82,20 +83,37 @@ const HSSocket = () => {
         switch (element.name) {
           case "dp":
             dispatch(DepthUpdatefromSocket(element));
-            break;      
-          case "if":
-            dispatch(onIndiceUpdate(element));
             dispatch(SearchDepthUpdate(element));
             break;
           case "sf":
             dispatch(ScriptUpdatefromSocket(element));
             dispatch(SearchScriptUpdate(element));
-            break;      
+            dispatch(NetpositionUpdate(element));
+            break;
+          case "if":
+            dispatch(onIndiceUpdate(element as IIndices));
+            break;
+
           default:
-            console.log(msg);
+            console.log(element);
             break;
         }
       });
+
+      // if (JSON.parse(msg) && JSON.parse(msg)[0].name == "dp") {
+      //   //dispatch(DepthUpdate(msg as IMarketDepth));
+      //   dispatch(DepthUpdatefromSocket(msg as IMarketDepth));
+      // } else if (JSON.parse(msg) && JSON.parse(msg)[0].name == "sf") {
+      //   //dispatch(ScriptUpdate(msg as IScriptUpdate));
+      //   dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
+      // } else if (JSON.parse(msg) && JSON.parse(msg)[0].name == "if") {
+      //   //dispatch(IndicesUpdate(msg as IIndices));
+      //   dispatch(onIndiceUpdate(msg as IIndices));
+      // } else {
+      //   console.log(displayMessage("[Res]: " + msg + "\n"));
+      // }
+      // console.log(msg);
+      // displayMessage("[Res]: " + msg + "\n");
     };
   }
 

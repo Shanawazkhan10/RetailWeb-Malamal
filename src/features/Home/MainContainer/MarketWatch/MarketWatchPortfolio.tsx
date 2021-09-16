@@ -1,21 +1,14 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import Popup from "reactjs-popup";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
 import { IWatchListProps } from "../../../../types/IWatchListProps";
-import {
-  AddToWatchList,
-  ChangeWatchList,
-  fetchmarketWatch,
-  NewWatchList,
-  onMarketWatchSuccess,
-} from "./MarketWatchSlice";
-import { useAppSelector } from "../../../../app/hooks";
-import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
-import { IMarketWatch } from "../../../../types/IMarketWatch";
-import Popup from "reactjs-popup";
-import SmartSearch from "../SmartSearch/SmartSearch";
+import AddWatchListItem from "./AddWatchListItem";
+import DeleteWatchListComp from "./DeleteWatchList";
+import EditWatchListComp from "./EditWatchList";
+import { ChangeWatchList, fetchmarketWatch } from "./MarketWatchSlice";
 
 const MarketWatchPortfolio = (props: IWatchListProps) => {
   const dispatch = useAppDispatch();
@@ -25,13 +18,11 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
   const userState = useSelector((state: RootState) => state.user);
   selectedList = Number(WatchList.marketWatch.nSelectedWatchList);
   WatchListData = WatchList.marketWatch.MarketWatchList;
-
-  const [sName, setName] = useState("");
-
-  // const userState = useAppSelector((state) => state.user);
   const [bAddButton, setAddButton] = useState(false);
+  // const userState = useAppSelector((state) => state.user);
+  const [showMenu, setShowMenu] = useState(false);
   let bShowAddButton = WatchListData.length < 5 ? true : false;
-
+  const [bEdit, SetEditFlag] = useState(false);
   useEffect(() => {
     dispatch(fetchmarketWatch(false, userState.sessionKey));
     console.log("getMarketWatchSuccess useEffect");
@@ -47,51 +38,39 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
     dispatch(ChangeWatchList(ChangeWatchlist));
   };
 
-  function AddWatchList() {
-    const ReqData: IMarketWatch = {
-      mwName: sName,
-      scrips: "",
-      id: selectedList + 1,
-      SymbolList: [],
-    };
-
-    dispatch(NewWatchList(ReqData));
-
-    setAddButton(false);
-  }
-
-  function AddNewName(event: any) {
-    setName(event.target.value);
+  function onEditWatchlist(e: any) {
+    e.preventDefault();
   }
 
   return (
     //onClick={() => AddWatchList()
-    <nav aria-label="Page navigation example">
-      <ul className="pagination">
-        {WatchListData.map((WatchList: any) => (
-          <li
-            className={
-              "page-item" + (WatchList.id === selectedList ? " active" : "")
-            }
-            key={WatchList.id}
-          >
-            <a
-              className="page-link"
-              href=""
-              id={String(WatchList.id)}
-              onClick={(e) => handleChange(e, WatchList.mwName)}
+    <div className={"pagenum" + (showMenu ? " show" : "")}>
+      <nav aria-label="Page navigation example">
+        <ul className="pagination">
+          {WatchListData.map((WatchList: any) => (
+            <li
+              className={
+                "page-item" + (WatchList.id === selectedList ? " active" : "")
+              }
+              key={WatchList.id}
             >
-              <span
-                aria-label={WatchList.mwName}
-                data-balloon-pos="up"
-                data-balloon
+              <a
+                className="page-link"
+                href=""
+                id={String(WatchList.id)}
+                onClick={(e) => handleChange(e, WatchList.mwName)}
               >
-                {WatchList.id + 1}
-              </span>
-            </a>
-          </li>
-        ))}
-        {/* {bAddButton && (
+                <span
+                  aria-label={WatchList.mwName}
+                  data-balloon-pos="up"
+                  data-balloon
+                >
+                  {WatchList.id + 1}
+                </span>
+              </a>
+            </li>
+          ))}
+          {/* {bAddButton && (
           <li className="NewMW" key={WatchListData.length + 1}>
             <a
               className="page-link"
@@ -103,40 +82,90 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
             </a>
           </li>
         )} */}
+          <Popup
+            trigger={
+              <li className="newMW" key={"NewMW"}>
+                <a
+                  className="page-link"
+                  id={String(WatchListData.length + 1)}
+                  onClick={() => setAddButton(!bAddButton)}
+                >
+                  <span aria-label={"NewMW"} data-balloon-pos="up" data-balloon>
+                    +
+                  </span>
+                </a>
+              </li>
+            }
+            position="top left"
+          >
+            <AddWatchListItem
+              index={Number(WatchListData.length + 1)}
+            ></AddWatchListItem>
+          </Popup>
+        </ul>
+      </nav>
+      <a
+        className="float-right"
+        type="button"
+        id="dropdownMenuButton"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded={showMenu}
+        onClick={() => {
+          setShowMenu(!showMenu);
+        }}
+      >
+        <img className=" my-1" src="images/settings.svg" />
+      </a>
+      <div
+        className={
+          "dropdown-menu dropdown-menu-right" + (showMenu ? " show" : "")
+        }
+        aria-labelledby="dropdownMenuButton"
+        x-placement="top-end"
+        style={{
+          position: "absolute",
+          willChange: "transform",
+          top: "0px",
+          left: "0px",
+          transform: "translate3d(208px, 708px, 0px)",
+        }}
+      >
+        <p className="mb-3">Sort By:</p>
+        <div className="my-2">
+          <button>A-Z</button>
+          <button>%</button>
+          <button>LTP</button>
+          <button>EXH</button>
+        </div>
+
         <Popup
           trigger={
-            <li className="newMW" key={"NewMW"}>
-              <a
-                className="page-link"
-                id={String(WatchListData.length + 1)}
-                onClick={() => setAddButton(!bAddButton)}
-              >
-                <span aria-label={"NewMW"} data-balloon-pos="up" data-balloon>
-                  +
-                </span>
-              </a>
-            </li>
+            <a className="dropdown-item" onClick={(e) => onEditWatchlist(e)}>
+              <img src="images/watchlist/edit-watchlist.svg" />
+              Edit watchlist name
+            </a>
           }
-          position="top left"
         >
-          <div className="modal-container" style={{}}>
-            {/* {bAddButton && ( */}
-            <div className="Add Watchlist">
-              <input
-                id="txtNewMW"
-                type="text"
-                className="AddWatchList"
-                onChange={AddNewName}
-              ></input>
-              <button id="btnSave" title="Save" onClick={() => AddWatchList()}>
-                Save
-              </button>
-              <SmartSearch Type={selectedList} ></SmartSearch>
-            </div>
-          </div>
+          <EditWatchListComp></EditWatchListComp>
         </Popup>
-      </ul>
-    </nav>
+
+        <Popup
+          trigger={
+            <a
+              className="dropdown-item"
+              href="#"
+              data-toggle="modal"
+              data-target="#DeleteCModal"
+            >
+              <img src="images/watchlist/delete.svg" /> Delete watchlist
+            </a>
+          }
+        >
+          <DeleteWatchListComp></DeleteWatchListComp>
+        </Popup>
+      </div>
+    </div>
   );
 };
 

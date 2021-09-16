@@ -1,5 +1,7 @@
 export interface IUpdateWatchlist {
   mwName: string;
-  userid: String;
+
+  //userid: String;
+
   scrips: string;
 }

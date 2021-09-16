@@ -1,8 +1,6 @@
 import React, { MouseEvent, useState } from "react";
 import AutoSuggest from "react-autosuggest";
-import {
-  ContractSearch,
-} from "../../../../app/api";
+import { ContractSearch } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
 import { IContractSearch } from "../../../../types/IContractSearch";
 import { IContractSearchReq } from "../../../../types/IContractSearchReq";

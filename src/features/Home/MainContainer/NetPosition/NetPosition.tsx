@@ -1,7 +1,6 @@
 import React from "react";
 import { IPosition } from "../../../../types/Position/IPosition";
 
-
 const NetPositionV = (props: { netposition: IPosition }) => {
   const { netposition } = props;
   //const dispatch = useAppDispatch();
@@ -9,10 +8,9 @@ const NetPositionV = (props: { netposition: IPosition }) => {
 
   return (
     <tr>
-      <td className="netposclsdata">{netposition.Sym}</td>
-      <td className="netposclsdata">{netposition.optTp}</td>
+      <td className="netposclsdata">{netposition.sym}</td>
       <td className="netposclsdata">{netposition.prod}</td>
-      <td className="netposclsdata right">{netposition.prod}</td>
+      <td className="netposclsdata right">{netposition.flBuyQty}</td>
       <td className="netposclsdata right" style={{ color: "#00ff00" }}>
         {netposition.buyAmt}
       </td>
@@ -22,7 +20,15 @@ const NetPositionV = (props: { netposition: IPosition }) => {
       <td className="netposclsdata right" style={{ color: "#ff0000" }}>
         {netposition.cfBuyAmt}
       </td>
-      <td className="netposclsdata">{netposition.exSeg}</td>
+      <td className="netposclsdata">
+        {netposition.exSeg.split("_")[1].toUpperCase()}
+      </td>
+      <td className="" title="Add">
+        <span>Add</span>
+      </td>
+      <td className="" title="Exit">
+        <span>Exit</span>
+      </td>
     </tr>
   );
 };

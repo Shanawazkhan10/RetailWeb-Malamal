@@ -17,5 +17,6 @@ export interface INetPosition {
   tok: String;
   trdSym: String;
   type: String;
-  Sym: String;
+  sym: String;
+  ltp: String;
 }

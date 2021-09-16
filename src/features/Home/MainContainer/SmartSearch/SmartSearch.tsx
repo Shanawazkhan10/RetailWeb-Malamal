@@ -1,33 +1,22 @@
-import { stat } from "fs";
 import React, { MouseEvent, useState } from "react";
-import { useSelector } from "react-redux";
 import { api, ContractSearch, SearchSymbol } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
-import { RootState } from "../../../../store/store";
 import { IContractSearch } from "../../../../types/IContractSearch";
 import { IContractSearchReq } from "../../../../types/IContractSearchReq";
+import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
-import { userWS } from "../../../WebSocket/HSSocket";
-import {
-  SubUnsubReq,
-  waitForSocketConnection,
-} from "../../../WebSocket/HSSocket1";
+import { INewWatchList } from "../../../../types/WatchList/INewWatchList";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
 } from "../../OrderEntry/orderEntrySlice";
-import { chartContainer, searchDepthContainer } from "../mainContainerSlice";
+import { chartContainer } from "../mainContainerSlice";
 import {
   ShowDepthFromPosition,
   ShowDepthFromSearch,
-  UpdateTokenInfo,
 } from "../MarketPicture/MarketPictureSlice";
-import {
-  AddToWatchList,
-  FetchWatchListSymbol,
-  UpdateWatchlist,
-} from "../MarketWatch/MarketWatchSlice";
-import { FetchSearch } from "./SmartSearchSlice";
+import { UpdateWatchlist } from "../MarketWatch/MarketWatchSlice";
+import { onNewWatchList } from "../MarketWatch/AddWatchListSlice";
 
 const SmartSearch = (props: { Type: Number }) => {
   const dispatch = useAppDispatch();
@@ -42,6 +31,7 @@ const SmartSearch = (props: { Type: Number }) => {
   let selectlistname: string;
   selectlistname = WatchList.sSelectedWatchList;
 
+  const nIsOpenFrom = props.Type;
   const onDepthClick = (data: IContractSearch) => {
     //e.preventDefault();
     //dispatch(searchDepthContainer());
@@ -63,34 +53,38 @@ const SmartSearch = (props: { Type: Number }) => {
     dispatch(chartContainer());
   }
 
-  // function onAddWatchList(data: any) {
-  //   //console.log(data);
-  //   clearSearch();
-  //   let newscript: string[] = []; // DM: To fetch[TODO]
-  //   let newscrips: string = "";
-  //   newscript.push(data.exseg + "|" + data.omtkn);
-  //   if (WatchList.MarketWatchList.length >= selectedList) {
-  //     newscrips = WatchList.MarketWatchList[selectedList].scrips;
-  //     newscrips = newscrips + "," + newscript;
-  //   } else {
-  //     newscrips = newscript[0]; //DM: new added symbol will be always first
-  //     selectlistname = selectlistname;
-  //   }
-
-  //   const ReqUpdateData: IUpdateWatchlist = {
-  //     mwName: selectlistname,
-  //     userid: user.sessionKey,
-  //     scrips: newscrips,
-  //   };
-
-  //   dispatch(UpdateWatchlist(ReqUpdateData));
-  //   dispatch(FetchWatchListSymbol(newscript, user.sessionKey, selectedList, 1));
-  // }
   const onAddClick = (data: IContractSearch) => {
-    if (props.Type == 2) {
+    clearSearch();
+    if (props.Type == 1) {
+      let newscript: string[] = []; // DM: To fetch[TODO]
+      let newscrips: string = "";
+      newscript.push(data.exseg + "|" + data.omtkn);
+      if (WatchList.MarketWatchList.length >= selectedList) {
+        newscrips = WatchList.MarketWatchList[selectedList].scrips;
+        newscrips = newscrips + "," + newscript;
+      } else {
+        newscrips = newscript[0]; //DM: new added symbol will be always first
+        selectlistname = selectlistname;
+      }
+
+      const ReqUpdateData: IUpdateWatchlist = {
+        mwName: selectlistname,
+        scrips: newscrips,
+      };
+
+      dispatch(UpdateWatchlist(ReqUpdateData, user.sessionKey));
+    } else if (props.Type == 2) {
       dispatch(ShowDepthFromPosition(data.exseg + "|" + data.omtkn));
       clearSearch();
-    } else {
+    } else if (props.Type == 3) {
+      let newScrip = data.exseg + "|" + data.omtkn;
+
+      const RequestData: INewWatchList = {
+        scrips: newScrip,
+        symbol: data.usym,
+      };
+
+      dispatch(onNewWatchList(RequestData));
     }
     //dispatch(AddToWatchList(contractSearch));
   };
@@ -145,12 +139,6 @@ const SmartSearch = (props: { Type: Number }) => {
     setSearchValue("");
     setCursor(0);
   };
-
-  //const handleQuoteChange = (symbol: IContractSearch) => {};
-  function onAddWatchList(data: any) {
-    //console.log(data);
-    clearSearch();
-  }
 
   // handles behavior of Up, Down, Return, Escape & Delete keys while using the search dropdown
   const handleSearchKeyDowns = (e: any) => {
@@ -229,7 +217,7 @@ const SmartSearch = (props: { Type: Number }) => {
                       <button
                         className=" btn_buy"
                         title="Add"
-                        onClick={() => onAddWatchList(result)}
+                        onClick={() => onAddClick(result)}
                       >
                         A
                       </button>

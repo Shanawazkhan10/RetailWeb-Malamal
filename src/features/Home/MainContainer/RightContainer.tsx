@@ -4,6 +4,7 @@ import AdvancedChart from "../Chart/AdvancedChart";
 import IPODetails from "../IPO/IPODetails";
 import UpcomingIPODetails from "../IPO/UpcomingIPODetails";
 import ProfileSummary from "../PersonalDetails/ProfileSummary";
+import MainSummary from "../Summary/MainSummary";
 import MainDashboard from "./Dashboard/MainDashboard";
 import Funds from "./Funds/Funds";
 import HoldingList from "./Holding/HoldingList";
@@ -62,7 +63,12 @@ const RightContainer = () => {
           <UpcomingIPODetails></UpcomingIPODetails>
         </div>
       );
-
+    case 10:
+      return (
+        <div className="col-md-6 col-lg-8 col-xl-9">
+          <MainSummary></MainSummary>
+        </div>
+      );
     default:
       return null;
   }

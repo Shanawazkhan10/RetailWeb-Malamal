@@ -64,7 +64,7 @@ const MarketWatchItem = (props: {
 
   useEffect(() => {
     getSymbol();
-    console.log("MarketWatchItem useEffect");
+    console.log(" MarketWatchItem useEffect");
   }, []);
 
   useEffect(() => {
@@ -123,9 +123,8 @@ const MarketWatchItem = (props: {
         symbol.exSeg + "|" + symbol.tok,
         ","
       ),
-      userid: user.sessionKey,
     };
-    dispatch(UpdateWatchlist(updateWatchlist));
+    dispatch(UpdateWatchlist(updateWatchlist, user.sessionKey));
     //Unsubscribe Depth API Call
   }
   function removeValue(list: string, value: string, separator: string) {
@@ -173,6 +172,7 @@ const MarketWatchItem = (props: {
 
   function getSymbol() {
     //API call to bind Token info (Scrip Info Request)
+
     dispatch(
       FetchWatchListSymbol(
         propMarketWatch.scrips.split(","),
@@ -230,13 +230,31 @@ const MarketWatchItem = (props: {
   };
 
   return (
-    <>
-      {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
-      {propMarketWatch.SymbolList != null &&
-      propMarketWatch.SymbolList != [] ? (
-        propMarketWatch.SymbolList.map(
-          (symbolInfo: IMarketWatchTokenInfo, nIncreament) => (
-            <tbody key={nIncreament}>
+    <Fragment>
+      <tbody>
+        {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
+        {propMarketWatch.SymbolList != null &&
+        propMarketWatch.SymbolList != [] ? (
+          propMarketWatch.SymbolList.map(
+            (symbolInfo: IMarketWatchTokenInfo, nIncreament) => (
+              //     {symbolInfo.showDepth &&
+              //     symbolInfo.marketDepth != null &&
+              //     symbolInfo.marketDepth != undefined ? (
+              //       <Collapse in={symbolInfo.showDepth}>
+              //         <div className="market-depth" style={{ display: "" }}>
+              //           <MarketDepth
+              //             index={nIncreament}
+              //             depth={symbolInfo.marketDepth}
+              //           ></MarketDepth>
+              //           <Quote index={nIncreament} tokenInfo={symbolInfo}></Quote>
+              //         </div>
+              //       </Collapse>
+              //     ) : (
+              //       ""
+              //     )}
+              //     {/* {activeItem && activeIndex == nIncreament + 1
+              //       ? onDepthClick1(nIncreament + 1)
+              //       : ""} */}
               <tr
                 className="slideInDown-element"
                 key={nIncreament}
@@ -266,19 +284,12 @@ const MarketWatchItem = (props: {
                     >
                       S
                     </button>
-                    <div className="d-inline-block" id="accordionExample">
-                      <div id="headingOne">
-                        <button
-                          className="btn btn-primary wmarketdepth"
-                          data-toggle="collapse"
-                          data-target="#collapseOne"
-                          aria-expanded="true"
-                          aria-controls="collapseOne"
-                          title="Depth"
-                          onClick={() => onDepthClick(nIncreament, symbolInfo)}
-                        ></button>
-                      </div>
-                    </div>                    
+                    <button
+                      type="button"
+                      className="btn btn-primary wmarketdepth"
+                      title="Depth"
+                      onClick={() => onDepthClick(nIncreament, symbolInfo)}
+                    ></button>
                     <button
                       type="button"
                       className="btn btn-primary wchart"
@@ -353,43 +364,33 @@ const MarketWatchItem = (props: {
                     {symbolInfo.nc == undefined ? "0.00" : symbolInfo.nc}%)
                   </p>
                 </td>
+
+                {symbolInfo.showDepth &&
+                symbolInfo.marketDepth != null &&
+                symbolInfo.marketDepth != undefined ? (
+                  <Collapse in={symbolInfo.showDepth}>
+                    <div className="market-depth" style={{ display: "" }}>
+                      <MarketDepth
+                        index={nIncreament}
+                        depth={symbolInfo.marketDepth}
+                        tokenInfo={symbolInfo}
+                      ></MarketDepth>
+                      <Quote index={nIncreament} tokenInfo={symbolInfo}></Quote>
+                    </div>
+                  </Collapse>
+                ) : (
+                  ""
+                )}
               </tr>
-              {symbolInfo.showDepth &&
-              symbolInfo.marketDepth != null &&
-              symbolInfo.marketDepth != undefined ? (
-                <>
-                  <tr
-                    id="collapseOne"
-                    className="collapse show"
-                    aria-labelledby="headingOne"
-                    data-parent="#accordionExample"
-                  >
-                    <MarketDepth
-                      index={nIncreament}
-                      depth={symbolInfo.marketDepth}
-                    ></MarketDepth>
-                  </tr>
-                  <tr
-                    id="collapseOne"
-                    className="collapse show"
-                    aria-labelledby="headingOne"
-                    data-parent="#accordionExample"
-                  >
-                    <Quote index={nIncreament} tokenInfo={symbolInfo}></Quote>
-                  </tr>
-                </>
-              ) : (
-                ""
-              )}
-            </tbody>
+            )
           )
-        )
-      ) : (
-        <tr className="slideInDown-element">
-          <td>No Data</td>
-        </tr>
-      )}
-    </>
+        ) : (
+          <tr className="slideInDown-element">
+            <td>No Data</td>
+          </tr>
+        )}
+      </tbody>
+    </Fragment>
   );
 };
 

@@ -30,11 +30,11 @@ const InitialMarketWatch: IMarketWatchList = {
   sRemovedSymbol: "",
   //SymbolList: [],
 };
-
 const marketwatchSlice = createSlice({
   name: "marketwatch",
   initialState: {
     marketWatch: InitialMarketWatch,
+    newScrip: "",
   },
   reducers: {
     onMarketWatchSuccess: (state, action) => {
@@ -66,10 +66,14 @@ const marketwatchSlice = createSlice({
       ].SymbolList.push(action.payload);
     },
     RenameWatchList: (state, action) => {
-      state.marketWatch.MarketWatchList =
-        state.marketWatch.MarketWatchList.filter(
-          (row) => row.id == action.payload
-        );
+      let selectedid = state.marketWatch.MarketWatchList.find(
+        (row) => row.mwName == action.payload.oldmwName
+      )?.id;
+      if (selectedid != undefined) {
+        state.marketWatch.MarketWatchList[selectedid].mwName =
+          action.payload.newmwName;
+        state.marketWatch.sSelectedWatchList = action.payload.newmwName; //DM: Changing name
+      }
     },
     UpdateSymbolDetails: (state, action) => {
       let TokenInfo: IMarketWatchTokenInfo[] = action.payload.data;
@@ -257,19 +261,6 @@ const marketwatchSlice = createSlice({
       // });
       //return newState;
     },
-    AddNewWatchList: (state, action) => {
-      state.marketWatch.MarketWatchList.push(action.payload);
-    },
-    // FetchSocketData: (state, action) => {
-    //   // const ScriptData = useSelector(
-    //   //   (state: RootState) => state.socketData.socketdata.Script
-    //   // );
-    //   // state.marketWatch.MarketWatchList[
-    //   //   state.marketWatch.nSelectedWatchList
-    //   // ].SymbolList[0].ltp =
-    //   //   store.getState().socketData.socketdata.Script[22].ltp;
-    //   //const x = store.getState().socketData.socketdata.Script[22].ltp;
-    // },
   },
 });
 
@@ -292,7 +283,6 @@ export const {
   DepthUpdatefromSocket,
   setRemovedSymbol,
   //FetchSocketData,
-  AddNewWatchList,
 } = marketwatchSlice.actions;
 
 export const fetchmarketWatch =
@@ -301,8 +291,8 @@ export const fetchmarketWatch =
     try {
       const MarketWatchData = await getWatchList(cache, sessionkey);
       dispatch(onMarketWatchSuccess(MarketWatchData));
-    } catch (err: any) {
-      dispatch(onMarketWatchFailure(err.toString()));
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -347,18 +337,24 @@ export const RenameWatchlist =
         RenameReq,
         sessionkey
       );
-
-      dispatch(RenameWatchList(renameWatchlistResponse));
+      //handle error & add validations for MW Name
+      dispatch(RenameWatchList(RenameReq));
     } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
   };
 
+//Used for Adding and removing Symbol from watchlist
 export const UpdateWatchlist =
-  (UpdateReq: IUpdateWatchlist): AppThunk =>
+  (UpdateReq: IUpdateWatchlist, sessionKey: string): AppThunk =>
   async (dispatch) => {
     try {
-      const updateWatchlistResponse = await updateWatchList(UpdateReq);
+      const updateWatchlistResponse = await updateWatchList(
+        UpdateReq,
+        sessionKey
+      );
+      console.log(updateWatchlistResponse);
+      //condition for add or remove
       dispatch(RemoveSymbolFromWatchlist(UpdateReq));
     } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
@@ -383,12 +379,4 @@ export const UpdateDepth =
     } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }
-  };
-
-export const NewWatchList =
-  (newWatchList: IMarketWatch): AppThunk =>
-  (dispatch) => {
-    try {
-      dispatch(AddNewWatchList(newWatchList));
-    } catch (err: any) {}
   };

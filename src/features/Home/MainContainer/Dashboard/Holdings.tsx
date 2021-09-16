@@ -1,13 +1,19 @@
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../../../app/hooks";
+import { RootState } from "../../../../store/store";
+import { fetchHolding } from "../Holding/HoldingSlice";
 import { holdingContainer } from "../mainContainerSlice";
 import PieChart from "../PieChart/PieChart";
 
 const Holdings = () => {
   const dispatch = useAppDispatch();
-
+  const user = useSelector((state: RootState) => state.user);
+  const HoldingList = useSelector((state: RootState) => state.holding);
   function OpenHolding(e: any) {
     e.preventDefault();
     dispatch(holdingContainer());
+    dispatch(fetchHolding(user.sessionKey));
   }
 
   return (
@@ -26,7 +32,7 @@ const Holdings = () => {
           </div>
           <div className="col-md-6 holdingleft mt-4">
             <div>
-              <h3 className="c-purple">399.75</h3>
+              <h3 className="c-blue">399.75</h3>
               <p>Total Investment</p>
             </div>
             <div>
@@ -50,7 +56,9 @@ const Holdings = () => {
           </div>
           <div className="col-md-6 mt-4">
             {/* <img src="images/pie-chart.png" className="img-fluid" /> */}
-            <PieChart></PieChart>
+            {HoldingList.holding.length > 0 && (
+              <PieChart holding={HoldingList.holding?.[0]} />
+            )}
           </div>
         </div>
       </div>

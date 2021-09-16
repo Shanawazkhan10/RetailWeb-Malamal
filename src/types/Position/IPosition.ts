@@ -17,5 +17,5 @@ export interface IPosition {
   tok: String;
   trdSym: String;
   type: String;
-  Sym: String;
+  sym: String;
 }
