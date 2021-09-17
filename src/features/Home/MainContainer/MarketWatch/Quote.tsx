@@ -37,7 +37,7 @@ const Quote = (props: any) => {
           id="watchlistinner2"
           className="c-red table table-responsive table-borderless"
         >
-           <tbody>
+          <tbody>
             <tr>
               <td>High</td>
               <td>{symbolInfo.h}</td>

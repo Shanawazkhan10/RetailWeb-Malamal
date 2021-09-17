@@ -1,5 +1,4 @@
-import React, { Fragment, useEffect } from "react";
-import { Collapse } from "reactstrap";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
@@ -15,6 +14,7 @@ import {
   waitForSocketConnection,
 } from "../../../WebSocket/HSSocket1";
 //import { sendUnsubReq, SubUnsubReq } from "../../../WebSocket/HSSocket1";
+
 import { FetchSocketData } from "../../../WebSocket/WebSocketSlice";
 import {
   openGTTEntry,
@@ -28,7 +28,6 @@ import {
 import { chartContainer } from "../mainContainerSlice";
 import MarketDepth from "./MarketDepth";
 import {
-  DeleteWatchlist,
   FetchWatchListSymbol,
   hideMore,
   setRemovedSymbol,
@@ -37,6 +36,7 @@ import {
   UpdateWatchlist,
 } from "./MarketWatchSlice";
 import Quote from "./Quote";
+
 export interface scriptInfoReq {
   scripArr: string[];
 }
@@ -66,6 +66,7 @@ const MarketWatchItem = (props: {
   useEffect(() => {
     var a = dispatch(FetchSocketData(22));
   }, []);
+
   const OrderEntryProp = {
     token: "",
     exchange: "",
@@ -228,7 +229,46 @@ const MarketWatchItem = (props: {
                 }}
               >
                 <td>
-                  <img src="images/hdfc-logo.jpg" />
+                  {symbolInfo.isin != "NA" ? (
+                    <img
+                      src={
+                        "http://img.tecxlabs.com.s3-website.ap-south-1.amazonaws.com/stock/" +
+                        symbolInfo.isin +
+                        ".png"
+                      }
+                    />
+                  ) : (
+                    // <LazyLoadImage
+                    //   src={
+                    //     "http://img.tecxlabs.com.s3-website.ap-south-1.amazonaws.com/stock/" +
+                    //     symbolInfo.isin +
+                    //     ".png"
+                    //   }
+                    //   alt=""
+                    //   effect="blur"
+                    // />
+                    <div
+                      className="avatar"
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "50%",
+                        textAlign: "center",
+                        verticalAlign: "middle",
+                        backgroundColor: "rgba(156,39,176,0.1)",
+                        fontSize: "15px",
+                        fontWeight: 300,
+                        color: "rgb(156,39,176)",
+                        lineHeight: "50px",
+                        float: "left",
+                        clear: "none",
+                        marginRight: "15px",
+                      }}
+                    >
+                      <span>{symbolInfo.sym.charAt(0).toUpperCase()}</span>
+                    </div>
+                  )}
+
                   <span>{symbolInfo.sym}</span>
                 </td>
                 <td className="price-box">

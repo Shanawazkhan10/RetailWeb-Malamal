@@ -30,6 +30,7 @@ export interface IMarketWatchTokenInfo {
   cng: string;
   tbq: string;
   tsq: string;
+  isin: string;
 }
 
 export const InitialTokenInfo = {
@@ -62,4 +63,5 @@ export const InitialTokenInfo = {
   cng: "",
   tbq: "",
   tsq: "",
+  isin: "",
 };

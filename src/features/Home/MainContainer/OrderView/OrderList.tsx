@@ -37,7 +37,10 @@ const OrderList = () => {
       </div>
       <div>
         <div className="netPosTbl">
-          <table className="netposcls" id="tblnetposid">
+          <table
+            className="table table-responsive table-borderless"
+            id="tblnetposid"
+          >
             <thead>
               <tr className="sticky">
                 <th className="tblHeaderNP" title="Symbol">

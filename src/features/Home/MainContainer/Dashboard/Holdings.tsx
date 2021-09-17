@@ -56,7 +56,7 @@ const Holdings = () => {
           </div>
           <div className="col-md-6 mt-4">
             {/* <img src="images/pie-chart.png" className="img-fluid" /> */}
-            {HoldingList.holding.length > 0 && (
+            {HoldingList.holding?.length > 0 && (
               <PieChart holding={HoldingList.holding?.[0]} />
             )}
           </div>

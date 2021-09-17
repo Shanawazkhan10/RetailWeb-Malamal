@@ -39,7 +39,7 @@ const netposition = createSlice({
       if (state.netposition !== undefined) {
         state.netposition.forEach((netposition: INetPosition) => {
           if (netposition.tok == depth.tk && depth.name == "sf") {
-            netposition.ltp = depth.ltp;
+            if (depth.ltp != undefined) netposition.ltp = depth.ltp;
           }
         });
       }

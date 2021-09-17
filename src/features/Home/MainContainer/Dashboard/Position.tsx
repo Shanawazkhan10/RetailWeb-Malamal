@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Progress } from "reactstrap";
+import { Progress, Tooltip } from "reactstrap";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import { INetPosition } from "../../../../types/INetposition";
@@ -10,11 +10,12 @@ import {
   SubUnsubReq,
   waitForSocketConnection,
 } from "../../../WebSocket/HSSocket1";
+import { positionContainer } from "../mainContainerSlice";
 import { fetchNetposition } from "../NetPosition/NetPositionSlice";
 
 const Position = () => {
   function onprogress(netposition: INetPosition) {
-    let pnl = Math.ceil(Number(netposition.ltp) / Number(netposition.buyAmt));
+    let pnl = Math.ceil(Number(netposition.ltp) - Number(netposition.buyAmt));
     console.log(netposition.ltp + "  " + pnl);
     return String(pnl);
   }
@@ -34,6 +35,11 @@ const Position = () => {
     alert("Hello");
   }
 
+  function RedirecttoPosition(e: any) {
+    e.preventDefault();
+    dispatch(positionContainer());
+  }
+
   function getSymbol() {
     //subscribe Script API Call
     const subUnsubReq: SubUnsubReq = {
@@ -48,7 +54,10 @@ const Position = () => {
   }
 
   return (
-    <div className="col-sm-12 col-md-12 col-lg-6 col-xl-4">
+    <div
+      className="col-sm-12 col-md-12 col-lg-6 col-xl-4"
+      onClick={RedirecttoPosition}
+    >
       <div className="plate fadeIn-element">
         <div className="row slideInDown-element">
           <div className="col-md-12">
@@ -59,29 +68,48 @@ const Position = () => {
             {NetpositionList.netposition &&
             NetpositionList.netposition.length > 0 ? (
               NetpositionList.netposition.map(
-                (netpostion: INetPosition, increment: number) => (
-                  <div className="row">
-                    <div className="col-md-6">
-                      <Progress
-                        className="flex-row-reverse"
-                        value={onprogress(netpostion)}
-                        min="0"
-                        max="5"
-                      ></Progress>
-                      {/* <div
-                    className="progress-bar"
-                    role="progressbar"
-                    data-aria-valuenow="1"
-                    data-aria-valuemin="0"
-                    data-aria-valuemax="100"
-                    style={{ width: "100%" }}
-                  ></div> */}
+                (netposition: INetPosition, increment: number) =>
+                  Math.ceil(
+                    Number(netposition.ltp) - Number(netposition.buyAmt)
+                  ) > 0 ? (
+                    <div className="row">
+                      <div className="col-md-6">
+                        <Progress
+                          id="progress"
+                          className="flex-row-reverse"
+                          value={Math.ceil(
+                            Number(netposition.ltp) - Number(netposition.buyAmt)
+                          )}
+                          min="0"
+                          max={Math.ceil(Number(netposition.ltp) % 100)}
+                          // aria-label={netposition.ltp}
+                        ></Progress>
+                      </div>
+                      <div className="col-md-6">
+                        <p>{netposition.sym}</p>
+                      </div>
                     </div>
-                    <div className="col-md-6">
-                      <p>{netpostion.sym}</p>
+                  ) : (
+                    <div className="row">
+                      <div className="col-md-6">
+                        <p className="text-right">{netposition.sym}</p>
+                      </div>
+                      <div className="col-md-6 c-red">
+                        <Progress
+                          id="progress"
+                          value={Math.abs(
+                            Math.ceil(
+                              Number(netposition.ltp) -
+                                Number(netposition.buyAmt)
+                            )
+                          )}
+                          min="0"
+                          max={Math.ceil(Number(netposition.ltp) % 100)}
+                          // aria-label={netposition.ltp}
+                        ></Progress>
+                      </div>
                     </div>
-                  </div>
-                )
+                  )
               )
             ) : (
               <div className="plate fadeIn-element">
