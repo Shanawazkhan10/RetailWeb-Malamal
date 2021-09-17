@@ -1,6 +1,6 @@
 //const MainContainer = (props: IWatchListProps) => {
 import { useAppSelector } from "../../../app/hooks";
-import AdvancedChart from "../Chart/AdvancedChart";
+//import AdvancedChart from "../Chart/AdvancedChart";
 import IPODetails from "../IPO/IPODetails";
 import UpcomingIPODetails from "../IPO/UpcomingIPODetails";
 import ProfileSummary from "../PersonalDetails/ProfileSummary";
@@ -21,7 +21,7 @@ const RightContainer = () => {
     case 1:
       return (
         <div className="col-md-6 col-lg-8 col-xl-9">
-          <AdvancedChart></AdvancedChart>
+          {/* <AdvancedChart></AdvancedChart> */}
         </div>
       );
     case 2:
