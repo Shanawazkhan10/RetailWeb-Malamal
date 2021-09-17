@@ -4,7 +4,7 @@ export interface IUser {
   isError: boolean;
   UserId: string;
   user: any | null;
-  sessionKey:string;
-  server:string;
-  SetPassword:boolean;
+  sessionKey: string;
+  server: string;
+  SetPassword: boolean;
 }

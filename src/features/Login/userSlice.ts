@@ -5,7 +5,7 @@ import { AppThunk } from "../../store/store";
 import { PostLoginRequest, PostMPINRequest } from "../../app/api";
 import { toastNotification } from "../.././app/Notification";
 import { Redirect } from "react-router";
-import Cookies from 'universal-cookie';
+import Cookies from "universal-cookie";
 import { ILoginRequest } from "../../types/Request/IloginRequest";
 
 const initialState = {
@@ -18,10 +18,10 @@ const initialState = {
     ? localStorage.getItem("userkey")
     : "",
   server: "",
-  SetPassword:false,
+  SetPassword: false,
 } as IUser;
 const cookies = new Cookies();
-export const userSlice = createSlice({  
+export const userSlice = createSlice({
   name: "User",
   initialState,
   reducers: {
@@ -38,15 +38,15 @@ export const userSlice = createSlice({
       state.isAuthenticated = false;
       state.isError = false;
       state.user = action.payload;
-      state.SetPassword= false;
+      state.SetPassword = false;
     },
     loggedInSuccessSetPassword: (state, action: PayloadAction<any>) => {
       state.isPasswordCheked = true;
       state.isAuthenticated = false;
       state.isError = false;
       state.user = action.payload;
-      state.SetPassword= true;
-      state.sessionKey= action.payload.data.sessioinkey;
+      state.SetPassword = true;
+      state.sessionKey = action.payload.data.sessioinkey;
     },
     loggedInError: (state, action: PayloadAction<any>) => {
       state.isPasswordCheked = false;
@@ -62,8 +62,11 @@ export const userSlice = createSlice({
       state.isError = false;
       state.user = action.payload;
       state.sessionKey = state.user.data.sessionKey;
-      state.server = state.user.data.server;      
-      cookies.set('userkey', action.payload.data.sessionKey, { path: '/',sameSite: 'strict'});
+      state.server = state.user.data.server;
+      cookies.set("userkey", action.payload.data.sessionKey, {
+        path: "/",
+        sameSite: "strict",
+      });
     },
     twofaError: (state, action: PayloadAction<any>) => {
       state.isPasswordCheked = true;
@@ -76,7 +79,7 @@ export const userSlice = createSlice({
       console.log("Logged Out called");
       localStorage.removeItem("userkey");
       localStorage.removeItem("userID");
-      cookies.remove('userkey');
+      cookies.remove("userkey");
       state.isPasswordCheked = false;
       state.isAuthenticated = false;
       state.isError = false;
@@ -91,12 +94,8 @@ export const UserLogin =
     try {
       const LoginResponse = await PostLoginRequest(loginData);
       if (Number(LoginResponse.code) == 200) {
-        if(Number(LoginResponse.data.action) == 102)
-        {
-
-        }
-        else
-        {
+        if (Number(LoginResponse.data.action) == 102) {
+        } else {
           dispatch(loggedInSuccess(LoginResponse));
         }
       } else if (LoginResponse.status == "FAILURE") {

@@ -117,7 +117,7 @@ const MarketWatchItem = (props: {
         ","
       ),
     };
-    dispatch(UpdateWatchlist(updateWatchlist, user.sessionKey));
+    dispatch(UpdateWatchlist(updateWatchlist, user.sessionKey, 2));
     //Unsubscribe Depth API Call
   }
   function removeValue(list: string, value: string, separator: string) {

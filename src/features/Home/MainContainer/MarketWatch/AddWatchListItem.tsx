@@ -1,29 +1,37 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
+import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 import SmartSearch from "../SmartSearch/SmartSearch";
-import { FetchWatchListSymbol } from "./MarketWatchSlice";
+import { FetchWatchListSymbol, UpdateWatchlist } from "./MarketWatchSlice";
 
 const AddWatchListItem = (index: any) => {
   const dispatch = useAppDispatch();
 
   const [sName, setName] = useState("");
   const [bCloseButton, setCloseButton] = useState(false);
-  let newScript: String[] = [];
+  //let newScript: String[] = [];
 
-  const newlist = useAppSelector((state) => state.addwatch.newlyaddedWatchList);
+  //const newlist = useAppSelector((state) => state.addwatch.newlyaddedWatchList);
   const user = useAppSelector((state) => state.user);
-  const marketwatch = useAppSelector((state) => state.marketwatch.marketWatch);
-  newScript = newlist.scrips.split(",");
+  const newScript = useAppSelector(
+    (state) => state.marketwatch.marketWatch.sNewWatchlistSymbol
+  );
+  //newScript = newlist.scrips.split(",");
 
   function AddNewName(event: any) {
     setName(event.target.value);
   }
 
   function AddWatchList() {
-    dispatch(
-      FetchWatchListSymbol(newlist.scrips.split(","), user.sessionKey, index, 1)
-    );
+    // dispatch(
+    //   FetchWatchListSymbol(newlist.scrips.split(","), user.sessionKey, index, 1)
+    // );
+    const updateWatchlist: IUpdateWatchlist = {
+      mwName: sName,
+      scrips: newScript,
+    };
+    dispatch(UpdateWatchlist(updateWatchlist, user.sessionKey, 3));
   }
 
   return (
@@ -63,7 +71,8 @@ const AddWatchListItem = (index: any) => {
                     data-autocomplete="off"
                     placeholder=" "
                     data-required=""
-                  ></input>
+                    onChange={(e) => AddNewName(e)}
+                  />
                   <label data-for="userid" className="form__label">
                     Watchlist Name
                   </label>
@@ -77,7 +86,7 @@ const AddWatchListItem = (index: any) => {
                   </div>
                 </div>
 
-                <tbody>
+                {/* <tbody>
                   <tr className="slideInDown-element">
                     <td className="price-box">
                       {newScript != [] &&
@@ -90,7 +99,7 @@ const AddWatchListItem = (index: any) => {
                         ))}
                     </td>
                   </tr>
-                </tbody>
+                </tbody> */}
                 <div className="form">
                   <button
                     type="submit"

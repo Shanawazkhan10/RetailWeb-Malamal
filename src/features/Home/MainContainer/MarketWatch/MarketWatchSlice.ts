@@ -28,6 +28,7 @@ const InitialMarketWatch: IMarketWatchList = {
   bIsError: false,
   Symbollistindex: 0,
   sRemovedSymbol: "",
+  sNewWatchlistSymbol: "",
   //SymbolList: [],
 };
 const marketwatchSlice = createSlice({
@@ -130,6 +131,33 @@ const marketwatchSlice = createSlice({
     },
     setSymbollistindex: (state, action) => {
       state.marketWatch.Symbollistindex = action.payload;
+    },
+    setNewWatchlistSymbol: (state, action) => {
+      state.marketWatch.sNewWatchlistSymbol = action.payload;
+    },
+    AddSymbolFromNewWatchlist: (state, action) => {
+      let TokenInfo: IMarketWatchTokenInfo[] = action.payload.data;
+      // if (TokenInfo != undefined)
+      //   state.marketWatch.MarketWatchList[
+      //     state.marketWatch.nSelectedWatchList
+      //   ].SymbolList.push(TokenInfo);
+      state.marketWatch.MarketWatchList[
+        state.marketWatch.nSelectedWatchList
+      ].SymbolList.push(action.payload);
+    },
+    UpdateScriptFromNewWatchlist: (
+      state,
+      action: PayloadAction<IUpdateWatchlist>
+    ) => {
+      state.marketWatch.MarketWatchList[
+        state.marketWatch.nSelectedWatchList
+      ].scrips = action.payload.scrips;
+      state.marketWatch.MarketWatchList[
+        state.marketWatch.nSelectedWatchList
+      ].mwName = action.payload.mwName;
+      state.marketWatch.nSelectedWatchList =
+        state.marketWatch.MarketWatchList.length;
+      state.marketWatch.sSelectedWatchList = action.payload.mwName;
     },
     ScriptUpdatefromSocket: (state, action) => {
       const script: IScriptUpdate = action.payload;
@@ -282,6 +310,9 @@ export const {
   ScriptUpdatefromSocket,
   DepthUpdatefromSocket,
   setRemovedSymbol,
+  setNewWatchlistSymbol,
+  AddSymbolFromNewWatchlist,
+  UpdateScriptFromNewWatchlist,
   //FetchSocketData,
 } = marketwatchSlice.actions;
 
@@ -346,7 +377,11 @@ export const RenameWatchlist =
 
 //Used for Adding and removing Symbol from watchlist
 export const UpdateWatchlist =
-  (UpdateReq: IUpdateWatchlist, sessionKey: string): AppThunk =>
+  (
+    UpdateReq: IUpdateWatchlist,
+    sessionKey: string,
+    ReqType: number
+  ): AppThunk =>
   async (dispatch) => {
     try {
       const updateWatchlistResponse = await updateWatchList(
@@ -355,7 +390,13 @@ export const UpdateWatchlist =
       );
       console.log(updateWatchlistResponse);
       //condition for add or remove
-      dispatch(RemoveSymbolFromWatchlist(UpdateReq));
+      //1:Add Item from Search,2:Delete Watchlist,3:New Watchlist
+      if (ReqType == 2) {
+        dispatch(RemoveSymbolFromWatchlist(UpdateReq));
+      } else if (ReqType == 3) {
+        dispatch(UpdateScriptFromNewWatchlist(UpdateReq));
+        FetchWatchListSymbol(UpdateReq.scrips.split(","), sessionKey, 0, 1);
+      }
     } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
     }

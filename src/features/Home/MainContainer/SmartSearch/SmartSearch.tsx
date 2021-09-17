@@ -15,7 +15,10 @@ import {
   ShowDepthFromPosition,
   ShowDepthFromSearch,
 } from "../MarketPicture/MarketPictureSlice";
-import { UpdateWatchlist } from "../MarketWatch/MarketWatchSlice";
+import {
+  setNewWatchlistSymbol,
+  UpdateWatchlist,
+} from "../MarketWatch/MarketWatchSlice";
 import { onNewWatchList } from "../MarketWatch/AddWatchListSlice";
 
 const SmartSearch = (props: { Type: Number }) => {
@@ -72,19 +75,21 @@ const SmartSearch = (props: { Type: Number }) => {
         scrips: newscrips,
       };
 
-      dispatch(UpdateWatchlist(ReqUpdateData, user.sessionKey));
+      dispatch(UpdateWatchlist(ReqUpdateData, user.sessionKey, 3));
     } else if (props.Type == 2) {
       dispatch(ShowDepthFromPosition(data.exseg + "|" + data.omtkn));
       clearSearch();
     } else if (props.Type == 3) {
       let newScrip = data.exseg + "|" + data.omtkn;
 
-      const RequestData: INewWatchList = {
-        scrips: newScrip,
-        symbol: data.usym,
-      };
+      // const RequestData: INewWatchList = {
+      //   scrips: newScrip,
+      //   symbol: data.usym,
+      // };
 
-      dispatch(onNewWatchList(RequestData));
+      //dispatch(onNewWatchList(RequestData));
+
+      dispatch(setNewWatchlistSymbol(newScrip));
     }
     //dispatch(AddToWatchList(contractSearch));
   };
