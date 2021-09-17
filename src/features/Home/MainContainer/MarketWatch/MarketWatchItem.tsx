@@ -115,9 +115,9 @@ const MarketWatchItem = (props: {
         propMarketWatch.scrips,
         symbol.exSeg + "|" + symbol.tok,
         ","
-      )
+      ),
     };
-    dispatch(UpdateWatchlist(updateWatchlist,user.sessionKey));
+    dispatch(UpdateWatchlist(updateWatchlist, user.sessionKey));
     //Unsubscribe Depth API Call
   }
   function removeValue(list: string, value: string, separator: string) {
@@ -214,14 +214,13 @@ const MarketWatchItem = (props: {
 
   return (
     <>
-        {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
-        {propMarketWatch.SymbolList != null &&
-        propMarketWatch.SymbolList != [] ? (
-          propMarketWatch.SymbolList.map(
-            (symbolInfo: IMarketWatchTokenInfo, nIncreament) => (
+      {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
+      {propMarketWatch.SymbolList != null &&
+      propMarketWatch.SymbolList != [] ? (
+        propMarketWatch.SymbolList.map(
+          (symbolInfo: IMarketWatchTokenInfo, nIncreament) => (
             <tbody key={nIncreament}>
-
-<tr
+              <tr
                 className="slideInDown-element"
                 key={nIncreament}
                 onMouseLeave={() => {
@@ -252,17 +251,17 @@ const MarketWatchItem = (props: {
                     </button>
                     <div className="d-inline-block" id="accordionExample">
                       <div id="headingOne">
-                    <button
-                      className="btn btn-primary wmarketdepth"
+                        <button
+                          className="btn btn-primary wmarketdepth"
                           data-toggle="collapse"
                           data-target="#collapseOne"
                           aria-expanded="true"
                           aria-controls="collapseOne"
-                      title="Depth"
-                      onClick={() => onDepthClick(nIncreament, symbolInfo)}
-                    ></button>
-                     </div>
-                    </div>                    
+                          title="Depth"
+                          onClick={() => onDepthClick(nIncreament, symbolInfo)}
+                        ></button>
+                      </div>
+                    </div>
                     <button
                       type="button"
                       className="btn btn-primary wchart"
@@ -303,7 +302,7 @@ const MarketWatchItem = (props: {
                         href=""
                         onClick={(e) => onCreateGTTOrderClick(symbolInfo, e)}
                       >
-                         <img src="images/watchlist/create-gtt.svg" /> Create GTT
+                        <img src="images/watchlist/create-gtt.svg" /> Create GTT
                       </a>
                       <a className="dropdown-item" href="">
                         <img src="images/watchlist/chart.svg" /> Chart
@@ -337,9 +336,9 @@ const MarketWatchItem = (props: {
                   </p>
                 </td>
               </tr>
-                {symbolInfo.showDepth &&
-                symbolInfo.marketDepth != null &&
-                symbolInfo.marketDepth != undefined ? (
+              {symbolInfo.showDepth &&
+              symbolInfo.marketDepth != null &&
+              symbolInfo.marketDepth != undefined ? (
                 <>
                   <tr
                     id="collapseOne"
@@ -347,10 +346,10 @@ const MarketWatchItem = (props: {
                     aria-labelledby="headingOne"
                     data-parent="#accordionExample"
                   >
-                     <MarketDepth
-                        index={nIncreament}
-                        depth={symbolInfo.marketDepth}
-                      ></MarketDepth>
+                    <MarketDepth
+                      index={nIncreament}
+                      depth={symbolInfo.marketDepth}
+                    ></MarketDepth>
                   </tr>
                   <tr
                     id="collapseOne"
@@ -358,20 +357,20 @@ const MarketWatchItem = (props: {
                     aria-labelledby="headingOne"
                     data-parent="#accordionExample"
                   >
-                      <Quote index={nIncreament} tokenInfo={symbolInfo}></Quote>
+                    <Quote index={nIncreament} tokenInfo={symbolInfo}></Quote>
                   </tr>
                 </>
-                ) : (
-                  ""
-                )}
+              ) : (
+                ""
+              )}
             </tbody>
-            )
           )
-        ) : (
-          <tr className="slideInDown-element">
-            <td>No Data</td>
-          </tr>
-        )}
+        )
+      ) : (
+        <tr className="slideInDown-element">
+          <td>No Data</td>
+        </tr>
+      )}
     </>
   );
 };
