@@ -62,7 +62,11 @@ const marketwatchSlice = createSlice({
       state.marketWatch.nSelectedWatchList = 0;
     },
     AddToWatchList: (state, action) => {
-      state.marketWatch.MarketWatchList[0].SymbolList.push(action.payload.data);
+      state.marketWatch.MarketWatchList[
+        state.marketWatch.nSelectedWatchList
+      ].SymbolList.push(action.payload.data[0]);
+      state.marketWatch.nSelectedWatchList =
+        state.marketWatch.nSelectedWatchList;
     },
     RenameWatchList: (state, action) => {
       let selectedid = state.marketWatch.MarketWatchList.find(
@@ -119,9 +123,9 @@ const marketwatchSlice = createSlice({
       ].SymbolList[action.payload].showMore = true; //Temp Watchlist Id -1 need to change
     },
     hideMore: (state, action: PayloadAction<number>) => {
-      state.marketWatch.MarketWatchList[
-        state.marketWatch.nSelectedWatchList
-      ].SymbolList[action.payload].showMore = false; //Temp Watchlist Id -1 need to change
+      // state.marketWatch.MarketWatchList[
+      //   state.marketWatch.nSelectedWatchList
+      // ].SymbolList[action.payload].showMore = false; //Temp Watchlist Id -1 need to change
     },
     AddToWatchlistFromSearch(state, action: PayloadAction<IRemoveFromWatch>) {
       state.marketWatch.MarketWatchList[action.payload.id].scrips =
@@ -153,8 +157,8 @@ const marketwatchSlice = createSlice({
       state.marketWatch.MarketWatchList[
         state.marketWatch.nSelectedWatchList
       ].mwName = action.payload.mwName;
-      state.marketWatch.nSelectedWatchList =
-        state.marketWatch.MarketWatchList.length;
+      //state.marketWatch.nSelectedWatchList =
+      //state.marketWatch.MarketWatchList.length;
       state.marketWatch.sSelectedWatchList = action.payload.mwName;
     },
     ScriptUpdatefromSocket: (state, action) => {
@@ -172,7 +176,7 @@ const marketwatchSlice = createSlice({
               token.nc = script.nc;
             }
             if (script.cng != undefined) {
-              token.cng = script.cng;
+              //        token.cng = script.cng;
             }
 
             if (script.op != undefined) {
@@ -346,6 +350,27 @@ export const FetchWatchListSymbol =
     }
   };
 
+export const FetchSymbol =
+  (
+    scriptInfoReq: string[],
+    sessionkey: string,
+    index: number,
+    AddorUpdate = 0
+  ): AppThunk =>
+  async (dispatch) => {
+    try {
+      const scriptInfoResponse = await PostScritInfo(scriptInfoReq, sessionkey);
+      dispatch(setSymbollistindex(index));
+      if (AddorUpdate) {
+        dispatch(AddToWatchList(scriptInfoResponse));
+      } else {
+        dispatch(UpdateSymbolDetails(scriptInfoResponse));
+      }
+    } catch (err: any) {
+      dispatch(onMarketWatchFailure(err.toString()));
+    }
+  };
+
 export const DeleteWatchlist =
   (DelReq: IDeleteWatchlist, sessionkey: string): AppThunk =>
   async (dispatch) => {
@@ -389,12 +414,26 @@ export const UpdateWatchlist =
       console.log(updateWatchlistResponse);
       //condition for add or remove
       //1:Add Item from Search,2:Delete Watchlist,3:New Watchlist
-      if (ReqType == 2) {
+      if (ReqType == 1) {
+        dispatch(
+          FetchWatchListSymbol(
+            UpdateReq.scrips.split(",").slice(-1),
+            sessionKey,
+            0,
+            1
+          )
+        );
+      } else if (ReqType == 2) {
         dispatch(RemoveSymbolFromWatchlist(UpdateReq));
       } else if (ReqType == 3) {
         dispatch(UpdateScriptFromNewWatchlist(UpdateReq));
         dispatch(
-          FetchWatchListSymbol(UpdateReq.scrips.split(","), sessionKey, 0, 1)
+          FetchWatchListSymbol(
+            UpdateReq.scrips.split(",").slice(-1),
+            sessionKey,
+            0,
+            1
+          )
         );
       }
     } catch (err: any) {

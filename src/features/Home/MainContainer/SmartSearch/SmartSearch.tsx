@@ -20,6 +20,11 @@ import {
   UpdateWatchlist,
 } from "../MarketWatch/MarketWatchSlice";
 import { onNewWatchList } from "../MarketWatch/AddWatchListSlice";
+import { SubUnsubReq, userWS } from "../../../WebSocket/HSSocket";
+import {
+  sendUnsubReq,
+  waitForSocketConnection,
+} from "../../../WebSocket/HSSocket1";
 
 const SmartSearch = (props: { Type: Number }) => {
   const dispatch = useAppDispatch();
@@ -75,7 +80,23 @@ const SmartSearch = (props: { Type: Number }) => {
         scrips: newscrips,
       };
 
-      dispatch(UpdateWatchlist(ReqUpdateData, user.sessionKey, 3));
+      dispatch(UpdateWatchlist(ReqUpdateData, user.sessionKey, 1));
+
+      //subscribe Script API Call
+      const subUnsubReq: SubUnsubReq = {
+        type: "mws",
+        scrips: newscrips.replaceAll(",", "&"),
+        channelnum: 1,
+      };
+      //if (userWS) {
+      let req = JSON.stringify(subUnsubReq);
+      // waitForSocketConnection(userWS, function () {
+      //   userWS.send(req);
+      // });
+      //}
+      waitForSocketConnection(userWS, function () {
+        sendUnsubReq(subUnsubReq);
+      });
     } else if (props.Type == 2) {
       dispatch(ShowDepthFromPosition(data.exseg + "|" + data.omtkn));
       clearSearch();

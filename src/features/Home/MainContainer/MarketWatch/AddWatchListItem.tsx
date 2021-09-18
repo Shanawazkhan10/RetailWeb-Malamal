@@ -68,9 +68,9 @@ const AddWatchListItem = (index: any) => {
                     type="text"
                     id="userid"
                     className="form__input"
-                    data-autocomplete="off"
-                    placeholder=" "
-                    data-required=""
+                    // data-autocomplete="off"
+                    // placeholder=" "
+                    // data-required=""
                     onChange={(e) => AddNewName(e)}
                   />
                   <label data-for="userid" className="form__label">

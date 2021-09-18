@@ -29,7 +29,7 @@ const MarketWatchHeader = () => {
     WatchList,
   } = useSelector((state: RootState) => {
     return {
-      nSelectedWatchList: state.marketwatch.marketWatch.sSelectedWatchList,
+      nSelectedWatchList: state.marketwatch.marketWatch.nSelectedWatchList,
       sSelectedWatchList: state.marketwatch.marketWatch.sSelectedWatchList,
       bIsBind: state.marketwatch.marketWatch.bIsBind,
       bIsError: state.marketwatch.marketWatch.bIsError,
