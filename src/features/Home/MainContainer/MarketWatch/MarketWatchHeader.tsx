@@ -70,13 +70,13 @@ const MarketWatchHeader = () => {
     <div className="mw_headnew">
       <SmartSearch Type={1}></SmartSearch>
       <div className="mw-head-btns">
-        <button id="btnSave" title="Save" onClick={SaveWatchList}>
+        {/* <button id="btnSave" title="Save" onClick={SaveWatchList}>
           Save
         </button>
 
         <button id="btnCancelMode" title="Close" style={{ display: "none" }}>
           Cancel
-        </button>
+        </button> */}
         {/* <div className="dot-menu">
           <input id="dot-menu" type="checkbox" className="dot-menu__checkbox" />
           <label htmlFor="dot-menu" className="dot-menu__label">

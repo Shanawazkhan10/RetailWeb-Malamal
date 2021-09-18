@@ -33,16 +33,18 @@ const NetPositionList = () => {
   }, []);
 
   function getSymbol() {
-    //subscribe Script API Call
-    const subUnsubReq: SubUnsubReq = {
-      type: "mws",
-      scrips: NetpositionList.netposition.map((x) => x.trdSym).join("&"),
-      channelnum: 1,
-    };
+    if (NetpositionList.netposition != undefined) {
+      //subscribe Script API Call
+      const subUnsubReq: SubUnsubReq = {
+        type: "mws",
+        scrips: NetpositionList.netposition.map((x) => x.trdSym).join("&"),
+        channelnum: 1,
+      };
 
-    waitForSocketConnection(userWS, function () {
-      sendUnsubReq(subUnsubReq);
-    });
+      waitForSocketConnection(userWS, function () {
+        sendUnsubReq(subUnsubReq);
+      });
+    }
   }
 
   return NetpositionList.netposition &&

@@ -59,12 +59,10 @@ const marketwatchSlice = createSlice({
         state.marketWatch.MarketWatchList.filter(
           (row) => row.id != action.payload
         );
-      state.marketWatch.nSelectedWatchList = 1;
+      state.marketWatch.nSelectedWatchList = 0;
     },
     AddToWatchList: (state, action) => {
-      state.marketWatch.MarketWatchList[
-        state.marketWatch.nSelectedWatchList
-      ].SymbolList.push(action.payload);
+      state.marketWatch.MarketWatchList[0].SymbolList.push(action.payload.data);
     },
     RenameWatchList: (state, action) => {
       let selectedid = state.marketWatch.MarketWatchList.find(
@@ -339,7 +337,7 @@ export const FetchWatchListSymbol =
       const scriptInfoResponse = await PostScritInfo(scriptInfoReq, sessionkey);
       dispatch(setSymbollistindex(index));
       if (AddorUpdate) {
-        AddToWatchList(scriptInfoResponse);
+        dispatch(AddToWatchList(scriptInfoResponse));
       } else {
         dispatch(UpdateSymbolDetails(scriptInfoResponse));
       }
@@ -395,7 +393,9 @@ export const UpdateWatchlist =
         dispatch(RemoveSymbolFromWatchlist(UpdateReq));
       } else if (ReqType == 3) {
         dispatch(UpdateScriptFromNewWatchlist(UpdateReq));
-        FetchWatchListSymbol(UpdateReq.scrips.split(","), sessionKey, 0, 1);
+        dispatch(
+          FetchWatchListSymbol(UpdateReq.scrips.split(","), sessionKey, 0, 1)
+        );
       }
     } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
