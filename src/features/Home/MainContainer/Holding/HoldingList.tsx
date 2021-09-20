@@ -15,93 +15,49 @@ const HoldingList = () => {
     dispatch(fetchHolding(user.sessionKey));
   }, [HoldingList]);
 
-  return HoldingList.holding.holdinglist != undefined && HoldingList.holding.holdinglist.length > 0 ? (
-    <div className="block_netPosition mr14" id="Holding">
-      <div className="block_head">
-        <h1>Holding</h1>
-        <div className="mw_opt" id="mw_opt">
-          <div>
-            <ul id="ulTab" className="scroll_tabs_container">
-              <div className="scroll_tab_inner">
-                <div className="mw_opt">
-                  <button id="btnExchFilter" className="btn_TrdBookexchFilter">
-                    Filter
-                  </button>
-                </div>
-              </div>
-            </ul>
-          </div>
+  return HoldingList.holding != undefined && HoldingList.holding.holdinglist.length > 0 ? (
+    <div className="tab-content">
+      <div className="row slideInDown-element" id="holdings">
+        <div className="col-md-4">
+          <span>Holdings ({HoldingList.holding.holdinglist.length})</span>
         </div>
-      </div>
-      <div>
-        <div className="netPosTbl">
-          <table
-            className="table table-responsive table-borderless"
-            id="tblnetposid"
-          >
+        <div className="col-md-8 text-right">
+          <div className="input-group slideInDown-element m-0" id="search">
+            <div>
+              <span>
+                <img src="images/search.svg" />
+              </span>
+            </div>
+            <input type="text" placeholder="Search E.g. INFY" />
+          </div>
+          <a href="#">
+            <img
+              src=""
+              style={{
+                width: "15px",
+                height: "15px",
+                background: "rgba(106, 78, 238, 0.2)",
+                borderRadius: "3px",
+              }}
+            />{" "}
+            Analytics
+          </a>
+          <a href="#">
+            <img src="images/positions/download.svg" /> Download
+          </a>
+        </div>
+        <div className="col-md-12">
+          <table className="datatable table table-hover" id="PortfolioTable">
             <thead>
-              <tr className="sticky">
-                <th className="tblHeaderNP" title="Symbol">
-                  <span>Symbol</span>
-                </th>
-                <th className="tblHeaderNP" title="Instrument Name">
-                  <span>Instrument Name</span>
-                </th>
-                <th
-                  className="tblHeaderNP"
-                  data-value="ProductType"
-                  title="Product Type"
-                >
-                  <span>Product Type</span>
-                </th>
-                <th
-                  className="tblHeaderNP right"
-                  data-value="NetQty"
-                  title="Net Qty"
-                >
-                  <span>Net Qty</span>
-                </th>
-                <th
-                  className="tblHeaderNP right"
-                  data-value="NetAvg"
-                  title="Avg"
-                >
-                  <span>Avg</span>
-                </th>
-                <th
-                  className="tblHeaderNP right"
-                  data-value="LastTradedPrice"
-                  title="LTP"
-                >
-                  <span>LTP</span>
-                </th>
-                <th className="tblHeaderNP right" data-value="PL" title="PL">
-                  <span>PL</span>
-                </th>
-                <th
-                  className="tblHeaderNP"
-                  data-value="nExchangeId"
-                  style={{ width: "111px" }}
-                  title="Chg"
-                >
-                  <span>Chg</span>
-                </th>
-                <th
-                  className="tblHeaderNP"
-                  data-value="nExchangeId"
-                  style={{ width: "111px" }}
-                  title="Exchange"
-                >
-                  <span>Exchange</span>
-                </th>
-                <th
-                  className="tblHeaderNP"
-                  data-value="nExchangeId"
-                  style={{ width: "111px" }}
-                  title="Total"
-                >
-                  <span>Total</span>
-                </th>
+              <tr>
+                <th style={{ width: "30%" }}>Instrument</th>
+                <th style={{ width: "10%" }}>Qty.</th>
+                <th style={{ width: "10%" }}>Avg.</th>
+                <th style={{ width: "10%" }}>LTP</th>
+                <th style={{ width: "10%" }}>Cur. val</th>
+                <th style={{ width: "10%" }}>P&L</th>
+                <th style={{ width: "10%" }}>Net Chg.</th>
+                <th style={{ width: "10%" }}>Day Chg.</th>
               </tr>
             </thead>
             <tbody id="tblnetposid">
@@ -110,6 +66,33 @@ const HoldingList = () => {
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="col-md-3 holdingleft mt-4">
+          <div>
+            <h3 className="c-purple">{HoldingList.holding.totalInvestMent}</h3>
+            <p>Total Investment</p>
+          </div>
+          <div>
+            <h3 className="c-black">{HoldingList.holding.currentValue}</h3>
+            <p>Current Value</p>
+          </div>
+          <div>
+            <div className="mb-2 c-orange">
+              <h3 className="d-inline">{HoldingList.holding.daysPandL}</h3>
+              <span>({HoldingList.holding.daysPandLPercent}%)</span>
+            </div>
+            <p>Day's P&L</p>
+          </div>
+          <div>
+            <div className="mb-2 c-green">
+              <h3 className="d-inline">{HoldingList.holding.totalPandL}</h3>
+              <span>({HoldingList.holding.totalPandLPercent}%)</span>
+            </div>
+            <p>Total P&L</p>
+          </div>
+        </div>
+        <div className="col-md-4 mt-5" id="chart">
+          <img src="images/pie-chart.png" className="img-fluid" />
         </div>
       </div>
     </div>

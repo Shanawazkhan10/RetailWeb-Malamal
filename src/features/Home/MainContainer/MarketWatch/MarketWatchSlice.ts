@@ -18,7 +18,6 @@ import { IScriptUpdate } from "../../../../types/MarketData/IScriptUpdate";
 import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 import { IDeleteWatchlist } from "./../../../../app/IDeleteWatchlist";
 import { IRenameWatchlist } from "./../../../../types/IRenameWatchlist";
-import MarketDepth from "./MarketDepth";
 
 const InitialMarketWatch: IMarketWatchList = {
   MarketWatchList: [],
@@ -31,11 +30,11 @@ const InitialMarketWatch: IMarketWatchList = {
   sNewWatchlistSymbol: "",
   //SymbolList: [],
 };
+
 const marketwatchSlice = createSlice({
   name: "marketwatch",
   initialState: {
     marketWatch: InitialMarketWatch,
-    newScrip: "",
   },
   reducers: {
     onMarketWatchSuccess: (state, action) => {
@@ -291,6 +290,24 @@ const marketwatchSlice = createSlice({
       // });
       //return newState;
     },
+    updateStorage: (state, action) => {
+      //{"status":"SUCCESS","code":200,"data":[{"mwName":"Test_2","scrips":"nse_cm|3426,nse_cm|22,nse_cm|1660,nse_fo|41140,nse_fo|39914"}]}
+      var MarketWatchlist = action.payload;
+      if (MarketWatchlist.data != undefined) {
+        MarketWatchlist.data.map((data: any) => {
+          console.log(data);
+          var scrips: string = data.scrips;
+          scrips.split(",").map((scripname: string) => {
+            if (localStorage.getItem(scripname) == null) {
+              localStorage.setItem(scripname, "1");
+            } else {
+              var count = Number(localStorage.getItem(scripname)) + 1;
+              localStorage.setItem(scripname, String(count));
+            }
+          });
+        });
+      }
+    },
   },
 });
 
@@ -316,6 +333,7 @@ export const {
   AddSymbolFromNewWatchlist,
   UpdateScriptFromNewWatchlist,
   //FetchSocketData,
+  updateStorage,
 } = marketwatchSlice.actions;
 
 export const fetchmarketWatch =
@@ -323,6 +341,7 @@ export const fetchmarketWatch =
   async (dispatch) => {
     try {
       const MarketWatchData = await getWatchList(cache, sessionkey);
+      dispatch(updateStorage(MarketWatchData));
       dispatch(onMarketWatchSuccess(MarketWatchData));
     } catch (err) {
       console.log(err);

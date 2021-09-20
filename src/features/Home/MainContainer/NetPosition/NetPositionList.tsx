@@ -1,20 +1,16 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { getNetpositionData } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
-import NetPosition from "./NetPosition";
-import { fetchNetposition, NetpositionSuccess } from "./NetPositionSlice";
-import NetPositionSummary from "./NetPositionSummary";
-import SmartSearch from "./../SmartSearch/SmartSearch";
-import MarketPicture from "../MarketPicture/MarketPicture";
-import { ShowDepthFromPosition } from "../MarketPicture/MarketPictureSlice";
 import { userWS } from "../../../WebSocket/HSSocket";
 import {
   sendUnsubReq,
   SubUnsubReq,
   waitForSocketConnection,
 } from "../../../WebSocket/HSSocket1";
+import { ShowDepthFromPosition } from "../MarketPicture/MarketPictureSlice";
+import NetPosition from "./NetPosition";
+import { fetchNetposition } from "./NetPositionSlice";
 
 const NetPositionList = () => {
   //let NetpositionList: any[];
@@ -49,92 +45,158 @@ const NetPositionList = () => {
 
   return NetpositionList.netposition &&
     NetpositionList.netposition.length > 0 ? (
-    <div className="col-sm-12 col-md-12 col-lg-12 col-xl-12" id="Portfolio">
-      <div className="equityplate fadeIn-element">
-        <div className="row slideInDown-element">
-          <div className="col-md-12 tabline">
-            <div className="tab-wrap">
-              <input type="radio" name="tabs" id="tab1" checked />
-              <div className="tab-label-content" id="tab1-content">
-                <label data-for="tab1">Positions</label>
-                <div className="tab-content">
-                  <div className="row">
-                    <div className="col-md-6">
-                      <h2>Positions (1)</h2>
-                    </div>
-                    <div className="col-md-6">
-                      <div
-                        className="input-group slideInDown-element"
-                        id="search"
-                      >
-                        <div>
-                          <span>
-                            <img src="images/search.svg" />
-                          </span>
-                        </div>
-                        <input type="text" placeholder="Search E.g. INFY" />
-                      </div>
-                      <a href="#">
-                        <img
-                          src=""
-                          style={{
-                            width: "15px",
-                            height: "15px",
-                            background: "rgba(106, 78, 238, 0.2)",
-                            borderRadius: "3px",
-                          }}
-                        />
-                        Analytics
-                      </a>
-                      <a href="#">
-                        <img src="images/positions/download.svg" /> Download
-                      </a>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-12">
-                      <table className="datatable" id="PortfolioTable">
-                        <thead>
-                          <tr>
-                            <th>
-                              <input
-                                id="check_all"
-                                className="regular-checkbox"
-                                type="checkbox"
-                              />
-                              <label data-for="check_all"></label>
-                            </th>
-                            <th>Product</th>
-                            <th>Instrument</th>
-                            <th>Qty.</th>
-                            <th>Avg.</th>
-                            <th>LTP</th>
-                            <th>P&L</th>
-                            <th>Chg.</th>
-                          </tr>
-                        </thead>
-                        <tbody id="tblnetposid">
-                          {NetpositionList.netposition.map(
-                            (netposition: any) => (
-                              <NetPosition
-                                key={netposition.Token}
-                                netposition={netposition}
-                              />
-                            )
-                          )}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
+    // <div className="tab-label-content" id="tab1-content">
+    //   <label data-for="tab1">Positions</label>
+    <div className="tab-content">
+      <div className="row mb-4">
+        <div className="col-md-4">
+          <h2>Positions ({NetpositionList.netposition.length})</h2>
+        </div>
+        <div className="col-md-8 text-right">
+          <div className="input-group slideInDown-element m-0" id="search">
+            <div>
+              <span>
+                <img src="images/search.svg" />
+              </span>
             </div>
+            <input type="text" placeholder="Search E.g. INFY" />
           </div>
+          <a href="#">
+            <img
+              src=""
+              style={{
+                width: "15px",
+                height: "15px",
+                background: "rgba(106, 78, 238, 0.2)",
+                borderRadius: "3px",
+              }}
+            />{" "}
+            Analytics
+          </a>
+          <a href="#">
+            <img src="images/positions/download.svg" /> Download
+          </a>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-12">
+          <table className="datatable table table-hover" id="PortfolioTable">
+            <thead>
+              <tr>
+                <th>
+                  <input
+                    id="check_all"
+                    className="regular-checkbox"
+                    type="checkbox"
+                  />
+                  <label data-for="check_all"></label>
+                </th>
+                <th>Product</th>
+                <th>Instrument</th>
+                <th>Qty.</th>
+                <th>Avg.</th>
+                <th>LTP</th>
+                <th>P&L</th>
+                <th>Chg.</th>
+              </tr>
+            </thead>
+            <tbody id="tblnetposid">
+              {NetpositionList.netposition.map((netposition: any) => (
+                <NetPosition
+                  key={netposition.Token}
+                  netposition={netposition}
+                />
+              ))}
+            </tbody>
+            <tfoot>
+              <tr className="odd_col">
+                <td data-colspan="2">
+                  <button className="btn btn-primary">Exit Position</button>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                  <h4>Total</h4>
+                </td>
+                <td>
+                  <h4>0.00</h4>
+                </td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+      <div className="row my-5">
+        <div className="col-md-4">
+          <h2>Day's History ({NetpositionList.netposition.length})</h2>
+        </div>
+        <div className="col-md-8 text-right">
+          <div className="input-group slideInDown-element m-0" id="search">
+            <div>
+              <span>
+                <img src="images/search.svg" />
+              </span>
+            </div>
+            <input type="text" placeholder="Search E.g. INFY" />
+          </div>
+          <a href="#">
+            <img src="images/positions/download.svg" /> Download
+          </a>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-12">
+          <table className="datatable table table-hover" id="PortfolioTable">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Product</th>
+                <th>Instrument</th>
+                <th>Qty.</th>
+                <th>Avg.</th>
+                <th>LTP</th>
+                <th>P&L</th>
+                <th>Chg.</th>
+              </tr>
+            </thead>
+
+            {/* Temporary bindng to netposition */}
+            <tbody>
+              {NetpositionList.netposition.map((netposition: any) => (
+                <NetPosition
+                  key={netposition.Token}
+                  netposition={netposition}
+                />
+              ))}
+            </tbody>
+            <tfoot>
+              <tr className="odd_col">
+                <td data-colspan="2"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Total</td>
+                <td>0.00</td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
         </div>
       </div>
     </div>
   ) : (
-    <div>{showDepth}</div>
+    // </div>
+    <div className="tab-content">
+      <div>
+        <p>You don't have any positions yet</p>
+      </div>
+      <br />
+      <button type="button" className="button-blue">
+        Get started
+      </button>
+    </div>
   );
 };
 
