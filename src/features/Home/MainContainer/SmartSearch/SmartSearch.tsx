@@ -38,6 +38,10 @@ const SmartSearch = (props: { Type: Number }) => {
   selectedList = WatchList.nSelectedWatchList;
   let selectlistname: string;
   selectlistname = WatchList.sSelectedWatchList;
+  let scriptList: string;
+  if (selectedList != undefined && WatchList.MarketWatchList.length > 0) {
+    scriptList = WatchList.MarketWatchList[selectedList].scrips;
+  }
 
   const nIsOpenFrom = props.Type;
   const onDepthClick = (data: IContractSearch) => {
@@ -83,20 +87,16 @@ const SmartSearch = (props: { Type: Number }) => {
       dispatch(UpdateWatchlist(ReqUpdateData, user.sessionKey, 1));
 
       //subscribe Script API Call
-      const subUnsubReq: SubUnsubReq = {
-        type: "mws",
-        scrips: newscrips.replaceAll(",", "&"),
-        channelnum: 1,
-      };
-      //if (userWS) {
-      let req = JSON.stringify(subUnsubReq);
+      // const subUnsubReq: SubUnsubReq = {
+      //   type: "mws",
+      //   scrips: newscrips.replaceAll(",", "&"),
+      //   channelnum: 1,
+      // };
+
+      // let req = JSON.stringify(subUnsubReq);
       // waitForSocketConnection(userWS, function () {
-      //   userWS.send(req);
+      //   sendUnsubReq(subUnsubReq);
       // });
-      //}
-      waitForSocketConnection(userWS, function () {
-        sendUnsubReq(subUnsubReq);
-      });
     } else if (props.Type == 2) {
       dispatch(ShowDepthFromPosition(data.exseg + "|" + data.omtkn));
       clearSearch();
@@ -235,11 +235,15 @@ const SmartSearch = (props: { Type: Number }) => {
                 // onMouseDown={() => {
                 //   console.log(result);
                 // }}
+                // onMouseDown={() => {
+                //   onAddClick(result);
+                // }}
                 style={{ cursor: "pointer" }}
               >
                 <li>
                   <div id="divLeftV" className="container_mw mw_team1">
                     <div className="overlay_mw">
+<<<<<<< Updated upstream
                       <button
                         className=" btn_buy"
                         title="Add"
@@ -247,6 +251,22 @@ const SmartSearch = (props: { Type: Number }) => {
                       >
                         +
                       </button>
+=======
+                      {scriptList != undefined &&
+                      scriptList.indexOf(result.exseg + "|" + result.omtkn) <
+                        0 ? (
+                        <button
+                          className=" btn_buy"
+                          title="Add"
+                          onClick={() => onAddClick(result)}
+                        >
+                          +
+                        </button>
+                      ) : (
+                        <button className=" btn_buy" title="Added"></button>
+                      )}
+
+>>>>>>> Stashed changes
                       {/* <button
                           className=" btn_buy"
                           title="Chart(C )"

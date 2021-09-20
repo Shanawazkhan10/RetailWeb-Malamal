@@ -6,3 +6,10 @@ export interface IMarketWatch {
   id: number;
   SymbolList: IMarketWatchTokenInfo[];
 }
+
+export const initialMarketWatch = {
+  mwName: "",
+  scrips: "",
+  id: 0,
+  SymbolList: [],
+};

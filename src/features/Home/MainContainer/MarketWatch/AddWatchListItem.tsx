@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
-import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 import SmartSearch from "../SmartSearch/SmartSearch";
-import { FetchWatchListSymbol, UpdateWatchlist } from "./MarketWatchSlice";
+import { UpdateWatchlist } from "./MarketWatchSlice";
 
 const AddWatchListItem = (index: any) => {
   const dispatch = useAppDispatch();
@@ -23,7 +22,8 @@ const AddWatchListItem = (index: any) => {
     setName(event.target.value);
   }
 
-  function AddWatchList() {
+  function AddWatchList(event: any) {
+    event.preventDefault();
     // dispatch(
     //   FetchWatchListSymbol(newlist.scrips.split(","), user.sessionKey, index, 1)
     // );
@@ -34,7 +34,7 @@ const AddWatchListItem = (index: any) => {
     dispatch(UpdateWatchlist(updateWatchlist, user.sessionKey, 3));
   }
 
-  return (
+  return bCloseButton ? (
     <div
       className="modal fade show"
       id="AddModal"
@@ -55,7 +55,7 @@ const AddWatchListItem = (index: any) => {
               className="close"
               data-dismiss="modal"
               aria-label="Close"
-              onClick={() => setCloseButton(true)}
+              onClick={() => setCloseButton(false)}
             >
               <span aria-hidden="true">×</span>
             </button>
@@ -104,7 +104,7 @@ const AddWatchListItem = (index: any) => {
                   <button
                     type="submit"
                     className="btn btn-primary w-100 submitbtn"
-                    onClick={() => AddWatchList()}
+                    onClick={(e) => AddWatchList(e)}
                   >
                     Add
                   </button>
@@ -115,6 +115,8 @@ const AddWatchListItem = (index: any) => {
         </div>
       </div>
     </div>
+  ) : (
+    <Fragment></Fragment>
   );
 };
 

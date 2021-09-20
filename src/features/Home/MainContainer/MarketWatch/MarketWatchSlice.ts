@@ -9,8 +9,16 @@ import {
 import { AppThunk } from "../../../../store/store";
 import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
 import { IDepthReq } from "../../../../types/IDepthReq";
+<<<<<<< Updated upstream
 import { IMarketDepth, InitialMarketDepth } from "../../../../types/IMarketDepth";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
+=======
+import {
+  IMarketDepth,
+  InitialMarketDepth,
+} from "../../../../types/IMarketDepth";
+
+>>>>>>> Stashed changes
 import { IMarketWatchList } from "../../../../types/IMarketWatchList";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
@@ -18,6 +26,11 @@ import { IScriptUpdate } from "../../../../types/MarketData/IScriptUpdate";
 import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 import { IDeleteWatchlist } from "./../../../../app/IDeleteWatchlist";
 import { IRenameWatchlist } from "./../../../../types/IRenameWatchlist";
+<<<<<<< Updated upstream
+=======
+import MarketDepth from "./MarketDepth";
+import { IMarketWatch } from "./../../../../types/IMarketWatch";
+>>>>>>> Stashed changes
 
 const InitialMarketWatch: IMarketWatchList = {
   MarketWatchList: [],
@@ -150,15 +163,25 @@ const marketwatchSlice = createSlice({
       state,
       action: PayloadAction<IUpdateWatchlist>
     ) => {
-      state.marketWatch.MarketWatchList[
-        state.marketWatch.nSelectedWatchList
-      ].scrips = action.payload.scrips;
-      state.marketWatch.MarketWatchList[
-        state.marketWatch.nSelectedWatchList
-      ].mwName = action.payload.mwName;
-      //state.marketWatch.nSelectedWatchList =
-      //state.marketWatch.MarketWatchList.length;
+      const AddWatchlist = {
+        mwName: action.payload.mwName,
+        scrips: action.payload.scrips,
+        id: state.marketWatch.MarketWatchList.length,
+        SymbolList: [],
+      };
+
+      state.marketWatch.MarketWatchList.push(AddWatchlist);
+      state.marketWatch.nSelectedWatchList =
+        state.marketWatch.MarketWatchList.length - 1;
+      // state.marketWatch.MarketWatchList[
+      //   state.marketWatch.nSelectedWatchList
+      // ].scrips = action.payload.scrips;
+      // state.marketWatch.MarketWatchList[
+      //   state.marketWatch.nSelectedWatchList
+      // ].mwName = action.payload.mwName;
+
       state.marketWatch.sSelectedWatchList = action.payload.mwName;
+      state.marketWatch.sNewWatchlistSymbol = "";
     },
     ScriptUpdatefromSocket: (state, action) => {
       const script: IScriptUpdate = action.payload;
@@ -220,9 +243,10 @@ const marketwatchSlice = createSlice({
       state.marketWatch.MarketWatchList.forEach((MarketWatch: IMarketWatch) => {
         MarketWatch.SymbolList.forEach((token: IMarketWatchTokenInfo) => {
           if (token.showDepth && token.tok == depth.tk && depth.name == "dp") {
-            void (token.marketDepth = depth);
+            //void (token.marketDepth = depth);
 
             //return Object.assign({}, token, depth);
+<<<<<<< Updated upstream
             // if (token.marketDepth == undefined) {
             // token.marketDepth = InitialMarketDepth;
             // }
@@ -283,6 +307,54 @@ const marketwatchSlice = createSlice({
             // if (depth.mul != undefined) token.marketDepth.mul = depth.mul;
             // if (depth.prec != undefined)
             //   token.marketDepth.prec = depth.prec;
+=======
+            if (token.marketDepth == undefined) {
+              //token.marketDepth = {} as IMarketDepth;
+              token.marketDepth = Object.assign({}, InitialMarketDepth);
+            }
+            if (depth.bp != undefined) token.marketDepth.bp = depth.bp;
+
+            if (depth.bp1 != undefined) token.marketDepth.bp1 = depth.bp1;
+
+            if (depth.bp2 != undefined) token.marketDepth.bp2 = depth.bp2;
+
+            if (depth.bp3 != undefined) token.marketDepth.bp3 = depth.bp3;
+
+            if (depth.bp4 != undefined) token.marketDepth.bp4 = depth.bp4;
+
+            if (depth.sp != undefined) token.marketDepth.sp = depth.sp;
+
+            if (depth.sp1 != undefined) token.marketDepth.sp1 = depth.sp1;
+
+            if (depth.sp1 != undefined) token.marketDepth.sp2 = depth.sp2;
+
+            if (depth.sp3 != undefined) token.marketDepth.sp3 = depth.sp3;
+
+            if (depth.sp4 != undefined) token.marketDepth.sp4 = depth.sp4;
+
+            if (depth.bq != undefined) token.marketDepth.bq = depth.bq;
+            if (depth.bq1 != undefined) token.marketDepth.bq1 = depth.bq1;
+            if (depth.bq2 != undefined) token.marketDepth.bq2 = depth.bq2;
+            if (depth.bq3 != undefined) token.marketDepth.bq3 = depth.bq3;
+            if (depth.bq4 != undefined) token.marketDepth.bq4 = depth.bq4;
+            if (depth.bs != undefined) token.marketDepth.bs = depth.bs;
+            if (depth.bs1 != undefined) token.marketDepth.bs1 = depth.bs1;
+            if (depth.bs2 != undefined) token.marketDepth.bs2 = depth.bs2;
+            if (depth.bs3 != undefined) token.marketDepth.bs3 = depth.bs3;
+            if (depth.bs4 != undefined) token.marketDepth.bs4 = depth.bs4;
+            if (depth.bno1 != undefined) token.marketDepth.bno1 = depth.bno1;
+            if (depth.bno2 != undefined) token.marketDepth.bno2 = depth.bno2;
+            if (depth.bno3 != undefined) token.marketDepth.bno3 = depth.bno3;
+            if (depth.bno4 != undefined) token.marketDepth.bno4 = depth.bno4;
+            if (depth.bno5 != undefined) token.marketDepth.bno5 = depth.bno5;
+            if (depth.sno1 != undefined) token.marketDepth.sno1 = depth.sno1;
+            if (depth.sno2 != undefined) token.marketDepth.sno2 = depth.sno2;
+            if (depth.sno3 != undefined) token.marketDepth.sno3 = depth.sno3;
+            if (depth.sno4 != undefined) token.marketDepth.sno4 = depth.sno4;
+            if (depth.sno5 != undefined) token.marketDepth.sno5 = depth.sno5;
+            if (depth.mul != undefined) token.marketDepth.mul = depth.mul;
+            if (depth.prec != undefined) token.marketDepth.prec = depth.prec;
+>>>>>>> Stashed changes
           }
           //return token;
         });
@@ -443,7 +515,9 @@ export const UpdateWatchlist =
           )
         );
       } else if (ReqType == 2) {
-        dispatch(RemoveSymbolFromWatchlist(UpdateReq));
+        if (updateWatchlistResponse.status != "FAILURE") {
+          dispatch(RemoveSymbolFromWatchlist(UpdateReq));
+        }
       } else if (ReqType == 3) {
         dispatch(UpdateScriptFromNewWatchlist(UpdateReq));
         dispatch(
