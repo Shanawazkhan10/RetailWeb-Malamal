@@ -243,15 +243,6 @@ const SmartSearch = (props: { Type: Number }) => {
                 <li>
                   <div id="divLeftV" className="container_mw mw_team1">
                     <div className="overlay_mw">
-<<<<<<< Updated upstream
-                      <button
-                        className=" btn_buy"
-                        title="Add"
-                        onClick={() => onAddClick(result)}
-                      >
-                        +
-                      </button>
-=======
                       {scriptList != undefined &&
                       scriptList.indexOf(result.exseg + "|" + result.omtkn) <
                         0 ? (
@@ -266,7 +257,6 @@ const SmartSearch = (props: { Type: Number }) => {
                         <button className=" btn_buy" title="Added"></button>
                       )}
 
->>>>>>> Stashed changes
                       {/* <button
                           className=" btn_buy"
                           title="Chart(C )"
