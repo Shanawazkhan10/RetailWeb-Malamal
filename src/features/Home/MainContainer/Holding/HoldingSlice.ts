@@ -1,18 +1,29 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { api, getHolding } from "../../../../app/api";
 import { AppThunk } from "../../../../store/store";
-import { IHolding } from "../../../../types/Holding/IHolding";
+import { IHolding,IHoldingSate } from "../../../../types/Holding/IHolding";
 
-const InitialHolding: IHolding[] = [];
+const InitialHolding ={
+  holdinglist:[],
+  totalInvestMent:0.00,  
+  currentValue:0.00,
+  daysPandL:0.00,
+  daysPandLPercent:0.00,
+  totalPandL:0.00,
+  totalPandLPercent:0.00,
+}as IHoldingSate;
 
 const holding = createSlice({
   name: "holding",
   initialState: {
-    holding: InitialHolding,
+    holding: InitialHolding
   },
   reducers: {
     HoldingSuccess: (state, action) => {
-      state.holding = action.payload.hldVal;
+      state.holding.holdinglist = action.payload.hldVal;
+      {state.holding.holdinglist?.map((holding: IHolding) => (
+        state.holding.totalInvestMent = (state.holding.totalInvestMent + Number(holding.prc))
+      ))}
     },
     HoldingUpdate: (state, action: PayloadAction<string>) => {
       // state.holding = state.holding.map((el) =>

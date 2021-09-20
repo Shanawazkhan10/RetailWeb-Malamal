@@ -215,7 +215,6 @@ const MarketWatchItem = (props: {
 
   return (
     <>
-      {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
       {propMarketWatch.SymbolList != null &&
       propMarketWatch.SymbolList != [] ? (
         propMarketWatch.SymbolList.map(

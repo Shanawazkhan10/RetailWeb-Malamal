@@ -2,24 +2,19 @@ import React from "react";
 import Chart from "react-google-charts";
 import { IHolding } from "../../../../types/Holding/IHolding";
 
-const PieChart = (props: { holding: IHolding }) => {
-  const { holding } = props;
-  let sym1 = holding?.nseTrdSym;
-
+const PieChart = (props: { holdingList: IHolding[] }) => {  
+  const { holdingList } = props;
+  var donutdata:[[string,any]] = [["Symbol","Holdings"]]; 
+  holdingList.map((row: IHolding, i) => (
+    donutdata.push([row.nseTrdSym ,Number(row.hldQty)])
+  ))
   return (
     <Chart
       width={"100%"}
       height={"100%"}
       chartType="PieChart"
-      loader={<div>Loading Chart</div>}
-      data={[
-        ["Symbol", "Holdings"],
-        ["Reliance", 600000],
-        ["ACC", 10000],
-        ["AdaniPort", 50000],
-        ["Zomato", 100000],
-        ["HDFC", 50000],
-      ]}
+      loader={<div>Loading Chart</div>}      
+      data={donutdata}    
       options={{
         title: "",
         pieHole: 0.6,

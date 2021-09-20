@@ -15,7 +15,7 @@ const HoldingList = () => {
     dispatch(fetchHolding(user.sessionKey));
   }, [HoldingList]);
 
-  return HoldingList.holding != undefined && HoldingList.holding.length > 0 ? (
+  return HoldingList.holding.holdinglist != undefined && HoldingList.holding.holdinglist.length > 0 ? (
     <div className="block_netPosition mr14" id="Holding">
       <div className="block_head">
         <h1>Holding</h1>
@@ -105,7 +105,7 @@ const HoldingList = () => {
               </tr>
             </thead>
             <tbody id="tblnetposid">
-              {HoldingList.holding?.map((holding: any) => (
+              {HoldingList.holding.holdinglist?.map((holding: any) => (
                 <Holding key={holding.Token} holding={holding} />
               ))}
             </tbody>

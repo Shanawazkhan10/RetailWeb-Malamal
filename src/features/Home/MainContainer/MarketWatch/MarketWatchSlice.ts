@@ -9,7 +9,7 @@ import {
 import { AppThunk } from "../../../../store/store";
 import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
 import { IDepthReq } from "../../../../types/IDepthReq";
-import { IMarketDepth } from "../../../../types/IMarketDepth";
+import { IMarketDepth, InitialMarketDepth } from "../../../../types/IMarketDepth";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchList } from "../../../../types/IMarketWatchList";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
@@ -123,9 +123,9 @@ const marketwatchSlice = createSlice({
       ].SymbolList[action.payload].showMore = true; //Temp Watchlist Id -1 need to change
     },
     hideMore: (state, action: PayloadAction<number>) => {
-      // state.marketWatch.MarketWatchList[
-      //   state.marketWatch.nSelectedWatchList
-      // ].SymbolList[action.payload].showMore = false; //Temp Watchlist Id -1 need to change
+      state.marketWatch.MarketWatchList[
+        state.marketWatch.nSelectedWatchList
+      ].SymbolList[action.payload].showMore = false; //Temp Watchlist Id -1 need to change
     },
     AddToWatchlistFromSearch(state, action: PayloadAction<IRemoveFromWatch>) {
       state.marketWatch.MarketWatchList[action.payload.id].scrips =
@@ -225,8 +225,8 @@ const marketwatchSlice = createSlice({
 
             //return Object.assign({}, token, depth);
             // if (token.marketDepth == undefined) {
-            //token.marketDepth = [];
-            //}
+            // token.marketDepth = InitialMarketDepth;
+            // }
             //if (depth.bp != undefined) {
             //  token.marketDepth.bp = depth.bp;
             // }
