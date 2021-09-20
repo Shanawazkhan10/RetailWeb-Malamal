@@ -229,7 +229,7 @@ const MarketWatchItem = (props: {
                 }}
               >
                 <td>
-                  {symbolInfo.isin != "NA" ? (
+                  {symbolInfo.isin != "NA" && symbolInfo.isin != "--" ? (
                     <img
                       src={
                         "http://img.tecxlabs.com.s3-website.ap-south-1.amazonaws.com/stock/" +

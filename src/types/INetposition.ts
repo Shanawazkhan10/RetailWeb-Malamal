@@ -3,7 +3,7 @@ export interface INetPosition {
   brdLtQty: Number;
   cfBuyAmt: String;
   cfSellAmt: String;
-  cfBuyQty: String;
+  cfBuyQty: string;
   cfSellQty: String;
   exSeg: String;
   buyAmt: string;

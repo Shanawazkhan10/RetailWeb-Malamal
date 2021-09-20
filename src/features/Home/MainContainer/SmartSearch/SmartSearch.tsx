@@ -245,7 +245,7 @@ const SmartSearch = (props: { Type: Number }) => {
                         title="Add"
                         onClick={() => onAddClick(result)}
                       >
-                        A
+                        +
                       </button>
                       {/* <button
                           className=" btn_buy"

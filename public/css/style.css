@@ -55,7 +55,19 @@ h6 {
   color: #ffffff;
   border-color: #ffffff;
 }
-
+.btn-primary {
+  background-color: #6a4eee; /* border-radius: 4px; */
+  border: none;
+  color: #ffffff;
+}
+.btn-primary:hover {
+  background-color: #6a4eee;
+}
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: #6a4eee;
+}
 #menutxt .nav-item a {
   font-weight: 400;
   font-size: 15px;
@@ -232,7 +244,7 @@ h6 {
 .b-listing #mainwatchlist tr img {
   width: 50px;
   height: 50px;
-  border: 1px solid #8b72ff;
+  border: 0.1px solid #c5c7c9;
   border-radius: 35px;
   margin-right: 10px;
   object-fit: contain;
@@ -272,7 +284,7 @@ h6 {
   color: inherit;
 }
 .table {
-  display: "";
+  display: ;
 }
 .table-row {
   display: table-row;
@@ -390,6 +402,15 @@ h6 {
 .equityplate table tr td {
   padding: 5px 10px 12px 2px;
 }
+.portfolioplate {
+  color: #000000;
+  background: #ffffff;
+  padding: 18px;
+  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 14%);
+  height: 85vh;
+  overflow: auto;
+  margin-bottom: 10px;
+}
 
 #holdingbox {
   height: 60vh;
@@ -431,7 +452,7 @@ h6 {
   padding: 0 15px 0 6px;
 }
 #bar-graph .col-md-6 {
-  /* padding: 0 6px; */
+  padding: 0 6px;
 }
 .positions .progress {
   border-radius: 4px;
@@ -546,6 +567,11 @@ h6 {
   animation-duration: 2s; /* don't forget to set a duration! */
 }
 
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: #6344f2;
+}
+
 td {
   position: relative;
 }
@@ -559,6 +585,7 @@ div.watchlistbox {
 div.watchlistbox .dropdown-menu.show {
   box-shadow: 0 2px 10px 0 rgb(0 0 0 / 14%);
   border: none;
+  padding: 0;
 }
 div.watchlistbox .dropdown-menu {
   top: 10px !important;
@@ -673,7 +700,7 @@ tr:hover div.watchlistbox {
   border-radius: 0.5rem;
   font-family: inherit;
   font-size: inherit;
-  color: #d2d0e1;
+  color: ;
   outline: none;
   padding: 1.25rem;
   background: none; /* Change border when input focus*/
@@ -792,7 +819,7 @@ tr:hover div.watchlistbox {
   width: 100%;
 }
 #Portfolio .tab-label-content .tab-content {
-  width: 96%;
+  width: 93%;
   position: absolute;
   top: 100px;
   left: 34px;
@@ -806,7 +833,9 @@ tr:hover div.watchlistbox {
     top: -106px;
   }
 }
-
+#Portfolio #search {
+  width: 42%;
+}
 table#PortfolioTable {
   width: 100%;
 }
@@ -824,6 +853,12 @@ table#PortfolioTable {
   border-radius: 2px;
   text-transform: uppercase;
 }
+#PortfolioTable thead tr th {
+  font-size: 16px;
+  font-weight: 400;
+  color: #a5a7a4;
+  padding: 14px 15px;
+}
 #PortfolioTable .orange {
   background: #fc8b00;
 }
@@ -835,6 +870,7 @@ table#PortfolioTable {
 }
 #PortfolioTable h3 {
   font-weight: 400;
+  display: inline-block;
 }
 #PortfolioTable h3 span {
   font-size: 14px;
@@ -844,19 +880,24 @@ table#PortfolioTable {
 #PortfolioTable .regular-checkbox {
   display: none;
 }
+#PortfolioTable thead {
+  border-top: 1px solid #d2d0e1;
+}
 #PortfolioTable thead tr label {
   border: 1px solid #d2d0e1;
   display: inline-block;
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   border-radius: 4px;
+  margin: 0px;
 }
 #PortfolioTable tbody td label {
   border: 1px solid #d2d0e1;
   display: inline-block;
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   border-radius: 4px;
+  margin: 0px;
 }
 #PortfolioTable .regular-checkbox:checked + label {
   background-color: #6a4eee;
@@ -864,12 +905,36 @@ table#PortfolioTable {
   color: #ffffff;
 }
 #PortfolioTable .regular-checkbox:checked + label:after {
-  content: "\2714";
-  font-size: 12px;
-  position: absolute;
-  top: 4px;
-  left: 4px;
+  content: url(../images/positions/checkbox-tick.svg);
+  font-size: 10px;
+  position: absolute; /*top: 28px;left: 18px;*/
   color: #ffffff;
+  margin: -3px -12px;
+}
+#PortfolioTable tr td .watchlistbox img {
+  width: 15px;
+  height: 15px;
+  border: none;
+  margin: 0 10px;
+}
+#PortfolioTable tr td .watchlistbox .dropdown-item span {
+  color: #e0d8d5;
+}
+#PortfolioTable tr td {
+  padding: 18px 15px;
+}
+#PortfolioTable tfoot tr td {
+  padding: 12px 10px;
+}
+#PortfolioTable tfoot {
+  border-bottom: 1px solid #eeeeee;
+}
+#PortfolioTable div.watchlistbox {
+  margin-left: 8%;
+  position: unset;
+}
+#PortfolioTable tr:hover div.watchlistbox {
+  display: inline-block;
 }
 /*tab*/
 
@@ -1214,13 +1279,17 @@ table#PortfolioTable {
     font-size: 20px;
     font-weight: 600;
   }
+  .portfolioplate {
+    height: 88vh;
+    padding: 30px;
+  }
   .b-listing #mainwatchlist {
     height: 73vh;
     overflow: auto; /*padding:0 12px 0 0;*/
   }
   .b-listing #mainwatchlist tr td {
     width: 100%;
-    padding: 10px 30px;
+    padding: 10px 10px 10px 30px;
   }
   .b-listing #mainwatchlist tr span {
     font-size: 16px;

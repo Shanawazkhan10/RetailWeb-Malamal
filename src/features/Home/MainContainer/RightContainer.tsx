@@ -10,6 +10,7 @@ import Funds from "./Funds/Funds";
 import HoldingList from "./Holding/HoldingList";
 import NetPositionList from "./NetPosition/NetPositionList";
 import OrderList from "./OrderView/OrderList";
+import PortfolioView from "./PortfolioView/PortfolioView";
 import TradeList from "./TradeView/TradeList";
 
 const RightContainer = () => {
@@ -29,7 +30,7 @@ const RightContainer = () => {
     case 3:
       return (
         <div className="col-md-6 col-lg-8 col-xl-9">
-          <NetPositionList></NetPositionList>
+          <PortfolioView></PortfolioView>
         </div>
       );
     case 4:
