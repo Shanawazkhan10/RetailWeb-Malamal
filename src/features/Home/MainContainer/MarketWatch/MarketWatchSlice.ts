@@ -60,7 +60,7 @@ const marketwatchSlice = createSlice({
     DeleteWatchList: (state, action) => {
       state.marketWatch.MarketWatchList =
         state.marketWatch.MarketWatchList.filter(
-          (row) => row.id != action.payload
+          (row) => row.mwName != action.payload.mwName
         );
       state.marketWatch.nSelectedWatchList = 0;
     },

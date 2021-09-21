@@ -3,10 +3,11 @@ import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IDeleteWatchlist } from "../../../../app/IDeleteWatchlist";
 import { RootState } from "../../../../store/store";
 import { DeleteWatchlist } from "./MarketWatchSlice";
+import { Fragment, useState } from "react";
 
 const DeleteWatchListComp = () => {
   const dispatch = useAppDispatch();
-
+  const [showList, setList] = useState(true);
   const user = useAppSelector((state) => state.user);
   const sSelectedWatchList = useSelector(
     (state: RootState) => state.marketwatch.marketWatch.sSelectedWatchList
@@ -17,9 +18,14 @@ const DeleteWatchListComp = () => {
       userId: user.UserId,
     };
     dispatch(DeleteWatchlist(DeleteReq, user.sessionKey)); //API Call
+    setList(false);
   }
 
-  return (
+  function ClosePopup() {
+    setList(false);
+  }
+
+  return showList ? (
     <div
       className="modal fade show"
       id="DeleteCModal"
@@ -40,6 +46,7 @@ const DeleteWatchListComp = () => {
               className="close"
               data-dismiss="modal"
               aria-label="Close"
+              onClick={() => ClosePopup()}
             >
               <span aria-hidden="true">&times;</span>
             </button>
@@ -54,7 +61,11 @@ const DeleteWatchListComp = () => {
               >
                 Yes
               </button>
-              <button type="submit" className="btn btn-primary w-100 submitbtn">
+              <button
+                type="submit"
+                className="btn btn-primary w-100 submitbtn"
+                onClick={() => ClosePopup()}
+              >
                 No
               </button>
             </div>
@@ -62,6 +73,8 @@ const DeleteWatchListComp = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <Fragment></Fragment>
   );
 };
 

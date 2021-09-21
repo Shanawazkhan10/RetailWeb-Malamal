@@ -29,7 +29,7 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
   const [bEdit, SetEditFlag] = useState(false);
   useEffect(() => {
     dispatch(fetchmarketWatch(false, userState.sessionKey));
-    console.log("getMarketWatchSuccess useEffect");
+    //console.log("getMarketWatchSuccess useEffect");
   }, []);
 
   const handleChange = (event: any, mwName: string) => {
