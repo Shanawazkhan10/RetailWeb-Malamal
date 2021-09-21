@@ -10,6 +10,7 @@ export interface IMarketWatchList {
   Symbollistindex: number;
   sRemovedSymbol: string;
   sNewWatchlistSymbol: string;
+  bIsNewWatchlist: boolean;
   //SymbolList: IMarketWatchTokenInfo[];
   //SymbolList1: Record<number, IMarketWatchTokenInfo>;
 }

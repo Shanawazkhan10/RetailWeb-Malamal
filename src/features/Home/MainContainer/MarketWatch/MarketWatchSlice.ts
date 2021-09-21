@@ -31,6 +31,7 @@ const InitialMarketWatch: IMarketWatchList = {
   Symbollistindex: 0,
   sRemovedSymbol: "",
   sNewWatchlistSymbol: "",
+  bIsNewWatchlist: false,
   //SymbolList: [],
 };
 
@@ -101,6 +102,10 @@ const marketwatchSlice = createSlice({
         !state.marketWatch.MarketWatchList[action.payload.id].SymbolList[
           action.payload.index
         ].showDepth;
+    },
+
+    ShowNewWatchlist: (state, action) => {
+      state.marketWatch.bIsNewWatchlist = action.payload;
     },
 
     RemoveSymbolFromWatchlist(state, action: PayloadAction<IUpdateWatchlist>) {
@@ -333,6 +338,7 @@ export const {
   UpdateScriptFromNewWatchlist,
   //FetchSocketData,
   updateStorage,
+  ShowNewWatchlist,
 } = marketwatchSlice.actions;
 
 export const fetchmarketWatch =

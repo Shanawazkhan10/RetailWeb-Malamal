@@ -8,7 +8,11 @@ import { IWatchListProps } from "../../../../types/IWatchListProps";
 import AddWatchListItem from "./AddWatchListItem";
 import DeleteWatchListComp from "./DeleteWatchList";
 import EditWatchListComp from "./EditWatchList";
-import { ChangeWatchList, fetchmarketWatch } from "./MarketWatchSlice";
+import {
+  ChangeWatchList,
+  fetchmarketWatch,
+  ShowNewWatchlist,
+} from "./MarketWatchSlice";
 
 const MarketWatchPortfolio = (props: IWatchListProps) => {
   const dispatch = useAppDispatch();
@@ -18,7 +22,7 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
   const userState = useSelector((state: RootState) => state.user);
   selectedList = Number(WatchList.marketWatch.nSelectedWatchList);
   WatchListData = WatchList.marketWatch.MarketWatchList;
-  const [bAddButton, setAddButton] = useState(false);
+  //const [bAddButton, setAddButton] = useState(false);
   // const userState = useAppSelector((state) => state.user);
   const [showMenu, setShowMenu] = useState(false);
   let bShowAddButton = WatchListData.length < 5 ? true : false;
@@ -42,6 +46,10 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
     e.preventDefault();
   }
 
+  function showNewWatchlist(e: any) {
+    e.preventDefault();
+    dispatch(ShowNewWatchlist(true));
+  }
   return (
     //onClick={() => AddWatchList()
     <div className={"pagenum" + (showMenu ? " show" : "")}>
@@ -88,7 +96,7 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
                 <a
                   className="page-link"
                   id={String(WatchListData.length + 1)}
-                  onClick={() => setAddButton(!bAddButton)}
+                  onClick={(e) => showNewWatchlist(e)}
                 >
                   <span aria-label={"NewMW"} data-balloon-pos="up" data-balloon>
                     +

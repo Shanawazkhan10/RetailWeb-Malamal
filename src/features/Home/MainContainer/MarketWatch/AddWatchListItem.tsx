@@ -2,19 +2,25 @@ import { Fragment, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 import SmartSearch from "../SmartSearch/SmartSearch";
-import { UpdateWatchlist } from "./MarketWatchSlice";
+import { ShowNewWatchlist, UpdateWatchlist } from "./MarketWatchSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../store/store";
 
 const AddWatchListItem = (index: any) => {
   const dispatch = useAppDispatch();
-
   const [sName, setName] = useState("");
-  const [bCloseButton, setCloseButton] = useState(false);
-  //let newScript: String[] = [];
-
-  //const newlist = useAppSelector((state) => state.addwatch.newlyaddedWatchList);
   const user = useAppSelector((state) => state.user);
-  const newScript = useAppSelector(
-    (state) => state.marketwatch.marketWatch.sNewWatchlistSymbol
+  // const { newScript, bIsNewWatchlist } = useSelector((state: RootState) => {
+  //   return {
+  //     newScript: state.marketwatch.marketWatch.sNewWatchlistSymbol,
+  //     bIsNewWatchlist: state.marketwatch.marketWatch.bIsNewWatchlist,
+  //   };
+  // });
+  const newScript = useSelector(
+    (state: RootState) => state.marketwatch.marketWatch.sNewWatchlistSymbol
+  );
+  const bIsNewWatchlist = useSelector(
+    (state: RootState) => state.marketwatch.marketWatch.bIsNewWatchlist
   );
   //newScript = newlist.scrips.split(",");
 
@@ -34,7 +40,11 @@ const AddWatchListItem = (index: any) => {
     dispatch(UpdateWatchlist(updateWatchlist, user.sessionKey, 3));
   }
 
-  return bCloseButton ? (
+  function setCloseButton() {
+    dispatch(ShowNewWatchlist(false));
+  }
+
+  return bIsNewWatchlist ? (
     <div
       className="modal fade show"
       id="AddModal"
@@ -55,7 +65,7 @@ const AddWatchListItem = (index: any) => {
               className="close"
               data-dismiss="modal"
               aria-label="Close"
-              onClick={() => setCloseButton(false)}
+              onClick={() => setCloseButton()}
             >
               <span aria-hidden="true">×</span>
             </button>
