@@ -178,6 +178,14 @@ const marketwatchSlice = createSlice({
       state.marketWatch.sSelectedWatchList = action.payload.mwName;
       state.marketWatch.sNewWatchlistSymbol = "";
     },
+    UpdateScriptsFromSearch: (
+      state,
+      action: PayloadAction<IUpdateWatchlist>
+    ) => {
+      state.marketWatch.MarketWatchList[
+        state.marketWatch.nSelectedWatchList
+      ].scrips = action.payload.scrips;
+    },
     ScriptUpdatefromSocket: (state, action) => {
       const script: IScriptUpdate = action.payload;
       //JSON.parse(action.payload).forEach((script: IScriptUpdate) => {
@@ -339,6 +347,7 @@ export const {
   //FetchSocketData,
   updateStorage,
   ShowNewWatchlist,
+  UpdateScriptsFromSearch,
 } = marketwatchSlice.actions;
 
 export const fetchmarketWatch =
@@ -435,32 +444,37 @@ export const UpdateWatchlist =
         UpdateReq,
         sessionKey
       );
-      console.log(updateWatchlistResponse);
-      //condition for add or remove
-      //1:Add Item from Search,2:Delete Watchlist,3:New Watchlist
-      if (ReqType == 1) {
-        dispatch(
-          FetchWatchListSymbol(
-            UpdateReq.scrips.split(",").slice(-1),
-            sessionKey,
-            0,
-            1
-          )
-        );
-      } else if (ReqType == 2) {
-        if (updateWatchlistResponse.status != "FAILURE") {
+
+      if (updateWatchlistResponse.status == "SUCCESS") {
+        //condition for add or remove
+        //1:Add Item from Search,2:Delete Watchlist,3:New Watchlist
+        if (ReqType == 1) {
+          dispatch(
+            FetchWatchListSymbol(
+              UpdateReq.scrips.split(",").slice(-1),
+              sessionKey,
+              0,
+              1
+            )
+          );
+          dispatch(UpdateScriptsFromSearch(UpdateReq));
+        } else if (ReqType == 2) {
+          //if (updateWatchlistResponse.status != "FAILURE") {
           dispatch(RemoveSymbolFromWatchlist(UpdateReq));
+          //}
+        } else if (ReqType == 3) {
+          dispatch(UpdateScriptFromNewWatchlist(UpdateReq));
+          dispatch(
+            FetchWatchListSymbol(
+              UpdateReq.scrips.split(",").slice(-1),
+              sessionKey,
+              0,
+              1
+            )
+          );
         }
-      } else if (ReqType == 3) {
-        dispatch(UpdateScriptFromNewWatchlist(UpdateReq));
-        dispatch(
-          FetchWatchListSymbol(
-            UpdateReq.scrips.split(",").slice(-1),
-            sessionKey,
-            0,
-            1
-          )
-        );
+      } else {
+        console.log(updateWatchlistResponse.message);
       }
     } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));

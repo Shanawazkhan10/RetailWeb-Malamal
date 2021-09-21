@@ -87,16 +87,16 @@ const SmartSearch = (props: { Type: Number }) => {
       dispatch(UpdateWatchlist(ReqUpdateData, user.sessionKey, 1));
 
       //subscribe Script API Call
-      // const subUnsubReq: SubUnsubReq = {
-      //   type: "mws",
-      //   scrips: newscrips.replaceAll(",", "&"),
-      //   channelnum: 1,
-      // };
+      const subUnsubReq: SubUnsubReq = {
+        type: "mws",
+        scrips: data.exseg + "|" + data.omtkn.replaceAll(",", "&"),
+        channelnum: 1,
+      };
 
-      // let req = JSON.stringify(subUnsubReq);
-      // waitForSocketConnection(userWS, function () {
-      //   sendUnsubReq(subUnsubReq);
-      // });
+      let req = JSON.stringify(subUnsubReq);
+      waitForSocketConnection(userWS, function () {
+        sendUnsubReq(subUnsubReq);
+      });
     } else if (props.Type == 2) {
       dispatch(ShowDepthFromPosition(data.exseg + "|" + data.omtkn));
       clearSearch();
