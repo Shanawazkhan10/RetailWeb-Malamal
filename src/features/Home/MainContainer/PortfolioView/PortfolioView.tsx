@@ -4,8 +4,9 @@ import HoldingView from "../Holding/Holding";
 import HoldingList from "../Holding/HoldingList";
 import NetPositionList from "../NetPosition/NetPositionList";
 
-const PortfolioView = () => {
-  const [tab, SetTab] = useState("P");
+const PortfolioView = (props: { activetab: string }) => {
+  const { activetab } = props;
+  const [tab, SetTab] = useState(activetab);
 
   return (
     <div className="row">

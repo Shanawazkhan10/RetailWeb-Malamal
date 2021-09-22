@@ -26,18 +26,28 @@ const RightContainer = () => {
         </div>
       );
     case 2:
-      return <HoldingList></HoldingList>;
+      return (
+        <div className="col-md-6 col-lg-8 col-xl-9">
+          <PortfolioView activetab="H"></PortfolioView>
+        </div>
+      );
     case 3:
       return (
         <div className="col-md-6 col-lg-8 col-xl-9">
-          <PortfolioView></PortfolioView>
+          <PortfolioView activetab="P"></PortfolioView>
         </div>
       );
     case 4:
       return (
         <div className="col-md-6 col-lg-8 col-xl-9">
-          <OrderList></OrderList>
-          <TradeList></TradeList>
+          <div className="row">
+            <div
+              className="col-sm-12 col-md-12 col-lg-12 col-xl-12"
+              id="Portfolio"
+            >
+              <OrderList></OrderList>
+            </div>
+          </div>
         </div>
       );
     case 5:

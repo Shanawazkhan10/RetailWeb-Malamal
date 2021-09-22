@@ -26,7 +26,7 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
 
   return (
     <tr className="odd_col">
-      <td style={{ width: "5%" }}>
+      <td>
         <input
           className="regular-checkbox"
           type="checkbox"
@@ -36,12 +36,16 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
         />
         <label data-for="one"></label>
       </td>
-      <td style={{ width: "5%" }}>
+
+      <td>
         <div className="nbox">
           <p className={renderSwitch(netposition.prod)}>{netposition.prod}</p>
         </div>
       </td>
-      <td style={{ width: "30%" }}>
+      <td>
+        <button type="button" className="btn btn-primary exitbtn"></button>
+      </td>
+      <td>
         <h3>
           {netposition.sym}{" "}
           <span>{netposition.exSeg.split("_")[0].toUpperCase()}</span>
@@ -112,20 +116,20 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
         </div>
       </td>
 
-      <td style={{ width: "5%" }}>{netposition.flBuyQty}</td>
-      <td style={{ width: "5%" }}>
+      <td>{netposition.flBuyQty}</td>
+      <td>
         {Math.fround(
           Number(netposition.buyAmt) / Number(netposition.flBuyQty)
         ).toFixed(2)}
       </td>
 
-      <td style={{ width: "5%" }}>{netposition.ltp}</td>
-      <td style={{ width: "5%" }}>
+      <td>{netposition.ltp}</td>
+      <td>
         {Math.fround(
           parseFloat(netposition.ltp) - parseFloat(netposition.buyAmt)
         ).toFixed(2)}
       </td>
-      <td style={{ width: "5%" }}>
+      <td>
         {Math.fround(
           parseFloat(netposition.buyAmt) /
             (parseFloat(netposition.ltp) - parseFloat(netposition.buyAmt))

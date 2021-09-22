@@ -52,7 +52,7 @@ const NetPositionList = () => {
         <div className="col-md-4">
           <h2>Positions ({NetpositionList.netposition.length})</h2>
         </div>
-        <div className="col-md-8 text-right">
+        <div className="col-md-8 text-right" id="searhnbtn">
           <div className="input-group slideInDown-element m-0" id="search">
             <div>
               <span>
@@ -61,29 +61,33 @@ const NetPositionList = () => {
             </div>
             <input type="text" placeholder="Search E.g. INFY" />
           </div>
-          <a href="#">
-            <img
-              src=""
-              style={{
-                width: "15px",
-                height: "15px",
-                background: "rgba(106, 78, 238, 0.2)",
-                borderRadius: "3px",
-              }}
-            />{" "}
-            Analytics
-          </a>
-          <a href="#">
-            <img src="images/positions/download.svg" /> Download
-          </a>
+          <div className="btnalign">
+            <a href="#">
+              <img
+                src=""
+                style={{
+                  width: "15px",
+                  height: "15px",
+                  background: "rgba(106, 78, 238, 0.2)",
+                  borderRadius: "3px",
+                }}
+              />{" "}
+              Analytics
+            </a>
+          </div>
+          <div className="btnalign">
+            <a href="#">
+              <img src="images/positions/download.svg" /> Download
+            </a>
+          </div>
         </div>
       </div>
-      <div className="row">
+      <div className="row mb-5">
         <div className="col-md-12">
           <table className="datatable table table-hover" id="PortfolioTable">
             <thead>
               <tr>
-                <th>
+                <th style={{ width: "5%" }}>
                   <input
                     id="check_all"
                     className="regular-checkbox"
@@ -91,16 +95,17 @@ const NetPositionList = () => {
                   />
                   <label data-for="check_all"></label>
                 </th>
-                <th>Product</th>
-                <th>Instrument</th>
-                <th>Qty.</th>
-                <th>Avg.</th>
-                <th>LTP</th>
-                <th>P&L</th>
-                <th>Chg.</th>
+                <th style={{ width: "5%" }}>Product</th>
+                <th style={{ width: "5%" }}>Exit</th>
+                <th style={{ width: "30%" }}>Instrument</th>
+                <th style={{ width: "5%" }}>Qty.</th>
+                <th style={{ width: "5%" }}>Avg.</th>
+                <th style={{ width: "5%" }}>LTP</th>
+                <th style={{ width: "5%" }}>P&L</th>
+                <th style={{ width: "5%" }}> Chg.</th>
               </tr>
             </thead>
-            <tbody id="tblnetposid">
+            <tbody>
               {NetpositionList.netposition.map((netposition: any) => (
                 <NetPosition
                   key={netposition.Token}
@@ -153,6 +158,7 @@ const NetPositionList = () => {
               <tr>
                 <th></th>
                 <th>Product</th>
+
                 <th>Instrument</th>
                 <th>Qty.</th>
                 <th>Avg.</th>

@@ -18,7 +18,10 @@ const Margin = () => {
         <div className="slideInDown-element">
           <img src="images/equity.svg" /> <span>Equity</span>
           <div>
-            <h1>159.25</h1>
+            <h1>
+              {Number(marginState.marginData.CollateralValue) -
+                Number(marginState.marginData.MarginUsed)}
+            </h1>
           </div>
           <div className="equitytxt">
             <p>Margin Available</p>
@@ -26,7 +29,8 @@ const Margin = () => {
               Margin Used <span>{marginState.marginData.MarginUsed}</span>
             </p>
             <p>
-              Opening Balance <span>168.1</span>
+              Opening Balance{" "}
+              <span>{marginState.marginData.CollateralValue}</span>
             </p>
           </div>
           <div className="equitybtn">
