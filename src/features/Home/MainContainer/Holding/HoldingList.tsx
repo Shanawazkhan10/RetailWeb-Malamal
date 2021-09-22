@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../store/store";
 import { useAppDispatch } from "../../../../app/hooks";
-import { getHoldingData } from "../../../../app/api";
-import { fetchHolding, HoldingSuccess } from "./HoldingSlice";
+import { RootState } from "../../../../store/store";
 import Holding from "./Holding";
+import { fetchHolding } from "./HoldingSlice";
 
 const HoldingList = () => {
   const HoldingList = useSelector((state: RootState) => state.holding);
@@ -15,7 +14,8 @@ const HoldingList = () => {
     dispatch(fetchHolding(user.sessionKey));
   }, [HoldingList]);
 
-  return HoldingList.holding != undefined && HoldingList.holding.holdinglist.length > 0 ? (
+  return HoldingList.holding != undefined &&
+    HoldingList.holding.holdinglist.length > 0 ? (
     <div className="tab-content">
       <div className="row slideInDown-element" id="holdings">
         <div className="col-md-4">

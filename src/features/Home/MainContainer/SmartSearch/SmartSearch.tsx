@@ -1,11 +1,14 @@
-import React, { MouseEvent, useState } from "react";
-import { api, ContractSearch, SearchSymbol } from "../../../../app/api";
+import React, { useState } from "react";
+import { api } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IContractSearch } from "../../../../types/IContractSearch";
 import { IContractSearchReq } from "../../../../types/IContractSearchReq";
-import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
-import { INewWatchList } from "../../../../types/WatchList/INewWatchList";
+import { SubUnsubReq, userWS } from "../../../WebSocket/HSSocket";
+import {
+  sendUnsubReq,
+  waitForSocketConnection,
+} from "../../../WebSocket/HSSocket1";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
@@ -19,12 +22,6 @@ import {
   setNewWatchlistSymbol,
   UpdateWatchlist,
 } from "../MarketWatch/MarketWatchSlice";
-import { onNewWatchList } from "../MarketWatch/AddWatchListSlice";
-import { SubUnsubReq, userWS } from "../../../WebSocket/HSSocket";
-import {
-  sendUnsubReq,
-  waitForSocketConnection,
-} from "../../../WebSocket/HSSocket1";
 
 const SmartSearch = (props: { Type: Number }) => {
   const dispatch = useAppDispatch();

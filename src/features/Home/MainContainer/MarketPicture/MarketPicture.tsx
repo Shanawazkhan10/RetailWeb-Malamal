@@ -1,21 +1,16 @@
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { ContractSearch } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
-import Search from "../SmartSearch/Search";
-import MarketPictureDepth from "./MarketPictureDepth";
-import MarketPictureOrderEntry from "./MarketPictureOrderEntry";
-import MarketPictureOrder from "./MarketPictureOrderEntry";
-import MarketPicturePrice from "./MarketPicturePrice";
-import { IMarketPicture } from "./../../../../types/IMarketPicture";
-import smartsearch from "./../SmartSearch/SmartSearchSlice";
-import SmartSearch from "../SmartSearch/SmartSearch";
+import { userWS } from "../../../WebSocket/HSSocket";
 import {
   SubUnsubReq,
   waitForSocketConnection,
 } from "../../../WebSocket/HSSocket1";
-import { userWS } from "../../../WebSocket/HSSocket";
-import React, { useEffect } from "react";
+import SmartSearch from "../SmartSearch/SmartSearch";
+import MarketPictureDepth from "./MarketPictureDepth";
+import MarketPictureOrderEntry from "./MarketPictureOrderEntry";
+import MarketPicturePrice from "./MarketPicturePrice";
 
 const MarketPicture = () => {
   const { IsShow, Type, script, TokenInfo, Depth, Token } = useSelector(

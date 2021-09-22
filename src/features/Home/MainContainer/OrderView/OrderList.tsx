@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { getOrderData } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
-
 import OrderView from "./Order";
-import { fetchOrderView, OrderViewSuccess } from "./OrderViewSlice";
+import { fetchOrderView } from "./OrderViewSlice";
 
 const OrderList = () => {
   const OrderList = useSelector((state: RootState) => state.OrderView);

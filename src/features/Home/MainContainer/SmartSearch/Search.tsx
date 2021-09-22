@@ -1,19 +1,14 @@
 import React, { MouseEvent, useState } from "react";
 import AutoSuggest from "react-autosuggest";
-import { ContractSearch } from "../../../../app/api";
 import { useAppDispatch } from "../../../../app/hooks";
 import { IContractSearch } from "../../../../types/IContractSearch";
-import { IContractSearchReq } from "../../../../types/IContractSearchReq";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
 } from "../../OrderEntry/orderEntrySlice";
 import "../../style.css";
 import { chartContainer, searchDepthContainer } from "../mainContainerSlice";
-import {
-  ShowDepthFromSearch,
-  UpdateTokenInfo,
-} from "../MarketPicture/MarketPictureSlice";
+import { ShowDepthFromSearch } from "../MarketPicture/MarketPictureSlice";
 
 const Search = () => {
   const dispatch = useAppDispatch();
@@ -89,24 +84,24 @@ const Search = () => {
   //   value,
   //   onChange: onChange,
   // };
-  function getSuggestions(value: string): IContractSearch[] {
-    //API Call
-    const ContractSearchReq: IContractSearchReq = {
-      //limit: 10,
-      search_type: "all",
-      keyword: value,
-      allowed_exchange: [
-        "nse_cm",
-        "nse_fo",
-        "mcx_fo",
-        "bse_cm",
-        "bse_fo",
-        "cde_fo",
-      ],
-    };
+  // function getSuggestions(value: string): IContractSearch[] {
+  //   //API Call
+  //   const ContractSearchReq: IContractSearchReq = {
+  //     //limit: 10,
+  //     search_type: "all",
+  //     keyword: value,
+  //     allowed_exchange: [
+  //       "nse_cm",
+  //       "nse_fo",
+  //       "mcx_fo",
+  //       "bse_cm",
+  //       "bse_fo",
+  //       "cde_fo",
+  //     ],
+  //   };
 
-    return ContractSearch(ContractSearchReq);
-  }
+  //   return ContractSearchReqContractSearch(ContractSearchReq);
+  // }
 
   function AddToWatchlist() {}
 
@@ -186,7 +181,7 @@ const Search = () => {
         onSuggestionsClearRequested={() => setSuggestions([])}
         onSuggestionsFetchRequested={({ value }) => {
           setValue(value);
-          setSuggestions(getSuggestions(value));
+          //setSuggestions(getSuggestions(value));
         }}
         onSuggestionSelected={(_, { suggestionValue }) =>
           console.log("Selected: " + suggestionValue)
