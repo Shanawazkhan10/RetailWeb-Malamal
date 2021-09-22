@@ -63,9 +63,9 @@ const MarketWatchItem = (props: {
     getSymbol();
     console.log(" MarketWatchItem useEffect");
   }, []);
-  useEffect(() => {
-    var a = dispatch(FetchSocketData(22));
-  }, []);
+  // useEffect(() => {
+  //   var a = dispatch(FetchSocketData(22));
+  // }, []);
 
   const OrderEntryProp = {
     token: "",

@@ -94,7 +94,7 @@ const OrderEntryComp = () => {
                 aria-label="Margin Intraday Squareoff: Requires lower margin. Has to be exited before market close."
                 data-balloon-pos="up"
                 data-balloon-length="large"
-                onClick={() => onProductCodechange("MIS")}
+                onClick={() => onProductCodechange("I")}
               >
                 <input
                   id="radio-206"
@@ -105,8 +105,8 @@ const OrderEntryComp = () => {
                     "su-radio" +
                     (orderEntryState.variety === 1 ? " disabled" : "")
                   }
-                  value={"MIS"}
-                  checked={orderEntryState.productCode === "MIS" ? true : false}
+                  value={"I"}
+                  checked={orderEntryState.productCode === "I" ? true : false}
                   onChange={() => {}}
                 />
                 <label htmlFor="radio-206" className="su-radio-label">

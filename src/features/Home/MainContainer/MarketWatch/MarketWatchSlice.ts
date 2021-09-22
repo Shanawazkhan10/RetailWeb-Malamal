@@ -275,6 +275,7 @@ const marketwatchSlice = createSlice({
             if (script.v != undefined) {
               token.v = script.v;
             }
+            return;
           }
         });
       });

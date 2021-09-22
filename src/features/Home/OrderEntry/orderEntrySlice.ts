@@ -9,7 +9,7 @@ const initialState = {
   isOrderEntryOpen: false,
   isBuy: false,
   variety: 0,
-  productCode: "MIS",
+  productCode: "I",
   orderType: "MKT",
   isPriceEnabled: false,
   isTriggerPriceEnabled: false,
@@ -81,7 +81,7 @@ export const orderEntrySlice = createSlice({
     },
     selectCoverVariety: (state) => {
       state.variety = 1;
-      state.productCode = "MIS";
+      state.productCode = "I";
       state.isDisclosedQtyVisible = false;
       state.isIOCVisible = false;
       state.validity = "DAY";
@@ -142,11 +142,11 @@ export const orderEntrySlice = createSlice({
     },
     onOrderEntrySuccess: (state, action: PayloadAction<any>) => {
       state.isOrderEntryOpen = false;
-      toastNotification("success", "Order Placed : "+ action.payload.nOrdNo);
+      toastNotification("success", "Order Placed : " + action.payload.nOrdNo);
     },
     onOrderEntryRejected: (state, action: PayloadAction<any>) => {
       state.isOrderEntryOpen = false;
-      toastNotification("error", "Order Rejected : "+action.payload.comment);
+      toastNotification("error", "Order Rejected : " + action.payload.comment);
     },
     onOrderEntryError: (state, action: PayloadAction<any>) => {
       state.isOrderEntryOpen = false;
