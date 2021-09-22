@@ -191,6 +191,11 @@ const marketwatchSlice = createSlice({
       state.marketWatch.MarketWatchList[
         state.marketWatch.nSelectedWatchList
       ].SymbolList.slice().sort((token: any) => token.sym);
+
+      console.log(
+        state.marketWatch.MarketWatchList[state.marketWatch.nSelectedWatchList]
+          .SymbolList
+      );
       // switch (action.payload) {
       //   case 1:
       //     state.marketWatch.MarketWatchList[

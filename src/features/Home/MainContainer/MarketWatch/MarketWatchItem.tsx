@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { MarketWatchItemImagePath } from "../../../../constants/enumSegments";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
@@ -14,7 +15,6 @@ import {
   waitForSocketConnection,
 } from "../../../WebSocket/HSSocket1";
 //import { sendUnsubReq, SubUnsubReq } from "../../../WebSocket/HSSocket1";
-
 import { FetchSocketData } from "../../../WebSocket/WebSocketSlice";
 import {
   openGTTEntry,
@@ -230,11 +230,7 @@ const MarketWatchItem = (props: {
                 <td>
                   {symbolInfo.isin != "NA" && symbolInfo.isin != "--" ? (
                     <img
-                      src={
-                        "http://img.tecxlabs.com.s3-website.ap-south-1.amazonaws.com/stock/" +
-                        symbolInfo.isin +
-                        ".png"
-                      }
+                      src={MarketWatchItemImagePath + symbolInfo.isin + ".png"}
                     />
                   ) : (
                     // <LazyLoadImage

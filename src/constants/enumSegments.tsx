@@ -6,3 +6,6 @@ export const enumSegments = {
   NCD: "NSE - Currency",
   BCD: "BSE - Currency",
 };
+
+export const MarketWatchItemImagePath =
+  "http://img.tecxlabs.com.s3-website.ap-south-1.amazonaws.com/stock/";
