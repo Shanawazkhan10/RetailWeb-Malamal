@@ -6,6 +6,8 @@ import {
   renameWatchList,
   updateWatchList,
 } from "../../../../app/api";
+import { toastNotification } from "../../../../app/Notification";
+import { enumAPIStatus } from "../../../../constants/HSConstants";
 import { AppThunk } from "../../../../store/store";
 import { IChangeWatchlist } from "../../../../types/IChangeWatchlist";
 import { IDepthReq } from "../../../../types/IDepthReq";
@@ -51,6 +53,7 @@ const marketwatchSlice = createSlice({
     },
     onMarketWatchFailure: (state, action) => {
       state.marketWatch.bIsError = true;
+      toastNotification("error", action.payload);
       //Tostify Call
     },
     ChangeWatchList: (state, action: PayloadAction<IChangeWatchlist>) => {
@@ -392,10 +395,14 @@ export const fetchmarketWatch =
   async (dispatch) => {
     try {
       const MarketWatchData = await getWatchList(cache, sessionkey);
-      dispatch(updateStorage(MarketWatchData));
-      dispatch(onMarketWatchSuccess(MarketWatchData));
-    } catch (err) {
-      console.log(err);
+      if (MarketWatchData.status == enumAPIStatus.SUCCESS) {
+        dispatch(updateStorage(MarketWatchData));
+        dispatch(onMarketWatchSuccess(MarketWatchData));
+      } else {
+        dispatch(onMarketWatchFailure(MarketWatchData.message));
+      }
+    } catch (err: any) {
+      dispatch(onMarketWatchFailure(err.toString()));
     }
   };
 

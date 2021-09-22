@@ -66,9 +66,9 @@ export async function getWatchList(
   cache: boolean,
   sessionkey: string
 ): Promise<any> {
-  // var querystring = JSON.stringify({
-  //   cache: cache,
-  // });
+   var querystring = JSON.stringify({
+     cache: cache,
+   });
 
   return await DiscApi.post(
     "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/getusergroups",
@@ -345,7 +345,7 @@ export async function sendOrderEntryRequest(
 ): Promise<any> {
   const params = new URLSearchParams();
   params.append("jData", JSON.stringify(orderentryrequest.jData));
-  params.append("jKey", orderentryrequest.jKey);
+  //params.append("jKey", orderentryrequest.jKey);
 
   return await api
     .post("https://uathsint.hypertrade.in/quick/order/place", params, {
