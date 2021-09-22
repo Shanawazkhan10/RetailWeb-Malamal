@@ -12,6 +12,7 @@ import {
   ChangeWatchList,
   fetchmarketWatch,
   ShowNewWatchlist,
+  SortWatchlist,
 } from "./MarketWatchSlice";
 
 const MarketWatchPortfolio = (props: IWatchListProps) => {
@@ -49,6 +50,10 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
   function showNewWatchlist(e: any) {
     e.preventDefault();
     dispatch(ShowNewWatchlist(true));
+  }
+
+  function sortList(nType: number) {
+    dispatch(SortWatchlist(nType));
   }
   return (
     //onClick={() => AddWatchList()
@@ -141,10 +146,10 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
       >
         <p className="mb-3">Sort By:</p>
         <div className="my-2">
-          <button>A-Z</button>
-          <button>%</button>
-          <button>LTP</button>
-          <button>EXH</button>
+          <button onClick={(e) => sortList(1)}>A-Z</button>
+          <button onClick={(e) => sortList(2)}>%</button>
+          <button onClick={(e) => sortList(3)}>LTP</button>
+          <button onClick={(e) => sortList(3)}>EXG</button>
         </div>
 
         <Popup

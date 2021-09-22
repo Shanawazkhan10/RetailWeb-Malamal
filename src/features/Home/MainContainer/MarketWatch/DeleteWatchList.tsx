@@ -74,7 +74,7 @@ const DeleteWatchListComp = () => {
       </div>
     </div>
   ) : (
-    <Fragment></Fragment>
+    <></>
   );
 };
 

@@ -72,14 +72,15 @@ const marketwatchSlice = createSlice({
         state.marketWatch.nSelectedWatchList;
     },
     RenameWatchList: (state, action) => {
-      let selectedid = state.marketWatch.MarketWatchList.find(
-        (row) => row.mwName == action.payload.oldmwName
-      )?.id;
-      if (selectedid != undefined) {
-        state.marketWatch.MarketWatchList[selectedid].mwName =
-          action.payload.newmwName;
-        state.marketWatch.sSelectedWatchList = action.payload.newmwName; //DM: Changing name
-      }
+      // let selectedid = state.marketWatch.MarketWatchList.find(
+      //   (row) => row.mwName == action.payload.oldmwName
+      // )?.id;
+      //if (selectedid != undefined) {
+      state.marketWatch.MarketWatchList[
+        state.marketWatch.nSelectedWatchList
+      ].mwName = action.payload.newmwName;
+      state.marketWatch.sSelectedWatchList = action.payload.newmwName; //DM: Changing name
+      //}
     },
     UpdateSymbolDetails: (state, action) => {
       let TokenInfo: IMarketWatchTokenInfo[] = action.payload.data;
@@ -185,6 +186,36 @@ const marketwatchSlice = createSlice({
       state.marketWatch.MarketWatchList[
         state.marketWatch.nSelectedWatchList
       ].scrips = action.payload.scrips;
+    },
+    SortWatchlist: (state, action) => {
+      state.marketWatch.MarketWatchList[
+        state.marketWatch.nSelectedWatchList
+      ].SymbolList.slice().sort((token: any) => token.sym);
+      // switch (action.payload) {
+      //   case 1:
+      //     state.marketWatch.MarketWatchList[
+      //       state.marketWatch.nSelectedWatchList
+      //     ].SymbolList.slice().sort((token: any) => token.sym);
+      //     break;
+      //   case 2:
+      //     state.marketWatch.MarketWatchList[
+      //       state.marketWatch.nSelectedWatchList
+      //     ].SymbolList.slice().sort((token: any) => token.nc);
+      //     break;
+      //   case 3:
+      //     state.marketWatch.MarketWatchList[
+      //       state.marketWatch.nSelectedWatchList
+      //     ].SymbolList.slice().sort((token: any) => token.ltp);
+      //     break;
+      //   case 4:
+      //     state.marketWatch.MarketWatchList[
+      //       state.marketWatch.nSelectedWatchList
+      //     ].SymbolList.slice().sort((token: any) => token.sym);
+      //     break;
+
+      //   default:
+      //     break;
+      // }
     },
     ScriptUpdatefromSocket: (state, action) => {
       const script: IScriptUpdate = action.payload;
@@ -348,6 +379,7 @@ export const {
   updateStorage,
   ShowNewWatchlist,
   UpdateScriptsFromSearch,
+  SortWatchlist,
 } = marketwatchSlice.actions;
 
 export const fetchmarketWatch =

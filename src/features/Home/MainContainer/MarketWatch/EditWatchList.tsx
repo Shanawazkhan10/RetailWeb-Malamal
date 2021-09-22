@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
@@ -11,18 +11,19 @@ import CSS from "csstype";
 
 const EditWatchListComp = () => {
   const dispatch = useAppDispatch();
-  const [sName, setName] = useState("");
 
+  const [showList, setList] = useState(true);
   const user = useAppSelector((state) => state.user);
   const sSelectedWatchList = useSelector(
     (state: RootState) => state.marketwatch.marketWatch.sSelectedWatchList
   );
-
+  const [sName, setName] = useState(sSelectedWatchList);
   function handleChange(event: any) {
     setName(event.target.value);
   }
 
-  function SendRenameWatchList() {
+  function SendRenameWatchList(e: any) {
+    e.preventDefault();
     //setName(evt.target.value);
     const RenameReq: IRenameWatchlist = {
       oldmwName: sSelectedWatchList,
@@ -32,8 +33,10 @@ const EditWatchListComp = () => {
     //API Call TO rename watch list
     dispatch(RenameWatchlist(RenameReq, user.sessionKey));
     //dispatch(RenameWatchList(RenameWatchlist(Input))); //API Call
+
+    setList(false);
   }
-  return (
+  return showList ? (
     <div
       className="modal fade show"
       id="EditWModal"
@@ -65,6 +68,7 @@ const EditWatchListComp = () => {
                     id="userid"
                     className="form__input"
                     onChange={handleChange}
+                    value={sName}
                   />
 
                   <label data-for="userid" className="form__label">
@@ -78,7 +82,7 @@ const EditWatchListComp = () => {
                   <button
                     type="submit"
                     className="btn btn-primary w-100 submitbtn"
-                    onClick={SendRenameWatchList}
+                    onClick={(e) => SendRenameWatchList(e)}
                   >
                     Update
                   </button>
@@ -89,6 +93,8 @@ const EditWatchListComp = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <></>
   );
 };
 
