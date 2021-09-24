@@ -101,43 +101,44 @@ const MarketPicture = (props: {
       style={{ display: "block", paddingRight: "4px" }}
       aria-modal="true"
     >
-      <div className="modal-dialog" role="document"></div>
-      <div className="modal-content">
-        <div className="modal-header">
-          <SmartSearch Type={Type}></SmartSearch>
-          <button
-            type="button"
-            className="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div className="modal-body">
-          <div className="row watchlistname">
-            <div className="col-md-6">
-              <h3>{TokenInfo.sym}</h3>
-              <span>{TokenInfo.exSeg}</span>
-            </div>
-            <div className="col-md-6 text-right">
-              <h3 className="c-green">
-                {TokenInfo.ltp == undefined ? "0.00" : TokenInfo.ltp}
-              </h3>
-              <h6>
-                {" "}
-                {TokenInfo.cng == undefined ? "0.00" : TokenInfo.cng} (
-                {TokenInfo.nc == undefined ? "0.00" : TokenInfo.nc}%)
-              </h6>
-            </div>
+      <div className="modal-dialog" role="document">
+        <div className="modal-content">
+          <div className="modal-header">
+            <SmartSearch Type={Type}></SmartSearch>
+            <button
+              type="button"
+              className="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
           </div>
+          <div className="modal-body">
+            <div className="row watchlistname">
+              <div className="col-md-6">
+                <h3>{TokenInfo.sym}</h3>
+                <span>{TokenInfo.exSeg}</span>
+              </div>
+              <div className="col-md-6 text-right">
+                <h3 className="c-green">
+                  {TokenInfo.ltp == undefined ? "0.00" : TokenInfo.ltp}
+                </h3>
+                <h6>
+                  {" "}
+                  {TokenInfo.cng == undefined ? "0.00" : TokenInfo.cng} (
+                  {TokenInfo.nc == undefined ? "0.00" : TokenInfo.nc}%)
+                </h6>
+              </div>
+            </div>
 
-          {/* if({Depth != undefined} && {TokenInfo != undefined}) */}
-          <MarketPictureDepth Depth={Depth} TokenInfo={TokenInfo} />
-          <MarketPicturePrice TokenInfo={TokenInfo}></MarketPicturePrice>
-          <MarketPictureOrderEntry
-            TokenInfo={TokenInfo}
-          ></MarketPictureOrderEntry>
+            {/* if({Depth != undefined} && {TokenInfo != undefined}) */}
+            <MarketPictureDepth Depth={Depth} TokenInfo={TokenInfo} />
+            <MarketPicturePrice TokenInfo={TokenInfo}></MarketPicturePrice>
+            <MarketPictureOrderEntry
+              TokenInfo={TokenInfo}
+            ></MarketPictureOrderEntry>
+          </div>
         </div>
       </div>
     </div>
