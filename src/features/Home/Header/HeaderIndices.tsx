@@ -8,23 +8,20 @@ const HeaderIndices = () => {
   const user = useAppSelector((state) => state.user);
   const idicesState = useAppSelector((state) => state.indices);
   useEffect(() => {
-    const getIndicesNiftyRequest: IGetIndicesRequest = {
-      exchange_segment: "nse_cm",
-      scrip_token: "nifty50",
-    };
-    dispatch(GetAllIndicesData(getIndicesNiftyRequest, user.sessionKey));
-
-    const getIndicesNiftyBankRequest: IGetIndicesRequest = {
-      exchange_segment: "nse_cm",
-      scrip_token: "niftybank",
-    };
-    dispatch(GetAllIndicesData(getIndicesNiftyBankRequest, user.sessionKey));
-
-    const indexOne = "nse_cm|Nifty 50";
-    dispatch(SendIndiceSubRequest(indexOne));
-
-    const indexTwo = "nse_cm|Nifty Bank";
-    dispatch(SendIndiceSubRequest(indexTwo));
+    // const getIndicesNiftyRequest: IGetIndicesRequest = {
+    //   exchange_segment: "nse_cm",
+    //   scrip_token: "nifty50",
+    // };
+    // dispatch(GetAllIndicesData(getIndicesNiftyRequest, user.sessionKey));
+    // const getIndicesNiftyBankRequest: IGetIndicesRequest = {
+    //   exchange_segment: "nse_cm",
+    //   scrip_token: "niftybank",
+    // };
+    // dispatch(GetAllIndicesData(getIndicesNiftyBankRequest, user.sessionKey));
+    // const indexOne = "nse_cm|Nifty 50";
+    // dispatch(SendIndiceSubRequest(indexOne));
+    // const indexTwo = "nse_cm|Nifty Bank";
+    // dispatch(SendIndiceSubRequest(indexTwo));
   }, []);
   return (
     <div className="marketlive">

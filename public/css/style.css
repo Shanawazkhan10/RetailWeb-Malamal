@@ -952,9 +952,15 @@ tr:hover div.watchlistbox {
   font-size: 0.8rem;
   left: 0.8rem;
 }
-
+.popup-overlay {
+}
 .modal {
-  top: 30%;
+  height: 100vh;
+  padding-top: 10%;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+.modal.show .modal-dialog {
+  z-index: 1112;
 }
 .modal button.btn-primary {
   background: #6344f2;

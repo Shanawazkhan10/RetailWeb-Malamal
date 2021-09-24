@@ -230,6 +230,7 @@ const SmartSearch = (props: { Type: Number }) => {
               //const { symbol, name } = result;
               return (
                 <tr
+                  key={i}
                   className={
                     "slideInDown-element" +
                     (scriptList != undefined &&
@@ -237,6 +238,11 @@ const SmartSearch = (props: { Type: Number }) => {
                       ? ""
                       : " watchlistadded")
                   }
+                  onMouseDown={() => onAddClick(result)}
+
+                  // onMouseDown={() => {
+                  //   //   onAddClick(result);
+                  //   // }}
                 >
                   <td style={{ width: "50%" }}>
                     <h4>{result.tsym.toString().split("-")[0]}</h4>
