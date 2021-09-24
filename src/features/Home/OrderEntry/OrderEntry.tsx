@@ -7,6 +7,7 @@ import {
   setTriggerPrice,
   setValidityWindow,
   placeOrder,
+  modifyOrder,
 } from "./orderEntrySlice";
 import "./orderEntry.css";
 import OrderEntryHeader from "./OrderEntryHeader";
@@ -17,7 +18,9 @@ import OrderEntryValidity from "./OrderEntryValidity";
 import { IOrderEntryProps } from "../../../types/OrderEntry/IOrderEntryProps";
 import {
   IjData,
+  IModjData,
   IOrderEntryRequest,
+  IOrderModifyRequest,
 } from "../../../types/Request/IOrderEntryRequest";
 
 const OrderEntryComp = () => {
@@ -28,28 +31,51 @@ const OrderEntryComp = () => {
   const orderEntryState = useAppSelector((state) => state.orderEntry);
   const userState = useAppSelector((state) => state.user);
   function onFormSubmit() {
-    const Jdata: IjData = {
-      am: "NO",
-      es: orderEntryState.exchange,
-      pc: orderEntryState.productCode,
-      pr: orderEntryState.price,
-      ot: orderEntryState.orderType,
-      qt: orderEntryState.quantity.toString(),
-      rt: orderEntryState.validity,
-      tk: orderEntryState.token,
-      tp: orderEntryState.triggerprice,
-      ts: orderEntryState.symbol,
-      tt: orderEntryState.isBuy ? "B" : "S",
-      //ig: "",
-      os: "WEB",
-      dq: orderEntryState.disclosedQty.toString(),
-    };
+    if (orderEntryState.order === 1) {
+      const Jdata: IjData = {
+        am: "NO",
+        es: orderEntryState.exchange,
+        pc: orderEntryState.productCode,
+        pr: orderEntryState.price,
+        ot: orderEntryState.orderType,
+        qt: orderEntryState.quantity.toString(),
+        rt: orderEntryState.validity,
+        tk: orderEntryState.token,
+        tp: orderEntryState.triggerprice,
+        ts: orderEntryState.symbol,
+        tt: orderEntryState.isBuy ? "B" : "S",
+        //ig: "",
+        os: "WEB",
+        dq: orderEntryState.disclosedQty.toString(),
+      };
 
-    const orderentryrequest: IOrderEntryRequest = {
-      jKey: userState.sessionKey,
-      jData: Jdata,
-    };
-    dispatch(placeOrder(orderentryrequest));
+      const orderentryrequest: IOrderEntryRequest = {
+        jKey: userState.sessionKey,
+        jData: Jdata,
+      };
+      dispatch(placeOrder(orderentryrequest));
+    } else {
+      const JModdata: IModjData = {
+        am: "NO",
+        on: orderEntryState.on,
+        vd: orderEntryState.vd,
+        ot: orderEntryState.orderType,
+        tk: orderEntryState.token,
+        ts: orderEntryState.symbol,
+        pr: orderEntryState.price,
+        tp: orderEntryState.triggerprice,
+        qt: orderEntryState.quantity.toString(),
+        es: orderEntryState.exchange,
+        os: "WEB",
+        dq: orderEntryState.disclosedQty.toString(),
+      };
+
+      const OrderModifyRequest: IOrderModifyRequest = {
+        jKey: userState.sessionKey,
+        jData: JModdata,
+      };
+      dispatch(modifyOrder(OrderModifyRequest));
+    }
   }
 
   function onProductCodechange(value: string) {

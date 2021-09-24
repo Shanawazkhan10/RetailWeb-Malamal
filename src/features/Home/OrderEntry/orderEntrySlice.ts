@@ -1,9 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { sendOrderEntryRequest } from "../../../app/api";
+import {
+  sendModifyOrderRequest,
+  sendOrderEntryRequest,
+} from "../../../app/api";
 import { toastNotification } from "../../../app/Notification";
 import { AppThunk } from "../../../store/store";
 import { IOrderEntry } from "../../../types/OrderEntry/IOrderEntry";
-import { IOrderEntryRequest } from "../../../types/Request/IOrderEntryRequest";
+import {
+  IOrderEntryRequest,
+  IOrderModifyRequest,
+} from "../../../types/Request/IOrderEntryRequest";
 
 const initialState = {
   isOrderEntryOpen: false,
@@ -20,6 +26,9 @@ const initialState = {
   isIOCVisible: true,
   triggerprice: "0",
   price: "0",
+  order: 1, //1:Order Entry 2:Modify,
+  on: "",
+  vd: "",
 } as IOrderEntry;
 
 // PRODUCT TYPE
@@ -57,6 +66,10 @@ export const orderEntrySlice = createSlice({
       state.ltp = action.payload.ltp;
       state.triggerprice = "0";
       state.disclosedQty = 0;
+      if (action.payload.order != undefined && action.payload.order == 2) {
+        state.on = action.payload.on;
+        state.vd = action.payload.vd;
+      }
     },
     openBuyOrderEntry: (state) => {
       state.isOrderEntryOpen = true;
@@ -167,6 +180,21 @@ export const placeOrder =
       }
     } catch (err) {
       dispatch(onOrderEntryError(err));
+    }
+  };
+
+export const modifyOrder =
+  (orderModifyRequest: IOrderModifyRequest): AppThunk =>
+  async (useDispatch) => {
+    try {
+      const orderResponse = await sendModifyOrderRequest(orderModifyRequest);
+      if (Number(orderResponse.stCode) === 200) {
+        //dispatch(onOrderEntrySuccess(orderResponse));
+      } else {
+        //dispatch(onOrderEntryRejected(orderResponse));
+      }
+    } catch (err) {
+      //dispatch(onOrderEntryError(err));
     }
   };
 

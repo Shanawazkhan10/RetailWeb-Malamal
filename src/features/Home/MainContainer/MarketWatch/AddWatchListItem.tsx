@@ -35,7 +35,8 @@ const AddWatchListItem = (index: any) => {
     // );
     const updateWatchlist: IUpdateWatchlist = {
       mwName: sName,
-      scrips: newScript,
+      //scrips: newScript,
+      scrips: "nse_cm|11536,nse_cm|1330,nse_cm|22",
     };
     dispatch(UpdateWatchlist(updateWatchlist, user.sessionKey, 3));
   }
@@ -90,11 +91,11 @@ const AddWatchListItem = (index: any) => {
                     <i className="far fa-envelope"></i>
                   </span>
                 </div>
-                <div className="form">
+                {/* <div className="form">
                   <div className="input-group slideInDown-element" id="search">
                     <SmartSearch Type={3}></SmartSearch>
                   </div>
-                </div>
+                </div> */}
 
                 {/* <tbody>
                   <tr className="slideInDown-element">

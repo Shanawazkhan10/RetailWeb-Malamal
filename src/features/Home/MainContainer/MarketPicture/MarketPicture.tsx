@@ -11,22 +11,31 @@ import SmartSearch from "../SmartSearch/SmartSearch";
 import MarketPictureDepth from "./MarketPictureDepth";
 import MarketPictureOrderEntry from "./MarketPictureOrderEntry";
 import MarketPicturePrice from "./MarketPicturePrice";
+import { ShowDepthFromSearch } from "./MarketPictureSlice";
 
-const MarketPicture = () => {
-  const { IsShow, Type, script, TokenInfo, Depth, Token } = useSelector(
-    (state: RootState) => {
-      return {
-        IsShow: state.marketpicture.marketpicture.IsShow,
-        Type: state.marketpicture.marketpicture.Type,
-        script: state.marketpicture.marketpicture.script,
-        TokenInfo: state.marketpicture.marketpicture.TokenInfo,
-        Depth: state.marketpicture.marketpicture.Depth,
-        Token: state.marketpicture.marketpicture.token,
-      };
-    }
-  );
+const MarketPicture = (props: {
+  script: any;
+  Token: any;
+  IsShow: boolean;
+  Type: number;
+}) => {
+  //const { IsShow, Type, script, TokenInfo, Depth, Token } = useSelector(
+  const { TokenInfo, Depth } = useSelector((state: RootState) => {
+    return {
+      //IsShow: state.marketpicture.marketpicture.IsShow,
+      //Type: state.marketpicture.marketpicture.Type,
+      //script: state.marketpicture.marketpicture.script,
+      TokenInfo: state.marketpicture.marketpicture.TokenInfo,
+      Depth: state.marketpicture.marketpicture.Depth,
+      //Token: state.marketpicture.marketpicture.token,
+    };
+  });
+  const { IsShow, Type, script, Token } = props;
 
   const [symbol, setSymbol] = React.useState("");
+  const dispatch = useAppDispatch();
+  dispatch(ShowDepthFromSearch(script));
+
   if (symbol != script && script != undefined && script != "") {
     setSymbol(script);
     if (symbol != "") {
@@ -80,17 +89,49 @@ const MarketPicture = () => {
       });
     }
   });
-  const dispatch = useAppDispatch();
+
   //const { Script } = props;
   return IsShow && script != null && script != undefined ? (
-    <div className="block mr14 marketPicture_pop" id="MarketPicture">
-      <SmartSearch Type={Type}></SmartSearch>
+    <div
+      className="modal fade show"
+      id="SChartModal"
+      data-tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      style={{ display: "block", paddingRight: "4px" }}
+      aria-modal="true"
+    >
+      <div className="modal-dialog" role="document"></div>
+      <div className="modal-content">
+        <div className="modal-header">
+          <SmartSearch Type={Type}></SmartSearch>
+          <button
+            type="button"
+            className="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div className="modal-body">
+          <div className="row watchlistname">
+            <div className="col-md-6">
+              <h3>{TokenInfo.sym}</h3>
+              <span>{TokenInfo.exSeg}</span>
+            </div>
+            <div className="col-md-6 text-right">
+              <h3 className="c-green">
+                {TokenInfo.ltp == undefined ? "0.00" : TokenInfo.ltp}
+              </h3>
+              <h6>
+                {" "}
+                {TokenInfo.cng == undefined ? "0.00" : TokenInfo.cng} (
+                {TokenInfo.nc == undefined ? "0.00" : TokenInfo.nc}%)
+              </h6>
+            </div>
+          </div>
 
-      <div className="block_head">
-        <h1>Market Picture : {TokenInfo.trdSym}</h1>
-      </div>
-      <div>
-        <div className="content_in_market">
           {/* if({Depth != undefined} && {TokenInfo != undefined}) */}
           <MarketPictureDepth Depth={Depth} TokenInfo={TokenInfo} />
           <MarketPicturePrice TokenInfo={TokenInfo}></MarketPicturePrice>

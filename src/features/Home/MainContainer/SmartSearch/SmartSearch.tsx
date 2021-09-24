@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Popup from "reactjs-popup";
 import { api } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IContractSearch } from "../../../../types/IContractSearch";
@@ -14,6 +15,7 @@ import {
   openSellOrderEntry,
 } from "../../OrderEntry/orderEntrySlice";
 import { chartContainer } from "../mainContainerSlice";
+import MarketPicture from "../MarketPicture/MarketPicture";
 import {
   ShowDepthFromPosition,
   ShowDepthFromSearch,
@@ -115,6 +117,7 @@ const SmartSearch = (props: { Type: Number }) => {
   // search world trading data for available stock symbols that match the search input
   const search = async (val: string) => {
     if (val.length < 3) {
+      setResult([]);
       return;
     }
     //API Call
@@ -125,10 +128,10 @@ const SmartSearch = (props: { Type: Number }) => {
       allowed_exchange: [
         "nse_cm",
         "nse_fo",
-        // "mcx_fo",
-        // "bse_cm",
-        // "bse_fo",
-        // "cde_fo",
+        "mcx_fo",
+        "bse_cm",
+        "bse_fo",
+        "cde_fo",
       ],
     };
     //var result: any = dispatch(FetchSearch(ContractSearchReq));
@@ -186,123 +189,212 @@ const SmartSearch = (props: { Type: Number }) => {
     }
   };
   return (
-    <div className="input-group slideInDown-element" id="search">
-      <div>
-        <span>
-          <img src="images/search.svg" />
-        </span>
+    <>
+      <div className="input-group slideInDown-element" id="search">
+        <div>
+          <span>
+            <img src="images/search.svg" />
+          </span>
+        </div>
+        <input
+          type="text"
+          className="searchForm__text"
+          placeholder="Search & Add"
+          value={searchValue}
+          onChange={(e) => handleSearchChange(e)}
+          onKeyDown={handleSearchKeyDowns}
+          style={{ color: "black" }}
+          // onBlur={clearSearch}
+        />
+        <div className="listingnum">
+          <span>15</span>/<span>50</span>
+        </div>
       </div>
-      <input
-        type="text"
-        className="searchForm__text"
-        placeholder="Search & Add"
-        value={searchValue}
-        onChange={(e) => handleSearchChange(e)}
-        onKeyDown={handleSearchKeyDowns}
-        style={{ color: "black" }}
-        // onBlur={clearSearch}
-      />
-      {/* if the search input value is not empty show the clear button */}
+      {/* if the search input value is not empty show the clear button */}{" "}
       {/* {searchValue !== "" && (
-        <button
-          className="searchForm__clear"
-          onClick={(e) => {
-            e.preventDefault();
-            clearSearch();
-          }}
-        >
-          clear
-        </button>
-      )} */}
-
+      //   <button
+      //     className="searchForm__clear"
+      //     onClick={(e) => {
+      //       e.preventDefault();
+      //       clearSearch();
+      //     }}
+      //   >
+      //     clear
+      //   </button>
+      // )} */}
       {/* if the search results and search input value are not empty show this dropdown */}
       {Result != null && searchValue !== "" && (
-        <div className="searchForm__results">
-          {Result.map((result, i) => {
-            //const { symbol, name } = result;
-            return (
-              <ul
-                className={
-                  cursor === i
-                    ? "searchForm__result active"
-                    : "searchForm__result"
-                }
-                key={i}
-                // use onMouseDown instead of onClick because it fires before onBlur
-                // onMouseDown={() => {
-                //   console.log(result);
-                // }}
-                // onMouseDown={() => {
-                //   onAddClick(result);
-                // }}
-                style={{ cursor: "pointer" }}
-              >
-                <li>
-                  <div id="divLeftV" className="container_mw mw_team1">
-                    <div className="overlay_mw">
-                      {scriptList != undefined &&
-                      scriptList.indexOf(result.exseg + "|" + result.omtkn) <
-                        0 ? (
-                        <button
-                          className=" btn_buy"
-                          title="Add"
-                          onClick={() => onAddClick(result)}
-                        >
-                          +
-                        </button>
-                      ) : (
-                        <button className=" btn_buy" title="Added"></button>
-                      )}
-
+        <table id="searchwatchlist" className="table table-borderless">
+          <tbody>
+            {Result.map((result, i) => {
+              //const { symbol, name } = result;
+              return (
+                <tr
+                  className={
+                    "slideInDown-element" +
+                    (scriptList != undefined &&
+                    scriptList.indexOf(result.exseg + "|" + result.omtkn) < 0
+                      ? ""
+                      : " watchlistadded")
+                  }
+                >
+                  <td style={{ width: "50%" }}>
+                    <h4>{result.tsym.toString().split("-")[0]}</h4>
+                  </td>
+                  <td style={{ width: "50%" }} className="search-box">
+                    <p>{result.symdes}</p>
+                    <p className={result.exseg.includes("NSE") ? "nse" : "bse"}>
+                      {result.exseg}
+                    </p>
+                    <div className="watchlistbox">
+                      <button
+                        type="button"
+                        className="btn btn-primary wbuy"
+                        onMouseDown={onBuyOrderEntryClick}
+                      >
+                        B
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-primary wsell"
+                        onMouseDown={onSellOrderEntryClick}
+                      >
+                        S
+                      </button>
                       {/* <button
-                          className=" btn_buy"
-                          title="Chart(C )"
-                          onMouseDown={onChartClick}
-                        >
-                          C
-                        </button>
-                        <button
-                          className=" btn_buy"
-                          title="BUY"
-                          onMouseDown={onBuyOrderEntryClick}
-                        >
-                          B
-                        </button>
-                        <button
-                          className=" btn_sell"
-                          title="SELL"
-                          onMouseDown={onSellOrderEntryClick}
-                        >
-                          S
-                        </button>
-                        <button
-                          className=" btn_sell"
-                          title="Depth"
-                          onMouseDown={(e) => onDepthClick(result)}
-                        >
-                          D
-                        </button> */}
-                    </div>
+                        type="button"
+                        className="btn btn-primary wmarketdepth"
+                        onMouseDown={(e) => onDepthClick(result)}
+                      ></button> */}
 
-                    <div className="divLeftV_in">
-                      <div className="mysymbolname">
-                        <span id="spnsymbol">{result.tsym}</span>
-                        <br />
-                      </div>
+                      <Popup
+                        trigger={
+                          // <a
+                          //   className="dropdown-item"
+                          //   href="#"
+                          //   data-toggle="modal"
+                          //   data-target="#SChartModal"
+                          // >
+                          //   <img src="images/watchlist/delete.svg" /> Delete
+                          //   watchlist
+                          // </a>
+
+                          <button
+                            type="button"
+                            className="btn btn-primary wmarketdepth"
+                            data-toggle="modal"
+                            data-target="#SChartModal"
+                            onClick={(e) => onDepthClick(result)}
+                          ></button>
+                        }
+                      >
+                        <MarketPicture
+                          script={result.exseg + "|" + result.omtkn}
+                          Token={result.omtkn}
+                          IsShow={true}
+                          Type={2}
+                        ></MarketPicture>
+                      </Popup>
+
+                      <button
+                        type="button"
+                        className="btn btn-primary wchart"
+                        data-toggle="modal"
+                        data-target="#SChartModal"
+                        onMouseDown={onChartClick}
+                      ></button>
+                      <button
+                        type="button"
+                        className="btn btn-primary searchadd"
+                        onClick={() => onAddClick(result)}
+                      ></button>
                     </div>
-                    <span
-                      style={{ display: "none" }}
-                      className="mw_hold"
-                      id="spnPositionTakenLeftV"
-                    ></span>
-                  </div>
-                </li>
-              </ul>
-            );
-          })}
-        </div>
+                  </td>
+                </tr>
+
+                // <ul
+                //   className={
+                //     cursor === i
+                //       ? "searchForm__result active"
+                //       : "searchForm__result"
+                //   }
+                //   key={i}
+                //   // use onMouseDown instead of onClick because it fires before onBlur
+                //   // onMouseDown={() => {
+                //   //   console.log(result);
+                //   // }}
+                //   // onMouseDown={() => {
+                //   //   onAddClick(result);
+                //   // }}
+                //   style={{ cursor: "pointer" }}
+                // >
+                //   <li>
+                //     <div id="divLeftV" className="container_mw mw_team1">
+                //       <div className="overlay_mw">
+                //         {scriptList != undefined &&
+                //         scriptList.indexOf(result.exseg + "|" + result.omtkn) <
+                //           0 ? (
+                //           <button
+                //             className=" btn_buy"
+                //             title="Add"
+                //             onClick={() => onAddClick(result)}
+                //           >
+                //             +
+                //           </button>
+                //         ) : (
+                //           <button className=" btn_buy" title="Added"></button>
+                //         )}
+
+                //         {/* <button
+                //             className=" btn_buy"
+                //             title="Chart(C )"
+                //             onMouseDown={onChartClick}
+                //           >
+                //             C
+                //           </button>
+                //           <button
+                //             className=" btn_buy"
+                //             title="BUY"
+                //             onMouseDown={onBuyOrderEntryClick}
+                //           >
+                //             B
+                //           </button>
+                //           <button
+                //             className=" btn_sell"
+                //             title="SELL"
+                //             onMouseDown={onSellOrderEntryClick}
+                //           >
+                //             S
+                //           </button>
+                //           <button
+                //             className=" btn_sell"
+                //             title="Depth"
+                //             onMouseDown={(e) => onDepthClick(result)}
+                //           >
+                //             D
+                //           </button> */}
+                //       </div>
+
+                //       <div className="divLeftV_in">
+                //         <div className="mysymbolname">
+                //           <span id="spnsymbol">{result.tsym}</span>
+                //           <br />
+                //         </div>
+                //       </div>
+                //       <span
+                //         style={{ display: "none" }}
+                //         className="mw_hold"
+                //         id="spnPositionTakenLeftV"
+                //       ></span>
+                //     </div>
+                //   </li>
+                // </ul>
+              );
+            })}
+          </tbody>
+        </table>
       )}
-    </div>
+    </>
   );
 };
 

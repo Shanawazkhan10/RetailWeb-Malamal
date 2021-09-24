@@ -8,6 +8,10 @@ import {
   waitForSocketConnection,
 } from "../../../WebSocket/HSSocket1";
 import {
+  openGTTEntry,
+  setGTTEntryProps,
+} from "../../GTTOrderEntry/gttEntrySlice";
+import {
   openBuyOrderEntry,
   openSellOrderEntry,
   setOrderEntryProps,
@@ -82,29 +86,70 @@ const MarketPictureOrderEntry = (props: {
     dispatch(setOrderEntryProps(OrderEntryProp));
     dispatch(openSellOrderEntry());
   }
+  function onCreateGTTOrderClick(symbolInfo: IMarketWatchTokenInfo, e: any) {
+    e.preventDefault();
+    GTTEntryProp.token = symbolInfo.tok;
+    GTTEntryProp.price = symbolInfo.ltp;
+    GTTEntryProp.quantity = 1;
+    GTTEntryProp.symbol = symbolInfo.sym;
+    GTTEntryProp.exchange = symbolInfo.exSeg;
+    GTTEntryProp.ltp = +symbolInfo.ltp;
+    dispatch(setGTTEntryProps(GTTEntryProp));
+    dispatch(openGTTEntry());
+  }
   return (
-    <div className="">
-      <button className=" btn_buy" title="Create GTT" onClick={() => onClose()}>
-        Create GTT
-      </button>
+    // <div className="">
+    //   <button className=" btn_buy" title="Create GTT" onClick={() => onClose()}>
+    //     Create GTT
+    //   </button>
 
-      <button
-        className=" btn_buy"
-        title="Buy"
-        onClick={() => onBuyOrderEntryClick(props.TokenInfo)}
-      >
-        Buy
-      </button>
-      <button
-        className=" btn_sell"
-        title="Sell"
-        onClick={() => onSellOrderEntryClick(props.TokenInfo)}
-      >
-        Sell
-      </button>
-      <button className=" btn_buy" title="Close" onClick={() => onClose()}>
-        Close
-      </button>
+    //   <button
+    //     className=" btn_buy"
+    //     title="Buy"
+    //     onClick={() => onBuyOrderEntryClick(props.TokenInfo)}
+    //   >
+    //     Buy
+    //   </button>
+    //   <button
+    //     className=" btn_sell"
+    //     title="Sell"
+    //     onClick={() => onSellOrderEntryClick(props.TokenInfo)}
+    //   >
+    //     Sell
+    //   </button>
+    //   <button className=" btn_buy" title="Close" onClick={() => onClose()}>
+    //     Close
+    //   </button>
+    // </div>
+
+    <div className="row">
+      <div className="col-md-4">
+        <button
+          type="submit"
+          className="btn w-100 modal-buy"
+          onClick={() => onBuyOrderEntryClick(props.TokenInfo)}
+        >
+          buy
+        </button>
+      </div>
+      <div className="col-md-4">
+        <button
+          type="submit"
+          className="btn w-100 modal-sell"
+          onClick={() => onSellOrderEntryClick(props.TokenInfo)}
+        >
+          sell
+        </button>
+      </div>
+      <div className="col-md-4">
+        <button
+          type="submit"
+          className="btn w-100 modal-gtt"
+          onClick={(e) => onCreateGTTOrderClick(props.TokenInfo, e)}
+        >
+          Create GTT
+        </button>
+      </div>
     </div>
   );
 };

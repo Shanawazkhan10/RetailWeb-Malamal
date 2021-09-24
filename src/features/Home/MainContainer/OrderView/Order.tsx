@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAppDispatch } from "../../../../app/hooks";
 import { IOrderResponse } from "../../../../types/Order/IOrderResponse";
+import { IModifyOrderProps } from "../../../../types/OrderEntry/IModifyOrderProps";
 import { IOrderEntryProps } from "../../../../types/OrderEntry/IOrderEntryProps";
 import {
   openBuyOrderEntry,
@@ -21,6 +22,17 @@ const OrderView = (props: { order: IOrderResponse }) => {
     triggerprice: "",
     symbol: "",
   } as IOrderEntryProps;
+
+  const ModifyOrderProp = {
+    token: "",
+    exchange: "",
+    quantity: 0,
+    price: "",
+    triggerprice: "",
+    symbol: "",
+    on: "",
+    vd: "",
+  } as IModifyOrderProps;
 
   const [Menuflag, ShowMenu] = useState(false);
 
@@ -68,6 +80,25 @@ const OrderView = (props: { order: IOrderResponse }) => {
     //OrderEntryProp.ltp = symbolInfo.ltp;
     dispatch(setOrderEntryProps(OrderEntryProp));
     dispatch(openSellOrderEntry());
+  }
+
+  function onModifyOrderClick(e: any, symbolInfo: IOrderResponse) {
+    e.preventDefault();
+    ModifyOrderProp.token = symbolInfo.tok;
+    //OrderEntryProp.price = symbolInfo.ltp;
+    ModifyOrderProp.quantity = symbolInfo.fldQty;
+    ModifyOrderProp.symbol = symbolInfo.sym;
+    ModifyOrderProp.exchange = symbolInfo.exSeg;
+    ModifyOrderProp.on = symbolInfo.nOrdNo;
+    ModifyOrderProp.vd = symbolInfo.vldt;
+    ModifyOrderProp.exchange = symbolInfo.exSeg;
+    ModifyOrderProp.exchange = symbolInfo.exSeg;
+    dispatch(setOrderEntryProps(ModifyOrderProp));
+    if (symbolInfo.trnsTp == "B") {
+      dispatch(openBuyOrderEntry());
+    } else if (symbolInfo.trnsTp == "S") {
+      dispatch(openSellOrderEntry());
+    }
   }
 
   return (
@@ -121,6 +152,17 @@ const OrderView = (props: { order: IOrderResponse }) => {
               >
                 <img src="images/positions/convert.svg" /> Repeat
               </a>
+              {order.stat == "OPEN" ? (
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  onClick={(e) => onSellOrderEntryClick(e, order)}
+                >
+                  <img src="images/positions/exit.svg" /> Sell
+                </a>
+              ) : (
+                <></>
+              )}
               {/*  <a className="dropdown-item" href="#">
                 <img src="images/positions/info.svg" /> Info
               </a>

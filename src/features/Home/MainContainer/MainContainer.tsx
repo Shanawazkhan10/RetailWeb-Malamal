@@ -5,6 +5,7 @@ import MarketWatch from "./MarketWatch/MarketWatchHeader";
 import MarketWatchListContainer from "./MarketWatch/MarketWatchListContainer";
 import MarketWatchPortfolio from "./MarketWatch/MarketWatchPortfolio";
 import RightContainer from "./RightContainer";
+import SmartSearch from "./SmartSearch/SmartSearch";
 
 const MainContainer = (props: any) => {
   const MenuClick = props;
@@ -69,7 +70,8 @@ const MainContainer = (props: any) => {
         <div className="col-md-6 col-lg-4 col-xl-3">
           <div className="plate-2 fadeIn-element">
             <div className="b-listing">
-              <MarketWatch></MarketWatch>
+              {/* <MarketWatch></MarketWatch> */}
+              <SmartSearch Type={1}></SmartSearch>
               <MarketWatchListContainer></MarketWatchListContainer>
               <MarketWatchPortfolio nWatchList={1}></MarketWatchPortfolio>
             </div>

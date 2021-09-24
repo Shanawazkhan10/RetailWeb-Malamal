@@ -14,7 +14,9 @@ const HoldingList = () => {
     dispatch(fetchHolding(user.sessionKey));
   }, [HoldingList]);
 
-  return HoldingList.holding != undefined &&
+  return HoldingList &&
+    HoldingList.holding != undefined &&
+    HoldingList.holding.holdinglist != undefined &&
     HoldingList.holding.holdinglist.length > 0 ? (
     <div className="tab-content">
       <div className="row slideInDown-element" id="holdings">
@@ -97,7 +99,7 @@ const HoldingList = () => {
       </div>
     </div>
   ) : (
-    <div>Empty......</div>
+    <></>
   );
 };
 

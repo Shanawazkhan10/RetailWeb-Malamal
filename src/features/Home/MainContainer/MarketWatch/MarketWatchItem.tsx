@@ -14,8 +14,6 @@ import {
   SubUnsubReq,
   waitForSocketConnection,
 } from "../../../WebSocket/HSSocket1";
-//import { sendUnsubReq, SubUnsubReq } from "../../../WebSocket/HSSocket1";
-import { FetchSocketData } from "../../../WebSocket/WebSocketSlice";
 import {
   openGTTEntry,
   setGTTEntryProps,

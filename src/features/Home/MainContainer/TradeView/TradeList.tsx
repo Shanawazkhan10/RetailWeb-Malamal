@@ -90,7 +90,7 @@ const TradeList = () => {
       </div>
     </>
   ) : (
-    <div>Empty...</div>
+    <></>
   );
 };
 

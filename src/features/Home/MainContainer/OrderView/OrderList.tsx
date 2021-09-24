@@ -174,7 +174,7 @@ const OrderList = () => {
       </div>
     </div>
   ) : (
-    <div>Empty......</div>
+    <></>
   );
 };
 

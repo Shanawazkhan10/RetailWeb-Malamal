@@ -4,7 +4,10 @@ import { IMarketWatchTokenInfo } from "../types/IMarketWatchTokenInfo";
 import { IGetIndicesRequest } from "../types/Indices/IGetIndicesRequest";
 import { IRenameWatchlist } from "../types/IRenameWatchlist";
 import { ILoginRequest } from "../types/Request/IloginRequest";
-import { IOrderEntryRequest } from "../types/Request/IOrderEntryRequest";
+import {
+  IOrderEntryRequest,
+  IOrderModifyRequest,
+} from "../types/Request/IOrderEntryRequest";
 import { IUpdateWatchlist } from "../types/WatchList/IUpdateWatchList";
 import { IDeleteWatchlist } from "./IDeleteWatchlist";
 //import parseLink, { Links } from 'parse-link-header';
@@ -66,9 +69,9 @@ export async function getWatchList(
   cache: boolean,
   sessionkey: string
 ): Promise<any> {
-   var querystring = JSON.stringify({
-     cache: cache,
-   });
+  var querystring = JSON.stringify({
+    cache: cache,
+  });
 
   return await DiscApi.post(
     "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/getusergroups",
@@ -345,13 +348,33 @@ export async function sendOrderEntryRequest(
 ): Promise<any> {
   const params = new URLSearchParams();
   params.append("jData", JSON.stringify(orderentryrequest.jData));
-  //params.append("jKey", orderentryrequest.jKey);
+  params.append("jKey", orderentryrequest.jKey);
 
   return await api
     .post("https://uathsint.hypertrade.in/quick/order/place", params, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         "x-access-token": orderentryrequest.jKey,
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+}
+
+export async function sendModifyOrderRequest(
+  OrderModifyRequest: IOrderModifyRequest
+): Promise<any> {
+  const params = new URLSearchParams();
+  params.append("jData", JSON.stringify(OrderModifyRequest.jData));
+  params.append("jKey", OrderModifyRequest.jKey);
+
+  return await api
+    .post("https://uathsint.hypertrade.in/quick/order/place", params, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "x-access-token": OrderModifyRequest.jKey,
       },
     })
     .then((response) => response.data)
@@ -367,7 +390,7 @@ export async function GetOrderBook(sessionKey: string): Promise<any> {
 
     .post("https://uathsint.hypertrade.in/quick/user/orders", "", {
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Content-Type": "application/x-www-form-urlencoded",
         "x-access-token": sessionKey,
       },
     })
@@ -384,7 +407,7 @@ export async function GetTradeBook(sessionKey: string): Promise<any> {
 
     .post("https://uathsint.hypertrade.in/quick/user/trades", "", {
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Content-Type": "application/x-www-form-urlencoded",
         "x-access-token": sessionKey,
       },
     })

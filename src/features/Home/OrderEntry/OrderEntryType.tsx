@@ -29,7 +29,7 @@ const OrderEntryType = () => {
               className="su-radio"
               value="MARKET"
               checked={orderEntryState.orderType === "MKT" ? true : false}
-              onChange={()=>{}}
+              onChange={() => {}}
             />
             <label htmlFor="radio-212" className="su-radio-label">
               Market
@@ -51,7 +51,7 @@ const OrderEntryType = () => {
               className="su-radio"
               value="LIMIT"
               checked={orderEntryState.orderType === "L" ? true : false}
-              onChange={()=>{}}
+              onChange={() => {}}
             />
             <label htmlFor="radio-213" className="su-radio-label">
               Limit
@@ -62,6 +62,7 @@ const OrderEntryType = () => {
       <div className="four columns trigger">
         <div className="su-radio-group text-right order-type">
           <div
+            aria-disabled="true"
             className="su-radio-wrap"
             tooltip-pos="down"
             aria-label="Buy at a preferred price with a stoploss"
@@ -77,7 +78,7 @@ const OrderEntryType = () => {
               className="su-radio"
               value="SL"
               checked={orderEntryState.orderType === "SL" ? true : false}
-              onChange={()=>{}}
+              onChange={() => {}}
             />
             <label htmlFor="radio-215" className="su-radio-label">
               SL
@@ -89,6 +90,8 @@ const OrderEntryType = () => {
             aria-label="Buy at market price with stoploss"
             data-balloon-pos="down"
             onClick={() => dispatch(setSLMOrder())}
+
+            // disabled={orderEntryState.variety === 1 ? true : false}
           >
             <input
               id="radio-216"
@@ -99,7 +102,7 @@ const OrderEntryType = () => {
               className="su-radio"
               value="SL-M"
               checked={orderEntryState.orderType === "SL-M" ? true : false}
-              onChange={()=>{}}
+              onChange={() => {}}
             />
             <label htmlFor="radio-216" className="su-radio-label">
               SL-M
