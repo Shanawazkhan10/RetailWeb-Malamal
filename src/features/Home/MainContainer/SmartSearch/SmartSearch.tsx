@@ -224,7 +224,11 @@ const SmartSearch = (props: { Type: Number }) => {
       // )} */}
       {/* if the search results and search input value are not empty show this dropdown */}
       {Result != null && searchValue !== "" && (
-        <table id="searchwatchlist" className="table table-borderless">
+        <table
+          id="searchwatchlist"
+          className="table table-borderless search-results"
+          style={{ display: "table" }}
+        >
           <tbody>
             {Result.map((result, i) => {
               //const { symbol, name } = result;
@@ -238,11 +242,10 @@ const SmartSearch = (props: { Type: Number }) => {
                       ? ""
                       : " watchlistadded")
                   }
-                  onMouseDown={() => onAddClick(result)}
-
+                  //onMouseDown={() => onAddClick(result)}
                   // onMouseDown={() => {
-                  //   //   onAddClick(result);
-                  //   // }}
+                  //   onAddClick(result);
+                  // }}
                 >
                   <td style={{ width: "50%" }}>
                     <h4>{result.tsym.toString().split("-")[0]}</h4>
@@ -299,6 +302,11 @@ const SmartSearch = (props: { Type: Number }) => {
                           Token={result.omtkn}
                           IsShow={true}
                           Type={2}
+                          symbolExg={
+                            result.tsym.toString().split("-")[0] +
+                            "|" +
+                            result.exseg
+                          }
                         ></MarketPicture>
                       </Popup>
 

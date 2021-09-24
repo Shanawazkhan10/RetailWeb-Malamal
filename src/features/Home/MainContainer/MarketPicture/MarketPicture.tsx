@@ -18,6 +18,7 @@ const MarketPicture = (props: {
   Token: any;
   IsShow: boolean;
   Type: number;
+  symbolExg: string;
 }) => {
   //const { IsShow, Type, script, TokenInfo, Depth, Token } = useSelector(
   const { TokenInfo, Depth } = useSelector((state: RootState) => {
@@ -30,9 +31,10 @@ const MarketPicture = (props: {
       //Token: state.marketpicture.marketpicture.token,
     };
   });
-  const { IsShow, Type, script, Token } = props;
+  const { IsShow, Type, script, Token, symbolExg } = props;
 
   const [symbol, setSymbol] = React.useState("");
+  const [showPopup, setopup] = React.useState(IsShow);
   const dispatch = useAppDispatch();
   dispatch(ShowDepthFromSearch(script));
 
@@ -90,8 +92,11 @@ const MarketPicture = (props: {
     }
   });
 
+  function close() {
+    setopup(false);
+  }
   //const { Script } = props;
-  return IsShow && script != null && script != undefined ? (
+  return showPopup && script != null && script != undefined ? (
     <div
       className="modal fade show"
       id="SChartModal"
@@ -110,6 +115,7 @@ const MarketPicture = (props: {
               className="close"
               data-dismiss="modal"
               aria-label="Close"
+              onClick={() => close()}
             >
               <span aria-hidden="true">×</span>
             </button>
@@ -117,8 +123,8 @@ const MarketPicture = (props: {
           <div className="modal-body">
             <div className="row watchlistname">
               <div className="col-md-6">
-                <h3>{TokenInfo.sym}</h3>
-                <span>{TokenInfo.exSeg}</span>
+                <h3>{symbolExg.split("|")[0]}</h3>
+                <span>{symbolExg.split("|")[1]}</span>
               </div>
               <div className="col-md-6 text-right">
                 <h3 className="c-green">

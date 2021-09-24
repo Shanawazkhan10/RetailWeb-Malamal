@@ -67,40 +67,40 @@ const marketpicture = createSlice({
           token.nc = script.nc;
         }
         if (script.cng != undefined) {
-          token.cng = script.cng;
+          //        token.cng = script.cng;
         }
+
         if (script.op != undefined) {
           token.op = script.op;
         }
-        if (script.c != undefined) {
-          token.c = script.c;
-        }
+
         if (script.lo != undefined) {
           token.lo = script.lo;
         }
         if (script.h != undefined) {
           token.h = script.h;
         }
-        if (script.v != undefined) {
-          token.v = script.v;
+        if (script.c != undefined) {
+          token.c = script.c;
         }
+        if (script.ltq != undefined) {
+          token.ltq = script.ltq;
+        }
+        if (script.ucl != undefined) {
+          token.ucl = script.ucl;
+        }
+
         if (script.ltt != undefined) {
           token.ltt = script.ltt;
         }
-        if (script.h != undefined) {
-          token.h = script.h;
+        if (script.lcl != undefined) {
+          token.lcl = script.lcl;
         }
-
-        if (script.ts != undefined) {
-          token.trdSym = script.ts;
+        if (script.ap != undefined) {
+          token.ap = script.ap;
         }
-
-        if (script.tbq != undefined) {
-          token.tbq = script.tbq;
-        }
-
-        if (script.tsq != undefined) {
-          token.tsq = script.tsq;
+        if (script.v != undefined) {
+          token.v = script.v;
         }
         // token.op = script.op;
         // token.lo = script.lo;
@@ -125,6 +125,7 @@ const marketpicture = createSlice({
           state.marketpicture.Depth = Object.assign({}, InitialMarketDepth);
         }
         if (depth.bp != undefined) state.marketpicture.Depth.bp = depth.bp;
+        if (depth.bp1 != undefined) state.marketpicture.Depth.bp1 = depth.bp1;
 
         if (depth.bp2 != undefined) state.marketpicture.Depth.bp2 = depth.bp2;
 
@@ -134,7 +135,8 @@ const marketpicture = createSlice({
 
         if (depth.sp != undefined) state.marketpicture.Depth.sp = depth.bp2;
 
-        if (depth.sp1 != undefined) state.marketpicture.Depth.sp2 = depth.sp2;
+        if (depth.sp1 != undefined) state.marketpicture.Depth.sp1 = depth.sp1;
+        if (depth.sp2 != undefined) state.marketpicture.Depth.sp2 = depth.sp2;
 
         if (depth.sp3 != undefined) state.marketpicture.Depth.sp3 = depth.sp3;
 
