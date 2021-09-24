@@ -150,6 +150,16 @@ const MarketPictureOrderEntry = (props: {
           Create GTT
         </button>
       </div>
+
+      {/* <div className="col-md-4">
+        <button
+          type="submit"
+          className="btn w-100 modal-gtt"
+          onClick={(e) => onClose()}
+        >
+          Close
+        </button>
+      </div> */}
     </div>
   );
 };

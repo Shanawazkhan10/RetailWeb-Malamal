@@ -11,7 +11,7 @@ import SmartSearch from "../SmartSearch/SmartSearch";
 import MarketPictureDepth from "./MarketPictureDepth";
 import MarketPictureOrderEntry from "./MarketPictureOrderEntry";
 import MarketPicturePrice from "./MarketPicturePrice";
-import { ShowDepthFromSearch } from "./MarketPictureSlice";
+import { CloseDepth, ShowDepthFromSearch } from "./MarketPictureSlice";
 
 const MarketPicture = (props: {
   script: any;
@@ -94,6 +94,29 @@ const MarketPicture = (props: {
 
   function close() {
     setopup(false);
+    dispatch(CloseDepth(""));
+    //Unsubscribe Script  & Depth API Call
+    const subUnsubReq: SubUnsubReq = {
+      type: "mwu",
+      scrips: symbol,
+      channelnum: 5,
+    };
+
+    let req = JSON.stringify(subUnsubReq);
+    waitForSocketConnection(userWS, function () {
+      userWS.send(req);
+    });
+
+    const subUnsubReqSepth: SubUnsubReq = {
+      type: "dpu",
+      scrips: symbol,
+      channelnum: 5,
+    };
+
+    let reqDepth = JSON.stringify(subUnsubReqSepth);
+    waitForSocketConnection(userWS, function () {
+      userWS.send(reqDepth);
+    });
   }
   //const { Script } = props;
   return showPopup && script != null && script != undefined ? (
@@ -148,12 +171,14 @@ const MarketPicture = (props: {
         </div>
       </div>
     </div>
-  ) : (
+  ) : showPopup ? (
     <div>
-      <SmartSearch Type={Type}></SmartSearch>
+      <SmartSearch Type={2}></SmartSearch>
       Find an instrument Use the above search bar to find an instrument
       <MarketPictureOrderEntry TokenInfo={TokenInfo}></MarketPictureOrderEntry>
     </div>
+  ) : (
+    <></>
   );
 };
 
