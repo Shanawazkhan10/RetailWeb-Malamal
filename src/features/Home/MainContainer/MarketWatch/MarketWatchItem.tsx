@@ -181,7 +181,7 @@ const MarketWatchItem = (props: {
     // });
     //}
     waitForSocketConnection(userWS, function () {
-      //sendUnsubReq(subUnsubReq);
+      sendUnsubReq(subUnsubReq);
     });
     //}
     // waitForSocketConnection(userWS, function () {
