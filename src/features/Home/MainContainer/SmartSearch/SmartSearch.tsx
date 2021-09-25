@@ -54,17 +54,25 @@ const SmartSearch = (props: { Type: Number }) => {
     //dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
   };
 
-  function onBuyOrderEntryClick() {
+  function onBuyOrderEntryClick(e: any) {
+    e.preventDefault();
+    e.stopPropagation();
     dispatch(openBuyOrderEntry());
   }
-  function onSellOrderEntryClick() {
+  function onSellOrderEntryClick(e: any) {
+    e.preventDefault();
+    e.stopPropagation();
     dispatch(openSellOrderEntry());
   }
-  function onChartClick() {
+  function onChartClick(e: any) {
+    e.preventDefault();
+    e.stopPropagation();
     dispatch(chartContainer());
   }
 
-  const onAddClick = (data: IContractSearch) => {
+  const onAddClick = (data: IContractSearch, e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
     clearSearch();
     if (props.Type == 1) {
       let newscript: string[] = []; // DM: To fetch[TODO]
@@ -166,6 +174,13 @@ const SmartSearch = (props: { Type: Number }) => {
     setCursor(0);
   };
 
+  function ClearResult(e: any) {
+    e.preventDefault();
+    e.stopPropagation();
+    setSearchValue("");
+    setCursor(0);
+  }
+
   // handles behavior of Up, Down, Return, Escape & Delete keys while using the search dropdown
   const handleSearchKeyDowns = (e: any) => {
     //const { cursor, searchResults, searchValue } = state;
@@ -204,7 +219,7 @@ const SmartSearch = (props: { Type: Number }) => {
           onChange={(e) => handleSearchChange(e)}
           onKeyDown={handleSearchKeyDowns}
           style={{ color: "black" }}
-          // onBlur={clearSearch}
+          // onBlur={(e) => ClearResult(e)}
         />
         <div className="listingnum">
           <span>15</span>/<span>50</span>
@@ -242,10 +257,10 @@ const SmartSearch = (props: { Type: Number }) => {
                       ? ""
                       : " watchlistadded")
                   }
-                  //onMouseDown={() => onAddClick(result)}
-                  // onMouseDown={() => {
-                  //   onAddClick(result);
-                  // }}
+                  onClick={(e) => {
+                    onAddClick(result, e);
+                  }}
+                  // style={{ cursor: "pointer" }}
                 >
                   <td style={{ width: "50%" }}>
                     <h4>{result.tsym.toString().split("-")[0]}</h4>
@@ -259,14 +274,14 @@ const SmartSearch = (props: { Type: Number }) => {
                       <button
                         type="button"
                         className="btn btn-primary wbuy"
-                        onMouseDown={onBuyOrderEntryClick}
+                        onClick={(e) => onBuyOrderEntryClick(e)}
                       >
                         B
                       </button>
                       <button
                         type="button"
                         className="btn btn-primary wsell"
-                        onMouseDown={onSellOrderEntryClick}
+                        onClick={(e) => onSellOrderEntryClick(e)}
                       >
                         S
                       </button>
@@ -315,12 +330,12 @@ const SmartSearch = (props: { Type: Number }) => {
                         className="btn btn-primary wchart"
                         data-toggle="modal"
                         data-target="#SChartModal"
-                        onMouseDown={onChartClick}
+                        onMouseDown={(e) => onChartClick(e)}
                       ></button>
                       <button
                         type="button"
                         className="btn btn-primary searchadd"
-                        onClick={() => onAddClick(result)}
+                        onClick={(e) => onAddClick(result, e)}
                       ></button>
                     </div>
                   </td>

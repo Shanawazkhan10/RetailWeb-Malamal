@@ -227,6 +227,17 @@ const marketwatchSlice = createSlice({
     },
     ScriptUpdatefromSocket: (state, action) => {
       const script: IScriptUpdate = action.payload;
+
+      // state.marketWatch.MarketWatchList.find((watchItem) => {
+      //   watchItem.SymbolList.some((token) => {
+      //     if (token.tok == script.tk) {
+      //       if (script.ltp != undefined) {
+      //         token.ltp = script.ltp;
+      //       }
+      //     }
+      //   });
+      // });
+
       //JSON.parse(action.payload).forEach((script: IScriptUpdate) => {
       if (state.marketWatch.MarketWatchList == undefined) return;
       state.marketWatch.MarketWatchList.forEach((MarketWatch: IMarketWatch) => {
@@ -284,6 +295,7 @@ const marketwatchSlice = createSlice({
       const depth: IMarketDepth = action.payload;
       //JSON.parse(action.payload).forEach((depth: IMarketDepth) => {
       state.marketWatch.MarketWatchList.forEach((MarketWatch: IMarketWatch) => {
+        if (MarketWatch.SymbolList == undefined) return;
         MarketWatch.SymbolList.forEach((token: IMarketWatchTokenInfo) => {
           if (token.showDepth && token.tok == depth.tk && depth.name == "dp") {
             //void (token.marketDepth = depth);
@@ -336,7 +348,7 @@ const marketwatchSlice = createSlice({
             if (depth.mul != undefined) token.marketDepth.mul = depth.mul;
             if (depth.prec != undefined) token.marketDepth.prec = depth.prec;
           }
-          //return token;
+          return; //Need To Confirm
         });
       });
       // });
