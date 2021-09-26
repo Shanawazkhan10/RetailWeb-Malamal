@@ -23,6 +23,7 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
   const userState = useSelector((state: RootState) => state.user);
   selectedList = Number(WatchList.marketWatch.nSelectedWatchList);
   WatchListData = WatchList.marketWatch.MarketWatchList;
+
   //const [bAddButton, setAddButton] = useState(false);
   // const userState = useAppSelector((state) => state.user);
   const [showMenu, setShowMenu] = useState(false);
@@ -97,17 +98,25 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
         )} */}
           <Popup
             trigger={
-              <li className="newMW" key={"NewMW"}>
-                <a
-                  className="page-link"
-                  id={String(WatchListData.length + 1)}
-                  onClick={(e) => showNewWatchlist(e)}
-                >
-                  <span aria-label={"NewMW"} data-balloon-pos="up" data-balloon>
-                    +
-                  </span>
-                </a>
-              </li>
+              WatchListData.length < 5 ? (
+                <li className="newMW" key={"NewMW"}>
+                  <a
+                    className="page-link"
+                    id={String(WatchListData.length + 1)}
+                    onClick={(e) => showNewWatchlist(e)}
+                  >
+                    <span
+                      aria-label={"NewMW"}
+                      data-balloon-pos="up"
+                      data-balloon
+                    >
+                      +
+                    </span>
+                  </a>
+                </li>
+              ) : (
+                <></>
+              )
             }
             position="top left"
           >

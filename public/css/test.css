@@ -258,9 +258,9 @@ a:hover {
 #search input {
 }
 #searchwatchlist {
-  display: ;
   height: 73vh;
   overflow: auto;
+  margin: 12px 0 12px 0;
 }
 #searchwatchlist h4 {
   display: inline;
@@ -270,17 +270,23 @@ a:hover {
   border-bottom: 1px solid #eeeeee;
 }
 #searchwatchlist tr td:nth-child(1) {
-  padding: 10px 15px 10px 30px;
+  padding: 12px 15px 5px 30px;
 }
 #searchwatchlist tr td:nth-child(2) {
-  padding: 10px 18px 10px 15px;
+  /*padding: 5px 18px 5px 15px;*/
+}
+#searchwatchlist tbody tr td p {
+  text-transform: uppercase;
+  margin-top: 4px;
+  font-size: 14px;
 }
 .search-box {
   text-align: right;
 }
 .search-box p {
-  display: inline;
+  /*display: inline;*/
   text-transform: uppercase;
+  white-space: pre-wrap;
 }
 .search-box .bse {
   background: rgba(25, 100, 228, 0.3);
@@ -319,11 +325,14 @@ a:hover {
   display: none;
   position: absolute;
   right: 0;
-  top: 15%;
-  padding-right: 18px;
+  top: 28%;
+  padding-right: 15px;
 }
 #searchwatchlist tr:hover div.watchlistbox {
   display: block;
+}
+#searchwatchlist tbody tr:hover {
+  background: #efefef;
 }
 /*search*/
 
@@ -680,6 +689,8 @@ a:hover {
   top: 0px;
   z-index: 0;
   display: none;
+  height: 73vh;
+  overflow: auto;
 }
 .search-results li:hover {
 }
@@ -792,7 +803,7 @@ div.watchlistbox {
   position: absolute;
   right: 0;
   top: 30%;
-  padding-right: 30px;
+  padding-right: 18px;
 }
 div.watchlistbox .dropdown-menu.show {
   box-shadow: 0 2px 10px 0 rgb(0 0 0 / 14%);
@@ -801,7 +812,7 @@ div.watchlistbox .dropdown-menu.show {
 }
 div.watchlistbox .dropdown-menu {
   top: 10px !important;
-  left: 0px !important;
+  left: -14px !important;
 }
 div.watchlistbox .btn-primary:not(:disabled):not(.disabled):active:focus,
 .btn-primary:not(:disabled):not(.disabled).active:focus,
@@ -936,7 +947,7 @@ tr:hover div.watchlistbox {
   position: absolute;
   height: 0;
   width: 0;
-  left: 1em;
+  right: 1em;
   top: -6px;
   border: 6px solid transparent;
   border-top: 0;
@@ -1001,17 +1012,9 @@ tr:hover div.watchlistbox {
   color: #222;
 }
 
-.popup-overlay {
-}
 .modal {
-  height: 100vh;
-  padding-top: 10%;
-  background-color: rgba(0, 0, 0, 0.25);
+  top: 26%;
 }
-.modal.show .modal-dialog {
-  z-index: 1112;
-}
-
 .modal button.btn-primary {
   background: #6344f2;
   border-radius: 7px;
@@ -1056,6 +1059,54 @@ tr:hover div.watchlistbox {
 .modal-header .form {
   margin-bottom: 0px;
 }
+
+.convertbox .table thead th {
+  padding: 0;
+  border-bottom: none;
+  color: #a5a7a4;
+  font-weight: 400;
+}
+.convertbox .table tbody td {
+  padding: 0;
+  border-top: none;
+}
+.convertbox .table tbody td span {
+  font-size: 12px;
+  color: #a5a7a4;
+}
+.convertbox .table tbody td .form {
+  margin-bottom: 4px;
+}
+
+#InfoModal .nbox {
+}
+#InfoModal .nbox p {
+  font-size: 12px;
+  font-weight: 400;
+  margin: 0 auto;
+  padding: 2px;
+  color: #ffffff;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+#InfoModal .nbox {
+  max-width: fit-content;
+  min-width: 70px;
+  height: 25px;
+  text-align: center;
+  background: #fc8b00;
+  border-radius: 3px;
+  display: inline-block;
+}
+#InfoModal .openbtn {
+  max-width: fit-content;
+  min-width: 70px;
+  height: 25px;
+  text-align: center;
+  background: #fc8b00;
+  border-radius: 3px;
+}
+
 /*tab*/
 .tabline {
   border-bottom: 1px solid #eeeeee;

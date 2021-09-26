@@ -23,7 +23,7 @@ const MarketWatchListContainer = (props: any) => {
     <Fragment>
       {WatchListData.map((row: IMarketWatch, i) => (
         <table
-          className="table table-responsive table-borderless table-hover"
+          className="table table-borderless"
           id="mainwatchlist"
           key={String(i)}
           style={selectedList == i ? {} : { display: "none" }}
