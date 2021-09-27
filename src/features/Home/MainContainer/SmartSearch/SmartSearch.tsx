@@ -43,8 +43,9 @@ const SmartSearch = (props: { Type: Number }) => {
   }
 
   const nIsOpenFrom = props.Type;
-  const onDepthClick = (data: IContractSearch) => {
-    //e.preventDefault();
+  const onDepthClick = (data: IContractSearch, e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
     //dispatch(searchDepthContainer());
     dispatch(ShowDepthFromSearch(data.exseg + "|" + data.omtkn));
     clearSearch();
@@ -223,7 +224,7 @@ const SmartSearch = (props: { Type: Number }) => {
           onChange={(e) => handleSearchChange(e)}
           onKeyDown={handleSearchKeyDowns}
           style={{ color: "black" }}
-          onBlur={(e) => ClearResult(e)}
+          // onBlur={(e) => ClearResult(e)}
         />
         <div className="listingnum">
           <span>15</span>/<span>50</span>
@@ -307,39 +308,29 @@ const SmartSearch = (props: { Type: Number }) => {
                         onMouseDown={(e) => onDepthClick(result)}
                       ></button> */}
 
-                        <Popup
-                          trigger={
-                            // <a
-                            //   className="dropdown-item"
-                            //   href="#"
-                            //   data-toggle="modal"
-                            //   data-target="#SChartModal"
-                            // >
-                            //   <img src="images/watchlist/delete.svg" /> Delete
-                            //   watchlist
-                            // </a>
-
-                            <button
-                              type="button"
-                              className="btn btn-primary wmarketdepth"
-                              data-toggle="modal"
-                              data-target="#SChartModal"
-                              onClick={(e) => onDepthClick(result)}
-                            ></button>
+                        {/* <Popup
+                          trigger={ */}
+                        <button
+                          type="button"
+                          className="btn btn-primary wmarketdepth"
+                          data-toggle="modal"
+                          data-target="#SChartModal"
+                          onClick={(e) => onDepthClick(result, e)}
+                        ></button>
+                        {/* }
+                        > */}
+                        {/* <MarketPicture
+                          script={result.exseg == "NSE" + "|" + result.omtkn}
+                          Token={result.omtkn}
+                          IsShow={true}
+                          Type={2}
+                          symbolExg={
+                            result.tsym.toString().split("-")[0] +
+                            "|" +
+                            result.exseg
                           }
-                        >
-                          <MarketPicture
-                            script={result.exseg == "NSE" + "|" + result.omtkn}
-                            Token={result.omtkn}
-                            IsShow={true}
-                            Type={2}
-                            symbolExg={
-                              result.tsym.toString().split("-")[0] +
-                              "|" +
-                              result.exseg
-                            }
-                          ></MarketPicture>
-                        </Popup>
+                        ></MarketPicture> */}
+                        {/* </Popup> */}
 
                         <button
                           type="button"
@@ -357,10 +348,10 @@ const SmartSearch = (props: { Type: Number }) => {
                               scriptList.indexOf(
                                 result.exseg + "|" + result.omtkn
                               ) < 0
-                                ? "url(images/add.svg) center center no-repeat #ffffff"
-                                : "url(images/tick.svg) center center no-repeat #ffffff",
+                                ? "url(../images/add.svg) center center no-repeat #ffffff"
+                                : "url(../images/tick.svg) center center no-repeat #ffffff",
                             backgroundColor:
-                              (result.exseg == scriptList) != undefined &&
+                              scriptList != undefined &&
                               scriptList.indexOf(
                                 result.exseg + "|" + result.omtkn
                               ) < 0

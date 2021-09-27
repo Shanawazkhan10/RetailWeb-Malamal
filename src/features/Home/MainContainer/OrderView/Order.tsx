@@ -62,7 +62,7 @@ const OrderView = (props: { order: IOrderResponse }) => {
     } else if (actiontype == "Buy") {
       OrderEntryProp.price = symbolInfo.ltp;
     }
-    OrderEntryProp.quantity = symbolInfo.fldQty;
+    OrderEntryProp.quantity = 1; //symbolInfo.fldQty;
     OrderEntryProp.symbol = symbolInfo.sym;
     OrderEntryProp.exchange = symbolInfo.exSeg;
     //OrderEntryProp.ltp = symbolInfo.ltp;
@@ -74,7 +74,7 @@ const OrderView = (props: { order: IOrderResponse }) => {
     e.preventDefault();
     OrderEntryProp.token = symbolInfo.tok;
     //OrderEntryProp.price = symbolInfo.ltp;
-    OrderEntryProp.quantity = symbolInfo.fldQty;
+    OrderEntryProp.quantity = 1; // symbolInfo.fldQty;
     OrderEntryProp.symbol = symbolInfo.sym;
     OrderEntryProp.exchange = symbolInfo.exSeg;
     //OrderEntryProp.ltp = symbolInfo.ltp;

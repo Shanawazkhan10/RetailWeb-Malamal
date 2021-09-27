@@ -11,32 +11,26 @@ import SmartSearch from "../SmartSearch/SmartSearch";
 import MarketPictureDepth from "./MarketPictureDepth";
 import MarketPictureOrderEntry from "./MarketPictureOrderEntry";
 import MarketPicturePrice from "./MarketPicturePrice";
-import { CloseDepth, ShowDepthFromSearch } from "./MarketPictureSlice";
-
-const MarketPicture = (props: {
-  script: any;
-  Token: any;
-  IsShow: boolean;
-  Type: number;
-  symbolExg: string;
-}) => {
-  //const { IsShow, Type, script, TokenInfo, Depth, Token } = useSelector(
-  const { TokenInfo, Depth } = useSelector((state: RootState) => {
-    return {
-      //IsShow: state.marketpicture.marketpicture.IsShow,
-      //Type: state.marketpicture.marketpicture.Type,
-      //script: state.marketpicture.marketpicture.script,
-      TokenInfo: state.marketpicture.marketpicture.TokenInfo,
-      Depth: state.marketpicture.marketpicture.Depth,
-      //Token: state.marketpicture.marketpicture.token,
-    };
-  });
-  const { IsShow, Type, script, Token, symbolExg } = props;
+import { CloseDepth } from "./MarketPictureSlice";
+const MarketPicture = () => {
+  const dispatch = useAppDispatch();
+  const { IsShow, Type, script, TokenInfo, Depth, Token } = useSelector(
+    (state: RootState) => {
+      return {
+        IsShow: state.marketpicture.marketpicture.IsShow,
+        Type: state.marketpicture.marketpicture.Type,
+        script: state.marketpicture.marketpicture.script,
+        TokenInfo: state.marketpicture.marketpicture.TokenInfo,
+        Depth: state.marketpicture.marketpicture.Depth,
+        Token: state.marketpicture.marketpicture.token,
+      };
+    }
+  );
 
   const [symbol, setSymbol] = React.useState("");
-  const [showPopup, setopup] = React.useState(IsShow);
-  const dispatch = useAppDispatch();
-  dispatch(ShowDepthFromSearch(script));
+  //const [showPopup, setopup] = React.useState(IsShow);
+
+  //dispatch(ShowDepthFromSearch(script));
 
   if (symbol != script && script != undefined && script != "") {
     setSymbol(script);
@@ -93,7 +87,7 @@ const MarketPicture = (props: {
   });
 
   function close() {
-    setopup(false);
+    //setopup(false);
     dispatch(CloseDepth(""));
     //Unsubscribe Script  & Depth API Call
     const subUnsubReq: SubUnsubReq = {
@@ -119,10 +113,10 @@ const MarketPicture = (props: {
     });
   }
   //const { Script } = props;
-  return showPopup && script != null && script != undefined ? (
+  return IsShow && script != null && script != undefined ? (
     <div
       className="modal fade show"
-      id="SChartModal"
+      id="SMarketModal"
       data-tabindex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"
@@ -146,8 +140,10 @@ const MarketPicture = (props: {
           <div className="modal-body">
             <div className="row watchlistname">
               <div className="col-md-6">
-                <h3>{symbolExg.split("|")[0]}</h3>
-                <span>{symbolExg.split("|")[1]}</span>
+                {/* <h3>{symbolExg.split("|")[0]}</h3>
+                <span>{symbolExg.split("|")[1]}</span> */}
+                <h3>"ABC"</h3>
+                <span>""PQR</span>
               </div>
               <div className="col-md-6 text-right">
                 <h3 className="c-green">
@@ -171,7 +167,7 @@ const MarketPicture = (props: {
         </div>
       </div>
     </div>
-  ) : showPopup ? (
+  ) : IsShow ? (
     <div>
       <SmartSearch Type={2}></SmartSearch>
       Find an instrument Use the above search bar to find an instrument

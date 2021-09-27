@@ -1,6 +1,7 @@
 //const MainContainer = (props: IWatchListProps) => {
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import MarketPicture from "./MarketPicture/MarketPicture";
 import MarketWatch from "./MarketWatch/MarketWatchHeader";
 import MarketWatchListContainer from "./MarketWatch/MarketWatchListContainer";
 import MarketWatchPortfolio from "./MarketWatch/MarketWatchPortfolio";
@@ -78,6 +79,7 @@ const MainContainer = (props: any) => {
           </div>
         </div>
         <RightContainer></RightContainer>
+        <MarketPicture></MarketPicture>
       </div>
     </div>
   );

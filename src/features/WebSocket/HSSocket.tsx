@@ -97,7 +97,7 @@ const HSSocket = () => {
             break;
 
           default:
-            console.log(element);
+            //console.log(element);
             break;
         }
       });
