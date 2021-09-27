@@ -8,6 +8,11 @@ export interface IOrderModifyRequest {
   jKey: string;
 }
 
+export interface IOrderCancelRequest {
+  jData: ICanceljData;
+  jKey: string;
+}
+
 export interface IjData {
   am: string;
   es: string; //Exchange Segment
@@ -23,6 +28,7 @@ export interface IjData {
   //ig: string;//GuiOrderId (its Madatory, if GUIId check is enabled from Server)
   os: string;
   dq: string;
+  mp: string;
 }
 
 export interface IModjData {
@@ -35,7 +41,13 @@ export interface IModjData {
   pr: string;
   tp: string;
   qt: string;
-  es: string;
+  //es: string;
   os: string;
   dq: string;
+}
+
+export interface ICanceljData {
+  am: "NO";
+  on: string;
+  ts: string;
 }

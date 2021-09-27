@@ -31,7 +31,7 @@ const OrderEntryComp = () => {
   const orderEntryState = useAppSelector((state) => state.orderEntry);
   const userState = useAppSelector((state) => state.user);
   function onFormSubmit() {
-    if (orderEntryState.order === 1) {
+    if (orderEntryState.typeofOrder === 1) {
       const Jdata: IjData = {
         am: "NO",
         es: orderEntryState.exchange,
@@ -47,6 +47,7 @@ const OrderEntryComp = () => {
         //ig: "",
         os: "WEB",
         dq: orderEntryState.disclosedQty.toString(),
+        mp: "0",
       };
 
       const orderentryrequest: IOrderEntryRequest = {
@@ -65,7 +66,7 @@ const OrderEntryComp = () => {
         pr: orderEntryState.price,
         tp: orderEntryState.triggerprice,
         qt: orderEntryState.quantity.toString(),
-        es: orderEntryState.exchange,
+        //es: orderEntryState.exchange,
         os: "WEB",
         dq: orderEntryState.disclosedQty.toString(),
       };

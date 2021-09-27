@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { useAppDispatch } from "../../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IOrderResponse } from "../../../../types/Order/IOrderResponse";
+import { ICancelOrderProps } from "../../../../types/OrderEntry/ICancelOrderProps";
 import { IModifyOrderProps } from "../../../../types/OrderEntry/IModifyOrderProps";
 import { IOrderEntryProps } from "../../../../types/OrderEntry/IOrderEntryProps";
 import {
+  ICanceljData,
+  IOrderCancelRequest,
+} from "../../../../types/Request/IOrderEntryRequest";
+import {
+  cancelOrder,
   openBuyOrderEntry,
   openSellOrderEntry,
   setOrderEntryProps,
@@ -12,6 +18,7 @@ import {
 const OrderView = (props: { order: IOrderResponse }) => {
   const { order } = props;
   const dispatch = useAppDispatch();
+  const userState = useAppSelector((state) => state.user);
   //const dispatch = useAppDispatch();
 
   const OrderEntryProp = {
@@ -85,20 +92,37 @@ const OrderView = (props: { order: IOrderResponse }) => {
   function onModifyOrderClick(e: any, symbolInfo: IOrderResponse) {
     e.preventDefault();
     ModifyOrderProp.token = symbolInfo.tok;
-    //OrderEntryProp.price = symbolInfo.ltp;
-    ModifyOrderProp.quantity = symbolInfo.fldQty;
+    ModifyOrderProp.price = symbolInfo.prc;
+    ModifyOrderProp.quantity = symbolInfo.qty;
     ModifyOrderProp.symbol = symbolInfo.sym;
     ModifyOrderProp.exchange = symbolInfo.exSeg;
     ModifyOrderProp.on = symbolInfo.nOrdNo;
     ModifyOrderProp.vd = symbolInfo.vldt;
     ModifyOrderProp.exchange = symbolInfo.exSeg;
-    ModifyOrderProp.exchange = symbolInfo.exSeg;
+    ModifyOrderProp.typeofOrder = 2;
     dispatch(setOrderEntryProps(ModifyOrderProp));
     if (symbolInfo.trnsTp == "B") {
       dispatch(openBuyOrderEntry());
     } else if (symbolInfo.trnsTp == "S") {
       dispatch(openSellOrderEntry());
     }
+  }
+
+  function onCancelOrderClick(e: any, symbolInfo: IOrderResponse) {
+    e.preventDefault();
+
+    const JModdata: ICanceljData = {
+      am: "NO",
+      on: symbolInfo.nOrdNo,
+      ts: symbolInfo.sym,
+    };
+
+    const OrderCancelRequest: IOrderCancelRequest = {
+      jKey: userState.sessionKey,
+      jData: JModdata,
+    };
+
+    dispatch(cancelOrder(OrderCancelRequest));
   }
 
   return (
@@ -152,13 +176,25 @@ const OrderView = (props: { order: IOrderResponse }) => {
               >
                 <img src="images/positions/convert.svg" /> Repeat
               </a>
-              {order.stat == "OPEN" ? (
+              {order.ordSt.toUpperCase() == "OPEN" ? (
                 <a
                   className="dropdown-item"
                   href="#"
-                  onClick={(e) => onSellOrderEntryClick(e, order)}
+                  onClick={(e) => onModifyOrderClick(e, order)}
                 >
-                  <img src="images/positions/exit.svg" /> Sell
+                  <img src="images/positions/exit.svg" /> Modify
+                </a>
+              ) : (
+                <></>
+              )}
+
+              {order.ordSt.toUpperCase() == "OPEN" ? (
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  onClick={(e) => onCancelOrderClick(e, order)}
+                >
+                  <img src="images/positions/exit.svg" /> Cancel
                 </a>
               ) : (
                 <></>

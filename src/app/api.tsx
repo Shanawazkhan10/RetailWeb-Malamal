@@ -5,6 +5,7 @@ import { IGetIndicesRequest } from "../types/Indices/IGetIndicesRequest";
 import { IRenameWatchlist } from "../types/IRenameWatchlist";
 import { ILoginRequest } from "../types/Request/IloginRequest";
 import {
+  IOrderCancelRequest,
   IOrderEntryRequest,
   IOrderModifyRequest,
 } from "../types/Request/IOrderEntryRequest";
@@ -371,10 +372,30 @@ export async function sendModifyOrderRequest(
   params.append("jKey", OrderModifyRequest.jKey);
 
   return await api
-    .post("https://uathsint.hypertrade.in/quick/order/place", params, {
+    .post("https://uathsint.hypertrade.in/quick/order/modify", params, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         "x-access-token": OrderModifyRequest.jKey,
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+}
+
+export async function sendCancelOrderRequest(
+  orderCancelRequest: IOrderCancelRequest
+): Promise<any> {
+  const params = new URLSearchParams();
+  params.append("jData", JSON.stringify(orderCancelRequest.jData));
+  params.append("jKey", orderCancelRequest.jKey);
+
+  return await api
+    .post("https://uathsint.hypertrade.in/quick/order/cancel", params, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "x-access-token": orderCancelRequest.jKey,
       },
     })
     .then((response) => response.data)

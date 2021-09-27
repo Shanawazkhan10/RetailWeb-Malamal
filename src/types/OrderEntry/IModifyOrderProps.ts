@@ -8,5 +8,5 @@ export interface IModifyOrderProps {
   ltp: string;
   on: string;
   vd: string;
-  order: number;
+  typeofOrder: number;
 }
