@@ -28,7 +28,7 @@ export interface IjData {
   //ig: string;//GuiOrderId (its Madatory, if GUIId check is enabled from Server)
   os: string;
   dq: string;
-  mp: string;
+  mp: string; //Not Provided in api
 }
 
 export interface IModjData {

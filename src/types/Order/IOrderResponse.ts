@@ -47,6 +47,7 @@ export interface IOrderResponse {
   symOrdId: string;
   tckSz: string;
   tok: string;
+  trdSym: string;
   trnsTp: string;
   trgPrc: string;
   unFldSz: string;

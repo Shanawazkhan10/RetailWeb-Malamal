@@ -70,7 +70,7 @@ const OrderView = (props: { order: IOrderResponse }) => {
       OrderEntryProp.price = symbolInfo.ltp;
     }
     OrderEntryProp.quantity = 1; //symbolInfo.fldQty;
-    OrderEntryProp.symbol = symbolInfo.sym;
+    OrderEntryProp.symbol = symbolInfo.trdSym;
     OrderEntryProp.exchange = symbolInfo.exSeg;
     //OrderEntryProp.ltp = symbolInfo.ltp;
     dispatch(setOrderEntryProps(OrderEntryProp));
@@ -82,7 +82,7 @@ const OrderView = (props: { order: IOrderResponse }) => {
     OrderEntryProp.token = symbolInfo.tok;
     //OrderEntryProp.price = symbolInfo.ltp;
     OrderEntryProp.quantity = 1; // symbolInfo.fldQty;
-    OrderEntryProp.symbol = symbolInfo.sym;
+    OrderEntryProp.symbol = symbolInfo.trdSym;
     OrderEntryProp.exchange = symbolInfo.exSeg;
     //OrderEntryProp.ltp = symbolInfo.ltp;
     dispatch(setOrderEntryProps(OrderEntryProp));

@@ -8,4 +8,6 @@ export interface IMarketPicture {
   token: string;
   Depth: IMarketDepth;
   TokenInfo: IMarketWatchTokenInfo;
+  symbol: string;
+  tradingSymbol: string;
 }

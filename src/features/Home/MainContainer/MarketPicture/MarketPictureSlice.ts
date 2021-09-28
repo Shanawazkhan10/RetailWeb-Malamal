@@ -20,6 +20,8 @@ const InitialMarketPicture: IMarketPicture = {
   token: "",
   TokenInfo: InitialTokenInfo,
   Depth: InitialMarketDepth,
+  symbol: "",
+  tradingSymbol: "",
 };
 
 const marketpicture = createSlice({
@@ -33,12 +35,18 @@ const marketpicture = createSlice({
       state.marketpicture.IsShow = true;
       state.marketpicture.script = action.payload;
       state.marketpicture.token = state.marketpicture.script.split("|")[1];
+      state.marketpicture.symbol = state.marketpicture.script.split("|")[2];
+      state.marketpicture.tradingSymbol =
+        state.marketpicture.script.split("|")[3];
     },
     ShowDepthFromPosition: (state, action) => {
       state.marketpicture.Type = 2;
       state.marketpicture.IsShow = true;
       state.marketpicture.script = action.payload;
       state.marketpicture.token = state.marketpicture.script.split("|")[1];
+      state.marketpicture.symbol = state.marketpicture.script.split("|")[2];
+      state.marketpicture.tradingSymbol =
+        state.marketpicture.script.split("|")[3];
     },
     updateMarketDepth: (state, action: PayloadAction<IMarketDepth>) => {
       state.marketpicture.Depth = action.payload;
@@ -47,10 +55,10 @@ const marketpicture = createSlice({
     UpdateTokenInfo: (state, action: PayloadAction<IMarketWatchTokenInfo>) => {
       state.marketpicture.TokenInfo = action.payload;
     },
-
     ShowDepth: (state, action) => {
       state.marketpicture.IsShow = true;
     },
+
     CloseDepth: (state, action) => {
       state.marketpicture.IsShow = false;
     },

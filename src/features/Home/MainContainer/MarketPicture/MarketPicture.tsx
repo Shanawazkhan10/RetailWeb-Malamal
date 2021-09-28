@@ -14,18 +14,27 @@ import MarketPicturePrice from "./MarketPicturePrice";
 import { CloseDepth } from "./MarketPictureSlice";
 const MarketPicture = () => {
   const dispatch = useAppDispatch();
-  const { IsShow, Type, script, TokenInfo, Depth, Token } = useSelector(
-    (state: RootState) => {
-      return {
-        IsShow: state.marketpicture.marketpicture.IsShow,
-        Type: state.marketpicture.marketpicture.Type,
-        script: state.marketpicture.marketpicture.script,
-        TokenInfo: state.marketpicture.marketpicture.TokenInfo,
-        Depth: state.marketpicture.marketpicture.Depth,
-        Token: state.marketpicture.marketpicture.token,
-      };
-    }
-  );
+  const {
+    IsShow,
+    Type,
+    script,
+    TokenInfo,
+    Depth,
+    Token,
+    Symbol,
+    tradingSymbol,
+  } = useSelector((state: RootState) => {
+    return {
+      IsShow: state.marketpicture.marketpicture.IsShow,
+      Type: state.marketpicture.marketpicture.Type,
+      script: state.marketpicture.marketpicture.script,
+      TokenInfo: state.marketpicture.marketpicture.TokenInfo,
+      Depth: state.marketpicture.marketpicture.Depth,
+      Token: state.marketpicture.marketpicture.token,
+      Symbol: state.marketpicture.marketpicture.symbol,
+      tradingSymbol: state.marketpicture.marketpicture.tradingSymbol,
+    };
+  });
 
   const [symbol, setSymbol] = React.useState("");
   //const [showPopup, setopup] = React.useState(IsShow);
@@ -120,7 +129,7 @@ const MarketPicture = () => {
       data-tabindex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"
-      style={{ display: "block", paddingRight: "4px" }}
+      style={{ display: "block", paddingLeft: "4px" }}
       aria-modal="true"
     >
       <div className="modal-dialog" role="document">
@@ -142,8 +151,8 @@ const MarketPicture = () => {
               <div className="col-md-6">
                 {/* <h3>{symbolExg.split("|")[0]}</h3>
                 <span>{symbolExg.split("|")[1]}</span> */}
-                <h3>"ABC"</h3>
-                <span>""PQR</span>
+                <h3>{Symbol}</h3>
+                <span>{tradingSymbol}</span>
               </div>
               <div className="col-md-6 text-right">
                 <h3 className="c-green">

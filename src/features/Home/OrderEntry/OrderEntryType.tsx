@@ -59,7 +59,13 @@ const OrderEntryType = () => {
           </div>
         </div>
       </div>
-      <div className="four columns trigger">
+      <div
+        className="four columns trigger"
+        style={{
+          pointerEvents: orderEntryState.variety == 1 ? "none" : "auto",
+          opacity: orderEntryState.variety == 1 ? 0.7 : "",
+        }}
+      >
         <div className="su-radio-group text-right order-type">
           <div
             aria-disabled="true"

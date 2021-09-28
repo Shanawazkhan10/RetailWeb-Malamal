@@ -44,7 +44,7 @@ const OrderEntryComp = () => {
         tp: orderEntryState.triggerprice,
         ts: orderEntryState.symbol,
         tt: orderEntryState.isBuy ? "B" : "S",
-        //ig: "",
+
         os: "WEB",
         dq: orderEntryState.disclosedQty.toString(),
         mp: "0",

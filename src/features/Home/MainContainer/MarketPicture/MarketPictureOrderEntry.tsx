@@ -122,7 +122,7 @@ const MarketPictureOrderEntry = (props: {
     //   </button>
     // </div>
 
-    <div className="row">
+    <div className="row btn3">
       <div className="col-md-4">
         <button
           type="submit"

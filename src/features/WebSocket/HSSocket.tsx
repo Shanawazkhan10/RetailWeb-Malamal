@@ -72,7 +72,10 @@ const HSSocket = () => {
 
     userWS.onclose = function () {
       displayMessage("[Socket]: Disconnected !\n");
-      connect();
+      userWS = null;
+      setTimeout(function () {
+        connect();
+      }, 3000);
     };
 
     userWS.onerror = function () {

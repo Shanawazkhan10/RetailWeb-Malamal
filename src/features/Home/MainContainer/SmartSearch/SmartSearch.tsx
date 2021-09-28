@@ -47,7 +47,12 @@ const SmartSearch = (props: { Type: Number }) => {
     e.preventDefault();
     e.stopPropagation();
     //dispatch(searchDepthContainer());
-    dispatch(ShowDepthFromSearch(data.exseg + "|" + data.omtkn));
+    dispatch(
+      ShowDepthFromSearch(
+        data.exseg + "|" + data.omtkn + "|" + data.usym + "|" + data.cnam
+      )
+    );
+    //dispatch(setSymbolDetails(data.usym + "|" + data.cnam));
     clearSearch();
     //Dummy call for fetch
     //dispatch(UpdateTokenInfo(GetSymbolDetails()));
@@ -110,7 +115,12 @@ const SmartSearch = (props: { Type: Number }) => {
         sendUnsubReq(subUnsubReq);
       });
     } else if (props.Type == 2) {
-      dispatch(ShowDepthFromPosition(data.exseg + "|" + data.omtkn));
+      dispatch(
+        ShowDepthFromPosition(
+          data.exseg + "|" + data.omtkn + "|" + data.usym + "|" + data.cnam
+        )
+      );
+      //dispatch(setSymbolDetails(data.usym + "|" + data.cnam));
       clearSearch();
     } else if (props.Type == 3) {
       let newScrip = data.exseg + "|" + data.omtkn;
@@ -224,7 +234,7 @@ const SmartSearch = (props: { Type: Number }) => {
           onChange={(e) => handleSearchChange(e)}
           onKeyDown={handleSearchKeyDowns}
           style={{ color: "black" }}
-          // onBlur={(e) => ClearResult(e)}
+          //onBlur={(e) => ClearResult(e)}
         />
         <div className="listingnum">
           <span>15</span>/<span>50</span>
@@ -247,7 +257,7 @@ const SmartSearch = (props: { Type: Number }) => {
         <div className="search-results" style={{ display: "block" }}>
           <table
             id="searchwatchlist"
-            className="table table-borderless search-results"
+            className="table table-borderless"
             style={{ display: "table" }}
           >
             <tbody>
@@ -283,43 +293,48 @@ const SmartSearch = (props: { Type: Number }) => {
                     </td>
                     <td style={{ width: "50%" }} className="search-box">
                       <p
-                        className={result.exseg.includes("NSE") ? "nse" : "bse"}
+                        className={
+                          result.exseg.toUpperCase().includes("NSE")
+                            ? "nse"
+                            : "bse"
+                        }
                       >
                         {result.exseg}
                       </p>
-                      <div className="watchlistbox">
-                        <button
-                          type="button"
-                          className="btn btn-primary wbuy"
-                          onClick={(e) => onBuyOrderEntryClick(e)}
-                        >
-                          B
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-primary wsell"
-                          onClick={(e) => onSellOrderEntryClick(e)}
-                        >
-                          S
-                        </button>
-                        {/* <button
+                      {props.Type == 1 ? (
+                        <div className="watchlistbox">
+                          <button
+                            type="button"
+                            className="btn btn-primary wbuy"
+                            onClick={(e) => onBuyOrderEntryClick(e)}
+                          >
+                            B
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-primary wsell"
+                            onClick={(e) => onSellOrderEntryClick(e)}
+                          >
+                            S
+                          </button>
+                          {/* <button
                         type="button"
                         className="btn btn-primary wmarketdepth"
                         onMouseDown={(e) => onDepthClick(result)}
                       ></button> */}
 
-                        {/* <Popup
+                          {/* <Popup
                           trigger={ */}
-                        <button
-                          type="button"
-                          className="btn btn-primary wmarketdepth"
-                          data-toggle="modal"
-                          data-target="#SChartModal"
-                          onClick={(e) => onDepthClick(result, e)}
-                        ></button>
-                        {/* }
+                          <button
+                            type="button"
+                            className="btn btn-primary wmarketdepth"
+                            data-toggle="modal"
+                            data-target="#SChartModal"
+                            onClick={(e) => onDepthClick(result, e)}
+                          ></button>
+                          {/* }
                         > */}
-                        {/* <MarketPicture
+                          {/* <MarketPicture
                           script={result.exseg == "NSE" + "|" + result.omtkn}
                           Token={result.omtkn}
                           IsShow={true}
@@ -330,128 +345,53 @@ const SmartSearch = (props: { Type: Number }) => {
                             result.exseg
                           }
                         ></MarketPicture> */}
-                        {/* </Popup> */}
+                          {/* </Popup> */}
 
-                        <button
-                          type="button"
-                          className="btn btn-primary wchart"
-                          data-toggle="modal"
-                          data-target="#SChartModal"
-                          onMouseDown={(e) => onChartClick(e)}
-                        ></button>
-                        <button
-                          type="button"
-                          className="btn btn-primary searchadd"
-                          style={{
-                            backgroundImage:
-                              scriptList != undefined &&
-                              scriptList.indexOf(
-                                result.exseg + "|" + result.omtkn
-                              ) < 0
-                                ? "url(../images/add.svg) center center no-repeat #ffffff"
-                                : "url(../images/tick.svg) center center no-repeat #ffffff",
-                            backgroundColor:
-                              scriptList != undefined &&
-                              scriptList.indexOf(
-                                result.exseg + "|" + result.omtkn
-                              ) < 0
-                                ? "#00c707"
-                                : "#9e9e9e",
-                          }}
-                          onClick={(e) =>
-                            onAddClick(
-                              result,
-                              e,
-                              scriptList != undefined &&
+                          <button
+                            type="button"
+                            className="btn btn-primary wchart"
+                            data-toggle="modal"
+                            data-target="#SChartModal"
+                            onMouseDown={(e) => onChartClick(e)}
+                          ></button>
+                          <button
+                            type="button"
+                            className="btn btn-primary searchadd"
+                            style={{
+                              backgroundImage:
+                                scriptList != undefined &&
                                 scriptList.indexOf(
                                   result.exseg + "|" + result.omtkn
                                 ) < 0
-                                ? 1 //New Entry
-                                : 2 //Already Added
-                            )
-                          }
-                        ></button>
-                      </div>
+                                  ? "url(../images/add.svg) center center no-repeat #ffffff"
+                                  : "url(../images/tick.svg) center center no-repeat #ffffff",
+                              backgroundColor:
+                                scriptList != undefined &&
+                                scriptList.indexOf(
+                                  result.exseg + "|" + result.omtkn
+                                ) < 0
+                                  ? "#00c707"
+                                  : "#9e9e9e",
+                            }}
+                            onClick={(e) =>
+                              onAddClick(
+                                result,
+                                e,
+                                scriptList != undefined &&
+                                  scriptList.indexOf(
+                                    result.exseg + "|" + result.omtkn
+                                  ) < 0
+                                  ? 1 //New Entry
+                                  : 2 //Already Added
+                              )
+                            }
+                          ></button>
+                        </div>
+                      ) : (
+                        <></>
+                      )}
                     </td>
                   </tr>
-
-                  // <ul
-                  //   className={
-                  //     cursor === i
-                  //       ? "searchForm__result active"
-                  //       : "searchForm__result"
-                  //   }
-                  //   key={i}
-                  //   // use onMouseDown instead of onClick because it fires before onBlur
-                  //   // onMouseDown={() => {
-                  //   //   console.log(result);
-                  //   // }}
-                  //   // onMouseDown={() => {
-                  //   //   onAddClick(result);
-                  //   // }}
-                  //   style={{ cursor: "pointer" }}
-                  // >
-                  //   <li>
-                  //     <div id="divLeftV" className="container_mw mw_team1">
-                  //       <div className="overlay_mw">
-                  //         {scriptList != undefined &&
-                  //         scriptList.indexOf(result.exseg + "|" + result.omtkn) <
-                  //           0 ? (
-                  //           <button
-                  //             className=" btn_buy"
-                  //             title="Add"
-                  //             onClick={() => onAddClick(result)}
-                  //           >
-                  //             +
-                  //           </button>
-                  //         ) : (
-                  //           <button className=" btn_buy" title="Added"></button>
-                  //         )}
-
-                  //         {/* <button
-                  //             className=" btn_buy"
-                  //             title="Chart(C )"
-                  //             onMouseDown={onChartClick}
-                  //           >
-                  //             C
-                  //           </button>
-                  //           <button
-                  //             className=" btn_buy"
-                  //             title="BUY"
-                  //             onMouseDown={onBuyOrderEntryClick}
-                  //           >
-                  //             B
-                  //           </button>
-                  //           <button
-                  //             className=" btn_sell"
-                  //             title="SELL"
-                  //             onMouseDown={onSellOrderEntryClick}
-                  //           >
-                  //             S
-                  //           </button>
-                  //           <button
-                  //             className=" btn_sell"
-                  //             title="Depth"
-                  //             onMouseDown={(e) => onDepthClick(result)}
-                  //           >
-                  //             D
-                  //           </button> */}
-                  //       </div>
-
-                  //       <div className="divLeftV_in">
-                  //         <div className="mysymbolname">
-                  //           <span id="spnsymbol">{result.tsym}</span>
-                  //           <br />
-                  //         </div>
-                  //       </div>
-                  //       <span
-                  //         style={{ display: "none" }}
-                  //         className="mw_hold"
-                  //         id="spnPositionTakenLeftV"
-                  //       ></span>
-                  //     </div>
-                  //   </li>
-                  // </ul>
                 );
               })}
             </tbody>
