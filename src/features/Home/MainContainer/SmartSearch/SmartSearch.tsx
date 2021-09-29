@@ -80,7 +80,7 @@ const SmartSearch = (props: { Type: Number }) => {
     e.preventDefault();
     e.stopPropagation();
     clearSearch();
-    if (addType == 2) {
+    if (props.Type == 1 && addType == 2) {
       return;
     }
 

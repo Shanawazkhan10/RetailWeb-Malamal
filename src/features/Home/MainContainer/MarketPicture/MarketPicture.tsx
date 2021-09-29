@@ -93,7 +93,7 @@ const MarketPicture = () => {
         userWS.send(reqDepth);
       });
     }
-  });
+  }, [script]);
 
   function close() {
     //setopup(false);

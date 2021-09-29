@@ -33,20 +33,20 @@ const marketpicture = createSlice({
     ShowDepthFromSearch: (state, action) => {
       state.marketpicture.Type = 2;
       state.marketpicture.IsShow = true;
-      state.marketpicture.script = action.payload;
-      state.marketpicture.token = state.marketpicture.script.split("|")[1];
-      state.marketpicture.symbol = state.marketpicture.script.split("|")[2];
-      state.marketpicture.tradingSymbol =
-        state.marketpicture.script.split("|")[3];
+      state.marketpicture.script =
+        action.payload.split("|")[0] + "|" + action.payload.split("|")[1];
+      state.marketpicture.token = action.payload.split("|")[1];
+      state.marketpicture.symbol = action.payload.split("|")[2];
+      state.marketpicture.tradingSymbol = action.payload.split("|")[3];
     },
     ShowDepthFromPosition: (state, action) => {
       state.marketpicture.Type = 2;
       state.marketpicture.IsShow = true;
-      state.marketpicture.script = action.payload;
-      state.marketpicture.token = state.marketpicture.script.split("|")[1];
-      state.marketpicture.symbol = state.marketpicture.script.split("|")[2];
-      state.marketpicture.tradingSymbol =
-        state.marketpicture.script.split("|")[3];
+      state.marketpicture.script =
+        action.payload.split("|")[0] + "|" + action.payload.split("|")[1];
+      state.marketpicture.token = action.payload.split("|")[1];
+      state.marketpicture.symbol = action.payload.split("|")[2];
+      state.marketpicture.tradingSymbol = action.payload.split("|")[3];
     },
     updateMarketDepth: (state, action: PayloadAction<IMarketDepth>) => {
       state.marketpicture.Depth = action.payload;
