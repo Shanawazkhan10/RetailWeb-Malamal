@@ -11,7 +11,7 @@ const Holdings = () => {
   const user = useSelector((state: RootState) => state.user);
   const HoldingList = useSelector((state: RootState) => state.holding);
   useEffect(() => {
-    dispatch(fetchHolding(user.sessionKey));  
+    dispatch(fetchHolding(user.sessionKey));
   }, []);
 
   function OpenHolding(e: any) {
@@ -25,7 +25,8 @@ const Holdings = () => {
       <div className="plate fadeIn-element" id="holdingbox">
         <div className="row slideInDown-element">
           <div className="col-md-6">
-            <img src="images/holdings.svg" /> <span>Holdings (3)</span>
+            <img src="images/holdings.svg" />
+            <span>Holdings ({HoldingList.holding?.holdinglist?.length})</span>
           </div>
           <div className="col-md-6 holdingbtn">
             <span>
@@ -58,7 +59,7 @@ const Holdings = () => {
               <p>Total P&L</p>
             </div>
           </div>
-          <div className="col-md-6 mt-4">            
+          <div className="col-md-6 mt-4">
             {HoldingList.holding?.holdinglist?.length > 0 && (
               <PieChart holdingList={HoldingList.holding.holdinglist} />
             )}

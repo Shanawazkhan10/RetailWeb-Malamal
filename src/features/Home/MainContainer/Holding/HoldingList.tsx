@@ -2,6 +2,12 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
+import { userWS } from "../../../WebSocket/HSSocket";
+import {
+  sendUnsubReq,
+  SubUnsubReq,
+  waitForSocketConnection,
+} from "../../../WebSocket/HSSocket1";
 import Holding from "./Holding";
 import { fetchHolding } from "./HoldingSlice";
 
@@ -12,7 +18,25 @@ const HoldingList = () => {
 
   useEffect(() => {
     dispatch(fetchHolding(user.sessionKey));
-  }, [HoldingList]);
+    getSymbol();
+  }, []);
+
+  function getSymbol() {
+    if (HoldingList.holding != undefined) {
+      //subscribe Script API Call
+      const subUnsubReq: SubUnsubReq = {
+        type: "mws",
+        scrips: HoldingList.holding.holdinglist
+          .map((x) => x.nseTrdSym)
+          .join("&"),
+        channelnum: 1,
+      };
+
+      waitForSocketConnection(userWS, function () {
+        sendUnsubReq(subUnsubReq);
+      });
+    }
+  }
 
   return HoldingList &&
     HoldingList.holding != undefined &&

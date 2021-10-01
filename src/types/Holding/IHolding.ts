@@ -20,7 +20,7 @@ export interface IHolding {
   mcxsxcmTrdSym: string;
   nseTrdSym: string;
   prod: string;
-  prc:string;
+  prc: string;
   scripCode: string;
   series: string;
   series1: string;
@@ -33,14 +33,18 @@ export interface IHolding {
   whdColQty: string;
   whdHldQty: string;
   isin: string;
+  ltp: string;
+  pnl: string;
+  curval: string;
+  netchg: string;
 }
 
-export interface IHoldingSate{
-  holdinglist:IHolding[],
-  totalInvestMent:number,  
-  currentValue:number,
-  daysPandL:number,
-  daysPandLPercent:number,
-  totalPandL:number,
-  totalPandLPercent:number,
+export interface IHoldingSate {
+  holdinglist: IHolding[];
+  totalInvestMent: number;
+  currentValue: number;
+  daysPandL: number;
+  daysPandLPercent: number;
+  totalPandL: number;
+  totalPandLPercent: number;
 }
