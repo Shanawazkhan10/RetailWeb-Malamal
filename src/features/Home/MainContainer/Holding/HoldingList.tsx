@@ -8,12 +8,14 @@ import {
   SubUnsubReq,
   waitForSocketConnection,
 } from "../../../WebSocket/HSSocket1";
+import PieChart from "../PieChart/PieChart";
 import Holding from "./Holding";
 import { fetchHolding } from "./HoldingSlice";
 
 const HoldingList = () => {
   const HoldingList = useSelector((state: RootState) => state.holding);
   const user = useSelector((state: RootState) => state.user);
+  var currentValue = 0;
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -45,9 +47,11 @@ const HoldingList = () => {
     <div className="tab-content">
       <div className="row slideInDown-element" id="holdings">
         <div className="col-md-4">
-          <span>Holdings ({HoldingList.holding.holdinglist.length})</span>
+          <h2>
+            Holdings<span> ({HoldingList.holding.holdinglist.length})</span>
+          </h2>
         </div>
-        <div className="col-md-8 text-right">
+        <div className="col-md-8 text-right" id="searhnbtn">
           <div className="input-group slideInDown-element m-0" id="search">
             <div>
               <span>
@@ -56,21 +60,25 @@ const HoldingList = () => {
             </div>
             <input type="text" placeholder="Search E.g. INFY" />
           </div>
-          <a href="#">
-            <img
-              src=""
-              style={{
-                width: "15px",
-                height: "15px",
-                background: "rgba(106, 78, 238, 0.2)",
-                borderRadius: "3px",
-              }}
-            />{" "}
-            Analytics
-          </a>
-          <a href="#">
-            <img src="images/positions/download.svg" /> Download
-          </a>
+          <div className="btnalign">
+            <a href="#">
+              <img
+                src=""
+                style={{
+                  width: "15px",
+                  height: "15px",
+                  background: "rgba(106, 78, 238, 0.2)",
+                  borderRadius: "3px",
+                }}
+              />
+              Analytics
+            </a>
+          </div>
+          <div className="btnalign">
+            <a href="#">
+              <img src="images/positions/download.svg" /> Download
+            </a>
+          </div>
         </div>
         <div className="col-md-12">
           <table className="datatable table table-hover" id="PortfolioTable">
@@ -99,26 +107,40 @@ const HoldingList = () => {
             <p>Total Investment</p>
           </div>
           <div>
-            <h3 className="c-black">{HoldingList.holding.currentValue}</h3>
+            <h3 className="c-black">
+              {HoldingList.holding.holdinglist?.map((holding) => {
+                if (holding.curval != undefined)
+                  currentValue = currentValue + Number(holding.curval);
+              })}
+              {currentValue}
+            </h3>
             <p>Current Value</p>
           </div>
           <div>
             <div className="mb-2 c-orange">
-              <h3 className="d-inline">{HoldingList.holding.daysPandL}</h3>
-              <span>({HoldingList.holding.daysPandLPercent}%)</span>
+              <h3 className="d-inline">
+                {HoldingList.holding.daysPandL.toFixed(2)}
+              </h3>
+              <span>({HoldingList.holding.daysPandLPercent.toFixed(2)}%)</span>
             </div>
             <p>Day's P&L</p>
           </div>
           <div>
             <div className="mb-2 c-green">
-              <h3 className="d-inline">{HoldingList.holding.totalPandL}</h3>
-              <span>({HoldingList.holding.totalPandLPercent}%)</span>
+              <h3 className="d-inline">
+                {(currentValue - HoldingList.holding.totalInvestMent).toFixed(
+                  2
+                )}
+              </h3>
+              <span>({HoldingList.holding.totalPandLPercent.toFixed(2)}%)</span>
             </div>
             <p>Total P&L</p>
           </div>
         </div>
         <div className="col-md-4 mt-5" id="chart">
-          <img src="images/pie-chart.png" className="img-fluid" />
+          {HoldingList.holding?.holdinglist?.length > 0 && (
+            <PieChart holdingList={HoldingList.holding.holdinglist} />
+          )}
         </div>
       </div>
     </div>

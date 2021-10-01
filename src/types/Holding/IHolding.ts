@@ -37,6 +37,9 @@ export interface IHolding {
   pnl: string;
   curval: string;
   netchg: string;
+  avg: string;
+  daychg: string;
+  daychgperc: string;
 }
 
 export interface IHoldingSate {

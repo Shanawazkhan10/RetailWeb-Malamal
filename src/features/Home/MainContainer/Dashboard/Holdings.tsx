@@ -2,12 +2,14 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
+import { IHolding } from "../../../../types/Holding/IHolding";
 import { fetchHolding } from "../Holding/HoldingSlice";
 import { holdingContainer } from "../mainContainerSlice";
 import PieChart from "../PieChart/PieChart";
 
 const Holdings = () => {
   const dispatch = useAppDispatch();
+  var currentValue = 0;
   const user = useSelector((state: RootState) => state.user);
   const HoldingList = useSelector((state: RootState) => state.holding);
   useEffect(() => {
@@ -18,6 +20,14 @@ const Holdings = () => {
     e.preventDefault();
     dispatch(holdingContainer());
     dispatch(fetchHolding(user.sessionKey));
+  }
+
+  function getColour(pnl: number) {
+    if (pnl > 0) {
+      return "green";
+    } else {
+      return "red";
+    }
   }
 
   return (
@@ -41,20 +51,36 @@ const Holdings = () => {
               <p>Total Investment</p>
             </div>
             <div>
-              <h3 className="c-black">{HoldingList.holding.currentValue}</h3>
+              <h3 className="c-black">
+                {HoldingList.holding.holdinglist?.map((holding: IHolding) => {
+                  if (holding.curval != undefined)
+                    currentValue = currentValue + Number(holding.curval);
+                })}
+                {currentValue}
+              </h3>
               <p>Current Value</p>
             </div>
             <div>
               <div className="c-orange">
-                <h3 className="d-inline">{HoldingList.holding.daysPandL}</h3>
-                <span>({HoldingList.holding.daysPandLPercent}%)</span>
+                <h3 className="d-inline">
+                  {HoldingList.holding.daysPandL.toFixed(2)}
+                </h3>
+                <span>
+                  ({HoldingList.holding.daysPandLPercent.toFixed(2)}%)
+                </span>
               </div>
               <p>Day's P&L</p>
             </div>
             <div>
-              <div className="c-green">
-                <h3 className="d-inline">{HoldingList.holding.totalPandL}</h3>
-                <span>({HoldingList.holding.totalPandLPercent}%)</span>
+              <div className={"c-" + getColour(HoldingList.holding.totalPandL)}>
+                <h3 className="d-inline">
+                  {(currentValue - HoldingList.holding.totalInvestMent).toFixed(
+                    2
+                  )}
+                </h3>
+                <span>
+                  ({HoldingList.holding.totalPandLPercent.toFixed(2)}%)
+                </span>
               </div>
               <p>Total P&L</p>
             </div>

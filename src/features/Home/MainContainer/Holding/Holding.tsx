@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAppDispatch } from "../../../../app/hooks";
 import { IHolding } from "../../../../types/Holding/IHolding";
 
@@ -6,20 +6,44 @@ const HoldingView = (props: { holding: IHolding }) => {
   const { holding } = props;
   const dispatch = useAppDispatch();
 
+  const [showMenu, OpenMenu] = useState(false);
+
+  function SetMenuflag(e: any) {
+    e.preventDefault();
+    if (e._reactName == "onMouseOver") {
+      if (showMenu == true) {
+        OpenMenu(false);
+      }
+    } else {
+      OpenMenu(!showMenu);
+    }
+  }
+
+  function getColour(pnl: String) {
+    if (Number(pnl) > 0) {
+      return "green";
+    } else {
+      return "red";
+    }
+  }
+
   return (
     <tr className="odd_col">
       <td>
         <h3>{String(holding.nseTrdSym).split("-")[0]}</h3>
-        <div className="watchlistbox">
+        <div className={"watchlistbox" + (showMenu ? " show" : "")}>
           <button
             type="button"
             className="btn btn-primary wmore dropdown-toggle"
             id="dropdownMenuButton"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
+            onClick={(e) => SetMenuflag(e)}
+            onMouseOver={(e) => SetMenuflag(e)}
+            aria-expanded={showMenu}
           ></button>
-          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <div
+            className={"dropdown-menu" + (showMenu ? " show" : "")}
+            aria-labelledby="dropdownMenuButton"
+          >
             <a className="dropdown-item" href="#">
               <img src="images/positions/exit.svg" /> Exit
             </a>
@@ -84,12 +108,12 @@ const HoldingView = (props: { holding: IHolding }) => {
       {/* <td>{holding.exSeg1}</td>
       <td>{holding.prod}</td> */}
       <td>{holding.hldQty}</td>
-      <td>{holding.whdColQty}</td>
+      <td>{holding.prc}</td>
       <td>{holding.ltp}</td>
-      <td>{holding.curval}</td>
-      <td>{holding.pnl}</td>
-      <td>{holding.whdColQty}</td>
-      <td>{holding.whdColQty}</td>
+      <td>{holding.curval != undefined ? holding.curval : 0}</td>
+      <td className={"c-" + getColour(holding.pnl)}>{holding.pnl}</td>
+      <td className={"c-" + getColour(holding.netchg)}>{holding.netchg}%</td>
+      <td>{holding.daychg}%</td>
     </tr>
   );
 };

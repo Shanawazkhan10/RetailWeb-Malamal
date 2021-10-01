@@ -67,7 +67,7 @@ const Header = () => {
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav">
-          <li className="nav-item nav-search d-none d-lg-block ml-0">            
+          <li className="nav-item nav-search d-none d-lg-block ml-0">
             <HeaderIndices></HeaderIndices>
           </li>
         </ul>
@@ -88,7 +88,10 @@ const Header = () => {
             <a
               className={
                 "nav-link" +
-                (maincontainerState.rightContainer === 3 ? " active" : "")
+                (maincontainerState.rightContainer === 3 ||
+                maincontainerState.rightContainer === 2
+                  ? " active"
+                  : "")
               }
               href=""
               onClick={onPositions}

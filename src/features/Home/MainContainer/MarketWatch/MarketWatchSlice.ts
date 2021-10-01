@@ -19,6 +19,7 @@ import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchList } from "../../../../types/IMarketWatchList";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import { IRemoveFromWatch } from "../../../../types/IRemoveFromWatch";
+import { ISession } from "../../../../types/ISession";
 import { IScriptUpdate } from "../../../../types/MarketData/IScriptUpdate";
 import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 import { IDeleteWatchlist } from "./../../../../app/IDeleteWatchlist";
@@ -251,7 +252,7 @@ const marketwatchSlice = createSlice({
               token.nc = script.nc;
             }
             if (script.cng != undefined) {
-              //        token.cng = script.cng;
+              token.cng = script.cng;
             }
 
             if (script.op != undefined) {
@@ -355,6 +356,7 @@ const marketwatchSlice = createSlice({
       //return newState;
     },
     updateStorage: (state, action) => {
+      //var Session: ISession = ;
       //{"status":"SUCCESS","code":200,"data":[{"mwName":"Test_2","scrips":"nse_cm|3426,nse_cm|22,nse_cm|1660,nse_fo|41140,nse_fo|39914"}]}
       var MarketWatchlist = action.payload;
       if (MarketWatchlist.data != undefined) {

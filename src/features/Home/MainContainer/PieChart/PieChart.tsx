@@ -17,18 +17,20 @@ const PieChart = (props: { holdingList: IHolding[] }) => {
       data={donutdata}
       options={{
         title: "",
-        pieHole: 0.6,
+        pieHole: 0.63,
         is3D: false,
         backgroundColor: "#ffffff00",
         fill: "#fff",
         showScale: false,
-        // slices: {   2: {offset:-0.0125},
-        //             4: {offset: -0.025},
-        //             5: {offset: 0},
-        //   },
+        // slices: {
+        //   1: { offset: -0.1 },
+        //   2: { offset: -0.1 },
+        //   3: { offset: -0.1 },
+        // },
         pieSliceBorderColor: "transparent",
         pieSliceText: "none",
         legend: { position: "none" },
+        tooltip: { isHtml: true },
       }}
       rootProps={{ "data-testid": "1" }}
     />

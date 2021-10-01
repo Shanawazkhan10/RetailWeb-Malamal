@@ -4,6 +4,7 @@ import { api } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IContractSearch } from "../../../../types/IContractSearch";
 import { IContractSearchReq } from "../../../../types/IContractSearchReq";
+import { IOrderEntryProps } from "../../../../types/OrderEntry/IOrderEntryProps";
 import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 import { SubUnsubReq, userWS } from "../../../WebSocket/HSSocket";
 import {
@@ -13,6 +14,7 @@ import {
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
+  setOrderEntryProps,
 } from "../../OrderEntry/orderEntrySlice";
 import { chartContainer } from "../mainContainerSlice";
 import MarketPicture from "../MarketPicture/MarketPicture";
@@ -42,6 +44,15 @@ const SmartSearch = (props: { Type: Number }) => {
     scriptList = WatchList.MarketWatchList[selectedList].scrips;
   }
 
+  const OrderEntryProp = {
+    token: "",
+    exchange: "",
+    quantity: 0,
+    price: "",
+    triggerprice: "",
+    symbol: "",
+  } as IOrderEntryProps;
+
   const nIsOpenFrom = props.Type;
   const onDepthClick = (data: IContractSearch, e: any) => {
     e.preventDefault();
@@ -60,9 +71,16 @@ const SmartSearch = (props: { Type: Number }) => {
     //dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
   };
 
-  function onBuyOrderEntryClick(e: any) {
+  function onBuyOrderEntryClick(e: any, result: any) {
     e.preventDefault();
     e.stopPropagation();
+    OrderEntryProp.token = result.tk;
+    OrderEntryProp.price = result.last;
+    OrderEntryProp.quantity = 1;
+    OrderEntryProp.symbol = result.ts;
+    OrderEntryProp.exchange = result.e;
+    OrderEntryProp.ltp = "0";
+    dispatch(setOrderEntryProps(OrderEntryProp));
     dispatch(openBuyOrderEntry());
   }
   function onSellOrderEntryClick(e: any) {
@@ -306,7 +324,7 @@ const SmartSearch = (props: { Type: Number }) => {
                           <button
                             type="button"
                             className="btn btn-primary wbuy"
-                            onClick={(e) => onBuyOrderEntryClick(e)}
+                            onClick={(e) => onBuyOrderEntryClick(e, result)}
                           >
                             B
                           </button>
