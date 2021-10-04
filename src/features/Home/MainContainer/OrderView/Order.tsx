@@ -19,6 +19,7 @@ const OrderView = (props: { order: IOrderResponse }) => {
   const { order } = props;
   const dispatch = useAppDispatch();
   const userState = useAppSelector((state) => state.user);
+  const orderEntryState = useAppSelector((state) => state.orderEntry);
   //const dispatch = useAppDispatch();
 
   const OrderEntryProp = {
@@ -112,7 +113,7 @@ const OrderView = (props: { order: IOrderResponse }) => {
     e.preventDefault();
 
     const JModdata: ICanceljData = {
-      am: "NO",
+      am: orderEntryState.variety === 2 ? "YES" : "NO",
       on: symbolInfo.nOrdNo,
       ts: symbolInfo.sym,
     };

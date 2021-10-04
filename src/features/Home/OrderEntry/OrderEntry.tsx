@@ -33,7 +33,7 @@ const OrderEntryComp = () => {
   function onFormSubmit() {
     if (orderEntryState.typeofOrder === 1) {
       const Jdata: IjData = {
-        am: "NO",
+        am: orderEntryState.variety === 2 ? "YES" : "NO",
         es: orderEntryState.exchange,
         pc: orderEntryState.productCode,
         pr: orderEntryState.price,
@@ -57,7 +57,7 @@ const OrderEntryComp = () => {
       dispatch(placeOrder(orderentryrequest));
     } else {
       const JModdata: IModjData = {
-        am: "NO",
+        am: orderEntryState.variety === 2 ? "YES" : "NO",
         on: orderEntryState.on,
         vd: orderEntryState.vd,
         ot: orderEntryState.orderType,

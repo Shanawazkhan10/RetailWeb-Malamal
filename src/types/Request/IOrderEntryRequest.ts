@@ -32,7 +32,7 @@ export interface IjData {
 }
 
 export interface IModjData {
-  am: "NO";
+  am: string;
   on: string;
   vd: string;
   ot: string;
@@ -47,7 +47,7 @@ export interface IModjData {
 }
 
 export interface ICanceljData {
-  am: "NO";
+  am: string;
   on: string;
   ts: string;
 }
