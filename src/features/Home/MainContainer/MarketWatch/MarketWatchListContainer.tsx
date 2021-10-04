@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
-import "../../style.css";
+
 import MarketWatchItem from "./MarketWatchItem";
 
 const MarketWatchListContainer = (props: any) => {
@@ -22,50 +22,22 @@ const MarketWatchListContainer = (props: any) => {
   return WatchListData && WatchListData.length > 0 ? (
     <Fragment>
       {WatchListData.map((row: IMarketWatch, i) => (
-        <div
-          className="mw_content"
-          key={i}
-          id={String(i)}
+        <table
+          className="table table-borderless"
+          id="mainwatchlist"
+          key={String(i)}
           style={selectedList == i ? {} : { display: "none" }}
         >
-          <div
-            style={{
-              width: "300%",
-              height: "100%",
-              position: "absolute",
-              left: "-455px",
-            }}
-          >
-            <div
-              id="mw_leftInnerView"
-              className="mw_inner"
-              style={{ width: "455px" }}
-            ></div>
-            <div
-              id="mw_centralInnerView"
-              className="mw_inner"
-              style={{ width: "455px" }}
-            >
-              {/* {WatchListData.map((WatchList: any) => (
-                <SingleLayout />
-              ))} */}
-              <MarketWatchItem
-                key={row.id}
-                propMarketWatch={row}
-                index={i}
-              ></MarketWatchItem>
-            </div>
-            <div
-              id="mw_rightInnerView"
-              className="mw_inner"
-              style={{ width: "455px" }}
-            ></div>
-          </div>
-        </div>
+          <MarketWatchItem
+            key={row.id}
+            propMarketWatch={row}
+            index={i}
+          ></MarketWatchItem>
+        </table>
       ))}
     </Fragment>
   ) : (
-    <div>Empty List</div>
+    <table className="table table-responsive table-borderless table-hover"></table>
   );
 };
 

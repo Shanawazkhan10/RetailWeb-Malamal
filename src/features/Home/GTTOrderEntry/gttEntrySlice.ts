@@ -11,8 +11,8 @@ const initialState = {
   slproductCode: 1,
   slorderType: 1,
   isPriceEnabled: false,
-  isTriggerPriceEnabled: false,  
-  isOCOenabled: false,  
+  isTriggerPriceEnabled: false,
+  isOCOenabled: false,
 } as IGTTEntry;
 
 export const gttEntrySlice = createSlice({
@@ -27,16 +27,22 @@ export const gttEntrySlice = createSlice({
       state.exchange = action.payload.exchange;
       state.isPriceEnabled = true;
       state.ltp = action.payload.ltp;
-      state.slprice = action.payload.price;      
+      state.slprice = action.payload.price;
       state.slquantity = action.payload.quantity;
-      state.LTPchange="5";
-      state.triggerprice = (state.ltp+ (state.ltp * (Number(state.LTPchange)/100))).toFixed(2);
-      state.slLTPChange="-5";
-      state.sltriggerprice = (state.ltp + (state.ltp * (Number(state.slLTPChange)/100))).toFixed(2);
+      state.LTPchange = "5";
+      state.triggerprice = (
+        state.ltp +
+        state.ltp * (Number(state.LTPchange) / 100)
+      ).toFixed(2);
+      state.slLTPChange = "-5";
+      state.sltriggerprice = (
+        state.ltp +
+        state.ltp * (Number(state.slLTPChange) / 100)
+      ).toFixed(2);
       state.orderType = 1;
     },
     openGTTEntry: (state) => {
-      state.isBuy= true;
+      state.isBuy = true;
       state.triggerType = 0;
       state.isGTTEntryOpen = true;
     },
@@ -62,37 +68,49 @@ export const gttEntrySlice = createSlice({
     },
     setSLMISProductCode: (state) => {
       state.slproductCode = 0;
-    },    
+    },
     setTriggertype: (state, action: PayloadAction<number>) => {
       state.triggerType = action.payload;
     },
-    setTriggerPrice:(state, action: PayloadAction<string>) => {
-      state.LTPchange =(((Number(action.payload) -state.ltp)/Number(action.payload))*100).toFixed(2);
+    setTriggerPrice: (state, action: PayloadAction<string>) => {
+      state.LTPchange = (
+        ((Number(action.payload) - state.ltp) / Number(action.payload)) *
+        100
+      ).toFixed(2);
       state.triggerprice = action.payload;
     },
-    setQty:(state, action: PayloadAction<number>) => {
+    setQty: (state, action: PayloadAction<number>) => {
       state.quantity = action.payload;
     },
-    setPrice:(state, action: PayloadAction<string>) => {
+    setPrice: (state, action: PayloadAction<string>) => {
       state.price = action.payload;
     },
-    setSLTriggerPrice:(state, action: PayloadAction<string>) => {      
-      state.slLTPChange=(((Number(action.payload) -state.ltp)/Number(action.payload))*100).toFixed(2);
+    setSLTriggerPrice: (state, action: PayloadAction<string>) => {
+      state.slLTPChange = (
+        ((Number(action.payload) - state.ltp) / Number(action.payload)) *
+        100
+      ).toFixed(2);
       state.sltriggerprice = action.payload;
     },
-    setSLQty:(state, action: PayloadAction<number>) => {
+    setSLQty: (state, action: PayloadAction<number>) => {
       state.slquantity = action.payload;
     },
-    setSLPrice:(state, action: PayloadAction<string>) => {
+    setSLPrice: (state, action: PayloadAction<string>) => {
       state.slprice = action.payload;
     },
-    setLTPChange:(state, action: PayloadAction<string>) => {
+    setLTPChange: (state, action: PayloadAction<string>) => {
       state.LTPchange = action.payload;
-      state.triggerprice = (state.ltp+ (state.ltp * (Number(state.LTPchange)/100))).toFixed(2);
+      state.triggerprice = (
+        state.ltp +
+        state.ltp * (Number(state.LTPchange) / 100)
+      ).toFixed(2);
     },
-    setSLLTPChange:(state, action: PayloadAction<string>) => {
+    setSLLTPChange: (state, action: PayloadAction<string>) => {
       state.slLTPChange = action.payload;
-      state.sltriggerprice = (state.ltp + (state.ltp * (Number(state.slLTPChange)/100))).toFixed(2);      
+      state.sltriggerprice = (
+        state.ltp +
+        state.ltp * (Number(state.slLTPChange) / 100)
+      ).toFixed(2);
     },
   },
 });

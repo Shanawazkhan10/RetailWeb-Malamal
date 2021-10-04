@@ -1,19 +1,19 @@
-import React, { Fragment, useEffect } from "react";
-import { Collapse } from "reactstrap";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { MarketWatchItemImagePath } from "../../../../constants/HSConstants";
 import { IDepthReq } from "../../../../types/IDepthReq";
 import { IMarketWatch } from "../../../../types/IMarketWatch";
 import { IMarketWatchTokenInfo } from "../../../../types/IMarketWatchTokenInfo";
 import { ISubscribeDepth } from "../../../../types/ISubscribeDepth";
 import { IGTTEntryProps } from "../../../../types/OrderEntry/IGTTEntryProps";
 import { IOrderEntryProps } from "../../../../types/OrderEntry/IOrderEntryProps";
+import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
 import { userWS } from "../../../WebSocket/HSSocket";
 import {
+  sendUnsubReq,
   SubUnsubReq,
   waitForSocketConnection,
 } from "../../../WebSocket/HSSocket1";
-//import { sendUnsubReq, SubUnsubReq } from "../../../WebSocket/HSSocket1";
-import { FetchSocketData } from "../../../WebSocket/WebSocketSlice";
 import {
   openGTTEntry,
   setGTTEntryProps,
@@ -24,19 +24,16 @@ import {
   setOrderEntryProps,
 } from "../../OrderEntry/orderEntrySlice";
 import { chartContainer } from "../mainContainerSlice";
-import {
-  updateMarketDepth,
-  UpdateTokenInfo,
-} from "../MarketPicture/MarketPictureSlice";
 import MarketDepth from "./MarketDepth";
 import {
-  fetchmarketSymbol,
+  FetchWatchListSymbol,
   hideMore,
+  setRemovedSymbol,
   ShowMarketDepth,
   showMore,
+  UpdateWatchlist,
 } from "./MarketWatchSlice";
 import Quote from "./Quote";
-//import { userWS } from "./../../../WebSocket/HSSocket1";
 
 export interface scriptInfoReq {
   scripArr: string[];
@@ -48,6 +45,10 @@ const MarketWatchItem = (props: {
   const marketWatchState = useAppSelector(
     (state) => state.marketwatch.marketWatch
   );
+  let selectedList: number;
+  selectedList = marketWatchState.nSelectedWatchList;
+  let selectlistname: string;
+  selectlistname = marketWatchState.sSelectedWatchList;
   const OrderEntryState = useAppSelector((state) => state.orderEntry);
   const user = useAppSelector((state) => state.user);
   const [activeItem, setActiveItem] = React.useState(false);
@@ -56,16 +57,13 @@ const MarketWatchItem = (props: {
   const { propMarketWatch } = props;
   const dispatch = useAppDispatch();
   const options = ["one", "two", "three"];
-
   useEffect(() => {
-    //dispatch(setSymbollistindex(props.index));
     getSymbol();
     console.log(" MarketWatchItem useEffect");
   }, []);
-
-  useEffect(() => {
-    var a = dispatch(FetchSocketData(22));
-  }, []);
+  // useEffect(() => {
+  //   var a = dispatch(FetchSocketData(22));
+  // }, []);
 
   const OrderEntryProp = {
     token: "",
@@ -84,12 +82,11 @@ const MarketWatchItem = (props: {
     triggerprice: "",
     symbol: "",
   } as IGTTEntryProps;
-
   function onBuyOrderEntryClick(symbolInfo: IMarketWatchTokenInfo) {
     OrderEntryProp.token = symbolInfo.tok;
     OrderEntryProp.price = symbolInfo.ltp;
     OrderEntryProp.quantity = 1;
-    OrderEntryProp.symbol = symbolInfo.sym;
+    OrderEntryProp.symbol = symbolInfo.trdSym;
     OrderEntryProp.exchange = symbolInfo.exSeg;
     OrderEntryProp.ltp = symbolInfo.ltp;
     dispatch(setOrderEntryProps(OrderEntryProp));
@@ -99,7 +96,7 @@ const MarketWatchItem = (props: {
     OrderEntryProp.token = symbolInfo.tok;
     OrderEntryProp.price = symbolInfo.ltp;
     OrderEntryProp.quantity = 1;
-    OrderEntryProp.symbol = symbolInfo.sym;
+    OrderEntryProp.symbol = symbolInfo.trdSym;
     OrderEntryProp.exchange = symbolInfo.exSeg;
     OrderEntryProp.ltp = symbolInfo.ltp;
     dispatch(setOrderEntryProps(OrderEntryProp));
@@ -108,27 +105,19 @@ const MarketWatchItem = (props: {
   function onChartClick() {
     dispatch(chartContainer());
   }
-  function RemoveSymbol(tokenInfo: IMarketWatchTokenInfo) {
-    //dispatch(UpdateTokenInfo(GetSymbolDetails()));
-    //dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
+  function RemoveSymbol(symbol: IMarketWatchTokenInfo) {
+    dispatch(setRemovedSymbol(symbol.tok));
     //API Call update List & on success call dispatch
-    // const RemoveFromWatch: IRemoveFromWatch = {
-    //   mwName: propMarketWatch.mwName,
-    //   scrips: removeValue(propMarketWatch.scrips, tokenInfo.scrips, "|"),
-    //   id: tokenInfo.mwId,
-    //   userId: "Test User",
-    // };
-    // dispatch(RemoveSymbolFromWatchlist(RemoveFromWatch));
+    const updateWatchlist: IUpdateWatchlist = {
+      mwName: propMarketWatch.mwName,
+      scrips: removeValue(
+        propMarketWatch.scrips,
+        symbol.exSeg + "|" + symbol.tok,
+        ","
+      ),
+    };
+    dispatch(UpdateWatchlist(updateWatchlist, user.sessionKey, 2));
     //Unsubscribe Depth API Call
-    // if (symbol.showDepth) {
-    //   const SubscribeDepth: ISubscribeDepth = {
-    //     type: "dpu",
-    //     scrips: symbol.scrips,
-    //     id: propMarketWatch.id,
-    //     channelnum: propMarketWatch.id,
-    //   };
-    //   UnsubscribeMarketDepth(SubscribeDepth);
-    // }
   }
   function removeValue(list: string, value: string, separator: string) {
     separator = ",";
@@ -141,54 +130,45 @@ const MarketWatchItem = (props: {
     }
     return list;
   }
+
   function onDepthClick(index: number, symbol: IMarketWatchTokenInfo) {
     const DepthReq: IDepthReq = {
       id: propMarketWatch.id,
       index: index,
     };
     dispatch(ShowMarketDepth(DepthReq));
-
     if (!symbol.showDepth) {
       //subscribe Depth API Call
       const SubscribeDepth: ISubscribeDepth = {
         type: "dps",
         scrips: symbol.exSeg + "|" + symbol.tok,
-        //id: propMarketWatch.id,
         channelnum: propMarketWatch.id + 1,
       };
-
       waitForSocketConnection(userWS, function () {
         userWS.send(JSON.stringify(SubscribeDepth));
       });
-      // dispatch(
-      //   getMarketDepthSuccess(SubscribeMarketDepth(propMarketWatch.id, index))
-      // );
     } else {
       //Unsubscribe Depth API Call
       const SubscribeDepth: ISubscribeDepth = {
         type: "dpu",
         scrips: symbol.exSeg + "|" + symbol.tok,
-        //id: propMarketWatch.id,
         channelnum: propMarketWatch.id + 1,
       };
-
       waitForSocketConnection(userWS, function () {
         userWS.send(JSON.stringify(SubscribeDepth));
       });
-      //sendUnsubReq(SubscribeDepth);
-      // UnsubscribeMarketDepth(SubscribeDepth);
     }
   }
 
   function getSymbol() {
+    //API call to bind Token info (Scrip Info Request)
     dispatch(
-      fetchmarketSymbol(
+      FetchWatchListSymbol(
         propMarketWatch.scrips.split(","),
         user.sessionKey,
         props.index
       )
     );
-
     //subscribe Script API Call
     const subUnsubReq: SubUnsubReq = {
       type: "mws",
@@ -197,23 +177,25 @@ const MarketWatchItem = (props: {
     };
     //if (userWS) {
     let req = JSON.stringify(subUnsubReq);
+    // waitForSocketConnection(userWS, function () {
+    //   userWS.send(req);
+    // });
+    //}
     waitForSocketConnection(userWS, function () {
-      userWS.send(req);
+      sendUnsubReq(subUnsubReq);
     });
-
     //}
     // waitForSocketConnection(userWS, function () {
     //   sendUnsubReq(subUnsubReq);
     // });
-
     // dispatch(
     //   UpdateSymbolDetails(
     //     GetWatchListSymbolDetails(propMarketWatch.id, propMarketWatch.scrips)
     //   )
     // );
   }
-
-  function onCreateGTTOrderClick(symbolInfo: IMarketWatchTokenInfo) {
+  function onCreateGTTOrderClick(symbolInfo: IMarketWatchTokenInfo, e: any) {
+    e.preventDefault();
     GTTEntryProp.token = symbolInfo.tok;
     GTTEntryProp.price = symbolInfo.ltp;
     GTTEntryProp.quantity = 1;
@@ -223,78 +205,118 @@ const MarketWatchItem = (props: {
     dispatch(setGTTEntryProps(GTTEntryProp));
     dispatch(openGTTEntry());
   }
+  const fundamentalStyle = {
+    width: "15px",
+    height: "15px",
+    background: "rgba(106, 78, 238, 0.2)",
+    borderRadius: "3px",
+  };
 
   return (
-    <Fragment>
-      {/* {propMarketWatch.SymbolList != null ? bindList : <div>No Data 2</div>} */}
-      {propMarketWatch.SymbolList != null ? (
+    <>
+      {propMarketWatch.SymbolList != null &&
+      propMarketWatch.SymbolList != [] ? (
         propMarketWatch.SymbolList.map(
           (symbolInfo: IMarketWatchTokenInfo, nIncreament) => (
-            <div>
-              <div
-                key={symbolInfo.scrips}
-                id={String(nIncreament)}
-                className="mw_block"
-                style={{ width: "400px" }}
+            <tbody key={nIncreament}>
+              <tr
+                className="slideInDown-element"
+                key={nIncreament}
                 onMouseLeave={() => {
                   dispatch(hideMore(nIncreament));
                 }}
               >
-                <div className="popupCloseButton" title="Delete"></div>
-                <div style={{ display: "none" }} className="mw_status">
-                  <ul>
-                    <li>
-                      <span id="spnEventStatus"></span>
-                    </li>
-                    <li>
-                      <span id="spnMarketStatus"></span>
-                    </li>
-                  </ul>
-                  <div className="status_pop">
-                    <span className="pre_game" id="spnEventStateTooltip"></span>
-                    <span className="open" id="spnMarketStateTooltip"></span>
-                  </div>
-                </div>
+                <td>
+                  {symbolInfo.isin != "NA" && symbolInfo.isin != "--" ? (
+                    <img
+                      src={MarketWatchItemImagePath + symbolInfo.isin + ".png"}
+                    />
+                  ) : (
+                    // <LazyLoadImage
+                    //   src={
+                    //     "http://img.tecxlabs.com.s3-website.ap-south-1.amazonaws.com/stock/" +
+                    //     symbolInfo.isin +
+                    //     ".png"
+                    //   }
+                    //   alt=""
+                    //   effect="blur"
+                    // />
+                    <div
+                      className="avatar"
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "50%",
+                        textAlign: "center",
+                        verticalAlign: "middle",
+                        backgroundColor: "rgba(156,39,176,0.1)",
+                        fontSize: "15px",
+                        fontWeight: 300,
+                        color: "rgb(156,39,176)",
+                        lineHeight: "50px",
+                        float: "left",
+                        clear: "none",
+                        marginRight: "15px",
+                      }}
+                    >
+                      <span>{symbolInfo.sym.charAt(0).toUpperCase()}</span>
+                    </div>
+                  )}
 
-                <div id="divLeftV" className="container_mw mw_team1">
-                  <div className="overlay_mw">
+                  <span>{symbolInfo.sym}</span>
+                </td>
+                <td className="price-box">
+                  <div className="watchlistbox">
                     <button
-                      className="btn_mw_overlay_2 btn_buy"
-                      title="Depth"
-                      onClick={() => onDepthClick(nIncreament, symbolInfo)}
-                    >
-                      D
-                    </button>
-                    <button
-                      className="btn_mw_overlay_2 btn_buy"
-                      title="Delete"
-                      onClick={() => RemoveSymbol(symbolInfo)}
-                    >
-                      Del
-                    </button>
-                    <button
-                      className="btn_mw_overlay_2 btn_buy"
-                      title="Chart(C )"
-                      onClick={onChartClick}
-                    >
-                      C
-                    </button>
-                    <button
-                      className="btn_mw_overlay_2 btn_buy"
+                      type="button"
+                      className="btn btn-primary wbuy"
                       title="BUY"
                       onClick={() => onBuyOrderEntryClick(symbolInfo)}
+                      data-toggle="modal"
+                      data-target="#BuyWMModal"
                     >
                       B
                     </button>
                     <button
-                      className="btn_mw_overlay_3 btn_sell"
+                      type="button"
+                      className="btn btn-primary wsell"
                       title="SELL"
                       onClick={() => onSellOrderEntryClick(symbolInfo)}
                     >
                       S
                     </button>
+                    <div className="d-inline-block" id="accordionExample">
+                      <div id="headingOne">
+                        <button
+                          className="btn btn-primary wmarketdepth"
+                          data-toggle="collapse"
+                          data-target="#collapseOne"
+                          aria-expanded="true"
+                          aria-controls="collapseOne"
+                          title="Depth"
+                          onClick={() => onDepthClick(nIncreament, symbolInfo)}
+                        ></button>
+                      </div>
+                    </div>
                     <button
-                      className="btn_mw_overlay_3 btn_detail"
+                      type="button"
+                      className="btn btn-primary wchart"
+                      title="Chart(C )"
+                      onClick={onChartClick}
+                    ></button>
+                    <button
+                      type="button"
+                      className="btn btn-primary wdelete"
+                      title="Delete"
+                      onClick={() => RemoveSymbol(symbolInfo)}
+                    ></button>
+                    <button
+                      type="button"
+                      className="btn btn-primary wmore dropdown-toggle"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
                       title="More"
                       onClick={() => {
                         symbolInfo.showMore
@@ -302,88 +324,90 @@ const MarketWatchItem = (props: {
                           : dispatch(showMore(nIncreament));
                       }}
                     ></button>
-                  </div>
-
-                  {symbolInfo.showMore && (
-                    <input
-                      type="button"
-                      value="Create GTT"
-                      onClick={() => onCreateGTTOrderClick(symbolInfo)}
-                    />
-                  )}
-
-                  <div className="divLeftV_in">
-                    <div className="mysymbolname">
-                      <span id="spnsymbol" title={symbolInfo.trdSym}>
-                        {symbolInfo.sym}
-                      </span>
-                      <br />
-                      <span id="spnLtt" title="LTT">
-                        {symbolInfo.trdSym}
-                      </span>
-                    </div>
-
-                    <div className="ltp_main">
-                      <span
-                        className="pt_sprd"
-                        id="spnltp"
-                        title="LTP"
-                        style={{ color: "#00bb7e" }}
+                    <div
+                      className={
+                        "dropdown-menu" + (symbolInfo.showMore ? " show" : "")
+                      }
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <a className="dropdown-item" href="">
+                        <img src="images/watchlist/pin.svg" /> Pin
+                      </a>
+                      <a
+                        className="dropdown-item"
+                        href=""
+                        onClick={(e) => onCreateGTTOrderClick(symbolInfo, e)}
                       >
-                        {symbolInfo.ltp}
-                      </span>
-                      <span className="pt_sprd" id="ltpDifference">
-                        {symbolInfo.cng}
-                      </span>
-                      <span className="pt_sprd" id="ltpPercent">
-                        {symbolInfo.nc}%
-                      </span>
+                        <img src="images/watchlist/create-gtt.svg" /> Create GTT
+                      </a>
+                      <a className="dropdown-item" href="">
+                        <img src="images/watchlist/chart.svg" /> Chart
+                      </a>
+                      <a className="dropdown-item" href="">
+                        <img src="" style={fundamentalStyle} /> Fundamentals
+                      </a>
+                      <a className="dropdown-item" href="">
+                        <img src="" style={fundamentalStyle} /> Technicals
+                      </a>
+                      <a className="dropdown-item" href="">
+                        <img src="images/watchlist/alert.svg" /> Set Alerts
+                      </a>
                     </div>
                   </div>
-                  <span
-                    style={{ display: "none" }}
-                    className="mw_hold"
-                    id="spnPositionTakenLeftV"
-                  ></span>
-                </div>
-
-                <div id="divRightV" className="mw_team2">
-                  <span
-                    className="vertical-text"
-                    id="spnEventStateTooltip"
-                    title="Exchange"
+                  <div
+                    className={
+                      "lprice" +
+                      (Number(symbolInfo.nc) > 0
+                        ? " text-green"
+                        : Number(symbolInfo.nc) < 0
+                        ? " text-red"
+                        : "")
+                    }
                   >
-                    {symbolInfo.exSeg}
-                  </span>
-                </div>
-              </div>
+                    {symbolInfo.ltp == undefined ? "0.00" : symbolInfo.ltp}
+                  </div>
+                  <p>
+                    {symbolInfo.cng == undefined ? "0.00" : symbolInfo.cng} (
+                    {symbolInfo.nc == undefined ? "0.00" : symbolInfo.nc}%)
+                  </p>
+                </td>
+              </tr>
               {symbolInfo.showDepth &&
               symbolInfo.marketDepth != null &&
               symbolInfo.marketDepth != undefined ? (
-                <Collapse in={symbolInfo.showDepth}>
-                  <div className="market-depth" style={{ display: "" }}>
+                <>
+                  <tr
+                    id="collapseOne"
+                    className="collapse show"
+                    aria-labelledby="headingOne"
+                    data-parent="#accordionExample"
+                  >
                     <MarketDepth
                       index={nIncreament}
                       depth={symbolInfo.marketDepth}
-                      tokenInfo={symbolInfo}
                     ></MarketDepth>
+                  </tr>
+                  <tr
+                    id="collapseOne"
+                    className="collapse show"
+                    aria-labelledby="headingOne"
+                    data-parent="#accordionExample"
+                  >
                     <Quote index={nIncreament} tokenInfo={symbolInfo}></Quote>
-                  </div>
-                </Collapse>
+                  </tr>
+                </>
               ) : (
                 ""
               )}
-              {/* {activeItem && activeIndex == nIncreament + 1
-                ? onDepthClick1(nIncreament + 1)
-                : ""} */}
-            </div>
+            </tbody>
           )
         )
       ) : (
-        <div>No Data 2</div>
+        <tr className="slideInDown-element">
+          <td>No Data</td>
+        </tr>
       )}
-    </Fragment>
+    </>
   );
 };
-
 export default MarketWatchItem;

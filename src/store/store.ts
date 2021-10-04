@@ -18,6 +18,10 @@ import gttEntrySlice from "../features/Home/GTTOrderEntry/gttEntrySlice";
 import WebSocketSlice from "../features/WebSocket/WebSocketSlice";
 import SmartSearchSlice from "../features/Home/MainContainer/SmartSearch/SmartSearchSlice";
 import MarketPictureSlice from "../features/Home/MainContainer/MarketPicture/MarketPictureSlice";
+import SummarySlice from "../features/Home/MainContainer/Dashboard/SummarySlice";
+import MarginSlice from "../features/Home/MainContainer/Dashboard/MarginSlice";
+import indicesSlice from "../features/Home/Header/IndicesSlice";
+import AddWatchListSlice from "../features/Home/MainContainer/MarketWatch/AddWatchListSlice";
 
 const store = configureStore({
   reducer: {
@@ -39,6 +43,10 @@ const store = configureStore({
     gttEntry: gttEntrySlice,
     marketpicture: MarketPictureSlice,
     socketData: WebSocketSlice,
+    summary: SummarySlice,
+    margin: MarginSlice,
+    indices: indicesSlice,
+    addwatch: AddWatchListSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

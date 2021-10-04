@@ -1,6 +1,6 @@
 export interface IRenameWatchlist {
   oldmwName: string;
   newmwName: string;
-  id: number;
+  //id: number;
   userId: String;
 }

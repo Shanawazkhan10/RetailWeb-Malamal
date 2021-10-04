@@ -1,9 +1,6 @@
 // import Amplify from "aws-amplify";
 // import awsConfig from "./aws-exports";
-import {
-  Route, Router,
-  Switch
-} from "react-router-dom";
+import { Route, Router, Switch } from "react-router-dom";
 // import ChartJS from "./features/Home/Chart/Chartjs";
 // import AdvancedChart from "./features/Home/Chart/AdvancedChart";
 // Amplify.configure(awsConfig);
@@ -16,7 +13,6 @@ import ForgotPassword from "./features/Login/ForgotPassword";
 import Login from "./features/Login/Login";
 import history from "./util/History";
 import PrivateRoute from "./util/PrivateRoute";
-
 
 function App() {
   return (

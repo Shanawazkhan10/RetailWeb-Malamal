@@ -6,3 +6,5 @@ export const enumSegments = {
   NCD: "NSE - Currency",
   BCD: "BSE - Currency",
 };
+
+

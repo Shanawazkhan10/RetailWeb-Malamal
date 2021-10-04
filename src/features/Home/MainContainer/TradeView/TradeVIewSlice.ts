@@ -27,11 +27,13 @@ export default TradeSlice.reducer;
 
 export const { TradeViewSuccess, TradeError, TradeUpdate } = TradeSlice.actions;
 
-export const fetchTradeView = (sessionKey:string): AppThunk => async (dispatch) => {
-  try {
-    const tradeResponse = await GetTradeBook(sessionKey);
-    dispatch(TradeViewSuccess(tradeResponse));
-  } catch (err: any) {
-    dispatch(TradeError(err.toString()));
-  }
-};
+export const fetchTradeView =
+  (sessionKey: string): AppThunk =>
+  async (dispatch) => {
+    try {
+      const tradeResponse = await GetTradeBook(sessionKey);
+      dispatch(TradeViewSuccess(tradeResponse));
+    } catch (err: any) {
+      dispatch(TradeError(err.toString()));
+    }
+  };

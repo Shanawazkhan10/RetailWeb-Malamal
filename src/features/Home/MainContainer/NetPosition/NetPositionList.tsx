@@ -1,19 +1,21 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
-import "../../style.css";
-import NetPosition from "./NetPosition";
-import { fetchNetposition, NetpositionSuccess } from "./NetPositionSlice";
-import NetPositionSummary from "./NetPositionSummary";
-import SmartSearch from "./../SmartSearch/SmartSearch";
-import MarketPicture from "../MarketPicture/MarketPicture";
+import { userWS } from "../../../WebSocket/HSSocket";
+import {
+  sendUnsubReq,
+  SubUnsubReq,
+  waitForSocketConnection,
+} from "../../../WebSocket/HSSocket1";
 import { ShowDepthFromPosition } from "../MarketPicture/MarketPictureSlice";
+import NetPosition from "./NetPosition";
+import { fetchNetposition } from "./NetPositionSlice";
 
 const NetPositionList = () => {
   //let NetpositionList: any[];
   const NetpositionList = useSelector((state: RootState) => state.netposition);
-  const User = useSelector((state: RootState) => state.user);
+  const user = useSelector((state: RootState) => state.user);
   //NetpositionList = Netposition.netposition;
   const dispatch = useAppDispatch();
 
@@ -22,105 +24,88 @@ const NetPositionList = () => {
   }
   useEffect(() => {
     //dispatch(NetpositionSuccess(getNetpositionData()));
-    dispatch(fetchNetposition(User.sessionKey));
+    dispatch(fetchNetposition(user.sessionKey));
+    getSymbol();
   }, []);
+
+  function getSymbol() {
+    if (NetpositionList.netposition != undefined) {
+      //subscribe Script API Call
+      const subUnsubReq: SubUnsubReq = {
+        type: "mws",
+        scrips: NetpositionList.netposition.map((x) => x.trdSym).join("&"),
+        channelnum: 1,
+      };
+
+      waitForSocketConnection(userWS, function () {
+        sendUnsubReq(subUnsubReq);
+      });
+    }
+  }
 
   return NetpositionList.netposition &&
     NetpositionList.netposition.length > 0 ? (
-    <div className="block_netPosition mr14" id="NetPosition">
-      <div className="block_head">
-        <h1>Net Position</h1>
-        <div className="mw_opt" id="mw_opt">
-          <div>
-            <ul id="ulTab" className="scroll_tabs_container">
-              <div className="scroll_tab_inner">
-                <div className="mw_opt">
-                  <button id="btnExchFilter" className="btn_TrdBookexchFilter">
-                    Filter
-                  </button>
-                </div>
-              </div>
-            </ul>
+    // <div className="tab-label-content" id="tab1-content">
+    //   <label data-for="tab1">Positions</label>
+    <div className="tab-content">
+      <div className="row mb-4">
+        <div className="col-md-4">
+          <h2>Positions ({NetpositionList.netposition.length})</h2>
+        </div>
+        <div className="col-md-8 text-right" id="searhnbtn">
+          <div className="input-group slideInDown-element m-0" id="search">
+            <div>
+              <span>
+                <img src="images/search.svg" />
+              </span>
+            </div>
+            <input type="text" placeholder="Search E.g. INFY" />
+          </div>
+          <div className="btnalign">
+            <a href="#">
+              <img
+                src=""
+                style={{
+                  width: "15px",
+                  height: "15px",
+                  background: "rgba(106, 78, 238, 0.2)",
+                  borderRadius: "3px",
+                }}
+              />{" "}
+              Analytics
+            </a>
+          </div>
+          <div className="btnalign">
+            <a href="#">
+              <img src="images/positions/download.svg" /> Download
+            </a>
           </div>
         </div>
       </div>
-      <div>
-        {/* <NetPositionSummary
-          netpositionSummary={Netposition.netposition}
-        ></NetPositionSummary> */}
-        {/* <NetPositionList></NetPositionList> */}
-
-        <div className="netPosTbl">
-          <table className="netposcls" id="tblnetposid">
+      <div className="row mb-5">
+        <div className="col-md-12">
+          <table className="datatable table table-hover" id="PortfolioTable">
             <thead>
-              <tr className="sticky">
-                <th
-                  className="tblHeaderNP"
-                  data-value="SymbolFullName"
-                  title="Symbol"
-                >
-                  <span>Symbol</span>
+              <tr>
+                <th style={{ width: "5%" }}>
+                  <input
+                    id="check_all"
+                    className="regular-checkbox"
+                    type="checkbox"
+                  />
+                  <label data-for="check_all"></label>
                 </th>
-                <th
-                  className="tblHeaderNP"
-                  data-value="InstrumentName"
-                  style={{ width: "111px" }}
-                  title="Instrument Name"
-                >
-                  <span>Instrument Name</span>
-                </th>
-                <th
-                  className="tblHeaderNP"
-                  data-value="ProductType"
-                  title="Product Type"
-                >
-                  <span>Product Type</span>
-                </th>
-                <th
-                  className="tblHeaderNP right"
-                  data-value="NetQty"
-                  title="Net Qty"
-                >
-                  <span>Net Qty</span>
-                </th>
-                <th
-                  className="tblHeaderNP right"
-                  data-value="NetAvg"
-                  title="Net Price"
-                >
-                  <span>Net Price</span>
-                </th>
-                <th
-                  className="tblHeaderNP right"
-                  data-value="LastTradedPrice"
-                  title="Market Price"
-                >
-                  <span>Market Price</span>
-                </th>
-                <th
-                  className="tblHeaderNP right"
-                  data-value="MTMPL"
-                  title="MTMGL"
-                >
-                  <span>MTMGL</span>
-                </th>
-                <th
-                  className="tblHeaderNP"
-                  data-value="nExchangeId"
-                  style={{ width: "111px" }}
-                  title="Exchange Name"
-                >
-                  <span>Exchange Name</span>
-                </th>
-                <th className="" title="Add">
-                  <span>Add</span>
-                </th>
-                <th className="" title="Exit">
-                  <span>Exit</span>
-                </th>
+                <th style={{ width: "5%" }}>Product</th>
+                <th style={{ width: "5%" }}>Exit</th>
+                <th style={{ width: "30%" }}>Instrument</th>
+                <th style={{ width: "5%" }}>Qty.</th>
+                <th style={{ width: "5%" }}>Avg.</th>
+                <th style={{ width: "5%" }}>LTP</th>
+                <th style={{ width: "5%" }}>P&L</th>
+                <th style={{ width: "5%" }}> Chg.</th>
               </tr>
             </thead>
-            <tbody id="tblnetposid">
+            <tbody>
               {NetpositionList.netposition.map((netposition: any) => (
                 <NetPosition
                   key={netposition.Token}
@@ -128,12 +113,96 @@ const NetPositionList = () => {
                 />
               ))}
             </tbody>
+            <tfoot>
+              <tr className="odd_col">
+                <td data-colspan="2">
+                  <button className="btn btn-primary">Exit Position</button>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                  <h4>Total</h4>
+                </td>
+                <td>
+                  <h4>0.00</h4>
+                </td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+      <div className="row my-5">
+        <div className="col-md-4">
+          <h2>Day's History ({NetpositionList.netposition.length})</h2>
+        </div>
+        <div className="col-md-8 text-right">
+          <div className="input-group slideInDown-element m-0" id="search">
+            <div>
+              <span>
+                <img src="images/search.svg" />
+              </span>
+            </div>
+            <input type="text" placeholder="Search E.g. INFY" />
+          </div>
+          <a href="#">
+            <img src="images/positions/download.svg" /> Download
+          </a>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-12">
+          <table className="datatable table table-hover" id="PortfolioTable">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Product</th>
+
+                <th>Instrument</th>
+                <th>Qty.</th>
+                <th>Avg.</th>
+                <th>LTP</th>
+                <th>P&L</th>
+                <th>Chg.</th>
+              </tr>
+            </thead>
+
+            {/* Temporary bindng to netposition */}
+            <tbody>
+              {NetpositionList.netposition.map((netposition: any) => (
+                <NetPosition
+                  key={netposition.Token}
+                  netposition={netposition}
+                />
+              ))}
+            </tbody>
+            <tfoot>
+              <tr className="odd_col">
+                <td data-colspan="2"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Total</td>
+                <td>0.00</td>
+                <td></td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>
     </div>
   ) : (
-    <div>{showDepth}</div>
+    // </div>
+    <div className="tab-content">
+      <div>
+        <p>You don't have any positions yet</p>
+      </div>
+      <br />
+      <button type="button" className="button-blue">
+        Get started
+      </button>
+    </div>
   );
 };
 

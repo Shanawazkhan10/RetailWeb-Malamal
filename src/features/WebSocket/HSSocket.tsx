@@ -12,6 +12,9 @@ import {
   SearchDepthUpdate,
   SearchScriptUpdate,
 } from "../Home/MainContainer/MarketPicture/MarketPictureSlice";
+import { onIndiceUpdate } from "../Home/Header/IndicesSlice";
+import { NetpositionUpdate } from "../Home/MainContainer/NetPosition/NetPositionSlice";
+import { HoldingUpdate } from "../Home/MainContainer/Holding/HoldingSlice";
 
 export interface authReq {
   sessionid: string;
@@ -70,6 +73,10 @@ const HSSocket = () => {
 
     userWS.onclose = function () {
       displayMessage("[Socket]: Disconnected !\n");
+      userWS = null;
+      setTimeout(function () {
+        connect();
+      }, 3000);
     };
 
     userWS.onerror = function () {
@@ -77,21 +84,27 @@ const HSSocket = () => {
     };
 
     userWS.onmessage = function (msg: any) {
-      JSON.parse(msg).forEach((data: any) => {
-        if (data.name == "dp") {
-          //dispatch(DepthUpdate(msg as IMarketDepth));
-          dispatch(DepthUpdatefromSocket(msg as IMarketDepth));
-          dispatch(SearchDepthUpdate(msg as IMarketDepth));
-        } else if (data.name == "sf") {
-          //dispatch(ScriptUpdate(msg as IScriptUpdate));
-          dispatch(ScriptUpdatefromSocket(msg as IScriptUpdate));
-          dispatch(SearchScriptUpdate(msg as IScriptUpdate));
-        } else if (data.name == "if") {
-          dispatch(IndicesUpdate(msg as IIndices));
-        } else {
-          console.log(displayMessage("[Res]: " + msg + "\n"));
+      JSON.parse(msg).forEach((element: any) => {
+        switch (element.name) {
+          case "dp":
+            dispatch(DepthUpdatefromSocket(element));
+            dispatch(SearchDepthUpdate(element));
+            break;
+          case "sf":
+            dispatch(ScriptUpdatefromSocket(element));
+            dispatch(SearchScriptUpdate(element));
+            dispatch(NetpositionUpdate(element));
+            dispatch(HoldingUpdate(element));
+
+            break;
+          case "if":
+            dispatch(onIndiceUpdate(element as IIndices));
+            break;
+
+          default:
+            //console.log(element);
+            break;
         }
-        displayMessage("[Res]: " + msg + "\n");
       });
     };
   }
@@ -99,7 +112,7 @@ const HSSocket = () => {
   function disconnect() {
     //Call on logoff
     userWS.close();
-    userWS = null;
+    //userWS = null;
   }
 
   function auth() {
@@ -200,13 +213,13 @@ const HSSocket = () => {
       >
         Script
       </button> */}
-      <button
+      {/* <button
         className="btn_mw_overlay_2 btn_buy"
         title="Chart(C )"
         onClick={() => depthSubscribe()}
       >
         Depth
-      </button>
+      </button> */}
     </div>
   );
 };

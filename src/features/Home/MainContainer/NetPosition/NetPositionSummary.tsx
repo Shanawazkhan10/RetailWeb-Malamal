@@ -1,6 +1,6 @@
 import { useAppDispatch } from "../../../../app/hooks";
 import { NetpositionSummary } from "../../../../types/INetpositionSummary";
-import "../../style.css";
+
 const NetPositionSummary = (props: {
   netpositionSummary: NetpositionSummary;
 }) => {

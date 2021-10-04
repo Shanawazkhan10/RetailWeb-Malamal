@@ -25,12 +25,12 @@ export const { SearchContractSuccess, SearchContractError } =
   smartsearch.actions;
 
 export const FetchSearch =
-  (ContractSearchReq: IContractSearchReq): AppThunk =>
+  (ContractSearchReq: IContractSearchReq,SessionKey:string): AppThunk =>
   async (dispatch) => {
     try {
-      const searchResponse = await SearchSymbol(ContractSearchReq);
+      const searchResponse = await SearchSymbol(ContractSearchReq,SessionKey);
       dispatch(SearchContractSuccess(searchResponse));
     } catch (err) {
-      dispatch(SearchContractError(err.toString()));
+      dispatch(SearchContractError(err));
     }
   };

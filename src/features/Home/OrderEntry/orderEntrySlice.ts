@@ -1,15 +1,23 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { sendOrderEntryRequest } from "../../../app/api";
+import {
+  sendCancelOrderRequest,
+  sendModifyOrderRequest,
+  sendOrderEntryRequest,
+} from "../../../app/api";
 import { toastNotification } from "../../../app/Notification";
 import { AppThunk } from "../../../store/store";
 import { IOrderEntry } from "../../../types/OrderEntry/IOrderEntry";
-import { IOrderEntryRequest } from "../../../types/Request/IOrderEntryRequest";
+import {
+  IOrderCancelRequest,
+  IOrderEntryRequest,
+  IOrderModifyRequest,
+} from "../../../types/Request/IOrderEntryRequest";
 
 const initialState = {
   isOrderEntryOpen: false,
   isBuy: false,
   variety: 0,
-  productCode: "MIS",
+  productCode: "I",
   orderType: "MKT",
   isPriceEnabled: false,
   isTriggerPriceEnabled: false,
@@ -20,6 +28,9 @@ const initialState = {
   isIOCVisible: true,
   triggerprice: "0",
   price: "0",
+  typeofOrder: 1, //1:Order Entry 2:Modify,
+  on: "",
+  vd: "",
 } as IOrderEntry;
 
 // PRODUCT TYPE
@@ -57,6 +68,14 @@ export const orderEntrySlice = createSlice({
       state.ltp = action.payload.ltp;
       state.triggerprice = "0";
       state.disclosedQty = 0;
+      if (
+        //action.payload.order != undefined &&
+        action.payload.typeofOrder == 2
+      ) {
+        state.on = action.payload.on;
+        state.vd = action.payload.vd;
+        state.typeofOrder = action.payload.typeofOrder;
+      }
     },
     openBuyOrderEntry: (state) => {
       state.isOrderEntryOpen = true;
@@ -81,7 +100,7 @@ export const orderEntrySlice = createSlice({
     },
     selectCoverVariety: (state) => {
       state.variety = 1;
-      state.productCode = "MIS";
+      state.productCode = "I";
       state.isDisclosedQtyVisible = false;
       state.isIOCVisible = false;
       state.validity = "DAY";
@@ -142,15 +161,40 @@ export const orderEntrySlice = createSlice({
     },
     onOrderEntrySuccess: (state, action: PayloadAction<any>) => {
       state.isOrderEntryOpen = false;
-      toastNotification("success", "Order Placed : "+ action.payload.nOrdNo);
+      toastNotification("success", "Order Placed : " + action.payload.nOrdNo);
     },
     onOrderEntryRejected: (state, action: PayloadAction<any>) => {
       state.isOrderEntryOpen = false;
-      toastNotification("error", "Order Rejected : "+action.payload.comment);
+      toastNotification("error", "Order Rejected : " + action.payload.comment);
     },
     onOrderEntryError: (state, action: PayloadAction<any>) => {
       state.isOrderEntryOpen = false;
       toastNotification("error", action.payload.message);
+    },
+    onOrderModifySuccess: (state, action: PayloadAction<any>) => {
+      state.isOrderEntryOpen = false;
+      toastNotification("success", "Order Modified : " + action.payload.nOrdNo);
+    },
+    onOrderModifyRejected: (state, action: PayloadAction<any>) => {
+      state.isOrderEntryOpen = false;
+      toastNotification(
+        "error",
+        "Order Modification Rejected : " + action.payload.comment
+      );
+    },
+    onOrderCancelSuccess: (state, action: PayloadAction<any>) => {
+      //state.isOrderEntryOpen = false;
+      toastNotification(
+        "success",
+        "Order Cancelled : " + action.payload.nOrdNo
+      );
+    },
+    onOrderCancelRejected: (state, action: PayloadAction<any>) => {
+      //state.isOrderEntryOpen = false;
+      toastNotification(
+        "error",
+        "Order Cancellation Rejected : " + action.payload.comment
+      );
     },
   },
 });
@@ -164,6 +208,36 @@ export const placeOrder =
         dispatch(onOrderEntrySuccess(orderResponse));
       } else {
         dispatch(onOrderEntryRejected(orderResponse));
+      }
+    } catch (err) {
+      dispatch(onOrderEntryError(err));
+    }
+  };
+
+export const modifyOrder =
+  (orderModifyRequest: IOrderModifyRequest): AppThunk =>
+  async (useDispatch) => {
+    try {
+      const orderResponse = await sendModifyOrderRequest(orderModifyRequest);
+      if (Number(orderResponse.stCode) === 200) {
+        dispatch(onOrderModifySuccess(orderResponse));
+      } else {
+        dispatch(onOrderModifyRejected(orderResponse));
+      }
+    } catch (err) {
+      dispatch(onOrderEntryError(err));
+    }
+  };
+
+export const cancelOrder =
+  (orderCancelRequest: IOrderCancelRequest): AppThunk =>
+  async (useDispatch) => {
+    try {
+      const orderResponse = await sendCancelOrderRequest(orderCancelRequest);
+      if (Number(orderResponse.stCode) === 200) {
+        dispatch(onOrderCancelSuccess(orderResponse));
+      } else {
+        dispatch(onOrderCancelRejected(orderResponse));
       }
     } catch (err) {
       dispatch(onOrderEntryError(err));
@@ -193,6 +267,13 @@ export const {
   onOrderEntrySuccess,
   onOrderEntryError,
   onOrderEntryRejected,
+  onOrderModifySuccess,
+  onOrderModifyRejected,
+  onOrderCancelSuccess,
+  onOrderCancelRejected,
 } = orderEntrySlice.actions;
 
 export default orderEntrySlice.reducer;
+function dispatch(arg0: { payload: any; type: string }) {
+  throw new Error("Function not implemented.");
+}

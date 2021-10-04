@@ -3,10 +3,10 @@ export interface INetPosition {
   brdLtQty: Number;
   cfBuyAmt: String;
   cfSellAmt: String;
-  cfBuyQty: String;
+  cfBuyQty: string;
   cfSellQty: String;
   exSeg: String;
-  buyAmt: String;
+  buyAmt: string;
   sellAmt: String;
   flBuyQty: String;
   flSellQty: String;
@@ -17,5 +17,6 @@ export interface INetPosition {
   tok: String;
   trdSym: String;
   type: String;
-  Sym: String;
+  sym: String;
+  ltp: string;
 }

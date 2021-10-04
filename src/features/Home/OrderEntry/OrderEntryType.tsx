@@ -4,14 +4,37 @@ import {
   setLimitOrder,
   setSLOrder,
   setSLMOrder,
+  setValidityWindow,
 } from "./orderEntrySlice";
 
 const OrderEntryType = () => {
+  function onMoreClick(e: any) {
+    e.preventDefault();
+    dispatch(setValidityWindow());
+  }
   const orderEntryState = useAppSelector((state) => state.orderEntry);
   const dispatch = useAppDispatch();
   return (
-    <div>
-      <div className="four columns price">
+    <div className="row">
+      <div className="col-md-4">
+        <a
+          href="#collapse"
+          id="toggle"
+          onClick={onMoreClick}
+          className="nav-toggle"
+        >
+          {orderEntryState.isValidityOpen ? "Hide" : "More"}
+          {/* <span
+                              className={
+                                "icon" +
+                                (orderEntryState.isValidityOpen
+                                  ? " icon-chevron-up"
+                                  : " icon-chevron-down")
+                              }
+                            ></span> */}
+        </a>
+      </div>
+      <div className="col-md-4">
         <div className="su-radio-group order-type">
           <div
             className="su-radio-wrap"
@@ -29,7 +52,7 @@ const OrderEntryType = () => {
               className="su-radio"
               value="MARKET"
               checked={orderEntryState.orderType === "MKT" ? true : false}
-              onChange={()=>{}}
+              onChange={() => {}}
             />
             <label htmlFor="radio-212" className="su-radio-label">
               Market
@@ -51,7 +74,7 @@ const OrderEntryType = () => {
               className="su-radio"
               value="LIMIT"
               checked={orderEntryState.orderType === "L" ? true : false}
-              onChange={()=>{}}
+              onChange={() => {}}
             />
             <label htmlFor="radio-213" className="su-radio-label">
               Limit
@@ -59,9 +82,10 @@ const OrderEntryType = () => {
           </div>
         </div>
       </div>
-      <div className="four columns trigger">
-        <div className="su-radio-group text-right order-type">
+      <div className="col-md-4">
+        <div className="su-radio-group text-right order-type float-right">
           <div
+            aria-disabled="true"
             className="su-radio-wrap"
             tooltip-pos="down"
             aria-label="Buy at a preferred price with a stoploss"
@@ -77,7 +101,7 @@ const OrderEntryType = () => {
               className="su-radio"
               value="SL"
               checked={orderEntryState.orderType === "SL" ? true : false}
-              onChange={()=>{}}
+              onChange={() => {}}
             />
             <label htmlFor="radio-215" className="su-radio-label">
               SL
@@ -89,6 +113,8 @@ const OrderEntryType = () => {
             aria-label="Buy at market price with stoploss"
             data-balloon-pos="down"
             onClick={() => dispatch(setSLMOrder())}
+
+            // disabled={orderEntryState.variety === 1 ? true : false}
           >
             <input
               id="radio-216"
@@ -99,7 +125,7 @@ const OrderEntryType = () => {
               className="su-radio"
               value="SL-M"
               checked={orderEntryState.orderType === "SL-M" ? true : false}
-              onChange={()=>{}}
+              onChange={() => {}}
             />
             <label htmlFor="radio-216" className="su-radio-label">
               SL-M

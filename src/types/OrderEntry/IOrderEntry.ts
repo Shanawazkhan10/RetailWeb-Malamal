@@ -13,4 +13,7 @@ export interface IOrderEntry extends IOrderEntryProps {
   disclosedQty: number;
   isDisclosedQtyVisible: boolean;
   isIOCVisible: boolean;
+  typeofOrder: number;
+  on: string;
+  vd: string;
 }
