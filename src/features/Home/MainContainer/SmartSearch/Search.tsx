@@ -1,30 +1,14 @@
-import { stat } from "fs";
 import React, { MouseEvent, useState } from "react";
-import { useSelector } from "react-redux";
-import {
-  ContractSearch,
-  GetSymbolDetails,
-  GetWatchListSymbolDetails,
-  SubscribeMarketDepth,
-} from "../../../../app/api";
-import { useAppDispatch } from "../../../../app/hooks";
-import { RootState } from "../../../../store/store";
-import { IContractSearchReq } from "../../../../types/IContractSearchReq";
 import AutoSuggest from "react-autosuggest";
-
-import ReactDOM from "react-dom";
+import { useAppDispatch } from "../../../../app/hooks";
 import { IContractSearch } from "../../../../types/IContractSearch";
-import "../../style.css";
 import {
   openBuyOrderEntry,
   openSellOrderEntry,
 } from "../../OrderEntry/orderEntrySlice";
+import "../../style.css";
 import { chartContainer, searchDepthContainer } from "../mainContainerSlice";
-import {
-  ShowDepthFromSearch,
-  updateMarketDepth,
-  UpdateTokenInfo,
-} from "../MarketPicture/MarketPictureSlice";
+import { ShowDepthFromSearch } from "../MarketPicture/MarketPictureSlice";
 
 const Search = () => {
   const dispatch = useAppDispatch();
@@ -100,24 +84,24 @@ const Search = () => {
   //   value,
   //   onChange: onChange,
   // };
-  function getSuggestions(value: string): IContractSearch[] {
-    //API Call
-    const ContractSearchReq: IContractSearchReq = {
-      //limit: 10,
-      search_type: "all",
-      keyword: value,
-      allowed_exchange: [
-        "nse_cm",
-        "nse_fo",
-        "mcx_fo",
-        "bse_cm",
-        "bse_fo",
-        "cde_fo",
-      ],
-    };
+  // function getSuggestions(value: string): IContractSearch[] {
+  //   //API Call
+  //   const ContractSearchReq: IContractSearchReq = {
+  //     //limit: 10,
+  //     search_type: "all",
+  //     keyword: value,
+  //     allowed_exchange: [
+  //       "nse_cm",
+  //       "nse_fo",
+  //       "mcx_fo",
+  //       "bse_cm",
+  //       "bse_fo",
+  //       "cde_fo",
+  //     ],
+  //   };
 
-    return ContractSearch(ContractSearchReq);
-  }
+  //   return ContractSearchReqContractSearch(ContractSearchReq);
+  // }
 
   function AddToWatchlist() {}
 
@@ -126,8 +110,8 @@ const Search = () => {
     dispatch(searchDepthContainer());
     dispatch(ShowDepthFromSearch(""));
     //Dummy call for fetch
-    dispatch(UpdateTokenInfo(GetSymbolDetails()));
-    dispatch(UpdateTokenInfo(SubscribeMarketDepth(0, 0)));
+    //dispatch(UpdateTokenInfo(GetSymbolDetails()));
+    //dispatch(UpdateTokenInfo(SubscribeMarketDepth(0, 0)));
     //dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
   };
   // Render Each Option
@@ -197,7 +181,7 @@ const Search = () => {
         onSuggestionsClearRequested={() => setSuggestions([])}
         onSuggestionsFetchRequested={({ value }) => {
           setValue(value);
-          setSuggestions(getSuggestions(value));
+          //setSuggestions(getSuggestions(value));
         }}
         onSuggestionSelected={(_, { suggestionValue }) =>
           console.log("Selected: " + suggestionValue)

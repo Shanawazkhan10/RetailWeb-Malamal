@@ -1,39 +1,39 @@
 import React from "react";
 import Chart from "react-google-charts";
+import { IHolding } from "../../../../types/Holding/IHolding";
 
-const PieChart = () => {
+const PieChart = (props: { holdingList: IHolding[] }) => {
+  const { holdingList } = props;
+  var donutdata: [[string, any]] = [["Symbol", "Holdings"]];
+  holdingList.map((row: IHolding, i) =>
+    donutdata.push([row.nseTrdSym, Number(row.hldQty)])
+  );
   return (
     <Chart
-      width={"600px"}
-      height={"350px"}
+      width={"100%"}
+      height={"100%"}
       chartType="PieChart"
       loader={<div>Loading Chart</div>}
-      data={[
-        ["Symbol", "Holdings"],
-        ["Reliance", 600000],
-        ["ACC", 10000],
-        ["AdaniPort", 50000],
-        ["Zomato", 100000],
-        ["HDFC", 50000],
-      ]}
+      data={donutdata}
       options={{
         title: "",
-        pieHole: 0.60,
+        pieHole: 0.63,
         is3D: false,
-        backgroundColor:"#1f1e2c",
-        fill:"#fff",  
-        showScale:false,      
-        // slices: {   2: {offset:-0.0125},
-        //             4: {offset: -0.025},
-        //             5: {offset: 0},
-        //   },
-        pieSliceBorderColor : "transparent", 
+        backgroundColor: "#ffffff00",
+        fill: "#fff",
+        showScale: false,
+        // slices: {
+        //   1: { offset: -0.1 },
+        //   2: { offset: -0.1 },
+        //   3: { offset: -0.1 },
+        // },
+        pieSliceBorderColor: "transparent",
         pieSliceText: "none",
-        legend: {position: 'none'} 
+        legend: { position: "none" },
+        tooltip: { isHtml: true },
       }}
       rootProps={{ "data-testid": "1" }}
-      
-    />    
+    />
   );
 };
 

@@ -6,6 +6,7 @@ import { PostLoginRequest, PostMPINRequest } from "../../app/api";
 import { toastNotification } from "../.././app/Notification";
 import { Redirect } from "react-router";
 import Cookies from "universal-cookie";
+import { ILoginRequest } from "../../types/Request/IloginRequest";
 
 const initialState = {
   isPasswordCheked: localStorage.getItem("userkey") ? true : false,
@@ -88,11 +89,10 @@ export const userSlice = createSlice({
 });
 
 export const UserLogin =
-  (loginData: any): AppThunk =>
+  (loginData: ILoginRequest): AppThunk =>
   async (dispatch) => {
     try {
       const LoginResponse = await PostLoginRequest(loginData);
-
       if (Number(LoginResponse.code) == 200) {
         if (Number(LoginResponse.data.action) == 102) {
         } else {
@@ -111,7 +111,7 @@ export const UserMPINLogin =
   async (dispatch) => {
     try {
       const MPINResponse = await PostMPINRequest(LoginData);
-      if (MPINResponse.code == 200) {
+      if (Number(MPINResponse.code) == 200) {
         dispatch(twofasuccess(MPINResponse));
       } else {
         dispatch(twofaError(MPINResponse));

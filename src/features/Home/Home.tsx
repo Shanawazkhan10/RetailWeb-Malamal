@@ -1,20 +1,15 @@
-import { Socket } from "dgram";
 import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppSelector } from "../../app/hooks";
 import HSSocket from "../WebSocket/HSSocket";
-import { authReq, connect, init, sendReq } from "../WebSocket/HSSocket1";
-// import { connect, init } from "../WebSocket/HSSocket1";
-// import { authReq } from "./../WebSocket/HSSocket";
-// import { sendReq } from "./../WebSocket/HSSocket1";
-import GttOrderEntry from "./GTTOrderEntry/GttOrderEntry";
 import Header from "./Header/Header";
 import MainContainer from "./MainContainer/MainContainer";
-import MarketPicture from "./MainContainer/MarketPicture/MarketPicture";
 import Menu from "./Menu/Menu";
 import OrderEntryComp from "./OrderEntry/OrderEntry";
-import "./style.css";
+import GttOrderEntry from "./GTTOrderEntry/GttOrderEntry";
+import { useHistory } from "react-router";
+
 var url = "wss://uathsmkt.hypertrade.in";
 const script = document.createElement("script");
 script.src = "../hslibo.js";
@@ -31,7 +26,8 @@ const Home = () => {
   const orderEntryState = useAppSelector((state) => state.orderEntry);
   const marketPictureState = useAppSelector((state) => state.marketpicture);
   const gttEntryState = useAppSelector((state) => state.gttEntry);
-
+  const user = useAppSelector((state) => state.user);
+  const history = useHistory();
   useEffect(() => {
     //init();
     //connect();
@@ -53,23 +49,30 @@ const Home = () => {
       document.body.removeChild(script);
     };
   }, []);
+
+  // if (!user.isAuthenticated) {
+  //   history.push("/login");
+  // }
+  // {
   return (
-    <div id="MasterSearchDiv">
-      <div id="wrapper">
-        <HSSocket></HSSocket>
-        <Header />
-        <MainContainer nWatchList={1} />
-        {orderEntryState.isOrderEntryOpen && <OrderEntryComp />}
-        {gttEntryState.isGTTEntryOpen && <GttOrderEntry />}
-        {/* <Footer /> */}
-        {marketPictureState.marketpicture.IsShow && (
+    // <div id="MasterSearchDiv">
+    //   <div id="wrapper">
+    <div className="container-scroller mb-2">
+      <HSSocket></HSSocket>
+      <Header />
+      <MainContainer nWatchList={1} />
+      {orderEntryState.isOrderEntryOpen && <OrderEntryComp />}
+      {gttEntryState.isGTTEntryOpen && <GttOrderEntry />}
+      {/* <Footer /> */}
+      {/* {marketPictureState.marketpicture.IsShow && (
           <MarketPicture></MarketPicture>
         )}
-        <Menu></Menu>
-      </div>
+      <Menu></Menu>
+      {/* </div> */}
       <ToastContainer />
     </div>
   );
+  //}
 };
 
 export default Home;

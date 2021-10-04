@@ -1,0 +1,1889 @@
+body {
+  font-size: 1rem;
+  font-family: "Open Sans", sans-serif;
+  font-weight: initial;
+  line-height: normal;
+  -webkit-font-smoothing: antialiased;
+}
+p {
+  font-size: 16px;
+  margin-bottom: 0.4rem;
+  line-height: 1.4rem;
+}
+h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+} /*40*/
+h2 {
+  font-size: 1.375rem;
+  font-weight: 600;
+} /*22*/
+h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+} /*18*/
+h4 {
+  font-size: 1rem;
+  font-weight: 600;
+} /*16*/
+h5 {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-transform: uppercase;
+} /*15*/
+h6 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+} /*14*/
+
+a {
+  color: #6344f2;
+  text-decoration: none;
+}
+a:hover {
+  color: #6344f2;
+  text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+/*::-webkit-scrollbar-track {background-color: #efefef}*/
+::-webkit-scrollbar-thumb {
+  background-color: rgb(99 68 242 / 50%);
+  border-radius: 20px;
+}
+/*::-webkit-scrollbar-thumb:hover {background-color: #efefef;}*/
+
+.navbar {
+  padding: 6px 28px;
+}
+.navbar-brand {
+  margin-right: 30px;
+}
+.navbar-light .navbar-toggler {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+.btn-primary {
+  background-color: #6a4eee;
+  border-radius: 4px;
+  border: none;
+  color: #ffffff;
+}
+.btn-primary:hover {
+  background-color: #6a4eee;
+}
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: #6a4eee;
+}
+#menutxt .nav-item a {
+  font-weight: 400;
+  font-size: 15px;
+  color: #ffffff;
+  padding: 4px 20px;
+}
+#menutxt .nav-item a.active {
+  font-weight: 600;
+  font-size: 16px;
+  color: #ffffff;
+}
+#menutxt .nav-item .active:after {
+  content: " ";
+  display: block;
+  height: 4px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  color: #ffffff;
+}
+
+#mainbox {
+  margin-top: 100px;
+}
+
+.plate a {
+  text-decoration: underline;
+  color: #6344f2;
+}
+.main-container {
+  margin: 1.6rem 0.8rem;
+}
+.grid-container {
+  margin: auto;
+  display: grid;
+  grid-gap: 1.1312rem;
+  grid-template-columns: repeat(auto-fit, 12.8rem);
+  grid-auto-rows: 12.8rem;
+  grid-auto-flow: dense;
+  justify-content: center;
+  max-width: 75em;
+}
+
+.c-blue {
+  color: #1964e4;
+}
+.c-purple {
+  color: #6344f2;
+}
+.c-black {
+  color: #000000;
+}
+.c-orange {
+  color: #f54518;
+}
+.c-green {
+  color: #00c707;
+}
+.c-red {
+  color: #f1524e;
+}
+.c-sell {
+  color: #ff6872;
+}
+.c-buy {
+  color: #5762f7;
+}
+
+.c-red .progress-bar {
+  background-color: #f1524e !important;
+}
+
+.marketlive {
+  background-color: #ffffff;
+  width: max-content;
+  height: 57px;
+  padding: 0px 30px;
+  text-align: -webkit-center;
+  min-width: 500px;
+}
+.marketlive .nname {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 16px;
+}
+.marketlive .pgreen {
+  color: #00c707;
+  margin: 0px 15px 0px;
+  font-weight: 700;
+}
+.marketlive .pred {
+  color: #ff0606;
+  margin: 0px 15px 0px;
+  font-weight: 700;
+}
+.marketlive .mpercent {
+  font-weight: 600;
+}
+.niftymain {
+  display: inline-flex;
+  color: #000000;
+  font-weight: 700;
+  margin: 15px 0;
+}
+.sensexmain {
+  display: inline-flex;
+  color: #000000;
+  margin-left: 30px;
+}
+
+.pagination > li > a {
+  border-radius: 4px !important;
+  margin: 0 5px;
+}
+.page-item.active .page-link {
+  background-color: #6a4eee;
+  color: #ffffff;
+}
+.page-item .page-link {
+  color: #000000;
+  border: 1px solid #d2d0e1 !important;
+}
+.page-item .page-link:hover {
+  color: #ffffff;
+  border: 1px solid #d2d0e1 !important;
+  background-color: #6a4eee;
+}
+.page-item .page-link:focus {
+  box-shadow: none;
+}
+.pagenum {
+  padding: 0px 30px;
+}
+.pagenum .dropdown-menu {
+  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 14%);
+  border: none;
+  padding: 10px 12px;
+}
+.pagenum .dropdown-menu::after {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  right: 1em;
+  top: -6px;
+  border: 6px solid transparent;
+  border-top: 0;
+  border-bottom-color: #ffffff;
+}
+.pagenum .dropdown-menu p {
+  font-size: 12px;
+  color: #121212;
+}
+.pagenum .dropdown-menu button {
+  border: solid 0.5px #d2d0e1;
+  padding: 6px 10px;
+  background: #ffffff;
+  border-radius: 4px;
+  width: 40px;
+  font-size: 10px;
+}
+.pagenum .dropdown-menu button:hover {
+  background: #6344f2;
+  color: #ffffff;
+}
+.pagenum .dropdown-menu .dropdown-item {
+  padding: 6px 0;
+  font-size: 12px;
+}
+.pagenum .dropdown-menu img {
+  margin: 0 10px;
+}
+
+/*search*/
+#search input {
+}
+#searchwatchlist {
+  height: 73vh;
+  overflow: auto;
+  margin: 12px 0 12px 0;
+}
+#searchwatchlist h4 {
+  display: inline;
+  text-transform: uppercase;
+}
+#searchwatchlist tr {
+  border-bottom: 1px solid #eeeeee;
+}
+#searchwatchlist tr td:nth-child(1) {
+  padding: 12px 15px 5px 30px;
+}
+#searchwatchlist tr td:nth-child(2) {
+  /*padding: 5px 18px 5px 15px;*/
+}
+#searchwatchlist tbody tr td p {
+  text-transform: uppercase;
+  margin-top: 4px;
+  font-size: 14px;
+}
+.search-box {
+  text-align: right;
+}
+.search-box p {
+  /*display: inline;*/
+  text-transform: uppercase;
+  white-space: pre-wrap;
+}
+.search-box .bse {
+  background: rgba(25, 100, 228, 0.3);
+  color: #1964e4;
+  padding: 0px 6px;
+  border-radius: 3px;
+  margin-left: 5px;
+  font-size: 12px;
+  font-weight: 400;
+  display: inline;
+}
+.search-box .nse {
+  background: rgba(243, 24, 19, 0.3);
+  color: #f31813;
+  padding: 0px 6px;
+  border-radius: 3px;
+  margin-left: 5px;
+  font-size: 12px;
+  font-weight: 400;
+  display: inline;
+}
+.search-box .nse-g {
+  background: rgba(165, 167, 164, 0.3);
+  color: #121212;
+  padding: 0px 6px;
+  border-radius: 3px;
+  margin-left: 5px;
+  font-size: 12px;
+  font-weight: 400;
+  display: inline;
+}
+.watchlistadded h4 {
+  color: #9e9e9e;
+}
+#searchwatchlist div.watchlistbox {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 28%;
+  padding-right: 15px;
+}
+#searchwatchlist tr:hover div.watchlistbox {
+  display: block;
+}
+#searchwatchlist tbody tr:hover {
+  background: #efefef;
+}
+/*search*/
+
+.b-listing {
+  padding: 0 12px 0 0;
+}
+.b-listing #mainwatchlist {
+  margin: 12px 0 12px 0;
+  width: fit-content;
+  width: 100%;
+}
+.b-listing #mainwatchlist tbody tr:hover {
+  background: #efefef;
+}
+.b-listing nav {
+  display: inline-block;
+  margin-right: 10px;
+}
+.b-listing #mainwatchlist tr td {
+  padding: 6px 0;
+}
+.b-listing #mainwatchlist tr img {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #8b72ff;
+  border-radius: 35px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+.b-listing #mainwatchlist tr span {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 14px;
+  color: #121212;
+  white-space: normal;
+  display: inline-block;
+  max-width: 60%;
+  vertical-align: middle;
+  word-break: break-word;
+}
+.b-listing #watchlistinner2 tr td:nth-child(1) {
+  color: #9a9a9a;
+}
+.b-listing #watchlistinner2 tr td:nth-child(2) {
+  color: #121212;
+  font-weight: 600;
+  text-align: right;
+}
+.b-listing #watchlistinner2 tr th {
+  padding: 6px 6px;
+}
+.b-listing #watchlistinner2 tr td {
+  width: 100%;
+  padding: 5px 0px;
+  font-size: 12px;
+}
+
+#mainwatchlist tr.collapse {
+  border-top: 1px solid #bbbbbb;
+  border-bottom: 1px solid #bbbbbb;
+}
+
+#watchlistinner .table-cell {
+  padding: 6px 6px;
+}
+#watchlistinner tr td {
+  padding: 6px 0;
+}
+#watchlistinner tbody tr td:nth-last-child(1) {
+}
+#watchlistinner.c-blue tbody tr a {
+  color: #1964e4;
+}
+#watchlistinner.c-red tbody tr a {
+  color: #f1524e;
+}
+#watchlistinner a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+.table {
+  display: table;
+}
+.table-row {
+  display: table-row;
+}
+.table-cell {
+  display: table-cell;
+}
+.b-listing #watchlistinner .table-row .table-cell:nth-child(2) {
+  text-align: center;
+}
+.b-listing #watchlistinner .table-row .table-cell:nth-child(3) {
+  text-align: center;
+}
+
+.price-box {
+  text-align: right;
+}
+.price-box p {
+  font-weight: 400;
+  font-size: 12px;
+  margin-bottom: 0;
+}
+.price-box .text-green {
+  color: #00c707;
+}
+.price-box .text-red {
+  color: #ff0606;
+}
+.price-box .lprice {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.equitytxt {
+  color: #a5a7a4;
+  font-size: 17px;
+  margin-bottom: 20px;
+}
+.equitytxt p {
+  color: #a5a7a4;
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 14px;
+}
+.equitytxt span {
+  color: #000000;
+  float: right;
+}
+.equitybtn a {
+  font-size: 16px;
+  font-weight: 600;
+  color: #6344f2;
+}
+.equitybtn a img {
+  margin: 0 6px 0 0;
+}
+
+.equity-summary a {
+  text-decoration: none;
+}
+.equity-summary table tr th {
+  padding: 10px 20px 20px 0px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.toptxt p {
+  margin: 20px 0 !important;
+  font-size: 20px;
+  font-weight: 600;
+}
+.equity-summary table tr td {
+  padding: 5px 10px 8px 2px;
+  font-size: 14px;
+  font-weight: 600; /*width: 100%;*/
+}
+
+.equitysummarymenu .active {
+  font-weight: 700;
+  background: none !important;
+}
+.equitysummarymenu .dropdown-item.active,
+.dropdown-item:active {
+  background-color: none !important;
+}
+.equitysummarymenu .dropdown-menu {
+  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 14%);
+  border: none;
+  font-size: 12px;
+  top: 6px !important;
+}
+.equitysummarymenu .dropdown-menu .dropdown-item {
+  border-bottom: 1px solid #d2d0e1;
+  padding: 10px 12px;
+}
+.equitysummarymenu .dropdown-menu .dropdown-item::after {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  right: 1em;
+  top: -6px;
+  border: 6px solid transparent;
+  border-top: 0;
+  border-bottom-color: #ffffff;
+}
+.equitysummarymenu .dropdown-menu .dropdown-item:nth-last-child(1) {
+  border-bottom: none;
+}
+
+#port-holding h3 {
+  font-size: 25px;
+  font-weight: 600;
+}
+#port-holding .holdingleft p {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.contentbox {
+  color: #000000;
+  background: #f2efff;
+  padding: 18px;
+  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 14%);
+  height: auto;
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+
+.plate {
+  color: #000000;
+  background: #ffffff;
+  padding: 18px;
+  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 14%);
+  height: 40vh;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.equityplate {
+  color: #000000;
+  background: #ffffff;
+  padding: 18px;
+  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 14%);
+  height: 85vh;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.equityplate span {
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 10px;
+}
+.equityplate .toptxt p {
+  font-size: 26px;
+}
+.equityplate table tr td {
+  padding: 5px 10px 12px 2px;
+}
+.portfolioplate {
+  color: #000000;
+  background: #ffffff;
+  padding: 18px;
+  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 14%);
+  height: 85vh;
+  overflow: auto;
+  margin-bottom: 10px;
+}
+
+#holdingbox {
+  height: 60vh;
+}
+#holdingbox a {
+  text-decoration: none;
+}
+#marketbox {
+  height: 60vh;
+}
+.plate-2 {
+  color: #000000;
+  background: #ffffff;
+  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 14%);
+}
+.plate span {
+  font-size: 20px;
+  font-weight: 600;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+.plate h1 {
+  color: #6344f2;
+  margin: 16px 0;
+  font-size: 34px;
+  font-weight: 600;
+}
+
+.positions p {
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 0;
+}
+#bar-graph {
+  overflow: auto;
+  height: 230px;
+}
+#bar-graph .col-md-6:nth-child(1) {
+  padding: 0 6px 2px 15px;
+}
+#bar-graph .col-md-6:nth-child(2) {
+  padding: 0 15px 0 6px;
+}
+#bar-graph .col-md-6 {
+  padding: 0 6px;
+}
+.positions .progress {
+  border-radius: 4px;
+  background-color: #ffffff;
+  margin: 7px 0;
+}
+.positions .progress .progress-bar {
+  border-radius: 4px;
+  background-color: #307bfa;
+}
+
+.holdingleft h3 {
+  font-size: 20px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.holdingleft span {
+  font-size: 14px;
+  margin: 0;
+}
+.holdingleft p {
+  color: #a5a7a4;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.holdingbtn span a {
+  font-size: 16px;
+  font-weight: 600;
+  color: #6344f2;
+  float: right;
+}
+
+#search {
+  border: transparent;
+  border-bottom: 1px solid #6344f2;
+  padding: 30px 0px 0 0px;
+  margin: 0px 18px 0px 30px;
+  display: -webkit-inline-box;
+  width: -webkit-fill-available;
+}
+#search span {
+  vertical-align: -webkit-baseline-middle;
+}
+#search input {
+  border: transparent;
+  padding: 8px 14px;
+  font-size: 16px;
+  font-weight: 400;
+  width: 83%;
+  background: transparent;
+  color: #121212;
+  display: block;
+}
+#search ::placeholder {
+  color: #cacaca;
+}
+.search-results {
+  position: relative;
+  top: 0px;
+  z-index: 0;
+  display: none;
+  height: 73vh;
+  overflow: auto;
+}
+.search-results li:hover {
+}
+
+.listingnum {
+  display: inline-flex;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #a5a7a4;
+}
+
+.menu-bar {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  height: 14px;
+  margin-left: -10px;
+}
+.bars {
+  display: block;
+  width: 20px;
+  height: 3px;
+  background-color: #333;
+  box-shadow: 0 5px 0 #333, 0 10px 0 #333;
+}
+.menu {
+  display: none;
+  width: 100%;
+  padding: 30px 10px 50px;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #fff;
+}
+.menu ul {
+  margin-bottom: 0;
+}
+.menu a {
+  color: #333;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.menu a:hover {
+  text-decoration: none;
+  opacity: 1;
+}
+
+#livemarketmobile .plate-3 {
+  color: #000000;
+  background: #ffffff;
+  padding: 18px;
+  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 14%);
+  height: auto;
+  overflow: hidden;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.slideInDown-element {
+  animation: slideInDown; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 3s; /* don't forget to set a duration! */
+}
+.slideInLeft-element {
+  animation: slideInLeft; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 3s; /* don't forget to set a duration! */
+}
+.fadeIn-element {
+  animation: fadeIn; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 2s; /* don't forget to set a duration! */
+}
+
+.watchlistname {
+  border-bottom: 1px solid #eeeeee;
+  padding-bottom: 10px;
+}
+.watchlistname .col-md-6 {
+  display: inline-block;
+  padding: 0;
+}
+.watchlistname .col-md-6:nth-last-child(1) {
+  float: right;
+}
+.watchlistname h3 {
+  display: inline;
+  text-transform: uppercase;
+}
+.watchlistname h6 {
+  display: inline;
+  text-transform: none;
+}
+.watchlistname p {
+  display: inline;
+}
+.watchlistname span {
+  margin-left: 10px;
+  color: #a5a7a4;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: #6344f2;
+}
+
+td {
+  position: relative;
+}
+div.watchlistbox {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 30%;
+  padding-right: 18px;
+}
+div.watchlistbox .dropdown-menu.show {
+  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 14%);
+  border: none;
+  padding: 0;
+}
+div.watchlistbox .dropdown-menu {
+  top: 10px !important;
+  left: -14px !important;
+}
+div.watchlistbox .btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: none;
+}
+div.watchlistbox .wbuy {
+  background-color: #1964e4;
+}
+div.watchlistbox .wsell {
+  background-color: #f31813;
+}
+div.watchlistbox .wmarketdepth {
+  background: url(../images/watchlist/market-depth.svg) center center no-repeat
+    #ffffff;
+  border: 1px solid #a5a7a4;
+}
+div.watchlistbox .wmarketdepth:hover {
+  background: url(../images/watchlist/market-depth-w.svg) center center
+    no-repeat #6344f2;
+}
+div.watchlistbox .wchart {
+  background: url(../images/watchlist/chart.svg) center center no-repeat #ffffff;
+  border: 1px solid #a5a7a4;
+}
+div.watchlistbox .wchart:hover {
+  background: url(../images/watchlist/chart-w.svg) center center no-repeat
+    #6344f2;
+}
+div.watchlistbox .searchadd {
+  background: url(../images/add.svg) center center no-repeat #ffffff;
+  border: 1px solid #a5a7a4;
+  background-color: #00c707;
+}
+div.watchlistbox .searchadded {
+  background: url(../images/tick.svg) center center no-repeat #ffffff;
+  border: 1px solid #a5a7a4;
+  background-color: #9e9e9e;
+}
+
+div.watchlistbox .wdelete {
+  background: url(../images/watchlist/delete.svg) center center no-repeat
+    #ffffff;
+  border: 1px solid #a5a7a4;
+}
+div.watchlistbox .wdelete:hover {
+  background: url(../images/watchlist/delete-r.svg) center center no-repeat
+    #ffffff;
+}
+div.watchlistbox .wmore {
+  background: url(../images/watchlist/more.svg) center center no-repeat #ffffff;
+  border: 1px solid #a5a7a4;
+}
+div.watchlistbox .wmore:hover {
+  background: url(../images/watchlist/more-w.svg) center center no-repeat
+    #6344f2;
+}
+
+div.watchlistbox
+  .btn-primary.dropdown-toggle:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: #6344f2;
+  border-color: #6344f2;
+  background: url(../images/watchlist/more-w.svg) center center no-repeat
+    #6344f2;
+}
+
+div.watchlistbox button.bg-white:hover {
+  background-color: #6344f2;
+}
+tr:hover div.watchlistbox {
+  display: block;
+}
+
+#SChartModal #watchlistinner2 tr td:nth-child(1) {
+  color: #9a9a9a;
+}
+#SChartModal #watchlistinner2 tr td:nth-child(2) {
+  color: #121212;
+  font-weight: 600;
+  text-align: right;
+}
+#SChartModal #watchlistinner2 tr th {
+  padding: 6px 6px;
+}
+#SChartModal #watchlistinner2 tr td {
+  width: 100%;
+  padding: 5px 0px;
+  font-size: 12px;
+}
+.modal-buy {
+  background: #5762f7;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+.modal-sell {
+  background: #ff6872;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+.modal-gtt {
+  background: #6a4eee;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.watchlistbox button {
+  padding: 0px;
+  z-index: 1;
+  border: none;
+  border-radius: 6px;
+  width: 40px;
+  height: 30px;
+}
+#mainwatchlist tr td .watchlistbox img {
+  width: 15px;
+  height: 15px;
+  border: none;
+  margin: 0 10px;
+}
+.watchlistbox button.dropdown-toggle::after {
+  display: none;
+}
+.watchlistbox .dropdown-menu a {
+  font-size: 12px;
+  padding: 9px 0px;
+  border-bottom: 0.5px solid #d2d0e1;
+}
+.watchlistbox .dropdown-menu a::after {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  right: 1em;
+  top: -6px;
+  border: 6px solid transparent;
+  border-top: 0;
+  border-bottom-color: #ffffff;
+}
+.watchlistbox .dropdown-menu.show a:nth-last-child(1) {
+  border-bottom: none;
+}
+.watchlistbox .dropdown-menu a img {
+  margin: 0 10px;
+}
+
+.top-botmline {
+  border-bottom: 1px solid #eeeeee;
+  border-top: 1px solid #eeeeee;
+}
+
+.form {
+  position: relative;
+  width: 20rem; /*height: 3rem;*/
+  margin-bottom: 10px;
+  width: 100%;
+}
+.form__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #d2d0e1;
+  border-radius: 0.5rem;
+  font-family: inherit;
+  font-size: inherit;
+  color: ;
+  outline: none;
+  padding: 1.25rem;
+  background: none; /* Change border when input focus*/
+}
+.form__input:hover {
+  border-color: #d2d0e1;
+  color: #222222;
+}
+.form__input:focus {
+  border-color: #d2d0e1;
+}
+.form__label {
+  position: absolute;
+  left: 1rem;
+  top: 0.8rem;
+  padding: 0 0.5rem;
+  color: #d2d0e1;
+  cursor: text;
+  transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
+  background-color: #ffffff;
+}
+
+.form__input:focus ~ .form__label,
+.form__input:not(:placeholder-shown).form__input:not(:focus) ~ .form__label {
+  top: -0.5rem;
+  font-size: 0.8rem;
+  left: 0.8rem;
+  color: #222;
+}
+
+.modal {
+  top: 26%;
+}
+.modal button.btn-primary {
+  background: #6344f2;
+  border-radius: 7px;
+}
+.modal #search {
+  padding: 0;
+  margin: 0;
+}
+.modal .submitbtn {
+  margin-bottom: 10px;
+}
+.modal .submitbtn-no {
+  background: #d9d9d9 !important;
+}
+.modal-header {
+  border-bottom: none;
+  padding: 25px 25px 10px;
+}
+.modal-body {
+  padding: 10px 25px 25px;
+}
+.modal-body .form {
+  height: 3rem;
+}
+.modal-content {
+  border-radius: 10px;
+  border: none;
+}
+.close {
+  opacity: 10;
+}
+#DeleteCModal .modal-dialog {
+  max-width: 260px !important;
+}
+#DeleteCModal .modal-body {
+  padding: 0px 25px 25px;
+}
+#EditWModal .modal-dialog {
+  max-width: 400px !important;
+}
+
+.modal-header .form {
+  margin-bottom: 0px;
+}
+
+.convertbox .table thead th {
+  padding: 0;
+  border-bottom: none;
+  color: #a5a7a4;
+  font-weight: 400;
+}
+.convertbox .table tbody td {
+  padding: 0;
+  border-top: none;
+}
+.convertbox .table tbody td span {
+  font-size: 12px;
+  color: #a5a7a4;
+}
+.convertbox .table tbody td .form {
+  margin-bottom: 4px;
+}
+
+#InfoModal .nbox {
+}
+#InfoModal .nbox p {
+  font-size: 12px;
+  font-weight: 400;
+  margin: 0 auto;
+  padding: 2px;
+  color: #ffffff;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+#InfoModal .nbox {
+  max-width: fit-content;
+  min-width: 70px;
+  height: 25px;
+  text-align: center;
+  background: #fc8b00;
+  border-radius: 3px;
+  display: inline-block;
+}
+#InfoModal .openbtn {
+  max-width: fit-content;
+  min-width: 70px;
+  height: 25px;
+  text-align: center;
+  background: #fc8b00;
+  border-radius: 3px;
+}
+
+/*tab*/
+.tabline {
+  border-bottom: 1px solid #eeeeee;
+}
+#Portfolio .tab-wrap {
+  width: 25%; /*margin-left: 20%;*/ /*position: relative;*/
+  display: flex; /*top: -106px;*/
+}
+#Portfolio input[type="radio"][name="tabs"] {
+  position: absolute;
+  z-index: -1;
+}
+#Portfolio input[type="radio"][name="tabs"]:checked + .tab-label-content label {
+  color: #121212;
+}
+#Portfolio
+  input[type="radio"][name="tabs"]:checked
+  + .tab-label-content
+  .tab-content {
+  display: block;
+}
+#Portfolio input[type="radio"][name="tabs"]:nth-of-type(1):checked ~ .slide {
+  left: calc((48% / 4) * 0);
+}
+#Portfolio input[type="radio"][name="tabs"]:nth-of-type(2):checked ~ .slide {
+  left: calc((48% / 4) * 1);
+}
+#Portfolio input[type="radio"][name="tabs"]:nth-of-type(3):checked ~ .slide {
+  left: calc((100% / 4) * 2);
+}
+#Portfolio input[type="radio"][name="tabs"]:nth-of-type(4):checked ~ .slide {
+  left: calc((100% / 4) * 3);
+}
+#Portfolio input[type="radio"][name="tabs"]:first-of-type:checked ~ .slide {
+  left: 0;
+}
+#Portfolio label {
+  cursor: pointer;
+  color: #a5a7a4;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 36px;
+  transition: color 0.2s ease; /*width: 100%;*/
+  font-size: 18px;
+  font-weight: 600;
+  padding: 0px 12px 10px 12px;
+}
+#Portfolio .slide {
+  background: #6344f2;
+  width: calc(22% / 2);
+  height: 4px;
+  position: absolute;
+  left: 0;
+  top: calc(100% - 4px);
+  transition: left 0.3s ease-out;
+  border-radius: 4px;
+  margin-left: 15px;
+}
+#Portfolio .tab-label-content {
+  width: 100%;
+}
+#Portfolio .tab-label-content .tab-content {
+  width: 93%;
+  position: absolute;
+  top: 100px;
+  left: 34px;
+  line-height: 130%;
+  display: none;
+}
+@media screen and (max-width: 800px) {
+  #Portfolio .tab-wrap {
+    width: 80%;
+    margin-left: 10%;
+    top: -106px;
+  }
+}
+#Portfolio #search {
+  width: 40%;
+  padding: 0;
+}
+#Portfolio #searhnbtn .btnalign {
+  display: inline-block;
+  padding-top: 8px;
+  vertical-align: middle;
+  margin-left: 15px;
+}
+#Portfolio #searhnbtn #search input {
+  padding: 8px 8px;
+}
+table#PortfolioTable {
+  width: 100%;
+}
+#PortfolioTable tbody td .nbox {
+  max-width: fit-content;
+  min-width: 70px;
+  height: 25px;
+  text-align: center;
+}
+#PortfolioTable tbody td p {
+  font-size: 12px;
+  font-weight: 400;
+  margin: 0 auto;
+  padding: 2px;
+  color: #ffffff;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+#PortfolioTable thead tr th {
+  font-size: 16px;
+  font-weight: 400;
+  color: #a5a7a4;
+  padding: 14px 15px;
+}
+#PortfolioTable .orange {
+  background: #fc8b00;
+}
+#PortfolioTable .purple {
+  background: #d554fd;
+}
+#PortfolioTable .blue {
+  background: #30dbf9;
+}
+#PortfolioTable h3 {
+  font-weight: 400;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 1px;
+}
+#PortfolioTable h3 span {
+  font-size: 14px;
+  font-weight: 400;
+  color: #a5a7a4;
+}
+#PortfolioTable .regular-checkbox {
+  display: none;
+}
+#PortfolioTable thead {
+  border-top: 1px solid #d2d0e1;
+}
+#PortfolioTable thead tr label {
+  border: 1px solid #d2d0e1;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  margin: 0px;
+}
+#PortfolioTable tbody td label {
+  border: 1px solid #d2d0e1;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  margin: 0px;
+}
+#PortfolioTable .regular-checkbox:checked + label {
+  background-color: #6a4eee;
+  border: 1px solid #6a4eee;
+  color: #ffffff;
+}
+#PortfolioTable .regular-checkbox:checked + label:after {
+  content: url(../images/positions/checkbox-tick.svg);
+  font-size: 10px;
+  position: absolute; /*top: 28px;left: 18px;*/
+  color: #ffffff;
+  margin: -3px -12px;
+}
+#PortfolioTable tr td .watchlistbox img {
+  width: 15px;
+  height: 15px;
+  border: none;
+  margin: 0 10px;
+}
+#PortfolioTable tr td .watchlistbox .dropdown-item span {
+  color: #e0d8d5;
+}
+#PortfolioTable tr td {
+  padding: 18px 15px;
+  border-bottom: 1px solid #eeeeee;
+  font-size: 18px;
+  height: 68px;
+  vertical-align: middle;
+}
+#PortfolioTable tr {
+  border-bottom: 1px solid #eeeeee;
+}
+#PortfolioTable thead th {
+  border-bottom: 1px solid #eeeeee;
+  border-top: 1px solid #eeeeee;
+}
+#PortfolioTable tfoot tr td {
+  padding: 12px 10px;
+}
+#PortfolioTable tfoot {
+  border-bottom: 1px solid #eeeeee;
+}
+#PortfolioTable div.watchlistbox {
+  margin-left: 8%;
+  position: unset;
+}
+#PortfolioTable tr:hover div.watchlistbox {
+  display: inline-block;
+}
+
+#Portfolio .positions .progress {
+  width: 80%;
+  display: inline;
+}
+#Portfolio .positions span {
+  float: right;
+  position: absolute;
+  margin-left: 10px;
+}
+#Portfolio #bar-graph {
+  height: auto;
+  margin-bottom: 38px;
+}
+#Portfolio .positions .progress .progress-bar {
+  height: 8px;
+  display: inline-block;
+}
+tr[disabled] td::after {
+  position: absolute;
+  content: "";
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.05);
+}
+tr[disabled] {
+  pointer-events: none;
+}
+.table-sortable th {
+  cursor: pointer;
+}
+
+.table-sortable .th-sort-asc:hover::after {
+  content: url(../images/orders/up-arrow-grey.svg);
+}
+.table-sortable .th-sort-desc:hover::after {
+  content: url(../images/orders/down-arrow-grey.svg);
+}
+.table-sortable .th-sort-asc::after,
+.table-sortable th.th-sort-desc::after {
+  margin-left: 5px;
+  float: right;
+}
+.table-sortable .th-sort-asc:hover,
+.table-sortable .th-sort-desc:hover {
+  background: #f5f5f5;
+}
+.table-sortable th:hover {
+  background: #f5f5f5;
+}
+.table-sortable th:hover::after {
+  content: url(../images/orders/up-arrow-grey.svg);
+  float: right;
+}
+
+#PortfolioTable .exitbtn {
+  background: url(../images/positions/exit.svg) center center no-repeat #ffffff;
+  border: 1px solid #a5a7a4;
+  padding: 10px 20px;
+}
+.nbox .bsell {
+  background: #ff6872;
+  color: #ffffff;
+}
+.nbox .bbuy {
+  background: #5762f7;
+  color: #ffffff;
+}
+.nbox .btn-complete {
+  background: #00c707;
+  color: #ffffff;
+  padding: 2px 10px;
+}
+.nbox .btn-reject {
+  background: #ff0606;
+  color: #ffffff;
+  padding: 2px 10px;
+}
+
+.btntrades {
+  cursor: pointer;
+}
+.btntrades::after {
+  content: url(../images/orders/up-arrow-black.svg);
+}
+.btntrades.collapsed::after {
+  content: url(../images/orders/down-arrow-black.svg);
+}
+/*tab*/
+
+/*Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 575.98px) {
+  .b-listing #mainwatchlist tr td {
+    padding: 10px 20px;
+  }
+}
+
+/*Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .plate-2 {
+    position: inherit;
+  }
+  .b-listing #mainwatchlist tr td {
+    padding: 10px 20px;
+  }
+}
+
+/*Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .b-listing #mainwatchlist tr td {
+    padding: 10px 20px;
+  }
+}
+
+/*Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .plate {
+    height: auto;
+  }
+  .plate-2 {
+    height: auto;
+  }
+  .b-listing #mainwatchlist tr td {
+    padding: 6px 16px 6px 16px;
+  }
+  #holdingbox {
+    height: auto;
+  }
+  #marketbox {
+    height: auto;
+  }
+}
+
+/*Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1300px) and (max-width: 1499.98px) {
+  .plate {
+    height: 47vh;
+    padding: 20px;
+  }
+  .plate-2 {
+    position: fixed;
+    height: 85vh;
+  }
+  .navbar {
+    padding: 0px 28px;
+  }
+  .marketlive {
+    height: 40px;
+  }
+  .niftymain {
+    margin: 6px 0;
+  }
+  #mainbox {
+    margin-top: 82px;
+  }
+  .b-listing #mainwatchlist {
+    margin: 8px 0 8px 0;
+    height: 66vh;
+    overflow: auto; /*padding:0 12px 0 0;*/
+    display: block;
+  }
+  .b-listing #mainwatchlist tr span {
+    max-width: 70%;
+  }
+  .b-listing #mainwatchlist tr img {
+    width: 35px;
+    height: 35px;
+    margin-right: 6px;
+  }
+  .b-listing #mainwatchlist tr td {
+    /*width:65%;*/
+    padding: 10px 20px;
+  }
+  #search {
+    margin: 0px 20px;
+    padding: 20px 0px 0 0px;
+  }
+  .pagenum {
+    padding: 0px 10px 0px 20px;
+  }
+  .positions p {
+    font-size: 14px;
+  }
+  #bar-graph {
+    height: 204px;
+  }
+  .price-box .lprice {
+    margin-bottom: 2px;
+  }
+  .marketlive .nname {
+    font-size: 16px;
+  }
+  .marketlive .pgreen {
+    font-size: 16px;
+  }
+  .marketlive .mpercent {
+    font-size: 16px;
+  }
+  .marketlive .pred {
+    font-size: 16px;
+  }
+  #chart img {
+    margin-top: 16px;
+  }
+  .holdingbtn span a {
+    font-size: 16px;
+  }
+  .equitytxt p {
+    font-size: 16px;
+  }
+  .equitybtn a {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1400px) {
+}
+
+@media (min-width: 1500px) {
+  .plate {
+    height: 33vh;
+    padding: 30px;
+  }
+  .plate-2 {
+    height: 88vh;
+  }
+  .b-listing #mainwatchlist {
+    height: 68vh;
+    overflow: auto; /*padding:0 12px 0 0;*/
+    display: block;
+  }
+  .b-listing #mainwatchlist tr td {
+    width: 100%;
+    padding: 10px 30px;
+  }
+  .b-listing #mainwatchlist tr span {
+    font-size: 16px;
+  }
+  .pagenum {
+    padding: 0px 30px;
+  }
+  .price-box .lprice {
+    font-size: 18px;
+  }
+  .price-box p {
+    font-size: 12px;
+  }
+  .plate h1 {
+    font-size: 50px;
+  }
+  .equitytxt p {
+    font-size: 20px;
+  }
+  .equitybtn a {
+    font-size: 20px;
+  }
+  .positions p {
+    font-size: 16px;
+    margin: 5px 0px;
+  }
+  .positions .progress {
+    margin: 10px 0;
+    height: 10px;
+  }
+  .equity-summary table tr th {
+    font-size: 16px;
+  }
+  .equity-summary table tr td {
+    font-size: 14px;
+  }
+  .holdingleft h3 {
+    font-size: 40px;
+  }
+  .holdingleft p {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+  #marketbox {
+    height: 52vh;
+  }
+  #holdingbox {
+    height: 52vh;
+  }
+  #chart img {
+    margin-top: 20px;
+  }
+  .holdingbtn span a {
+    font-size: 20px;
+  }
+  .marketlive {
+    min-width: 630px;
+  }
+  .marketlive .nname {
+    font-size: 20px;
+  }
+  .marketlive .pgreen {
+    font-size: 20px;
+  }
+  .marketlive .mpercent {
+    font-size: 20px;
+  }
+  .marketlive .pred {
+    font-size: 20px;
+  }
+  .niftymain {
+    margin: 10px 0;
+  }
+  #menutxt .nav-item a.active {
+    font-size: 25px;
+  }
+  #menutxt .nav-item a {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 1500px) and (-webkit-device-pixel-ratio: 1.25) {
+  #mainbox {
+    margin-top: 94px;
+  }
+  .plate {
+    height: 50vh;
+    padding: 30px;
+  }
+  .plate-2 {
+    position: fixed;
+    height: 88vh;
+  }
+  .b-listing #mainwatchlist {
+    margin: 10px 0 10px 0;
+    height: 69vh;
+    overflow: auto; /*padding:0 12px 0 0;*/
+    display: block;
+  }
+  .b-listing #mainwatchlist tr td {
+    width: 100%;
+    padding: 10px 25px;
+  }
+  .b-listing #mainwatchlist tr span {
+    font-size: 16px;
+  }
+  #search {
+    margin: 0px 25px;
+  }
+  .pagenum {
+    padding: 0px 30px;
+  }
+  .price-box .lprice {
+    font-size: 18px;
+  }
+  .price-box p {
+    font-size: 12px;
+  }
+  .plate h1 {
+    font-size: 50px;
+  }
+  .equitytxt p {
+    font-size: 20px;
+  }
+  .equitybtn a {
+    font-size: 20px;
+  }
+  .positions p {
+    font-size: 16px;
+    margin: 5px 0px;
+  }
+  .positions .progress {
+    margin: 10px 0;
+    height: 10px;
+  }
+  .equity-summary table tr th {
+    font-size: 16px;
+    padding: 10px 10px 20px 0px;
+  }
+  .equity-summary table tr td {
+    font-size: 14px;
+  }
+  .holdingleft h3 {
+    font-size: 40px;
+  }
+  .holdingleft p {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+  #marketbox {
+    height: 68vh;
+  }
+  #holdingbox {
+    height: 68vh;
+  }
+  #chart img {
+    margin-top: 20px;
+  }
+  .holdingbtn span a {
+    font-size: 20px;
+  }
+  .marketlive .nname {
+    font-size: 20px;
+  }
+  .marketlive .pgreen {
+    font-size: 20px;
+  }
+  .marketlive .mpercent {
+    font-size: 20px;
+  }
+  .marketlive .pred {
+    font-size: 20px;
+  }
+  #menutxt .nav-item a {
+    font-size: 20px;
+  }
+  #menutxt .nav-item a.active {
+    font-size: 21px;
+  }
+  #menutxt .nav-item a {
+    padding: 4px 14px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .plate {
+    height: 33vh;
+    padding: 30px;
+  }
+  .plate-2 {
+    height: 88vh;
+  }
+  .equityplate {
+    height: 88vh;
+    padding: 30px;
+  }
+  .equityplate span {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .portfolioplate {
+    height: 88vh;
+    padding: 30px;
+  }
+  .b-listing #mainwatchlist {
+    height: 73vh;
+    overflow: auto; /*padding:0 12px 0 0;*/
+    display: block;
+  }
+  .b-listing #mainwatchlist tr td {
+    width: 100%;
+    padding: 10px 18px 10px 30px;
+  }
+  .b-listing #mainwatchlist tr span {
+    font-size: 16px;
+  }
+  .b-listing #watchlistinner tr th {
+    padding: 6px 6px;
+  }
+  .b-listing #watchlistinner tr td {
+    width: 100%;
+    padding: 3px 6px;
+    font-size: 14px;
+  }
+  .b-listing #watchlistinner .table-row .table-cell:nth-child(2) {
+    text-align: center;
+  }
+  .b-listing #watchlistinner .table-row .table-cell:nth-child(3) {
+    text-align: center;
+  }
+  .b-listing #watchlistinner2 tr th {
+    padding: 6px 6px;
+  }
+  .b-listing #watchlistinner2 tr td {
+    width: 100%;
+    padding: 5px 0px;
+    font-size: 12px;
+  }
+  .b-listing #watchlistinner2 tr td:nth-child(1) {
+    color: #9a9a9a;
+  }
+  .b-listing #watchlistinner2 tr td:nth-child(2) {
+    color: #121212;
+    font-weight: 600;
+    text-align: right;
+  }
+  #mainwatchlist tr.collapse td:nth-child(1) {
+    padding-right: 4px;
+  }
+  #mainwatchlist tr.collapse td:nth-child(2) {
+    padding-left: 4px;
+  }
+  #mainwatchlist tr.collapse td #watchlistinner tr th {
+    padding: 3px 16px 6px 6px;
+  }
+  table#equitytable {
+    height: 75vh;
+    overflow: auto;
+  }
+  .pagenum {
+    padding: 0px 30px;
+  }
+  .price-box .lprice {
+    font-size: 18px;
+  }
+  .price-box p {
+    font-size: 12px;
+  }
+  .plate h1 {
+    font-size: 50px;
+  }
+  .equitytxt p {
+    font-size: 20px;
+  }
+  .equitybtn a {
+    font-size: 20px;
+  }
+  .positions p {
+    font-size: 16px;
+    margin: 5px 0px;
+  }
+  .positions .progress {
+    margin: 10px 0;
+    height: 10px;
+  }
+  .equity-summary table tr th {
+    font-size: 20px;
+    padding: 10px 20px 20px 0px;
+    width: 1%;
+  }
+  .equity-summary table tr td {
+    font-size: 18px;
+  }
+  .holdingleft h3 {
+    font-size: 40px;
+  }
+  .holdingleft p {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+  #marketbox {
+    height: 52vh;
+  }
+  #holdingbox {
+    height: 52vh;
+  }
+  #chart img {
+    margin-top: 20px;
+  }
+  .holdingbtn span a {
+    font-size: 20px;
+  }
+  .marketlive {
+    min-width: 630px;
+  }
+  .marketlive .nname {
+    font-size: 20px;
+  }
+  .marketlive .pgreen {
+    font-size: 20px;
+  }
+  .marketlive .mpercent {
+    font-size: 20px;
+  }
+  .marketlive .pred {
+    font-size: 20px;
+  }
+  .niftymain {
+    margin: 10px 0;
+  }
+  #menutxt .nav-item a.active {
+    font-size: 20px;
+  }
+  #menutxt .nav-item a {
+    font-size: 19px;
+  }
+}

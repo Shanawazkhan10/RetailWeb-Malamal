@@ -28,6 +28,9 @@ export interface IMarketWatchTokenInfo {
   showMore: boolean;
   trdSym: string;
   cng: string;
+  tbq: string;
+  tsq: string;
+  isin: string;
 }
 
 export const InitialTokenInfo = {
@@ -53,9 +56,12 @@ export const InitialTokenInfo = {
   v: "",
   showDepth: false,
   tok: "",
-  ltp: "",
-  nc: "",
+  ltp: "0.00",
+  nc: "0.00",
   showMore: false,
   trdSym: "",
   cng: "",
+  tbq: "",
+  tsq: "",
+  isin: "",
 };

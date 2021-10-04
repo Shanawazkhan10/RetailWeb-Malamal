@@ -35,9 +35,14 @@ const netposition = createSlice({
       state.netposition = action.payload.data;
     },
     NetpositionUpdate(state, action) {
-      // state.netposition.NetPosition = state.netposition.NetPosition.map((el) =>
-      // el.Token == action.payload.Token ? action.payload : el
-      //);
+      const depth = action.payload;
+      if (state.netposition !== undefined) {
+        state.netposition.forEach((netposition: INetPosition) => {
+          if (netposition.tok == depth.tk && depth.name == "sf") {
+            if (depth.ltp != undefined) netposition.ltp = depth.ltp;
+          }
+        });
+      }
     },
   },
 });
@@ -45,16 +50,6 @@ const netposition = createSlice({
 export default netposition.reducer;
 
 export const { NetpositionSuccess, NetpositionUpdate } = netposition.actions;
-
-// export const fetchNetposition = () => async (dispatch: any) => {
-//   try {
-//     await api
-//       .get<NetpositionSummary[]>("/users")
-//       .then((response) => dispatch(NetpositionSuccess(response.data)));
-//   } catch (e) {
-//     return console.error(e.message);
-//   }
-// };
 
 export const fetchNetposition =
   (sessionKey: string): AppThunk =>
