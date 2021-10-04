@@ -1,4 +1,4 @@
-button,
+/* button,
 input,
 optgroup,
 select,
@@ -24,12 +24,12 @@ textarea {
   min-width: 75px;
 }
 
-.order_window.buy .header {
+/* .order_window.buy .header {
   color: #fff;
   background-color: #4184f3;
   border-radius: 3px 3px 0 0;
   padding: 15px 20px;
-}
+} 
 .order_window.sell .header {
   color: #fff;
   background-color: #fd2e3f;
@@ -250,7 +250,7 @@ label {
 .hopscotch-bubble .hopscotch-nav-button,
 .profile .vue-image-crop-upload .vicp-wrap .vicp-operate a,
 button {
-  /* background-color: #9b9b9b; */
+  /* background-color: #9b9b9b;
   color: #fff;
   padding: 8px 20px;
   border-radius: 3px;
@@ -484,4 +484,4 @@ div[disabled] {
 
 * {
   box-sizing: border-box;
-}
+} */

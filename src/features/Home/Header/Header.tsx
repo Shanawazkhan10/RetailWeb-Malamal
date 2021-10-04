@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useHistory } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { loggedout } from "../../Login/userSlice";
 import {
   dashboardContainer,
   fundContainer,
@@ -15,6 +17,7 @@ const Header = () => {
   const dispatch = useAppDispatch();
   const maincontainerState = useAppSelector((state) => state.mainContainer);
   const [flag, SetMenuflag] = useState(false);
+  const history = useHistory();
 
   dispatch(ToggleMenuContainer(flag));
 
@@ -46,6 +49,12 @@ const Header = () => {
   function onAccount(e: any) {
     e.preventDefault();
     dispatch(myprofileContainer());
+  }
+
+  function onLogout(e: any) {
+    e.preventDefault();
+    dispatch(loggedout());
+    history.push("/login");
   }
 
   return (
@@ -133,6 +142,11 @@ const Header = () => {
               onClick={onAccount}
             >
               Account
+            </a>
+          </li>
+          <li className="nav-item">
+            <a className={"nav-link"} href="" onClick={onLogout}>
+              Logout
             </a>
           </li>
 

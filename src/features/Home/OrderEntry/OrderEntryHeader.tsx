@@ -16,37 +16,48 @@ const OrderEntryHeader = () => {
     <div className="header">
       <div className="row">
         <div className="eight columns">
-          <div className="instrument">
+          <div className="instrument mb-2">
             <span className="transaction-type">
               {orderEntryState.isBuy ? "BUY" : "SELL"}
             </span>
             <span className="tradingsymbol">
-              <span className="name">{orderEntryState.symbol}</span>
-              <span className="exchange">{orderEntryState.exchange}</span>
+              <span className="name">
+                {orderEntryState.symbol.split("-")[0].toUpperCase()}
+              </span>
+              <span className="exchange">
+                {orderEntryState.exchange.split("_")[0].toUpperCase()}
+              </span>
             </span>
             ×<span className="qty">{orderEntryState.quantity} Qty</span>
           </div>
+          <div className="instrument">
+            <div className="d-inline-block">
+              <input type="radio" id="day" name="day" value="day" checked />
+              <label htmlFor="day">BSE: 1,577.30</label>
+            </div>
+            <div className="d-inline-block ml-2">
+              <input type="radio" id="day" name="day" value="day" />
+              <label data-for="day">NSE: 1,577.30</label>
+            </div>
+          </div>
         </div>
-        {/* <div>
-            <label className="switch">
-                <input type="checkbox" onClick={toggleBuySell} checked={!orderEntryState.isBuy}/>
-                <span className="slider round"></span>
-            </label>
-        </div> */}
 
         <div className="four columns text-right">
           <div className="wrap-right">
             <div className="nudge"></div>
             <div>
               <span data-balloon="Toggle Buy / Sell" data-balloon-pos="up">
-                <div className="su-switch-group tx-toggle"  onClick={toggleBuySell} >
+                <div
+                  className="su-switch-group tx-toggle"
+                  onClick={toggleBuySell}
+                >
                   <input
                     id="switch-197"
-                    type="checkbox"                    
+                    type="checkbox"
                     className="su-switch"
-                    value={orderEntryState.isBuy? "Buy":"Sell"}                                                           
+                    value={orderEntryState.isBuy ? "Buy" : "Sell"}
                     checked={!orderEntryState.isBuy}
-                    onChange={()=>{}}
+                    onChange={() => {}}
                   />
                   <label
                     htmlFor="switch-197"

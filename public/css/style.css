@@ -257,10 +257,9 @@ a:hover {
 #search input {
 }
 #searchwatchlist {
-  /*height: 73vh;*/
-  overflow: auto;
-  margin: 12px 0 12px 0;
-  box-shadow: 2px 12px 11px -10px rgb(0 0 0 / 14%);
+  /*height: 66vh;overflow: auto;*/
+  border-bottom: 1px solid #eeeeee;
+  background: #ffffff;
 }
 #searchwatchlist h4 {
   display: inline;
@@ -270,14 +269,20 @@ a:hover {
   border-bottom: 1px solid #eeeeee;
 }
 #searchwatchlist tr td:nth-child(1) {
-  padding: 12px 15px 5px 30px;
+  padding: 13px 15px 13px 30px;
 }
 #searchwatchlist tr td:nth-child(2) {
-  /*padding: 5px 18px 5px 15px;*/
+  padding: 6px 30px 6px 15px;
+}
+#searchwatchlist tr.watch-list td:nth-child(1) {
+  padding: 8px 15px 8px 30px;
+}
+#searchwatchlist tr.watch-list td:nth-child(2) {
+  padding: 6px 30px 6px 15px;
 }
 #searchwatchlist tbody tr td p {
   text-transform: uppercase;
-  margin-top: 4px;
+  margin: 2px 0 0;
   font-size: 14px;
 }
 .search-box {
@@ -321,12 +326,15 @@ a:hover {
 .watchlistadded h4 {
   color: #9e9e9e;
 }
+.watchlistadded p {
+  color: #9e9e9e;
+}
 #searchwatchlist div.watchlistbox {
   display: none;
   position: absolute;
   right: 0;
   top: 28%;
-  padding-right: 15px;
+  padding-right: 30px;
 }
 #searchwatchlist tr:hover div.watchlistbox {
   display: block;
@@ -334,10 +342,87 @@ a:hover {
 #searchwatchlist tbody tr:hover {
   background: #efefef;
 }
+
+#search {
+  border: transparent;
+  border-bottom: 1px solid #6344f2;
+  padding: 20px 0 10px 0;
+  margin: 0px 18px 0px 30px;
+  display: -webkit-inline-box;
+  width: -webkit-fill-available;
+}
+#search span {
+  vertical-align: -webkit-baseline-middle;
+}
+#search input {
+  border: transparent;
+  padding: 8px 14px 0;
+  font-size: 16px;
+  font-weight: 400;
+  width: 84%;
+  background: transparent;
+  color: #121212;
+  display: block;
+  position: absolute;
+  margin-left: 14px;
+}
+#search ::placeholder {
+  color: #cacaca;
+}
+
+.search-results {
+  position: absolute;
+  z-index: 1;
+  display: none;
+  width: 100%;
+  margin: 13px 0 12px 0;
+  max-height: 66vh;
+  overflow: auto;
+}
+
+.search-results-modal {
+  position: absolute;
+  z-index: 1;
+  display: none;
+  width: 90.8%;
+  max-height: 45vh;
+  overflow: auto;
+}
+.search-results-modaladd {
+  position: relative;
+  z-index: 1;
+  display: none;
+  max-height: 45vh;
+  overflow: auto;
+}
+.search-results-modal #searchwatchlist .watchlistbox button {
+  padding: 0px;
+  z-index: 1;
+  border: none;
+  border-radius: 6px;
+  width: 40px;
+  height: 30px;
+}
+.search-results-modal #searchwatchlist tr td:nth-child(1) {
+  padding: 13px 15px 13px 0;
+}
+.search-results-modal #searchwatchlist tr td:nth-child(2) {
+  padding: 6px 0 6px 15px;
+}
+.search-results-modal #searchwatchlist tr.watch-list td:nth-child(1) {
+  padding: 8px 15px 8px 0;
+}
+.search-results-modal #searchwatchlist tr.watch-list td:nth-child(2) {
+  padding: 6px 0px 6px 15px;
+}
+.search-results-modal #searchwatchlist div.watchlistbox {
+  padding-right: 0px;
+}
 /*search*/
 
 .b-listing {
   padding: 0 12px 0 0;
+  position: relative;
 }
 .b-listing #mainwatchlist {
   margin: 12px 0 12px 0;
@@ -696,48 +781,13 @@ a:hover {
   float: right;
 }
 
-#search {
-  border: transparent;
-  border-bottom: 1px solid #6344f2;
-  padding: 30px 0px 0 0px;
-  margin: 0px 18px 0px 30px;
-  display: -webkit-inline-box;
-  width: -webkit-fill-available;
-}
-#search span {
-  vertical-align: -webkit-baseline-middle;
-}
-#search input {
-  border: transparent;
-  padding: 8px 14px;
-  font-size: 16px;
-  font-weight: 400;
-  width: 83%;
-  background: transparent;
-  color: #121212;
-  display: block;
-}
-#search ::placeholder {
-  color: #cacaca;
-}
-.search-results {
-  position: absolute;
-  z-index: 1;
-  display: none;
-  height: auto;
-  /* max-height: 73vh; */
-  overflow: auto;
-  background: white;
-  width: 91%;
-}
-.search-results li:hover {
-}
-
 .listingnum {
   display: inline-flex;
   margin-top: 10px;
   font-size: 14px;
   color: #a5a7a4;
+  right: 0;
+  position: absolute;
 }
 
 .menu-bar {
@@ -813,6 +863,7 @@ a:hover {
 .watchlistname h3 {
   display: inline;
   text-transform: uppercase;
+  vertical-align: middle;
 }
 .watchlistname h6 {
   display: inline;
@@ -1051,24 +1102,30 @@ tr:hover div.watchlistbox {
 }
 
 .modal {
-  /* top:18%; */
   display: none;
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.25);
+}
+.modal .modal-dialog {
+  /*margin-top: 10%;*/
 }
 .modal button.btn-primary {
-  background: #6344f2;
-  border-radius: 7px;
+  /*background: #6344f2;*/
+  border-radius: 7px; /*height: 60px;*/
+  font-size: 18px;
 }
 .modal #search {
-  padding: 0;
+  padding: 0 0 10px;
   margin: 0;
+}
+.modal #search input {
+  width: 100%;
 }
 .modal .submitbtn {
   margin-bottom: 10px;
 }
 .modal .submitbtn-no {
   background: #d9d9d9 !important;
+  vertical-align: top;
 }
 .modal-header {
   border-bottom: none;
@@ -1096,26 +1153,27 @@ tr:hover div.watchlistbox {
 #EditWModal .modal-dialog {
   max-width: 400px !important;
 }
+#ConvertModal .modal-dialog {
+  max-width: 400px !important;
+}
 
 .modal-header .form {
   margin-bottom: 0px;
 }
 
-.convertbox .table thead th {
-  padding: 0;
-  border-bottom: none;
+.convertbox p {
   color: #a5a7a4;
   font-weight: 400;
 }
-.convertbox .table tbody td {
-  padding: 0;
-  border-top: none;
+.convertbox {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eeeeee;
 }
-.convertbox .table tbody td span {
+.convertbox span {
   font-size: 12px;
   color: #a5a7a4;
 }
-.convertbox .table tbody td .form {
+.convertbox .form {
   margin-bottom: 4px;
 }
 
@@ -1132,16 +1190,17 @@ tr:hover div.watchlistbox {
 }
 #InfoModal .nbox {
   max-width: fit-content;
-  min-width: 70px;
+  min-width: 60px;
   height: 25px;
   text-align: center;
   background: #fc8b00;
   border-radius: 2px;
   display: inline-block;
+  margin-right: 6px;
 }
 #InfoModal .openbtn {
   max-width: fit-content;
-  min-width: 70px;
+  min-width: 60px;
   height: 25px;
   text-align: center;
   background: #00c707;
@@ -1150,6 +1209,19 @@ tr:hover div.watchlistbox {
 #InfoModal .openbtn span {
   margin: 0;
   color: #ffffff;
+}
+#InfoModal #watchlistinner .table-row .table-cell:nth-child(1) {
+  color: #a5a7a4;
+}
+#InfoModal #watchlistinner .table-row .table-cell:nth-child(2) {
+  text-align: right;
+}
+#InfoModal #watchlistinner {
+  padding: 0;
+}
+#InfoModal .submitbtn {
+  width: 24%;
+  margin: 0 6px 0 0;
 }
 
 /*tab*/
@@ -1234,7 +1306,7 @@ tr:hover div.watchlistbox {
 }
 #Portfolio #search {
   width: 40%;
-  padding: 0;
+  padding: 0 0 10px;
 }
 #Portfolio #searhnbtn .btnalign {
   display: inline-block;
@@ -1492,6 +1564,9 @@ tr[disabled] {
   #marketbox {
     height: auto;
   }
+  #search input {
+    width: 78%;
+  }
 }
 
 /*Extra large devices (large desktops, 1200px and up)*/
@@ -1536,13 +1611,14 @@ tr[disabled] {
   }
   #search {
     margin: 0px 8px 0px 20px;
-    padding: 20px 0px 0 0px;
-  }
-  #search input {
-    width: 78%;
   }
   #searchwatchlist {
-    margin: 10px 0 10px 0;
+  }
+  #searchwatchlist tr td:nth-child(1) {
+    padding: 6px 15px 6px 20px;
+  }
+  #searchwatchlist tr td:nth-child(2) {
+    padding: 6px 20px 6px 15px;
   }
   .pagenum {
     padding: 0px 10px 0px 20px;
@@ -1855,6 +1931,9 @@ tr[disabled] {
   }
   #mainwatchlist tr.collapse td #watchlistinner tr th {
     padding: 3px 16px 6px 6px;
+  }
+  .search-results {
+    max-height: 73vh;
   }
   table#equitytable {
     height: 75vh;

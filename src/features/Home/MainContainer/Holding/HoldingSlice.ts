@@ -75,14 +75,14 @@ const holding = createSlice({
               state.holding.currentValue = 0;
               state.holding.currentValue =
                 state.holding.currentValue + Number(holding.curval);
-              state.holding.daysPandL =
-                state.holding.daysPandL + Number(holding.daychg);
-              state.holding.daysPandLPercent =
-                state.holding.daysPandLPercent + Number(holding.daychgperc);
-              state.holding.totalPandL =
-                state.holding.totalPandL + Number(holding.pnl);
-              state.holding.totalPandLPercent =
-                state.holding.totalPandLPercent + Number(holding.netchg);
+              state.holding.daysPandL = 0;
+              //                state.holding.daysPandL - Number(holding.daychg);
+              state.holding.daysPandLPercent = 0;
+              //state.holding.daysPandLPercent + Number(holding.daychgperc);
+              state.holding.totalPandL = 0;
+              //state.holding.totalPandL + Number(holding.pnl);
+              state.holding.totalPandLPercent = 0;
+              //state.holding.totalPandLPercent + Number(holding.netchg);
             }
           }
         });
