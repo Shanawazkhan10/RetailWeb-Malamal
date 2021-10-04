@@ -8,6 +8,7 @@ import MainContainer from "./MainContainer/MainContainer";
 import Menu from "./Menu/Menu";
 import OrderEntryComp from "./OrderEntry/OrderEntry";
 import GttOrderEntry from "./GTTOrderEntry/GttOrderEntry";
+import { useHistory } from "react-router";
 
 var url = "wss://uathsmkt.hypertrade.in";
 const script = document.createElement("script");
@@ -25,7 +26,8 @@ const Home = () => {
   const orderEntryState = useAppSelector((state) => state.orderEntry);
   const marketPictureState = useAppSelector((state) => state.marketpicture);
   const gttEntryState = useAppSelector((state) => state.gttEntry);
-
+  const user = useAppSelector((state) => state.user);
+  const history = useHistory();
   useEffect(() => {
     //init();
     //connect();
@@ -47,6 +49,11 @@ const Home = () => {
       document.body.removeChild(script);
     };
   }, []);
+
+  // if (!user.isAuthenticated) {
+  //   history.push("/login");
+  // }
+  // {
   return (
     // <div id="MasterSearchDiv">
     //   <div id="wrapper">
@@ -65,6 +72,7 @@ const Home = () => {
       <ToastContainer />
     </div>
   );
+  //}
 };
 
 export default Home;

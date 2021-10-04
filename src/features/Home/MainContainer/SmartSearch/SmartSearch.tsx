@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Popup from "reactjs-popup";
 import { api } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IContractSearch } from "../../../../types/IContractSearch";
@@ -17,7 +16,6 @@ import {
   setOrderEntryProps,
 } from "../../OrderEntry/orderEntrySlice";
 import { chartContainer } from "../mainContainerSlice";
-import MarketPicture from "../MarketPicture/MarketPicture";
 import {
   ShowDepthFromPosition,
   ShowDepthFromSearch,

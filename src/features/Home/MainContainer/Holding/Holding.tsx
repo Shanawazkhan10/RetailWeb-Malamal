@@ -112,7 +112,9 @@ const HoldingView = (props: { holding: IHolding }) => {
       <td>{holding.ltp}</td>
       <td>{holding.curval != undefined ? holding.curval : 0}</td>
       <td className={"c-" + getColour(holding.pnl)}>{holding.pnl}</td>
-      <td className={"c-" + getColour(holding.netchg)}>{holding.netchg}%</td>
+      <td className={"c-" + getColour(holding.netchg)}>
+        {holding.netchg == undefined ? 0 : holding.netchg}
+      </td>
       <td>{holding.daychg}%</td>
     </tr>
   );

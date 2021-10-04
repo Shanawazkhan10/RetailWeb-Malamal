@@ -4,14 +4,37 @@ import {
   setLimitOrder,
   setSLOrder,
   setSLMOrder,
+  setValidityWindow,
 } from "./orderEntrySlice";
 
 const OrderEntryType = () => {
+  function onMoreClick(e: any) {
+    e.preventDefault();
+    dispatch(setValidityWindow());
+  }
   const orderEntryState = useAppSelector((state) => state.orderEntry);
   const dispatch = useAppDispatch();
   return (
-    <div>
-      <div className="four columns price">
+    <div className="row">
+      <div className="col-md-4">
+        <a
+          href="#collapse"
+          id="toggle"
+          onClick={onMoreClick}
+          className="nav-toggle"
+        >
+          {orderEntryState.isValidityOpen ? "Hide" : "More"}
+          {/* <span
+                              className={
+                                "icon" +
+                                (orderEntryState.isValidityOpen
+                                  ? " icon-chevron-up"
+                                  : " icon-chevron-down")
+                              }
+                            ></span> */}
+        </a>
+      </div>
+      <div className="col-md-4">
         <div className="su-radio-group order-type">
           <div
             className="su-radio-wrap"
@@ -59,14 +82,8 @@ const OrderEntryType = () => {
           </div>
         </div>
       </div>
-      <div
-        className="four columns trigger"
-        style={{
-          pointerEvents: orderEntryState.variety == 1 ? "none" : "auto",
-          opacity: orderEntryState.variety == 1 ? 0.7 : "",
-        }}
-      >
-        <div className="su-radio-group text-right order-type">
+      <div className="col-md-4">
+        <div className="su-radio-group text-right order-type float-right">
           <div
             aria-disabled="true"
             className="su-radio-wrap"

@@ -271,6 +271,8 @@ const MarketWatchItem = (props: {
                       className="btn btn-primary wbuy"
                       title="BUY"
                       onClick={() => onBuyOrderEntryClick(symbolInfo)}
+                      data-toggle="modal"
+                      data-target="#BuyWMModal"
                     >
                       B
                     </button>
