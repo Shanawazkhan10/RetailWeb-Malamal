@@ -29,7 +29,7 @@ const HoldingList = () => {
       const subUnsubReq: SubUnsubReq = {
         type: "mws",
         scrips: HoldingList.holding.holdinglist
-          .map((x) => x.nseTrdSym)
+          .map((x) => x.ex1 + "|" + x.tok1)
           .join("&"),
         channelnum: 1,
       };
