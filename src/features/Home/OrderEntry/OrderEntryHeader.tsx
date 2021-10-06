@@ -35,13 +35,14 @@ const OrderEntryHeader = () => {
             ×<span className="qty">{orderEntryState.quantity} Qty</span>
           </div>
           <div className="instrument">
-            <div className="d-inline-block">
+            {/* DM: BSE ltp to fetch */}
+            {/* <div className="d-inline-block">
               <input type="radio" id="day" name="day" value="day" checked />
               <label htmlFor="day">BSE: 1,577.30</label>
-            </div>
+            </div> */}
             <div className="d-inline-block ml-2">
               <input type="radio" id="day" name="day" value="day" />
-              <label data-for="day">NSE: 1,577.30</label>
+              <label data-for="day">NSE: {orderEntryState.ltp}</label>
             </div>
           </div>
         </div>

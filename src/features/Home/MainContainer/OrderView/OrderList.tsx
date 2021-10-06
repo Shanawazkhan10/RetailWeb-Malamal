@@ -32,8 +32,7 @@ const OrderList = () => {
                     <div className="row mb-4">
                       <div className="col-md-4">
                         <h2>
-                          Executed Orders (
-                          <span>{OrderList.OrderViewData.length}</span>)
+                          Orders (<span>{OrderList.OrderViewData.length}</span>)
                         </h2>
                       </div>
                       <div className="col-md-8 text-right" id="searhnbtn">

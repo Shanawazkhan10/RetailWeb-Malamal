@@ -53,7 +53,27 @@ const OrderView = (props: { order: IOrderResponse }) => {
       case "complete":
         return "btn-complete";
       default:
-        return "foo";
+        return "btn-reject";
+    }
+  }
+
+  function getSegmentName(seg: String) {
+    switch (seg) {
+      case "nse_cm":
+        return "NSE";
+        break;
+      case "nse_fo":
+        return "NFO";
+        break;
+      case "bse_cm":
+        return "BSE";
+        break;
+      case "bse_fo":
+        return "BFO";
+        break;
+
+      default:
+        break;
     }
   }
 
@@ -126,6 +146,17 @@ const OrderView = (props: { order: IOrderResponse }) => {
     dispatch(cancelOrder(OrderCancelRequest));
   }
 
+  function SetMenuflag(e: any) {
+    e.preventDefault();
+    if (e._reactName == "onMouseOver") {
+      if (Menuflag == true) {
+        ShowMenu(false);
+      }
+    } else {
+      ShowMenu(!Menuflag);
+    }
+  }
+
   return (
     <tbody>
       <tr className="odd_col">
@@ -139,7 +170,8 @@ const OrderView = (props: { order: IOrderResponse }) => {
         </td>
         <td>
           <h3>
-            {order.sym} <span>{order.exSeg.split("_")[0].toUpperCase()}</span>
+            {order.trdSym?.split("-")[0]}{" "}
+            <span>{getSegmentName(order.exSeg)}</span>
           </h3>
           <div className={"watchlistbox" + (Menuflag ? " show" : "")}>
             <button
@@ -149,7 +181,8 @@ const OrderView = (props: { order: IOrderResponse }) => {
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded={Menuflag}
-              onClick={() => ShowMenu(!Menuflag)}
+              onClick={(e) => SetMenuflag(e)}
+              onMouseOver={(e) => SetMenuflag(e)}
             ></button>
             <div
               className={"dropdown-menu" + (Menuflag ? " show" : "")}
@@ -246,7 +279,7 @@ const OrderView = (props: { order: IOrderResponse }) => {
             </div>
           </div>
         </td>
-        <td>{order.prod}</td>
+        <td>{order.prod == "I" ? "MIS" : order.prod.toUpperCase()}</td>
         <td>
           {order.fldQty}/{order.qty}
         </td>

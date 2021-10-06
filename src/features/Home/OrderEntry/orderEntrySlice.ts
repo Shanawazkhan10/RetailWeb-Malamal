@@ -216,7 +216,7 @@ export const placeOrder =
 
 export const modifyOrder =
   (orderModifyRequest: IOrderModifyRequest): AppThunk =>
-  async (useDispatch) => {
+  async (dispatch) => {
     try {
       const orderResponse = await sendModifyOrderRequest(orderModifyRequest);
       if (Number(orderResponse.stCode) === 200) {
@@ -231,7 +231,7 @@ export const modifyOrder =
 
 export const cancelOrder =
   (orderCancelRequest: IOrderCancelRequest): AppThunk =>
-  async (useDispatch) => {
+  async (dispatch) => {
     try {
       const orderResponse = await sendCancelOrderRequest(orderCancelRequest);
       if (Number(orderResponse.stCode) === 200) {
