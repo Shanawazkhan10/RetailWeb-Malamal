@@ -24,7 +24,10 @@ const HoldingList = () => {
   }, []);
 
   function getSymbol() {
-    if (HoldingList.holding != undefined) {
+    if (
+      HoldingList.holding != undefined &&
+      HoldingList.holding.holdinglist != undefined
+    ) {
       //subscribe Script API Call
       const subUnsubReq: SubUnsubReq = {
         type: "mws",

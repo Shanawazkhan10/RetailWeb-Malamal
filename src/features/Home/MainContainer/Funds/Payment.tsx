@@ -53,13 +53,9 @@ const Payment = () => {
     document.body.appendChild(script);
   }, []);
 
-  return payment.bShow ? (
-    <>
-      <button onClick={openPayModal}>Pay with Razorpay</button>
-    </>
-  ) : (
-    <></>
-  );
+  <>
+    <button onClick={openPayModal}>Pay with Razorpay</button>
+  </>;
 };
 
 export default Payment;

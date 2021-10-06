@@ -83,11 +83,12 @@ const holding = createSlice({
               //state.holding.totalPandL + Number(holding.pnl);
               state.holding.totalPandLPercent = 0;
               //state.holding.totalPandLPercent + Number(holding.netchg);
-            } else {
-              holding.ltp = "0";
-              holding.pnl = "0";
-              holding.daychg = "0";
             }
+            //  else {
+            //   holding.ltp = holding.ltp;
+            //   holding.pnl = holding.pnl;
+            //   holding.daychg = holding.daychg;
+            // }
           }
         });
       }

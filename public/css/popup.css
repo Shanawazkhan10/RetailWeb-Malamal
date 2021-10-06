@@ -24,12 +24,11 @@ textarea {
 }
 
 .order_window.sell .header {
-  color: #fff;
-  background-color: #fd2e3f;
-  border-radius: 3px 3px 0 0;
-  padding: 15px 20px;
+  /*color: #fff;background-color: #4184f3;border-radius: 3px 3px 0 0;*/
+  padding: 6px 15px 3px 15px;
+  border-bottom: 1px solid #eeeeee;
 }
-.transaction-type {
+.transaction-type.buy {
   font-weight: 500;
   margin-right: 8px;
   background-color: #1964e4;
@@ -37,6 +36,16 @@ textarea {
   padding: 2px 4px;
   border-radius: 3px;
 }
+
+.transaction-type.sell {
+  font-weight: 500;
+  margin-right: 8px;
+  background-color: #ff6872;
+  color: #fff;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
 .tradingsymbol {
   font-weight: 700;
   margin-right: 5px;

@@ -1128,7 +1128,7 @@ tr:hover div.watchlistbox {
   vertical-align: top;
 }
 .modal-header {
-  border-bottom: none;
+  border-bottom: ;
   padding: 25px 25px 10px;
 }
 .modal-body {
@@ -1139,7 +1139,7 @@ tr:hover div.watchlistbox {
 }
 .modal-content {
   border-radius: 10px;
-  border: none;
+  border: white solid;
 }
 .close {
   opacity: 10;
