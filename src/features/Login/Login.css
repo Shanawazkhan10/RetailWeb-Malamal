@@ -40,25 +40,6 @@
   justify-content: center;
   align-items: center;
   padding: 15px;
-  background-image: #001b25; /* Old browsers */
-  background-image: -moz-linear-gradient(
-    -45deg,
-    #001b25 0%,
-    #002532 50%,
-    #136886 100%
-  ); /* FF3.6-15 */
-  background-image: -webkit-linear-gradient(
-    -45deg,
-    #001b25 0%,
-    #002532 50%,
-    #136886 100%
-  ); /* Chrome10-25,Safari5.1-6 */
-  background-image: linear-gradient(
-    135deg,
-    #001b25 0%,
-    #002532 50%,
-    #136886 100%
-  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#001b25', endColorstr='#136886',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
   position: relative;
   z-index: 1;
@@ -73,9 +54,6 @@
   height: 100%;
   top: 0;
   left: 0;
-  background-image: url("../../assets/login-bg.png");
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 .wrap-login-main {
@@ -90,9 +68,7 @@
   border-radius: 3px;
   overflow: hidden;
   padding: 65px 50px 30px 50px;
-  -webkit-box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.4);
-  box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.4);
+  border: 1px solid #4f4e4e;
 }
 
 login-main-form-logo {
