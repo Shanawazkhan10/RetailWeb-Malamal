@@ -102,6 +102,7 @@ input:disabled {
 #menutxt .nav-item a.active {
   font-weight: 700;
   color: #6a4eee;
+  display: block;
 }
 #menutxt .nav-item .active:after {
   content: " ";
@@ -1151,11 +1152,7 @@ tr:hover div.watchlistbox {
 }
 
 .form__input:focus ~ .form__label,
-<<<<<<<
-  Updated
-  upstream
-  .form__input:not(:placeholder-shown).form__input:not(:focus)
-  ~ .form__label {
+.form__input:not(:placeholder-shown).form__input:not(:focus) ~ .form__label {
   top: -0.5rem;
   font-size: 0.8rem;
   left: 0.8rem;
@@ -1165,6 +1162,7 @@ tr:hover div.watchlistbox {
 .modal {
   display: none;
   position: fixed;
+  background-color: rgba(0, 0, 0, 0.25);
 }
 .modal .modal-dialog {
   /*margin-top: 10%;*/
@@ -1284,136 +1282,6 @@ tr:hover div.watchlistbox {
   width: 24%;
   margin: 0 6px 0 0;
 }
-=======
-  .form__input:not(:placeholder-shown).form__input:not(:focus)
-  ~ .form__label {
-  top: -0.5rem;
-  font-size: 0.8rem;
-  left: 0.8rem;
-  color: #222;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-}
-.modal .modal-dialog {
-  /*margin-top: 10%;*/
-}
-.modal button.btn-primary {
-  /*background: #6344f2;*/
-  border-radius: 7px; /*height: 60px;*/
-  font-size: 18px;
-}
-.modal #search {
-  padding: 0 0 10px;
-  margin: 0;
-}
-.modal #search input {
-  width: 100%;
-}
-.modal .submitbtn {
-  margin-bottom: 10px;
-}
-.modal .submitbtn-no {
-  background: #d9d9d9 !important;
-  vertical-align: top;
-}
-.modal-header {
-  border-bottom: none;
-  padding: 25px 25px 10px;
-}
-.modal-body {
-  padding: 10px 25px 25px;
-}
-.modal-body .form {
-  height: 3rem;
-}
-.modal-content {
-  border-radius: 10px;
-  border: none;
-}
-.close {
-  opacity: 10;
-}
-#DeleteCModal .modal-dialog {
-  max-width: 260px !important;
-}
-#DeleteCModal .modal-body {
-  padding: 0px 25px 25px;
-}
-#EditWModal .modal-dialog {
-  max-width: 400px !important;
-}
-#ConvertModal .modal-dialog {
-  max-width: 400px !important;
-}
-
-.modal-header .form {
-  margin-bottom: 0px;
-}
-
-.convertbox p {
-  color: #a5a7a4;
-  font-weight: 400;
-}
-.convertbox {
-  padding-bottom: 15px;
-  border-bottom: 1px solid #eeeeee;
-}
-.convertbox span {
-  font-size: 12px;
-  color: #a5a7a4;
-}
-.convertbox .form {
-  margin-bottom: 4px;
-}
-
-#InfoModal .nbox p {
-  font-size: 12px;
-  font-weight: 400;
-  margin: 0 auto;
-  padding: 2px;
-  color: #ffffff;
-  border-radius: 2px;
-  text-transform: uppercase;
-}
-#InfoModal .nbox {
-  max-width: fit-content;
-  min-width: 60px;
-  height: 25px;
-  text-align: center;
-  background: #fc8b00;
-  border-radius: 2px;
-  display: inline-block;
-  margin-right: 6px;
-}
-#InfoModal .openbtn {
-  max-width: fit-content;
-  min-width: 60px;
-  height: 25px;
-  text-align: center;
-  background: #00c707;
-  border-radius: 2px;
-}
-#InfoModal .openbtn span {
-  margin: 0;
-  color: #ffffff;
-}
-#InfoModal #watchlistinner .table-row .table-cell:nth-child(1) {
-  color: #a5a7a4;
-}
-#InfoModal #watchlistinner .table-row .table-cell:nth-child(2) {
-  text-align: right;
-}
-#InfoModal #watchlistinner {
-  padding: 0;
-}
-#InfoModal .submitbtn {
-  width: 24%;
-  margin: 0 6px 0 0;
-}
->>>>>>> Stashed changes
 
 /*tab*/
 .tabline {

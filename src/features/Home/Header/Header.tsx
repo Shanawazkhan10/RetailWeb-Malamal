@@ -249,6 +249,20 @@ const Header = () => {
               <span className="d-none d-sm-inline">account</span>
             </a>
           </li>
+          <li className="nav-item">
+            <a
+              href="#"
+              className="nav-link d-flex flex-column"
+              onClick={onLogout}
+            >
+              <img
+                className="d-block d-sm-none"
+                src="images/close.svg"
+                width="20"
+              />
+              <span className="d-none d-sm-inline">Logout</span>
+            </a>
+          </li>
         </ul>
       </div>
     </nav>
