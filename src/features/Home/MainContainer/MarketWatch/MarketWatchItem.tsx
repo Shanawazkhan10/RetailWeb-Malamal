@@ -403,9 +403,7 @@ const MarketWatchItem = (props: {
           )
         )
       ) : (
-        <tr className="slideInDown-element">
-          <td>No Data</td>
-        </tr>
+        <></>
       )}
     </>
   );

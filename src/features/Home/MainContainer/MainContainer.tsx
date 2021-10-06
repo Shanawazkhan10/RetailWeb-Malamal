@@ -2,11 +2,11 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import MarketPicture from "./MarketPicture/MarketPicture";
-import MarketWatch from "./MarketWatch/MarketWatchHeader";
 import MarketWatchListContainer from "./MarketWatch/MarketWatchListContainer";
 import MarketWatchPortfolio from "./MarketWatch/MarketWatchPortfolio";
 import RightContainer from "./RightContainer";
 import SmartSearch from "./SmartSearch/SmartSearch";
+import HeaderIndices from "./../Header/HeaderIndices";
 
 const MainContainer = (props: any) => {
   const MenuClick = props;
@@ -66,10 +66,11 @@ const MainContainer = (props: any) => {
     //dispatch(loggedout());
   }
   return (
-    <div className="container-fluid" id="mainbox">
+    <div id="mainbox">
       <div className="row">
         <div className="col-md-6 col-lg-4 col-xl-3">
           <div className="plate-2 fadeIn-element">
+            <HeaderIndices></HeaderIndices>
             <div className="b-listing">
               {/* <MarketWatch></MarketWatch> */}
               <SmartSearch Type={1}></SmartSearch>

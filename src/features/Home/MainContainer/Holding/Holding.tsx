@@ -75,7 +75,7 @@ const HoldingView = (props: { holding: IHolding }) => {
             <a className="dropdown-item" href="#">
               <img src="images/positions/watchlist.svg" /> Add to marketwatch
             </a>
-            <a className="dropdown-item" href="#">
+            {/* <a className="dropdown-item" href="#">
               <img
                 src=""
                 style={{
@@ -98,10 +98,10 @@ const HoldingView = (props: { holding: IHolding }) => {
                 }}
               />
               Technicals
-            </a>
-            <a className="dropdown-item" href="#">
+            </a> */}
+            {/* <a className="dropdown-item" href="#">
               <img src="images/positions/alert.svg" /> Set Alerts
-            </a>
+            </a> */}
           </div>
         </div>
       </td>
@@ -113,7 +113,7 @@ const HoldingView = (props: { holding: IHolding }) => {
       <td>{holding.curval != undefined ? holding.curval : 0}</td>
       <td className={"c-" + getColour(holding.pnl)}>{holding.pnl}</td>
       <td className={"c-" + getColour(holding.netchg)}>
-        {holding.netchg == undefined ? 0 : holding.netchg}
+        {holding.netchg == undefined ? 0 : holding.netchg + "%"}
       </td>
       <td>{holding.daychg}%</td>
     </tr>

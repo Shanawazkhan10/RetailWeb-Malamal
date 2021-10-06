@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Script } from "vm";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import { userWS } from "../../../WebSocket/HSSocket";
@@ -122,7 +123,7 @@ const MarketPicture = () => {
     });
   }
   //const { Script } = props;
-  return IsShow && script != null && script != undefined ? (
+  return IsShow && script != null && script != undefined && script != "" ? (
     <div
       className="modal fade show"
       id="SMarketModal"
@@ -151,7 +152,7 @@ const MarketPicture = () => {
               <div className="col-md-6">
                 {/* <h3>{symbolExg.split("|")[0]}</h3>
                 <span>{symbolExg.split("|")[1]}</span> */}
-                <h3>{Symbol}</h3>
+                <h3>{Symbol?.split("-")[0]}</h3>
                 <span>{tradingSymbol}</span>
               </div>
               <div className="col-md-6 text-right">
@@ -159,7 +160,6 @@ const MarketPicture = () => {
                   {TokenInfo.ltp == undefined ? "0.00" : TokenInfo.ltp}
                 </h3>
                 <h6>
-                  {" "}
                   {TokenInfo.cng == undefined ? "0.00" : TokenInfo.cng} (
                   {TokenInfo.nc == undefined ? "0.00" : TokenInfo.nc}%)
                 </h6>
@@ -177,10 +177,41 @@ const MarketPicture = () => {
       </div>
     </div>
   ) : IsShow ? (
-    <div>
-      <SmartSearch Type={2}></SmartSearch>
-      Find an instrument Use the above search bar to find an instrument
-      <MarketPictureOrderEntry TokenInfo={TokenInfo}></MarketPictureOrderEntry>
+    <div
+      className="modal fade show"
+      id="SMarketModal"
+      data-tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      style={{ display: "block", paddingLeft: "4px" }}
+      aria-modal="true"
+    >
+      <div className="modal-dialog" role="document">
+        <div className="modal-content">
+          <div className="modal-header">
+            <div>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                onClick={() => close()}
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+              <SmartSearch Type={2}></SmartSearch>
+
+              <div
+                className="empty-state"
+                style={{ textAlign: "center", padding: "50px 40px" }}
+              >
+                Find an instrument Use the above search bar to find an
+                instrument
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ) : (
     <></>

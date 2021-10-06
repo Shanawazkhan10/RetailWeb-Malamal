@@ -11,6 +11,7 @@ import {
   waitForSocketConnection,
 } from "../../../WebSocket/HSSocket1";
 import { positionContainer } from "../mainContainerSlice";
+import { ShowDepthFromSearch } from "../MarketPicture/MarketPictureSlice";
 import { fetchNetposition } from "../NetPosition/NetPositionSlice";
 
 const Position = () => {
@@ -32,7 +33,7 @@ const Position = () => {
   }, []);
 
   function Something() {
-    alert("Hello");
+    dispatch(ShowDepthFromSearch(""));
   }
 
   function RedirecttoPosition(e: any) {
@@ -54,13 +55,10 @@ const Position = () => {
   }
 
   return (
-    <div
-      className="col-sm-12 col-md-12 col-lg-6 col-xl-4"
-      onClick={RedirecttoPosition}
-    >
+    <div className="col-sm-12 col-md-12 col-lg-6 col-xl-4">
       <div className="plate fadeIn-element">
         <div className="row slideInDown-element">
-          <div className="col-md-12">
+          <div className="col-md-12" onClick={RedirecttoPosition}>
             <img src="images/positions.svg" /> <span>Positions</span>
           </div>
 
@@ -72,7 +70,7 @@ const Position = () => {
                   Math.ceil(
                     Number(netposition.ltp) - Number(netposition.buyAmt)
                   ) > 0 ? (
-                    <div className="row">
+                    <div className="row" onClick={RedirecttoPosition}>
                       <div className="col-md-6">
                         <Progress
                           id="progress"

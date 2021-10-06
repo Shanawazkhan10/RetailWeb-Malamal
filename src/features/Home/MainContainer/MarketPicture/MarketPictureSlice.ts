@@ -33,11 +33,15 @@ const marketpicture = createSlice({
     ShowDepthFromSearch: (state, action) => {
       state.marketpicture.Type = 2;
       state.marketpicture.IsShow = true;
-      state.marketpicture.script =
-        action.payload.split("|")[0] + "|" + action.payload.split("|")[1];
-      state.marketpicture.token = action.payload.split("|")[1];
-      state.marketpicture.symbol = action.payload.split("|")[2];
-      state.marketpicture.tradingSymbol = action.payload.split("|")[3];
+      if (action.payload != "") {
+        state.marketpicture.script =
+          action.payload.split("|")[0] + "|" + action.payload.split("|")[1];
+        state.marketpicture.token = action.payload.split("|")[1];
+        state.marketpicture.symbol = action.payload.split("|")[2];
+        state.marketpicture.tradingSymbol = action.payload.split("|")[3];
+      } else {
+        state.marketpicture.script = "";
+      }
     },
     ShowDepthFromPosition: (state, action) => {
       state.marketpicture.Type = 2;
@@ -205,4 +209,5 @@ export const {
   CloseDepth,
   SearchScriptUpdate,
   SearchDepthUpdate,
+  ShowDepth,
 } = marketpicture.actions;
