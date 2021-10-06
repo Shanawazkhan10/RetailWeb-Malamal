@@ -111,7 +111,10 @@ const Login = () => {
                   </div>
                   <p>{errors.password && errors.password.message}</p>
                   <div className="container-login-main-form-btn p-t-25">
-                    <button type="submit" className="login-main-form-btn">
+                    <button
+                      type="submit"
+                      className="btn btn-primary login-main-form-btn"
+                    >
                       Sign In
                     </button>
                   </div>

@@ -1,9 +1,23 @@
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import Payment from "./Payment";
+import { ShowPayment } from "./PaymentSlice";
+
 const Funds = () => {
+  const payment = useAppSelector((state) => state.payment);
+  const dispatch = useAppDispatch();
+  function AddFund() {
+    dispatch(ShowPayment(true));
+  }
   return (
     <div className="margins">
+      <Payment></Payment>
       <div className="margin-actions text-right">
         <span className="upi-info">Instant, zero-cost fund transfers with</span>
-        <button type="button" className="button-green">
+        <button
+          type="button"
+          className="button-green"
+          onClick={() => AddFund()}
+        >
           Add funds
         </button>
         <a

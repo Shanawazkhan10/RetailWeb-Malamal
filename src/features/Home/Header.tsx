@@ -65,6 +65,7 @@ const Header = () => {
           </ul>
         </div> */}
       </div>
+      {/* <Payment></Payment> */}
     </nav>
   );
 };
