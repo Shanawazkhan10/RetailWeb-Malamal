@@ -2,15 +2,33 @@ button,
 input,
 optgroup,
 select,
-textarea {color: inherit;font: inherit;margin: 0;}
+textarea {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
 
-.order_window {/*background: white;z-index: 99;top: auto;bottom: 0px;margin-top: 0em;width: 500px;position: fixed;left: calc(50% - 275px);*/}
+.order_window {
+  background: white;
+  z-index: 99;
+  top: auto;
+  bottom: 0px;
+  margin-top: 0em;
+  position: fixed;
+  left: calc(50% - 275px);
+}
 
-.submit {color: #fff;min-width: 75px;}
+.submit {
+  color: #fff;
+  min-width: 75px;
+}
 
-.order_window.buy .header {/*color: #fff;background-color: #4184f3;border-radius: 3px 3px 0 0;*/padding: 6px 15px 3px 15px;border-bottom: 1px solid #eeeeee;}
+.order_window.buy .header {
+  /*color: #fff;background-color: #4184f3;border-radius: 3px 3px 0 0;*/
+  padding: 6px 15px 3px 15px;
+  border-bottom: 1px solid #eeeeee;
+}
 
-<<<<<<< Updated upstream
 .order_window.sell .header {
   /*color: #fff;background-color: #4184f3;border-radius: 3px 3px 0 0;*/
   padding: 6px 15px 3px 15px;
@@ -47,27 +65,77 @@ textarea {color: inherit;font: inherit;margin: 0;}
 .margins {
   margin: 6% auto;
 }
-=======
-.order_window.sell .header {color: #fff;background-color: #fd2e3f;border-radius: 3px 3px 0 0;padding: 15px 20px;}
-.transaction-type{font-weight: 500;margin-right: 8px;background-color: #1964e4;color: #fff;padding: 2px 4px;border-radius: 3px;}
-.tradingsymbol{font-weight: 700;margin-right: 5px;}
-.exchange{font-size: 14px;font-weight: 400;color: #a5a7a4;}
-.margins{margin: 6% auto; }
->>>>>>> Stashed changes
+======= .order_window.sell .header {
+  color: #fff;
+  background-color: #fd2e3f;
+  border-radius: 3px 3px 0 0;
+  padding: 15px 20px;
+}
+.transaction-type {
+  font-weight: 500;
+  margin-right: 8px;
+  background-color: #1964e4;
+  color: #fff;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+.tradingsymbol {
+  font-weight: 700;
+  margin-right: 5px;
+}
+.exchange {
+  font-size: 14px;
+  font-weight: 400;
+  color: #a5a7a4;
+}
+.margins {
+  margin: 6% auto;
+}
+>>>>>>>Stashed changes .show-read-more .more-text {
+  display: none;
+}
 
-.show-read-more .more-text{
-        display: none;
-    }
+.order_window .drag-handle {
+  /* position: absolute;top: 0;left: 0;right: 0;height: 65px;cursor: move;*/
+}
 
-.order_window .drag-handle {/* position: absolute;top: 0;left: 0;right: 0;height: 65px;cursor: move;*/}
-
-.order_window.buy .actions .submit {background-color: #4184f3;border-color: #4184f3;}
-.order_window.sell .actions .submit {background-color: #fd2e3f;border-color: #fd2e3f;}
-.order_window .footer .submit {color: #fff;min-width: 75px;}
+.order_window.buy .actions .submit {
+  background-color: #4184f3;
+  border-color: #4184f3;
+}
+.order_window.sell .actions .submit {
+  background-color: #fd2e3f;
+  border-color: #fd2e3f;
+}
+.order_window .footer .submit {
+  color: #fff;
+  min-width: 75px;
+}
 input[type="checkbox"],
-input[type="radio"] {-webkit-box-sizing: border-box;box-sizing: border-box;padding: 0;}
+input[type="radio"] {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+}
 
-input[type="number"] {background: #fff;position: relative;width: 100%;font-size: 13px;color: #000;height: 30px;padding: 10px;flex: auto;align-items: flex-end;border-radius: 3px;background-image: rgba(255, 255, 255, 0.1);box-shadow: none;-webkit-transition: box-shadow 0.3s ease-in-out;-moz-transition: box-shadow 0.3s ease-in-out;-o-transition: box-shadow 0.3s ease-in-out;transition: box-shadow 0.3s ease-in-out;}
+input[type="number"] {
+  background: #fff;
+  position: relative;
+  width: 100%;
+  font-size: 13px;
+  color: #000;
+  height: 30px;
+  padding: 10px;
+  flex: auto;
+  align-items: flex-end;
+  border-radius: 3px;
+  background-image: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+  -webkit-transition: box-shadow 0.3s ease-in-out;
+  -moz-transition: box-shadow 0.3s ease-in-out;
+  -o-transition: box-shadow 0.3s ease-in-out;
+  transition: box-shadow 0.3s ease-in-out;
+}
 
 input {
   writing-mode: horizontal-tb !important;
@@ -95,7 +163,8 @@ input {
 
 label {
   cursor: default;
-  font-size: 14px;    vertical-align: top;
+  font-size: 14px;
+  vertical-align: top;
 }
 
 .order_window .wrap {
@@ -301,8 +370,20 @@ input[type="radio"] {
   border-radius: 90px;
 }
 
-.su-switch-group .su-switch-control {
+.su-switch-group .su-switch-control.buy {
   background-color: #6344f2;
+  position: relative;
+  text-indent: -9999px;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  width: 32px;
+  height: 16px;
+  border-radius: 100px;
+}
+
+su-switch-group .su-switch-control.sell {
+  background-color: #ff6872;
   position: relative;
   text-indent: -9999px;
   cursor: pointer;
@@ -361,7 +442,8 @@ input[type="radio"] {
 .su-radio-group .su-radio-label {
   display: inline-block;
   vertical-align: middle;
-  cursor: pointer;font-size: 14px;
+  cursor: pointer;
+  font-size: 14px;
 }
 .su-radio-group .su-radio {
   opacity: 0;
@@ -411,7 +493,9 @@ div[disabled] {
 .su-radio-group .su-radio-wrap {
   display: inline-block;
 }
-.su-radio-group .su-radio-wrap:nth-child(1) {margin-right: 8px;}
+.su-radio-group .su-radio-wrap:nth-child(1) {
+  margin-right: 8px;
+}
 
 .container:after,
 .row:after,

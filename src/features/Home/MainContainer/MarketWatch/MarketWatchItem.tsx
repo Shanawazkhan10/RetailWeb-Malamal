@@ -181,6 +181,7 @@ const MarketWatchItem = (props: {
     //   userWS.send(req);
     // });
     //}
+
     waitForSocketConnection(userWS, function () {
       sendUnsubReq(subUnsubReq);
     });
@@ -228,9 +229,10 @@ const MarketWatchItem = (props: {
               >
                 <td>
                   {symbolInfo.isin != "NA" && symbolInfo.isin != "--" ? (
-                    <img
-                      src={MarketWatchItemImagePath + symbolInfo.isin + ".png"}
-                    />
+                    // <img
+                    //   src={MarketWatchItemImagePath + symbolInfo.isin + ".png"}
+                    // />
+                    <img src={"images/logos/" + symbolInfo.isin + ".png"} />
                   ) : (
                     // <LazyLoadImage
                     //   src={
