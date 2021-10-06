@@ -11,32 +11,32 @@ p {
   line-height: 1.4rem;
 }
 h1 {
-  font-size: 2.5rem;
+  font-size: 40px;
   font-weight: 600;
   text-transform: uppercase;
-} /*40*/
+}
 h2 {
-  font-size: 1.375rem;
+  font-size: 22px;
   font-weight: 600;
-} /*22*/
+}
 h3 {
-  font-size: 1.125rem;
+  font-size: 18px;
   font-weight: 600;
   text-transform: uppercase;
-} /*18*/
+}
 h4 {
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 600;
-} /*16*/
+}
 h5 {
-  font-size: 0.9375rem;
+  font-size: 15px;
   font-weight: 600;
   text-transform: uppercase;
-} /*15*/
+}
 h6 {
-  font-size: 0.875rem;
+  font-size: 14px;
   font-weight: 600;
-} /*14*/
+}
 
 a {
   color: #6344f2;
@@ -46,7 +46,9 @@ a:hover {
   color: #6344f2;
   text-decoration: none;
 }
-
+.border-bottom {
+  border-bottom: 1px solid #d2d0e1 !important;
+}
 ::-webkit-scrollbar {
   width: 4px;
 }
@@ -57,11 +59,19 @@ a:hover {
 }
 /*::-webkit-scrollbar-thumb:hover {background-color: #efefef;}*/
 
+input:disabled {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36zwjjgzhhYWGMYAEYB8RmROaABADeOQ8CXl/xfgAAAABJRU5ErkJggg==)
+    repeat;
+}
+
 .navbar {
-  padding: 6px 28px;
+  padding: 13px 28px;
+  box-shadow: none;
+  border-bottom: 1px solid #d2d0e1;
+  margin-bottom: 20px;
 }
 .navbar-brand {
-  margin-right: 30px;
+  margin-right: 20px;
 }
 .navbar-light .navbar-toggler {
   color: #ffffff;
@@ -82,27 +92,29 @@ a:hover {
   background-color: #6a4eee;
 }
 #menutxt .nav-item a {
+  font-family: "Inter", sans-serif;
   font-weight: 400;
-  font-size: 15px;
-  color: #ffffff;
+  font-size: 18px;
+  color: #979797;
   padding: 4px 20px;
+  text-transform: capitalize;
 }
 #menutxt .nav-item a.active {
-  font-weight: 600;
-  font-size: 16px;
-  color: #ffffff;
+  font-weight: 700;
+  color: #6a4eee;
 }
 #menutxt .nav-item .active:after {
   content: " ";
   display: block;
   height: 4px;
-  background-color: #ffffff;
+  background-color: #6a4eee;
   border-radius: 10px;
-  color: #ffffff;
+  color: #6a4eee;
 }
 
 #mainbox {
-  margin-top: 100px;
+  margin-top: 20px;
+  padding: 0 30px;
 }
 
 .plate a {
@@ -153,30 +165,57 @@ a:hover {
 }
 
 .marketlive {
-  background-color: #ffffff;
-  width: max-content;
-  height: 57px;
   padding: 0px 30px;
-  text-align: -webkit-center;
-  min-width: 500px;
 }
 .marketlive .nname {
   text-transform: uppercase;
-  font-weight: 700;
-  font-size: 16px;
+  margin-bottom: 8px;
 }
 .marketlive .pgreen {
   color: #00c707;
-  margin: 0px 15px 0px;
+  margin: 0;
   font-weight: 700;
+  text-align: end;
 }
 .marketlive .pred {
   color: #ff0606;
-  margin: 0px 15px 0px;
+  margin: 0;
   font-weight: 700;
+  text-align: end;
+}
+.marketlive2 .nname {
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.marketlive2 .pgreen {
+  color: #00c707;
+  margin: 0;
+  font-weight: 700;
+  text-align: end;
+}
+.marketlive2 .pred {
+  color: #ff0606;
+  margin: 0;
+  font-weight: 700;
+  text-align: end;
+}
+.marketbox {
+  height: 74px;
+}
+.nsebse h6 {
+  font-weight: 400;
+}
+.nsebse .table-cell h6:nth-child(1) {
+  color: #a5a7a4;
+  margin-bottom: 0;
+}
+.nsebse .table-cell h6.mpercent {
+  color: #121212;
+  text-align: end;
 }
 .marketlive .mpercent {
-  font-weight: 600;
+  font-weight: 400;
+  text-align: end;
 }
 .niftymain {
   display: inline-flex;
@@ -254,8 +293,6 @@ a:hover {
 }
 
 /*search*/
-#search input {
-}
 #searchwatchlist {
   /*height: 66vh;overflow: auto;*/
   border-bottom: 1px solid #eeeeee;
@@ -388,6 +425,7 @@ a:hover {
   max-height: 45vh;
   overflow: auto;
 }
+
 .search-results-modaladd {
   position: relative;
   z-index: 1;
@@ -395,6 +433,7 @@ a:hover {
   max-height: 45vh;
   overflow: auto;
 }
+
 .search-results-modal #searchwatchlist .watchlistbox button {
   padding: 0px;
   z-index: 1;
@@ -473,6 +512,22 @@ a:hover {
   width: 100%;
   padding: 5px 0px;
   font-size: 12px;
+}
+
+.plate-2 #watchlistinner-market {
+  width: 49.4%;
+  display: inline-block;
+}
+.plate-2 #watchlistinner-market .table-cell {
+  width: 100%;
+}
+.plate-2 #watchlistinner-market.marketlive {
+  padding: 0px 20px 0px 30px;
+  border-right: 1px solid #d2d0e1;
+  margin-top: 15px;
+}
+.plate-2 #watchlistinner-market.marketlive2 {
+  padding: 0px 30px 0px 15px;
 }
 
 #mainwatchlist tr.collapse {
@@ -659,7 +714,7 @@ a:hover {
   color: #000000;
   background: #f2efff;
   padding: 18px;
-  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 14%);
+  border: 1px solid #d2d0e1;
   height: auto;
   overflow: hidden;
   margin-bottom: 28px;
@@ -669,7 +724,7 @@ a:hover {
   color: #000000;
   background: #ffffff;
   padding: 18px;
-  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 14%);
+  border: 1px solid #d2d0e1;
   height: 40vh;
   overflow: hidden;
   margin-bottom: 10px;
@@ -679,7 +734,7 @@ a:hover {
   color: #000000;
   background: #ffffff;
   padding: 18px;
-  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 14%);
+  border: 1px solid #d2d0e1;
   height: 85vh;
   overflow: hidden;
   margin-bottom: 10px;
@@ -699,7 +754,7 @@ a:hover {
   color: #000000;
   background: #ffffff;
   padding: 18px;
-  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 14%);
+  border: 1px solid #d2d0e1;
   height: 85vh;
   overflow: auto;
   margin-bottom: 10px;
@@ -717,7 +772,9 @@ a:hover {
 .plate-2 {
   color: #000000;
   background: #ffffff;
-  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 14%);
+  border: 1px solid #d2d0e1;
+  position: fixed;
+  width: 23%;
 }
 .plate span {
   font-size: 20px;
@@ -1094,7 +1151,11 @@ tr:hover div.watchlistbox {
 }
 
 .form__input:focus ~ .form__label,
-.form__input:not(:placeholder-shown).form__input:not(:focus) ~ .form__label {
+<<<<<<<
+  Updated
+  upstream
+  .form__input:not(:placeholder-shown).form__input:not(:focus)
+  ~ .form__label {
   top: -0.5rem;
   font-size: 0.8rem;
   left: 0.8rem;
@@ -1223,6 +1284,136 @@ tr:hover div.watchlistbox {
   width: 24%;
   margin: 0 6px 0 0;
 }
+=======
+  .form__input:not(:placeholder-shown).form__input:not(:focus)
+  ~ .form__label {
+  top: -0.5rem;
+  font-size: 0.8rem;
+  left: 0.8rem;
+  color: #222;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+}
+.modal .modal-dialog {
+  /*margin-top: 10%;*/
+}
+.modal button.btn-primary {
+  /*background: #6344f2;*/
+  border-radius: 7px; /*height: 60px;*/
+  font-size: 18px;
+}
+.modal #search {
+  padding: 0 0 10px;
+  margin: 0;
+}
+.modal #search input {
+  width: 100%;
+}
+.modal .submitbtn {
+  margin-bottom: 10px;
+}
+.modal .submitbtn-no {
+  background: #d9d9d9 !important;
+  vertical-align: top;
+}
+.modal-header {
+  border-bottom: none;
+  padding: 25px 25px 10px;
+}
+.modal-body {
+  padding: 10px 25px 25px;
+}
+.modal-body .form {
+  height: 3rem;
+}
+.modal-content {
+  border-radius: 10px;
+  border: none;
+}
+.close {
+  opacity: 10;
+}
+#DeleteCModal .modal-dialog {
+  max-width: 260px !important;
+}
+#DeleteCModal .modal-body {
+  padding: 0px 25px 25px;
+}
+#EditWModal .modal-dialog {
+  max-width: 400px !important;
+}
+#ConvertModal .modal-dialog {
+  max-width: 400px !important;
+}
+
+.modal-header .form {
+  margin-bottom: 0px;
+}
+
+.convertbox p {
+  color: #a5a7a4;
+  font-weight: 400;
+}
+.convertbox {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eeeeee;
+}
+.convertbox span {
+  font-size: 12px;
+  color: #a5a7a4;
+}
+.convertbox .form {
+  margin-bottom: 4px;
+}
+
+#InfoModal .nbox p {
+  font-size: 12px;
+  font-weight: 400;
+  margin: 0 auto;
+  padding: 2px;
+  color: #ffffff;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+#InfoModal .nbox {
+  max-width: fit-content;
+  min-width: 60px;
+  height: 25px;
+  text-align: center;
+  background: #fc8b00;
+  border-radius: 2px;
+  display: inline-block;
+  margin-right: 6px;
+}
+#InfoModal .openbtn {
+  max-width: fit-content;
+  min-width: 60px;
+  height: 25px;
+  text-align: center;
+  background: #00c707;
+  border-radius: 2px;
+}
+#InfoModal .openbtn span {
+  margin: 0;
+  color: #ffffff;
+}
+#InfoModal #watchlistinner .table-row .table-cell:nth-child(1) {
+  color: #a5a7a4;
+}
+#InfoModal #watchlistinner .table-row .table-cell:nth-child(2) {
+  text-align: right;
+}
+#InfoModal #watchlistinner {
+  padding: 0;
+}
+#InfoModal .submitbtn {
+  width: 24%;
+  margin: 0 6px 0 0;
+}
+>>>>>>> Stashed changes
 
 /*tab*/
 .tabline {
@@ -1297,6 +1488,7 @@ tr:hover div.watchlistbox {
   line-height: 130%;
   display: none;
 }
+
 @media screen and (max-width: 800px) {
   #Portfolio .tab-wrap {
     width: 80%;
@@ -1304,6 +1496,7 @@ tr:hover div.watchlistbox {
     top: -106px;
   }
 }
+
 #Portfolio #search {
   width: 40%;
   padding: 0 0 10px;
@@ -1571,29 +1764,55 @@ tr[disabled] {
 
 /*Extra large devices (large desktops, 1200px and up)*/
 @media (min-width: 1300px) and (max-width: 1499.98px) {
+  h1 {
+    font-size: 38px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  h4 {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  h5 {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  h6 {
+    font-size: 12px;
+    font-weight: 600;
+  }
+  #mainbox {
+    padding: 0;
+  }
   .plate {
     height: 47vh;
     padding: 20px;
   }
   .plate-2 {
     position: fixed;
-    height: 85vh;
+    height: 95vh;
   }
-  .navbar {
-    padding: 0px 28px;
-  }
+  /*.navbar{padding:0px 28px;}*/
   .marketlive {
     height: 40px;
+    padding: 0px 20px;
   }
   .niftymain {
     margin: 6px 0;
   }
-  #mainbox {
-    margin-top: 82px;
-  }
   .b-listing #mainwatchlist {
     margin: 8px 0 8px 0;
-    height: 66vh;
+    height: 63vh;
     overflow: auto; /*padding:0 12px 0 0;*/
     display: block;
   }
@@ -1632,18 +1851,6 @@ tr[disabled] {
   .price-box .lprice {
     margin-bottom: 2px;
   }
-  .marketlive .nname {
-    font-size: 16px;
-  }
-  .marketlive .pgreen {
-    font-size: 16px;
-  }
-  .marketlive .mpercent {
-    font-size: 16px;
-  }
-  .marketlive .pred {
-    font-size: 16px;
-  }
   #chart img {
     margin-top: 16px;
   }
@@ -1655,6 +1862,15 @@ tr[disabled] {
   }
   .equitybtn a {
     font-size: 16px;
+  }
+  .plate-2 #watchlistinner-market.marketlive {
+    padding: 0px 5px 0px 20px;
+  }
+  .plate-2 #watchlistinner-market.marketlive2 {
+    padding: 0px 20px 0px 5px;
+  }
+  .plate-2 #watchlistinner-market {
+    width: 49%;
   }
 }
 
@@ -1732,36 +1948,12 @@ tr[disabled] {
   .holdingbtn span a {
     font-size: 20px;
   }
-  .marketlive {
-    min-width: 630px;
-  }
-  .marketlive .nname {
-    font-size: 20px;
-  }
-  .marketlive .pgreen {
-    font-size: 20px;
-  }
-  .marketlive .mpercent {
-    font-size: 20px;
-  }
-  .marketlive .pred {
-    font-size: 20px;
-  }
   .niftymain {
     margin: 10px 0;
-  }
-  #menutxt .nav-item a.active {
-    font-size: 25px;
-  }
-  #menutxt .nav-item a {
-    font-size: 24px;
   }
 }
 
 @media (min-width: 1500px) and (-webkit-device-pixel-ratio: 1.25) {
-  #mainbox {
-    margin-top: 94px;
-  }
   .plate {
     height: 50vh;
     padding: 30px;
@@ -1838,24 +2030,6 @@ tr[disabled] {
   .holdingbtn span a {
     font-size: 20px;
   }
-  .marketlive .nname {
-    font-size: 20px;
-  }
-  .marketlive .pgreen {
-    font-size: 20px;
-  }
-  .marketlive .mpercent {
-    font-size: 20px;
-  }
-  .marketlive .pred {
-    font-size: 20px;
-  }
-  #menutxt .nav-item a {
-    font-size: 20px;
-  }
-  #menutxt .nav-item a.active {
-    font-size: 21px;
-  }
   #menutxt .nav-item a {
     padding: 4px 14px;
   }
@@ -1867,7 +2041,7 @@ tr[disabled] {
     padding: 30px;
   }
   .plate-2 {
-    height: 88vh;
+    height: 96vh;
   }
   .equityplate {
     height: 88vh;
@@ -1882,7 +2056,7 @@ tr[disabled] {
     padding: 30px;
   }
   .b-listing #mainwatchlist {
-    height: 73vh;
+    height: 75vh;
     overflow: auto; /*padding:0 12px 0 0;*/
     display: block;
   }
@@ -1992,28 +2166,7 @@ tr[disabled] {
   .holdingbtn span a {
     font-size: 20px;
   }
-  .marketlive {
-    min-width: 630px;
-  }
-  .marketlive .nname {
-    font-size: 20px;
-  }
-  .marketlive .pgreen {
-    font-size: 20px;
-  }
-  .marketlive .mpercent {
-    font-size: 20px;
-  }
-  .marketlive .pred {
-    font-size: 20px;
-  }
   .niftymain {
     margin: 10px 0;
-  }
-  #menutxt .nav-item a.active {
-    font-size: 20px;
-  }
-  #menutxt .nav-item a {
-    font-size: 19px;
   }
 }
