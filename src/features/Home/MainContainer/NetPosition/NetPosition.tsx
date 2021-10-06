@@ -1,14 +1,31 @@
 import { parse } from "querystring";
 import React from "react";
 import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import { INetPosition } from "../../../../types/INetposition";
+import { NetpositionSummary } from "../../../../types/INetpositionSummary";
+import { IOrderResponse } from "../../../../types/Order/IOrderResponse";
+import { IOrderEntryProps } from "../../../../types/OrderEntry/IOrderEntryProps";
 import { IPosition } from "../../../../types/Position/IPosition";
+import {
+  openBuyOrderEntry,
+  openSellOrderEntry,
+  setOrderEntryProps,
+} from "../../OrderEntry/orderEntrySlice";
 
 const NetPositionV = (props: { netposition: INetPosition }) => {
   const { netposition } = props;
-  //const dispatch = useAppDispatch();
-  //const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+  const OrderEntryProp = {
+    token: "",
+    exchange: "",
+    quantity: 0,
+    price: "",
+    triggerprice: "",
+    symbol: "",
+  } as IOrderEntryProps;
+
   const NetpositionList = useSelector((state: RootState) => state.netposition);
 
   function renderSwitch(product: String) {
@@ -22,6 +39,38 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
       default:
         return "foo";
     }
+  }
+
+  function onBuyOrderEntryClick(
+    e: any,
+    symbolInfo: IOrderResponse,
+    actiontype: string
+  ) {
+    e.preventDefault();
+    OrderEntryProp.token = symbolInfo.tok;
+    if (actiontype == "Repeat") {
+      OrderEntryProp.price = symbolInfo.prc;
+    } else if (actiontype == "Buy") {
+      OrderEntryProp.price = symbolInfo.ltp;
+    }
+    OrderEntryProp.quantity = 1; //symbolInfo.fldQty;
+    OrderEntryProp.symbol = symbolInfo.trdSym;
+    OrderEntryProp.exchange = symbolInfo.exSeg;
+    //OrderEntryProp.ltp = symbolInfo.ltp;
+    dispatch(setOrderEntryProps(OrderEntryProp));
+    dispatch(openBuyOrderEntry());
+  }
+
+  function onSellOrderEntryClick(e: any, netposition: INetPosition) {
+    e.preventDefault();
+    OrderEntryProp.token = netposition.tok;
+    //OrderEntryProp.price = symbolInfo.ltp;
+    OrderEntryProp.quantity = Number(netposition.cfBuyQty); // symbolInfo.fldQty;
+    OrderEntryProp.symbol = netposition.trdSym;
+    OrderEntryProp.exchange = netposition.exSeg;
+    //OrderEntryProp.ltp = symbolInfo.ltp;
+    dispatch(setOrderEntryProps(OrderEntryProp));
+    dispatch(openSellOrderEntry());
   }
 
   return (
@@ -43,11 +92,15 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
         </div>
       </td>
       <td>
-        <button type="button" className="btn btn-primary exitbtn"></button>
+        <button
+          type="button"
+          className="btn btn-primary exitbtn"
+          onClick={(e) => onSellOrderEntryClick(e, netposition)}
+        ></button>
       </td>
       <td>
         <h3>
-          {netposition.sym}{" "}
+          {netposition.sym}
           <span>{netposition.exSeg.split("_")[0].toUpperCase()}</span>
         </h3>
         <div className="watchlistbox">
@@ -60,7 +113,11 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
             aria-expanded="false"
           ></button>
           <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a className="dropdown-item" href="#">
+            <a
+              className="dropdown-item"
+              href="#"
+              onClick={(e) => onSellOrderEntryClick(e, netposition)}
+            >
               <img src="images/positions/exit.svg" /> Exit
             </a>
             <a className="dropdown-item" href="#">
@@ -73,7 +130,7 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
               <img src="images/positions/info.svg" /> Info
             </a>
             <a className="dropdown-item" href="#">
-              <img src="images/positions/create-gtt.svg" /> Create GTT{" "}
+              <img src="images/positions/create-gtt.svg" /> Create GTT
               <span>/ GTC</span>
             </a>
             <a className="dropdown-item" href="#">
@@ -94,7 +151,7 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
                   background: "rgba(106, 78, 238, 0.2)",
                   borderRadius: "3px",
                 }}
-              />{" "}
+              />
               Fundamentals
             </a>
             <a className="dropdown-item" href="#">
@@ -106,7 +163,7 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
                   background: "rgba(106, 78, 238, 0.2)",
                   borderRadius: "3px",
                 }}
-              />{" "}
+              />
               Technicals
             </a>
             <a className="dropdown-item" href="#">
