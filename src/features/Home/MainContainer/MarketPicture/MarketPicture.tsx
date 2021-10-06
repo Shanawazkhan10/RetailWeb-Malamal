@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Script } from "vm";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import { userWS } from "../../../WebSocket/HSSocket";
@@ -93,7 +94,7 @@ const MarketPicture = () => {
         userWS.send(reqDepth);
       });
     }
-  }, []);
+  }, [script]);
 
   function close() {
     //setopup(false);
