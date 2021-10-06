@@ -33,7 +33,9 @@ const NetPositionList = () => {
       //subscribe Script API Call
       const subUnsubReq: SubUnsubReq = {
         type: "mws",
-        scrips: NetpositionList.netposition.map((x) => x.trdSym).join("&"),
+        scrips: NetpositionList.netposition
+          .map((x) => x.exSeg + "|" + x.tok)
+          .join("&"),
         channelnum: 1,
       };
 

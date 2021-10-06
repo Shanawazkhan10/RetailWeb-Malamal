@@ -151,24 +151,6 @@ const Funds = () => {
             </table>
           </div>
         </div>
-        <div className="six columns">
-          <h3 className="title">
-            <span className="icon icon-droplet"></span>
-            <span className="name">commodity</span>
-          </h3>
-          <div className="empty-state">
-            <div>
-              <p>You don't have a commodity account</p>
-            </div>
-            <a
-              target="_blank"
-              href="https://console.zerodha.com/account/segment-activation"
-              className="button button-blue"
-            >
-              Activate
-            </a>
-          </div>
-        </div>
       </div>
     </div>
   );
