@@ -57,9 +57,11 @@ const Home = () => {
   return (
     // <div id="MasterSearchDiv">
     //   <div id="wrapper">
-    <div className="container-scroller mb-2">
+    // <div className="container-scroller mb-2">
+
+    <>
       <HSSocket></HSSocket>
-      <Header />
+      {/* <Header /> */}
       <MainContainer nWatchList={1} />
       {orderEntryState.isOrderEntryOpen && <OrderEntryComp />}
       {gttEntryState.isGTTEntryOpen && <GttOrderEntry />}
@@ -70,7 +72,8 @@ const Home = () => {
       <Menu></Menu>
       {/* </div> */}
       <ToastContainer />
-    </div>
+      {/* </div> */}
+    </>
   );
   //}
 };

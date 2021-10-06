@@ -123,7 +123,7 @@ const MarketPictureOrderEntry = (props: {
     // </div>
 
     <div className="row btn3">
-      <div className="col-md-4">
+      <div className="col-md-4 pr-0">
         <button
           type="submit"
           className="btn w-100 modal-buy"
@@ -132,7 +132,7 @@ const MarketPictureOrderEntry = (props: {
           buy
         </button>
       </div>
-      <div className="col-md-4">
+      <div className="col-md-4 py-0">
         <button
           type="submit"
           className="btn w-100 modal-sell"
@@ -141,7 +141,7 @@ const MarketPictureOrderEntry = (props: {
           sell
         </button>
       </div>
-      <div className="col-md-4">
+      <div className="col-md-4 pl-0">
         <button
           type="submit"
           className="btn w-100 modal-gtt"

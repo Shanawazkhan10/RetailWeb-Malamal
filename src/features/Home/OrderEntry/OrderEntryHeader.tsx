@@ -17,7 +17,11 @@ const OrderEntryHeader = () => {
       <div className="row">
         <div className="eight columns">
           <div className="instrument mb-2">
-            <span className="transaction-type">
+            <span
+              className={
+                "transaction-type" + (orderEntryState.isBuy ? " buy" : " sell")
+              }
+            >
               {orderEntryState.isBuy ? "BUY" : "SELL"}
             </span>
             <span className="tradingsymbol">

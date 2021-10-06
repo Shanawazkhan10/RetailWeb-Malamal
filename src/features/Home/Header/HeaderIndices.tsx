@@ -27,38 +27,75 @@ const HeaderIndices = () => {
     dispatch(SendIndiceSubRequest(indexTwo));
   }, []);
   return (
-    <div className="marketlive">
+    <div className="marketbox border-bottom">
       {idicesState.IndicesList.length > 0 && (
         <>
           {idicesState.IndicesList[0] != undefined && (
-            <div className="niftymain">
-              <div className="nname">{idicesState.IndicesList[0].omtkn}</div>
-              <div
-                className={
-                  Number(idicesState.IndicesList[0].chg) > 0 ? "pgreen" : "pred"
-                }
-              >
-                {idicesState.IndicesList[0].last}
+            // <div className="niftymain">
+            //   <div className="nname">{idicesState.IndicesList[0].omtkn}</div>
+            //   <div
+            //     className={
+            //       Number(idicesState.IndicesList[0].chg) > 0 ? "pgreen" : "pred"
+            //     }
+            //   >
+            //     {idicesState.IndicesList[0].last}
+            //   </div>
+            //   <div className="mpercent">
+            //     {idicesState.IndicesList[0].netchg}%
+            //   </div>
+            // </div>
+            <div id="watchlistinner-market" className="table marketlive">
+              <div className="table-cell">
+                <h4 className="nname">{idicesState.IndicesList[0].omtkn}</h4>
               </div>
-              <div className="mpercent">
-                {idicesState.IndicesList[0].netchg}%
+              <div className="table-cell">
+                <h4
+                  className={
+                    Number(idicesState.IndicesList[0].chg) > 0
+                      ? "pgreen"
+                      : "pred"
+                  }
+                >
+                  {idicesState.IndicesList[0].last}
+                </h4>
+              </div>
+              <div className="table-row nsebse">
+                <div className="table-cell">
+                  <h6>NSE INDEX</h6>
+                </div>
+                <div className="table-cell">
+                  <h6 className="mpercent">
+                    {idicesState.IndicesList[0].netchg}%
+                  </h6>
+                </div>
               </div>
             </div>
           )}
           {idicesState.IndicesList[1] != undefined && (
-            <div className="sensexmain">
-              <div className="nname">{idicesState.IndicesList[1].omtkn}</div>
-              <div
-                className={
-                  Number(idicesState.IndicesList[1].netchg) > 0
-                    ? "pgreen"
-                    : "pred"
-                }
-              >
-                {idicesState.IndicesList[1].last}
+            <div id="watchlistinner-market" className="table marketlive2">
+              <div className="table-cell">
+                <h4 className="nname">{idicesState.IndicesList[1].omtkn}</h4>
               </div>
-              <div className="mpercent">
-                {idicesState.IndicesList[1].netchg}%
+              <div className="table-cell">
+                <h4
+                  className={
+                    Number(idicesState.IndicesList[1].chg) > 0
+                      ? "pgreen"
+                      : "pred"
+                  }
+                >
+                  {idicesState.IndicesList[1].last}
+                </h4>
+              </div>
+              <div className="table-row nsebse">
+                <div className="table-cell">
+                  <h6>NSE INDEX</h6>
+                </div>
+                <div className="table-cell">
+                  <h6 className="mpercent">
+                    {idicesState.IndicesList[1].netchg}%
+                  </h6>
+                </div>
               </div>
             </div>
           )}

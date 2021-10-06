@@ -112,8 +112,18 @@ const Summary = () => {
                         (summarydata: any, index: number) => (
                           <tr key={index}>
                             <td>{String(summarydata.tsym).split("-")[0]}</td>
-                            <td>{summarydata.netchg}</td>
-                            <td>{summarydata.chg}</td>
+                            <td>
+                              {summarydata.netchg != undefined
+                                ? Math.abs(Number(summarydata.netchg)).toFixed(
+                                    2
+                                  )
+                                : 0.0}
+                            </td>
+                            <td>
+                              {summarydata.chg != undefined
+                                ? Math.abs(Number(summarydata.chg)).toFixed(2)
+                                : 0.0}
+                            </td>
                           </tr>
                         )
                       )
