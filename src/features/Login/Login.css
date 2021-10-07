@@ -70,7 +70,9 @@
   padding: 65px 50px 30px 50px;
   border: 1px solid #4f4e4e;
 }
-
+.wrap-login-in p {
+  margin-bottom: 5px;
+}
 login-main-form-logo {
   display: block;
   width: 100%;
@@ -82,9 +84,7 @@ login-main-form-logo {
 }
 
 .login-main-form-title {
-  font-family: "Roboto Thin";
   font-size: 24px;
-  color: #fff;
   line-height: 1.2;
   text-align: center;
   letter-spacing: 1px;
@@ -274,7 +274,6 @@ input.input100:focus {
 [ Button ]*/
 .container-login-main-form-btn {
   width: 100%;
-  padding-top: 25px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -290,7 +289,6 @@ input.input100:focus {
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
-  color: #002532;
   width: 100%;
   height: 45px;
   border-radius: 5px;
@@ -782,13 +780,9 @@ input[type="password"] {
   position: relative;
   width: 100%;
   font-size: 13px;
-  color: #fff;
-  height: 30px;
   padding: 10px;
   flex: auto;
   align-items: flex-end;
-  border-radius: 3px;
-  background: rgba(0, 0, 0, 0.5);
   box-shadow: none;
   -webkit-transition: box-shadow 0.3s ease-in-out;
   -moz-transition: box-shadow 0.3s ease-in-out;

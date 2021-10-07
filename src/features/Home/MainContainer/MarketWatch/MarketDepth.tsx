@@ -65,10 +65,10 @@ const MarketDepth = (props: any) => {
               {Depth.bp != undefined ? Depth.bp : "0.00"}
             </div>
             <div className="table-cell">
-              {Depth.bq != undefined ? Depth.bq : "0"}
+              {Depth.bno1 !== undefined ? Depth.bno1 : "0"}
             </div>
             <div className="table-cell">
-              {Depth.bno1 !== undefined ? Depth.bno1 : "0"}
+              {Depth.bq != undefined ? Depth.bq : "0"}
             </div>
           </a>
           <a
@@ -80,10 +80,10 @@ const MarketDepth = (props: any) => {
               {Depth.bp1 != undefined ? Depth.bp1 : "0.00"}
             </div>
             <div className="table-cell">
-              {Depth.bq1 != undefined ? Depth.bq1 : "0"}
+              {Depth.bno2 !== undefined ? Depth.bno2 : "0"}
             </div>
             <div className="table-cell">
-              {Depth.bno2 !== undefined ? Depth.bno2 : "0"}
+              {Depth.bq1 != undefined ? Depth.bq1 : "0"}
             </div>
           </a>
           <a
@@ -95,10 +95,10 @@ const MarketDepth = (props: any) => {
               {Depth.bp2 != undefined ? Depth.bp2 : "0.00"}
             </div>
             <div className="table-cell">
-              {Depth.bq2 != undefined ? Depth.bq2 : "0"}
+              {Depth.bno3 !== undefined ? Depth.bno3 : "0"}
             </div>
             <div className="table-cell">
-              {Depth.bno3 !== undefined ? Depth.bno3 : "0"}
+              {Depth.bq2 != undefined ? Depth.bq2 : "0"}
             </div>
           </a>
           <a
@@ -109,11 +109,12 @@ const MarketDepth = (props: any) => {
             <div className="table-cell">
               {Depth.bp3 != undefined ? Depth.bp3 : "0.00"}
             </div>
-            <div className="table-cell">
-              {Depth.bq3 != undefined ? Depth.bq3 : "0"}
-            </div>
+
             <div className="table-cell">
               {Depth.bno4 !== undefined ? Depth.bno4 : "0"}
+            </div>
+            <div className="table-cell">
+              {Depth.bq3 != undefined ? Depth.bq3 : "0"}
             </div>
           </a>
           <a
@@ -125,10 +126,10 @@ const MarketDepth = (props: any) => {
               {Depth.bp4 != undefined ? Depth.bp4 : "0.00"}
             </div>
             <div className="table-cell">
-              {Depth.bq4 != undefined ? Depth.bq4 : "0"}
+              {Depth.bno5 !== undefined ? Depth.bno5 : "0"}
             </div>
             <div className="table-cell">
-              {Depth.bno5 !== undefined ? Depth.bno5 : "0"}
+              {Depth.bq4 != undefined ? Depth.bq4 : "0"}
             </div>
           </a>
           <a className="table-row c-blue">
@@ -164,10 +165,10 @@ const MarketDepth = (props: any) => {
               {Depth.sp != undefined ? Depth.sp : "0.00"}
             </div>
             <div className="table-cell">
-              {Depth.bs != undefined ? Depth.bs : "0"}
+              {Depth.sno1 != undefined ? Depth.sno1 : "0"}
             </div>
             <div className="table-cell">
-              {Depth.sno1 != undefined ? Depth.sno1 : "0"}
+              {Depth.bs != undefined ? Depth.bs : "0"}
             </div>
           </a>
           <a
@@ -179,10 +180,10 @@ const MarketDepth = (props: any) => {
               {Depth.sp1 != undefined ? Depth.sp1 : "0.00"}
             </div>
             <div className="table-cell">
-              {Depth.bs1 != undefined ? Depth.bs1 : "0"}
+              {Depth.sno2 != undefined ? Depth.sno2 : "0"}
             </div>
             <div className="table-cell">
-              {Depth.sno2 != undefined ? Depth.sno2 : "0"}
+              {Depth.bs1 != undefined ? Depth.bs1 : "0"}
             </div>
           </a>
           <a
@@ -194,10 +195,10 @@ const MarketDepth = (props: any) => {
               {Depth.sp2 != undefined ? Depth.sp2 : "0.00"}
             </div>
             <div className="table-cell">
-              {Depth.bs2 != undefined ? Depth.bs2 : "0"}
+              {Depth.sno3 != undefined ? Depth.sno3 : "0"}
             </div>
             <div className="table-cell">
-              {Depth.sno3 != undefined ? Depth.sno3 : "0"}
+              {Depth.bs2 != undefined ? Depth.bs2 : "0"}
             </div>
           </a>
           <a
@@ -209,10 +210,10 @@ const MarketDepth = (props: any) => {
               {Depth.sp3 != undefined ? Depth.sp3 : "0.00"}
             </div>
             <div className="table-cell">
-              {Depth.bs3 != undefined ? Depth.bs3 : "0"}
+              {Depth.sno4 != undefined ? Depth.sno4 : "0"}
             </div>
             <div className="table-cell">
-              {Depth.sno4 != undefined ? Depth.sno4 : "0"}
+              {Depth.bs3 != undefined ? Depth.bs3 : "0"}
             </div>
           </a>
           <a
@@ -223,11 +224,12 @@ const MarketDepth = (props: any) => {
             <div className="table-cell">
               {Depth.sp4 != undefined ? Depth.sp4 : "0.00"}
             </div>
-            <div className="table-cell">
-              {Depth.bs4 != undefined ? Depth.bs4 : "0"}
-            </div>
+
             <div className="table-cell">
               {Depth.sno5 != undefined ? Depth.sno5 : "0"}
+            </div>
+            <div className="table-cell">
+              {Depth.bs4 != undefined ? Depth.bs4 : "0"}
             </div>
           </a>
           <a className="table-row c-red">

@@ -78,11 +78,7 @@ const Funds = () => {
           Add funds
         </button>
 
-        <a
-          target="_blank"
-          href="https://console.zerodha.com/funds/overview/"
-          className="button button-blue"
-        >
+        <a target="_blank" className="button button-blue">
           Withdraw
         </a>
       </div>

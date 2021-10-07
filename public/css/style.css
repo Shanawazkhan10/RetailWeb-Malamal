@@ -7,7 +7,7 @@ body {
 }
 p {
   font-size: 16px;
-  margin-bottom: 0.4rem;
+  margin-bottom: 1.4rem;
   line-height: 1.4rem;
 }
 h1 {
@@ -64,8 +64,19 @@ input:disabled {
     repeat;
 }
 
+.icon-inside {
+  position: absolute;
+  right: 10px;
+  top: calc(50% - 12px);
+  pointer-events: none;
+  font-size: 16px;
+  font-size: 1.125rem;
+  color: #c4c3c3;
+  z-index: 3;
+}
+
 .navbar {
-  padding: 13px 28px;
+  padding: 15px 28px;
   box-shadow: none;
   border-bottom: 1px solid #d2d0e1;
   margin-bottom: 20px;
@@ -82,6 +93,7 @@ input:disabled {
   border-radius: 4px;
   border: none;
   color: #ffffff;
+  margin-right: 3px;
 }
 .btn-primary:hover {
   background-color: #6a4eee;
@@ -280,6 +292,7 @@ input:disabled {
   border-radius: 4px;
   width: 40px;
   font-size: 10px;
+  color: #121212;
 }
 .pagenum .dropdown-menu button:hover {
   background: #6344f2;
@@ -1114,7 +1127,8 @@ tr:hover div.watchlistbox {
 
 .form {
   position: relative;
-  width: 20rem; /*height: 3rem;*/
+  width: 20rem;
+  height: 3rem;
   margin-bottom: 10px;
   width: 100%;
 }
@@ -1187,7 +1201,7 @@ tr:hover div.watchlistbox {
   vertical-align: top;
 }
 .modal-header {
-  border-bottom: ;
+  border-bottom: none;
   padding: 25px 25px 10px;
 }
 .modal-body {
@@ -1198,7 +1212,7 @@ tr:hover div.watchlistbox {
 }
 .modal-content {
   border-radius: 10px;
-  border: white solid;
+  border: none;
 }
 .close {
   opacity: 10;
@@ -1236,8 +1250,6 @@ tr:hover div.watchlistbox {
   margin-bottom: 4px;
 }
 
-#InfoModal .nbox {
-}
 #InfoModal .nbox p {
   font-size: 12px;
   font-weight: 400;
@@ -1584,6 +1596,69 @@ tr[disabled] {
 }
 /*tab*/
 
+/*funds*/
+.funds-equity {
+  padding: 20px 50px;
+  border-right: 1px solid #d2d0e1;
+}
+.funds-equity #box1 .table-cell {
+  padding: 12px 0;
+}
+.funds-equity #box2 .table-cell {
+  padding: 8px 0;
+}
+.funds-equity #box3 .table-cell {
+  padding: 8px 0;
+}
+.funds-equity #box1 .table-cell span {
+  font-size: 24px;
+  font-weight: 600;
+  color: #000000;
+}
+.dfundshead {
+  font-size: 20px;
+  font-weight: 600;
+  color: #000000;
+}
+.fund-equityplate {
+  color: #000000;
+  background: #ffffff;
+  padding: 18px;
+  border: 1px solid #d2d0e1;
+  height: 87vh;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+/*funds*/
+
+/*#BuyWModal{display: inline-table;
+position: fixed;
+top: 5%;
+right: 30%;
+border: 1px solid;
+width: 38%;}
+#BuyWModal.modal-dialog{margin: 0;max-width: none;}*/
+/* .modal-backdrop {
+  display: none;
+}
+.custom-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
+  height: fit-content;
+  padding: 0 !important;
+  border: 1px solid #d2d0e1;
+/* }
+.modal-dialog {
+  margin: 0;
+}
+*/
+/* #BuyWModal {
+  width: 25%;
+} */
+
 /*Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {
   .b-listing #mainwatchlist tr td {
@@ -1694,7 +1769,7 @@ tr[disabled] {
   }
   .b-listing #mainwatchlist tr td {
     /*width:65%;*/
-    padding: 10px 15px 5px 25px;
+    padding: 10px 20px 5px 20px;
   }
   #search {
     margin: 0px 8px 0px 20px;
@@ -1739,6 +1814,13 @@ tr[disabled] {
   }
   .plate-2 #watchlistinner-market {
     width: 49%;
+  }
+  .fund-equityplate {
+    height: 80vh;
+    overflow: auto;
+  }
+  #BuyWModal {
+    width: 36%;
   }
 }
 
@@ -1920,7 +2002,7 @@ tr[disabled] {
     font-weight: 600;
   }
   .portfolioplate {
-    height: 88vh;
+    height: 87vh;
     padding: 30px;
   }
   .b-listing #mainwatchlist {

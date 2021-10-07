@@ -1,6 +1,7 @@
 import Holdings from "./Holdings";
 import Margin from "./Margin";
 import MarketOverview from "./MarketOverview";
+import RealTimeMarketOverview from "./RealtimeMarketOverview";
 import Position from "./Position";
 import Summary from "./Summary";
 import Header from "./../../Header/Header";
@@ -18,6 +19,7 @@ const MainDashboard = () => {
       <div className="row">
         <Holdings></Holdings>
         <MarketOverview></MarketOverview>
+        {/* <RealTimeMarketOverview></RealTimeMarketOverview> */}
       </div>
     </div>
   );

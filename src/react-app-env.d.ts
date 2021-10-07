@@ -5,3 +5,4 @@ declare module "md5";
 //declare module "react-device-detect";
 //export * from "../src/features/WebSocket";
 declare module "react-helmet";
+declare module "react-tradingview-widget";

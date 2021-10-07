@@ -13,6 +13,9 @@ interface IMPINInput {
 const MPIN = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
+
+  const user = useAppSelector((state) => state.user);
+
   const {
     register,
     formState: { errors },
@@ -31,7 +34,7 @@ const MPIN = () => {
   const onSubmit: SubmitHandler<IMPINInput> = (data) => {
     //Make Web call for Fogot Passwoed Here
     var querystring = {
-      uid: UserDetailsonLogin.UserId,
+      uid: UserDetailsonLogin.UserId.toLocaleUpperCase(),
       mpin: md5(data.PIN),
       brokerId: "TECXLABS",
       devicempinkey: UserDetailsonLogin.user.data.devicempinkey,
@@ -41,22 +44,32 @@ const MPIN = () => {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <span className="login-main-form-title">MPIN</span>
-      <div className="wrap-input100 m-b-20">
+      <div className="text-center">
+        <img src="../images/logo.svg" className="mb-2" />
+      </div>
+
+      <h3 className="login-main-form-title">{user.UserId}</h3>
+      <div className="form m-b-20">
+        <span className="icon-inside">
+          <img src="../images/pswd-ico.png" />
+        </span>
         <input
           {...register("PIN", {
             required: "PIN is required.",
           })}
-          className="input100 userIdCls inputFP"
+          className="form__input userIdCls inputFP"
           type="password"
           name="PIN"
-          placeholder="PIN"
+          placeholder=" "
           id="userIDFP"
         />
+        <label htmlFor="userIDFP" className="form__label">
+          PIN
+        </label>
         <p>{errors.PIN && errors.PIN.message}</p>
       </div>
       <div className="container-login-main-form-btn p-t-25">
-        <button type="submit" className="login-main-form-btn">
+        <button type="submit" className="btn btn-primary login-main-form-btn">
           PROCEED
         </button>
       </div>

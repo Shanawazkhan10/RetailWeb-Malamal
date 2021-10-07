@@ -25,7 +25,7 @@ const OrderEntryHeader = () => {
               {orderEntryState.isBuy ? "BUY" : "SELL"}
             </span>
             <span className="tradingsymbol">
-              <span className="name">
+              <span className="name mr-1">
                 {orderEntryState.symbol.split("-")[0].toUpperCase()}
               </span>
               <span className="exchange">
@@ -41,7 +41,7 @@ const OrderEntryHeader = () => {
               <label htmlFor="day">BSE: 1,577.30</label>
             </div> */}
             <div className="d-inline-block ml-2">
-              <input type="radio" id="day" name="day" value="day" />
+              <input type="radio" id="day" name="day" value="day" checked />
               <label data-for="day">NSE: {orderEntryState.ltp}</label>
             </div>
           </div>

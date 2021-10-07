@@ -8,7 +8,7 @@ import {
   SubUnsubReq,
   waitForSocketConnection,
 } from "../../../WebSocket/HSSocket1";
-import { ShowDepthFromPosition } from "../MarketPicture/MarketPictureSlice";
+import { ShowDepthFromSearch } from "../MarketPicture/MarketPictureSlice";
 import NetPosition from "./NetPosition";
 import { fetchNetposition } from "./NetPositionSlice";
 
@@ -19,9 +19,10 @@ const NetPositionList = () => {
   //NetpositionList = Netposition.netposition;
   const dispatch = useAppDispatch();
 
-  function showDepth() {
-    dispatch(ShowDepthFromPosition(""));
+  function OpenDepth() {
+    dispatch(ShowDepthFromSearch(""));
   }
+
   useEffect(() => {
     //dispatch(NetpositionSuccess(getNetpositionData()));
     dispatch(fetchNetposition(user.sessionKey));
@@ -201,7 +202,7 @@ const NetPositionList = () => {
         <p>You don't have any positions yet</p>
       </div>
       <br />
-      <button type="button" className="button-blue">
+      <button type="button" className="button-blue" onClick={OpenDepth}>
         Get started
       </button>
     </div>
