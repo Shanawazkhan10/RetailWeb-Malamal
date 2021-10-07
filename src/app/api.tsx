@@ -75,7 +75,7 @@ export async function getWatchList(
   });
 
   return await DiscApi.post(
-    "https://uathsdiscovery.hypertrade.in/htpl/userwatchlist/getusergroups",
+    "https://uathsdiscovery.hypertrade.in/userwatchlist/getusergroups",
     "",
     {
       headers: {
