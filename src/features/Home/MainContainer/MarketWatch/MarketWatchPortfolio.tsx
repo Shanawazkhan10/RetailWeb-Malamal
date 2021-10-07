@@ -30,7 +30,10 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
   let bShowAddButton = WatchListData.length < 5 ? true : false;
   const [bEdit, SetEditFlag] = useState(false);
   useEffect(() => {
+    //setTimeout(function () {
     dispatch(fetchmarketWatch(false, userState.sessionKey));
+    //}, 500);
+
     //console.log("getMarketWatchSuccess useEffect");
   }, []);
 
@@ -190,51 +193,5 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
     </div>
   );
 };
-
-// return WatchListData && WatchListData.length > 0 ? (
-//   // !WatchList.marketWatch.bIsBind ? (
-//   <nav aria-label="Page navigation example">
-//     <ul id="pagination">
-//       {WatchListData.map((WatchList: any) => (
-//         <li
-//           key={WatchList.id}
-//           className={
-//             WatchList.id === selectedList
-//               ? "scroll_tab_first tab_selected"
-//               : "scroll_tab_first"
-//           }
-//           style={{ display: "inline-block", zoom: "1" }}
-//         >
-//           {/* <a href="" id={WatchList.id} onClick={handleChange}>
-//             {WatchList.mwName}
-//           </a> */}
-//           <nav aria-label="Page navigation example">
-//             <ul className="pagination">
-//               <li className="page-item active">
-//                 <a
-//                   className="page-link"
-//                   href=""
-//                   id={String(WatchList.id)}
-//                   onClick={handleChange}
-//                 >
-//                   <span
-//                     aria-label={WatchList.mwName}
-//                     data-balloon-pos="up"
-//                     data-balloon
-//                   >
-//                     {WatchList.id + 1}
-//                   </span>
-//                 </a>
-//               </li>
-//             </ul>
-//           </nav>
-//         </li>
-//       ))}
-//     </ul>
-//   </nav>
-// ) : (
-//   <div>Empty Watch List</div>
-// );
-//};
 
 export default MarketWatchPortfolio;
