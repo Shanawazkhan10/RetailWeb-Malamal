@@ -74,33 +74,47 @@ const Login = () => {
             <div className="loginform">
               {user.isPasswordCheked === false ? (
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <span className="login-main-form-title">Sign in</span>
-                  <div className="wrap-input100 m-b-20">
+                  <div className="text-center">
+                    <img src="../images/logo.svg" />
+                  </div>
+                  <h3 className="login-main-form-title">Sign in</h3>
+
+                  <div className="form">
                     <input
                       {...register("clientid", {
                         required: "User Id is required.",
                       })}
-                      className="input100 txtLofinPasss userIdCls"
+                      className="form__input"
                       id="clientid"
                       name="clientid"
-                      placeholder="User ID"
+                      placeholder=" "
                       type="text"
                     />
-                    <span className="input-ico user"></span>
+                    <label htmlFor="clientid" className="form__label">
+                      User ID
+                    </label>
+                    <span className="icon-inside">
+                      <img src="../images/user-ico.png" />
+                    </span>
                   </div>
                   <p>{errors.clientid && errors.clientid.message}</p>
-                  <div className="wrap-input100 m-b-20">
+                  <div className="form">
                     <input
                       {...register("password", {
                         required: "Password is required",
                       })}
-                      className="input100 txtLofinPasss"
+                      className="form__input"
                       id="password"
                       name="password"
-                      placeholder="Password"
+                      placeholder=" "
                       type={passwordShown ? "text" : "password"}
                     />
-                    <span className="input-ico pswd"></span>
+                    <label htmlFor="password" className="form__label">
+                      Password
+                    </label>
+                    <span className="icon-inside">
+                      <img src="../images/pswd-ico.png" />
+                    </span>
                     <span
                       className={
                         "toggle-password " +

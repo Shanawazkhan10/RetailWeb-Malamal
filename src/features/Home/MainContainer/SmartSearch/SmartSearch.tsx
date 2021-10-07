@@ -253,7 +253,7 @@ const SmartSearch = (props: { Type: Number }) => {
           //onBlur={(e) => ClearResult(e)}
         />
         <div className="listingnum">
-          <span>15</span>/<span>50</span>
+          <span>{Result.length}</span>/<span>50</span>
         </div>
       </div>
       {/* if the search input value is not empty show the clear button */}{" "}

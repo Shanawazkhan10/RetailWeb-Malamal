@@ -171,6 +171,7 @@ const MarketPicture = () => {
             <MarketPicturePrice TokenInfo={TokenInfo}></MarketPicturePrice>
             <MarketPictureOrderEntry
               TokenInfo={TokenInfo}
+              symbol={Symbol}
             ></MarketPictureOrderEntry>
           </div>
         </div>

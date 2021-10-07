@@ -21,6 +21,7 @@ import { CloseDepth } from "./MarketPictureSlice";
 
 const MarketPictureOrderEntry = (props: {
   TokenInfo: IMarketWatchTokenInfo;
+  symbol: string;
 }) => {
   const dispatch = useAppDispatch();
   function onClose() {
@@ -70,7 +71,7 @@ const MarketPictureOrderEntry = (props: {
     OrderEntryProp.token = symbolInfo.tok;
     OrderEntryProp.price = symbolInfo.ltp;
     OrderEntryProp.quantity = 1;
-    OrderEntryProp.symbol = symbolInfo.trdSym;
+    OrderEntryProp.symbol = props.symbol;
     OrderEntryProp.exchange = symbolInfo.exSeg;
     OrderEntryProp.ltp = symbolInfo.ltp;
     dispatch(setOrderEntryProps(OrderEntryProp));
@@ -80,7 +81,7 @@ const MarketPictureOrderEntry = (props: {
     OrderEntryProp.token = symbolInfo.tok;
     OrderEntryProp.price = symbolInfo.ltp;
     OrderEntryProp.quantity = 1;
-    OrderEntryProp.symbol = symbolInfo.sym;
+    OrderEntryProp.symbol = props.symbol;
     OrderEntryProp.exchange = symbolInfo.exSeg;
     OrderEntryProp.ltp = symbolInfo.ltp;
     dispatch(setOrderEntryProps(OrderEntryProp));

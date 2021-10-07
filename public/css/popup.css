@@ -8,14 +8,29 @@ textarea {
   margin: 0;
 }
 
+#popUpBox {
+  box-shadow: 0 0 2px #8f8f8f;
+  border-radius: 10px;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 9999;
+  display: none;
+}
+.fields .form {
+  height: 3rem;
+}
 .order_window {
   background: white;
   z-index: 99;
   top: auto;
   bottom: 0px;
   margin-top: 0em;
+  width: 500px;
   position: fixed;
   left: calc(50% - 275px);
+  padding: 20px;
+  border: 1px solid #d2d0e1;
 }
 
 .submit {
@@ -30,7 +45,8 @@ textarea {
 }
 
 .order_window.sell .header {
-  /*color: #fff;background-color: #4184f3;border-radius: 3px 3px 0 0;*/
+  /* color: #fff; */
+  /* background-color: #fd2e3f; */
   padding: 6px 15px 3px 15px;
   border-bottom: 1px solid #eeeeee;
 }
@@ -42,56 +58,28 @@ textarea {
   padding: 2px 4px;
   border-radius: 3px;
 }
-
 .transaction-type.sell {
   font-weight: 500;
   margin-right: 8px;
-  background-color: #ff6872;
+  background-color: #fd2e3f;
   color: #fff;
   padding: 2px 4px;
   border-radius: 3px;
+}
+.tradingsymbol {
+  font-weight: 700;
+  margin-right: 5px;
+}
+.exchange {
+  font-size: 14px;
+  font-weight: 400;
+  color: #a5a7a4;
+}
+.margins {
+  margin: 6% auto;
 }
 
-.tradingsymbol {
-  font-weight: 700;
-  margin-right: 5px;
-}
-.exchange {
-  font-size: 14px;
-  font-weight: 400;
-  color: #a5a7a4;
-  margin-left: 5px;
-}
-.margins {
-  margin: 6% auto;
-}
-======= .order_window.sell .header {
-  color: #fff;
-  background-color: #fd2e3f;
-  border-radius: 3px 3px 0 0;
-  padding: 15px 20px;
-}
-.transaction-type {
-  font-weight: 500;
-  margin-right: 8px;
-  background-color: #1964e4;
-  color: #fff;
-  padding: 2px 4px;
-  border-radius: 3px;
-}
-.tradingsymbol {
-  font-weight: 700;
-  margin-right: 5px;
-}
-.exchange {
-  font-size: 14px;
-  font-weight: 400;
-  color: #a5a7a4;
-}
-.margins {
-  margin: 6% auto;
-}
->>>>>>>Stashed changes .show-read-more .more-text {
+.show-read-more .more-text {
   display: none;
 }
 
@@ -164,7 +152,8 @@ input {
 label {
   cursor: default;
   font-size: 14px;
-  vertical-align: top;
+  /* vertical-align: top; */
+  /* margin-left: 4px; */
 }
 
 .order_window .wrap {
@@ -370,20 +359,8 @@ input[type="radio"] {
   border-radius: 90px;
 }
 
-.su-switch-group .su-switch-control.buy {
+.su-switch-group .su-switch-control {
   background-color: #6344f2;
-  position: relative;
-  text-indent: -9999px;
-  cursor: pointer;
-  display: inline-block;
-  vertical-align: middle;
-  width: 32px;
-  height: 16px;
-  border-radius: 100px;
-}
-
-su-switch-group .su-switch-control.sell {
-  background-color: #ff6872;
   position: relative;
   text-indent: -9999px;
   cursor: pointer;
@@ -473,7 +450,7 @@ su-switch-group .su-switch-control.sell {
 }
 
 div {
-  display: block;
+  /* display: block; */
 }
 
 div[disabled] {

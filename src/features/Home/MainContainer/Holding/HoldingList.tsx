@@ -43,6 +43,14 @@ const HoldingList = () => {
     }
   }
 
+  function getColour(pnl: Number) {
+    if (pnl > 0) {
+      return "green";
+    } else {
+      return "red";
+    }
+  }
+
   return HoldingList &&
     HoldingList.holding != undefined &&
     HoldingList.holding.holdinglist != undefined &&
@@ -129,7 +137,12 @@ const HoldingList = () => {
             <p>Day's P&L</p>
           </div>
           <div>
-            <div className="mb-2 c-green">
+            <div
+              className={
+                "mb-2 c-" +
+                getColour(currentValue - HoldingList.holding.totalInvestMent)
+              }
+            >
               <h3 className="d-inline">
                 {(currentValue - HoldingList.holding.totalInvestMent).toFixed(
                   2

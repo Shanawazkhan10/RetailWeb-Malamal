@@ -32,7 +32,7 @@ const Position = () => {
     if (NetpositionList.netposition != undefined) getSymbol();
   }, []);
 
-  function Something() {
+  function OpenDepth() {
     dispatch(ShowDepthFromSearch(""));
   }
 
@@ -110,16 +110,16 @@ const Position = () => {
                   )
               )
             ) : (
-              <div className="plate fadeIn-element">
+              <div className="fadeIn-element">
                 <div className="row slideInDown-element">
                   <div>
                     <p>You don't have any positions yet</p>
                   </div>
-                  <br />
+
                   <button
                     type="button"
                     className="button-blue"
-                    onClick={Something}
+                    onClick={OpenDepth}
                   >
                     Get started
                   </button>
