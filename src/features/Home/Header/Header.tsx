@@ -239,7 +239,7 @@ const Header = () => {
                   ? "active "
                   : "" + "nav-link d-flex flex-column"
               }
-              onClick={onAccount}
+              // onClick={onAccount}
             >
               <img
                 className="d-block d-sm-none"

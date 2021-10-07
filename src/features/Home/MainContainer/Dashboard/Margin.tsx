@@ -33,12 +33,12 @@ const Margin = () => {
               <span>{marginState.marginData.CollateralValue}</span>
             </p>
           </div>
-          <div className="equitybtn">
+          {/* <div className="equitybtn">
             <a href="#">
               <img src="" />
               View Statement
             </a>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

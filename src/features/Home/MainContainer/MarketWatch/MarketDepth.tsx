@@ -51,10 +51,10 @@ const MarketDepth = (props: any) => {
             <h6>Bid</h6>
           </div>
           <div className="table-cell c-blue">
-            <h6>Orders</h6>
+            <h6>Qty</h6>
           </div>
           <div className="table-cell c-blue">
-            <h6>Qty</h6>
+            <h6>Orders</h6>
           </div>
           <a
             className="table-row c-blue"
@@ -150,10 +150,10 @@ const MarketDepth = (props: any) => {
             <h6>Bid</h6>
           </div>
           <div className="table-cell c-red">
-            <h6>Orders</h6>
+            <h6>Qty</h6>
           </div>
           <div className="table-cell c-red">
-            <h6>Qty</h6>
+            <h6>Orders</h6>
           </div>
           <a
             className="table-row c-red"
