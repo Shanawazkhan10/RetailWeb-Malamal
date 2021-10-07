@@ -6,12 +6,7 @@ import { RootState } from "../../../../store/store";
 import { IRenameWatchlist } from "../../../../types/IRenameWatchlist";
 import SmartSearch from "../SmartSearch/SmartSearch";
 import { IUpdateWatchlist } from "../../../../types/WatchList/IUpdateWatchList";
-
-import {
-  DeleteWatchlist,
-  RenameWatchlist,
-  UpdateWatchlist,
-} from "./MarketWatchSlice";
+import { RenameWatchList, UpdateWatchlist } from "./MarketWatchSlice";
 
 const MarketWatchHeader = () => {
   const [sName, setName] = useState("");
@@ -62,7 +57,7 @@ const MarketWatchHeader = () => {
       userId: user.UserId,
     };
     //API Call TO rename watch list
-    dispatch(RenameWatchlist(RenameReq, user.sessionKey));
+    dispatch(RenameWatchList(RenameReq));
     //dispatch(RenameWatchList(RenameWatchlist(Input))); //API Call
     SetEditFlag(false);
   }

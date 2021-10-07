@@ -169,7 +169,6 @@ export async function PostScritInfo(
 
   //const params = JSON.stringify({ jData: querystring });
   return await api
-
     .post("https://uathsint.hypertrade.in/quick/scrip/info", params, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",

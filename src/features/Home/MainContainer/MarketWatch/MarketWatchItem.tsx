@@ -58,12 +58,10 @@ const MarketWatchItem = (props: {
   const dispatch = useAppDispatch();
   const options = ["one", "two", "three"];
   useEffect(() => {
-    getSymbol();
-    console.log(" MarketWatchItem useEffect");
+    setTimeout(function () {
+      getSymbol();
+    }, 100);
   }, []);
-  // useEffect(() => {
-  //   var a = dispatch(FetchSocketData(22));
-  // }, []);
 
   const OrderEntryProp = {
     token: "",
@@ -159,6 +157,7 @@ const MarketWatchItem = (props: {
       });
     }
   }
+
   function getSymbol() {
     //API call to bind Token info (Scrip Info Request)
     dispatch(
