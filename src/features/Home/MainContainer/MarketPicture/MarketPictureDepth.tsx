@@ -78,13 +78,13 @@ const MarketPictureDepth = (props: {
       <div className="col-md-6">
         <div id="watchlistinner" className="table">
           <div className="table-cell c-blue">
-            <h6>Bid</h6>
+            <h6>Qty</h6>
           </div>
           <div className="table-cell c-blue">
             <h6>Orders</h6>
           </div>
           <div className="table-cell c-blue">
-            <h6>Qty</h6>
+            <h6>Bid</h6>
           </div>
           <a className="table-row c-blue" href="#">
             <div className="table-cell">{props.Depth.bno1}</div>
