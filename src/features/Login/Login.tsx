@@ -50,7 +50,7 @@ const Login = () => {
     console.log(data);
     //dispatch(loggedInSuccess("User"));
     const loginRequest: ILoginRequest = {
-      uid: data.clientid,
+      uid: data.clientid.toLocaleUpperCase(),
       pwd: md5(data.password),
       brokerId: "TECXLABS",
       source: Source,
