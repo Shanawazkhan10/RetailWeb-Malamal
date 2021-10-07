@@ -34,7 +34,7 @@ const MPIN = () => {
   const onSubmit: SubmitHandler<IMPINInput> = (data) => {
     //Make Web call for Fogot Passwoed Here
     var querystring = {
-      uid: UserDetailsonLogin.UserId,
+      uid: UserDetailsonLogin.UserId.toLocaleUpperCase(),
       mpin: md5(data.PIN),
       brokerId: "TECXLABS",
       devicempinkey: UserDetailsonLogin.user.data.devicempinkey,
