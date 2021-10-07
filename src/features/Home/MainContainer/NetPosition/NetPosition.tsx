@@ -88,7 +88,9 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
 
       <td>
         <div className="nbox">
-          <p className={renderSwitch(netposition.prod)}>{netposition.prod}</p>
+          <p className={renderSwitch(netposition.prod)}>
+            {netposition.prod == "I" ? "MIS" : netposition.prod.toUpperCase()}
+          </p>
         </div>
       </td>
       <td>
