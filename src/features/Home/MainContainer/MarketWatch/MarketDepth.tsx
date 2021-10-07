@@ -147,7 +147,7 @@ const MarketDepth = (props: any) => {
       <td>
         <div id="watchlistinner" className="table">
           <div className="table-cell c-red">
-            <h6>Bid</h6>
+            <h6>Offer</h6>
           </div>
           <div className="table-cell c-red">
             <h6>Qty</h6>
