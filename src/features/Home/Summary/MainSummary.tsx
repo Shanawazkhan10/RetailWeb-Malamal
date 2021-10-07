@@ -72,7 +72,7 @@ const MainSummary = () => {
               aria-labelledby="equitysummarymenu"
             >
               <a
-                className="dropdown-item active"
+                className="dropdown-item"
                 onClick={(e) => OnMenuClick(e, "gainer")}
               >
                 Top Gainers
@@ -120,9 +120,21 @@ const MainSummary = () => {
                       (summarydata: any, index: number) => (
                         <tr key={index}>
                           <td>{summarydata.cname}</td>
-                          <td>{summarydata.ltp}</td>
-                          <td>{summarydata.netchg}</td>
-                          <td>{summarydata.chg}</td>
+                          <td>
+                            {summarydata.ltp != undefined
+                              ? Number(summarydata.ltp).toFixed(2)
+                              : 0.0}
+                          </td>
+                          <td>
+                            {summarydata.netchg != undefined
+                              ? Number(summarydata.netchg).toFixed(2)
+                              : 0.0}
+                          </td>
+                          <td>
+                            {summarydata.chg != undefined
+                              ? Number(summarydata.chg).toFixed(2)
+                              : 0.0}
+                          </td>
                         </tr>
                       )
                     )
