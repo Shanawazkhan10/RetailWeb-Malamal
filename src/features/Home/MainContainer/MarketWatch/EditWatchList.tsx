@@ -36,6 +36,11 @@ const EditWatchListComp = () => {
 
     setList(false);
   }
+
+  function setCloseButton() {
+    setList(false);
+  }
+
   return showList ? (
     <div
       className="modal fade show"
@@ -55,6 +60,7 @@ const EditWatchListComp = () => {
               className="close"
               data-dismiss="modal"
               aria-label="Close"
+              onClick={() => setCloseButton()}
             >
               <span aria-hidden="true">&times;</span>
             </button>

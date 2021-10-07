@@ -152,9 +152,11 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
         style={{
           position: "absolute",
           willChange: "transform",
-          top: "0px",
-          left: "0px",
-          transform: "translate3d(208px, 708px, 0px)",
+          top: "73%",
+          left: "55%",
+          //transform: "translate3d(348px, 795px, 0px)",
+          //transform: "translate3d(208px, 708px, 0px)",
+          //transform: "translate3d(-13px, -187px, 0px)",
         }}
         onClick={(e) => closeBottomMenu(e)}
       >
@@ -168,11 +170,12 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
 
         <Popup
           trigger={
-            <a className="dropdown-item" onClick={(e) => closeBottomMenu(e)}>
+            <a className="dropdown-item" href="#">
               <img src="images/watchlist/edit-watchlist.svg" />
-              Edit watchlist name
+              <span>Edit watchlist name</span>
             </a>
           }
+          onOpen={() => setShowMenu(false)}
         >
           <EditWatchListComp></EditWatchListComp>
         </Popup>
@@ -184,11 +187,11 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
               href="#"
               data-toggle="modal"
               data-target="#DeleteCModal"
-              onClick={(e) => closeBottomMenu(e)}
             >
               <img src="images/watchlist/delete.svg" /> Delete watchlist
             </a>
           }
+          onOpen={() => setShowMenu(false)}
         >
           <DeleteWatchListComp></DeleteWatchListComp>
         </Popup>

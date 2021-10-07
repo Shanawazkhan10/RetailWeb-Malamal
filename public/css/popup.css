@@ -450,7 +450,7 @@ input[type="radio"] {
 }
 
 div {
-  /* display: block; */
+  display: block;
 }
 
 div[disabled] {
