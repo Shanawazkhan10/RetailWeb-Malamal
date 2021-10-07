@@ -2,11 +2,12 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { FetchMargin } from "../Dashboard/MarginSlice";
 import Payment from "./Payment";
-import { ShowPayment } from "./PaymentSlice";
-
+import { ShowPayment,PaymentOrderIdCancel } from "./PaymentSlice";
+import {getsPaymentsOrderIds} from './PaymentSlice';
 const Funds = () => {
   const dispatch = useAppDispatch();
   const payment = useAppSelector((state) => state.payment);
+ console.log('payment object',payment.payment)
   const userState = useAppSelector((state) => state.user);
   const marginState = useAppSelector((state) => state.margin);
 
@@ -16,6 +17,7 @@ const Funds = () => {
     amount: "100", //  = INR 1
     name: "Nuniyo ",
     description: "Deposit Funds",
+    order_id:payment.payment.orderId,
     image: "https://cdn.razorpay.com/logos/7K3b6d18wHwKzL_medium.png",
     handler: function (response: any) {
       alert(response.razorpay_payment_id);
@@ -37,14 +39,25 @@ const Funds = () => {
       color: "blue",
       hide_topbar: false,
     },
+    "modal": {
+      "ondismiss": function(){
+          console.log('Checkout form closed');
+          dispatch(PaymentOrderIdCancel(userState));
+      }
+  }
   };
 
   const openPayModal = () => {
+  
     //var rzp1 = new window.Razorpay(options);
     var rzp1 = new (window as any).Razorpay(options);
+    console.log('razer pay',rzp1);
+ 
     rzp1.open();
+    dispatch(getsPaymentsOrderIds(userState.sessionKey))
   };
-
+  
+  
   useEffect(() => {
     dispatch(FetchMargin(userState.sessionKey));
     const script = document.createElement("script");
