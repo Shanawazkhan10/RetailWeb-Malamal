@@ -1,6 +1,7 @@
 export interface IIndicesList {
   IndicesList: indiceItem[];
   isError: boolean;
+  code: Number;
 }
 
 export interface indiceItem {

@@ -31,6 +31,7 @@ const InitialMarketWatch: IMarketWatchList = {
   sSelectedWatchList: "",
   bIsBind: false,
   bIsError: false,
+  code: 0,
   Symbollistindex: 0,
   sRemovedSymbol: "",
   sNewWatchlistSymbol: "",
@@ -54,6 +55,8 @@ const marketwatchSlice = createSlice({
     },
     onMarketWatchFailure: (state, action) => {
       state.marketWatch.bIsError = true;
+      state.marketWatch.code = action.payload.code;
+
       toastNotification("error", action.payload);
       //Tostify Call
     },

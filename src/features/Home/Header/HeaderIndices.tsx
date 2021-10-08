@@ -1,12 +1,25 @@
 import { useEffect } from "react";
+import { useHistory } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { IGetIndicesRequest } from "../../../types/Indices/IGetIndicesRequest";
+import { loggedout } from "../../Login/userSlice";
 import { GetAllIndicesData, SendIndiceSubRequest } from "./IndicesSlice";
 
 const HeaderIndices = () => {
   const dispatch = useAppDispatch();
+  const history = useHistory();
   const user = useAppSelector((state) => state.user);
   const idicesState = useAppSelector((state) => state.indices);
+
+  function OnLogout() {
+    dispatch(loggedout());
+    history.push("/login");
+  }
+
+  if (idicesState.isError && idicesState.code == 503) {
+    OnLogout();
+  }
+
   useEffect(() => {
     const getIndicesNiftyRequest: IGetIndicesRequest = {
       exchange_segment: "nse_cm",

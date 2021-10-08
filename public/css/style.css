@@ -1127,7 +1127,8 @@ tr:hover div.watchlistbox {
 
 .form {
   position: relative;
-  width: 20rem; /*height: 3rem;*/
+  width: 20rem;
+  height: 3rem;
   margin-bottom: 10px;
   width: 100%;
 }

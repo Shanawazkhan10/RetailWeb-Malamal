@@ -11,6 +11,7 @@ import Funds from "./Funds/Funds";
 import OrderList from "./OrderView/OrderList";
 import PortfolioView from "./PortfolioView/PortfolioView";
 import Header from "./../Header/Header";
+import TradingViewWidget from "react-tradingview-widget";
 
 const RightContainer = () => {
   const mainContainer = useAppSelector((state) => state.mainContainer);
@@ -24,12 +25,12 @@ const RightContainer = () => {
           <Header></Header>
 
           {/* <AdvancedChart></AdvancedChart> */}
-          {/* <TradingViewWidget
+          <TradingViewWidget
             symbol="NASDAQ:AAPL"
             width={900}
             height={610}
             theme="Light"
-          /> */}
+          />
         </div>
       );
     case 2:

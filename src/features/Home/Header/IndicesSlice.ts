@@ -13,6 +13,7 @@ import {
 const initialState = {
   IndicesList: [],
   isError: false,
+  code: 0,
 } as IIndicesList;
 
 export const indicesSlice = createSlice({
@@ -28,6 +29,10 @@ export const indicesSlice = createSlice({
     },
     onIndicesFetchError: (state, action: PayloadAction<any>) => {
       state.isError = true;
+    },
+    onLogoutFetchError: (state, action: PayloadAction<any>) => {
+      state.isError = true;
+      state.code = action.payload.code;
     },
     onIndiceUpdate: (state, action: PayloadAction<any>) => {
       const searchIndex = state.IndicesList.find(
@@ -47,6 +52,7 @@ export const {
   onIndicesFetchSuccess,
   onIndicesFetchError,
   onIndiceUpdate,
+  onLogoutFetchError,
 } = indicesSlice.actions;
 
 export default indicesSlice.reducer;
@@ -62,7 +68,11 @@ export const GetAllIndicesData =
       if (Number(indicesRepsonse.code) == 200) {
         dispatch(onIndicesFetchSuccess(indicesRepsonse));
       } else {
-        dispatch(onIndicesFetchError(indicesRepsonse));
+        if (Number(indicesRepsonse.code) == 503) {
+          dispatch(onLogoutFetchError(indicesRepsonse));
+        } else {
+          dispatch(onIndicesFetchError(indicesRepsonse));
+        }
       }
     } catch (error) {
       dispatch(onIndicesFetchError);
