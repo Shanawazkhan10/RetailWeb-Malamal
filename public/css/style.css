@@ -7,7 +7,7 @@ body {
 }
 p {
   font-size: 16px;
-  margin-bottom: 1.4rem;
+  margin-bottom: 0.4rem;
   line-height: 1.4rem;
 }
 h1 {
@@ -1127,8 +1127,7 @@ tr:hover div.watchlistbox {
 
 .form {
   position: relative;
-  width: 20rem;
-  height: 3rem;
+  width: 20rem; /*height: 3rem;*/
   margin-bottom: 10px;
   width: 100%;
 }
@@ -1606,19 +1605,62 @@ tr[disabled] {
 }
 .funds-equity #box2 .table-cell {
   padding: 8px 0;
+  color: #a5a7a4;
+}
+.funds-equity #box2 .table-cell.text-right h6 {
+  color: #000000;
 }
 .funds-equity #box3 .table-cell {
   padding: 8px 0;
+  color: #a5a7a4;
+}
+.funds-equity #box3 .table-cell.text-right h6 {
+  color: #000000;
+}
+.funds-equity #box1 .table-cell h3 {
+  font-weight: 400;
+  color: #a5a7a4;
+  text-transform: inherit;
 }
 .funds-equity #box1 .table-cell span {
   font-size: 24px;
   font-weight: 600;
   color: #000000;
 }
+
 .dfundshead {
   font-size: 20px;
   font-weight: 600;
   color: #000000;
+  margin-bottom: 18px;
+  display: block;
+}
+.funds-deposit p {
+  color: #121212;
+  border-bottom: 1px solid #d2d0e1;
+  padding-bottom: 20px;
+  margin: 0;
+}
+.dfundsbox {
+  padding: 0 30px;
+}
+.dfundsbox form {
+  padding-top: 20px;
+}
+.dfundsbox form button {
+  text-transform: none;
+}
+.dfundsbox form button.addfund-btn {
+  background: #6a4eee;
+  color: #ffffff;
+  font-size: 18px;
+  padding: 18px 25px;
+}
+.dfundsbox form button.withdfund-btn {
+  background: #ff6872;
+  color: #ffffff;
+  font-size: 18px;
+  padding: 18px 25px;
 }
 .fund-equityplate {
   color: #000000;
@@ -1631,33 +1673,9 @@ tr[disabled] {
 }
 /*funds*/
 
-/*#BuyWModal{display: inline-table;
-position: fixed;
-top: 5%;
-right: 30%;
-border: 1px solid;
-width: 38%;}
-#BuyWModal.modal-dialog{margin: 0;max-width: none;}*/
-/* .modal-backdrop {
-  display: none;
+.funds-deposit form .form {
+  height: 3rem;
 }
-.custom-modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: fit-content;
-  height: fit-content;
-  padding: 0 !important;
-  border: 1px solid #d2d0e1;
-/* }
-.modal-dialog {
-  margin: 0;
-}
-*/
-/* #BuyWModal {
-  width: 25%;
-} */
 
 /*Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {
@@ -1680,6 +1698,10 @@ width: 38%;}
 @media (min-width: 768px) and (max-width: 991.98px) {
   .b-listing #mainwatchlist tr td {
     padding: 10px 20px;
+  }
+  .plate-2 {
+    position: unset;
+    width: 100%;
   }
 }
 
@@ -1987,14 +2009,14 @@ width: 38%;}
 
 @media (min-width: 1600px) {
   .plate {
-    height: 33vh;
+    height: 32vh;
     padding: 30px;
   }
   .plate-2 {
     height: 96vh;
   }
   .equityplate {
-    height: 88vh;
+    height: 87vh;
     padding: 30px;
   }
   .equityplate span {
@@ -2062,6 +2084,7 @@ width: 38%;}
   table#equitytable {
     height: 75vh;
     overflow: auto;
+    display: block;
   }
   .pagenum {
     padding: 0px 30px;
