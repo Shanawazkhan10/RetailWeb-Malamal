@@ -264,6 +264,16 @@ const MarketWatchItem = (props: {
                   )}
 
                   <span>{symbolInfo.sym}</span>
+                  <span
+                    style={{
+                      fontSize: "8px",
+                      fontWeight: "normal",
+                      color: "#a5a7a4",
+                      paddingLeft: "3px",
+                    }}
+                  >
+                    {symbolInfo.exSeg.split("_")[0]}
+                  </span>
                 </td>
                 <td className="price-box">
                   <div className="watchlistbox">

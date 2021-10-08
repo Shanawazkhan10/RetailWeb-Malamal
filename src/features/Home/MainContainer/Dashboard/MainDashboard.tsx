@@ -18,8 +18,8 @@ const MainDashboard = () => {
       <br />
       <div className="row">
         <Holdings></Holdings>
-        <MarketOverview></MarketOverview>
-        {/* <RealTimeMarketOverview></RealTimeMarketOverview> */}
+        {/* <MarketOverview></MarketOverview> */}
+        <RealTimeMarketOverview></RealTimeMarketOverview>
       </div>
     </div>
   );

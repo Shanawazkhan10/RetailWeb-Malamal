@@ -36,7 +36,7 @@ const OrderList = () => {
                         </h2>
                       </div>
                       <div className="col-md-8 text-right" id="searhnbtn">
-                        <div
+                        {/* <div
                           className="input-group slideInDown-element m-0"
                           id="search"
                         >
@@ -46,7 +46,7 @@ const OrderList = () => {
                             </span>
                           </div>
                           <input type="text" placeholder="Search E.g. INFY" />
-                        </div>
+                        </div> */}
                         <div className="btnalign">
                           <a href="#">
                             <img

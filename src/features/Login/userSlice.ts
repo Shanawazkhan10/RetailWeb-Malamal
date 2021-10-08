@@ -72,7 +72,7 @@ export const userSlice = createSlice({
       state.isPasswordCheked = true;
       state.isAuthenticated = false;
       state.isError = true;
-      state.user = action.payload;
+      //state.user = null;
       toastNotification("error", action.payload.message);
     },
     loggedout: (state) => {
