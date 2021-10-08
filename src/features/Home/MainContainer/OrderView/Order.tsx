@@ -286,7 +286,10 @@ const OrderView = (props: { order: IOrderResponse }) => {
         <td>{order.prc}</td>
         <td>
           <div className="nbox">
-            <p className={renderOrderStatus(order.ordSt)}>
+            <p
+              className={renderOrderStatus(order.ordSt)}
+              title={order.rejRsn.split(": ")[1]}
+            >
               {order.ordSt.toUpperCase()}
             </p>
           </div>

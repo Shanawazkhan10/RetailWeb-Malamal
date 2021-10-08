@@ -46,11 +46,11 @@ const Login = () => {
   }
 
   const onSubmit: SubmitHandler<ILoginInput> = (data) => {
-    dispatch(logging(data.clientid));
+    dispatch(logging(data.clientid + "-TECXLABS"));
     console.log(data);
     //dispatch(loggedInSuccess("User"));
     const loginRequest: ILoginRequest = {
-      uid: data.clientid.toLocaleUpperCase(),
+      uid: data.clientid.toLocaleUpperCase() + "-TECXLABS",
       pwd: md5(data.password),
       brokerId: "TECXLABS",
       source: Source,

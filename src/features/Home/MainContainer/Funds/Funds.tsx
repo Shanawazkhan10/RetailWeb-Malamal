@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { FetchMargin } from "../Dashboard/MarginSlice";
 import Payment from "./Payment";
@@ -10,11 +10,16 @@ const Funds = () => {
   console.log("payment object", payment.payment);
   const userState = useAppSelector((state) => state.user);
   const marginState = useAppSelector((state) => state.margin);
+  const [amount, SetAmount] = useState("0");
+
+  function onPriceChange(e: any) {
+    SetAmount(e.target.value);
+  }
 
   const options = {
     key: "rzp_live_q8gUCOxfHIbCkb",
     //key: "rzp_test_3ItfhafvOz0Kkx",
-    amount: "100", //  = INR 1
+    amount: amount, //  = INR 1
     name: "Nuniyo ",
     description: "Deposit Funds",
     order_id: payment.payment.orderId,
@@ -47,7 +52,9 @@ const Funds = () => {
     },
   };
 
-  const openPayModal = () => {
+  const openPayModal = (e: any) => {
+    e.preventDefault();
+
     //var rzp1 = new window.Razorpay(options);
     var rzp1 = new (window as any).Razorpay(options);
     console.log("razer pay", rzp1);
@@ -224,7 +231,9 @@ const Funds = () => {
                         className="form__input"
                         data-autocomplete="off"
                         placeholder=" "
-                        required
+                        onChange={(e) => {
+                          onPriceChange(e);
+                        }}
                       />
                       <label htmlFor="userid" className="form__label">
                         Amount
@@ -239,7 +248,6 @@ const Funds = () => {
                         id="password"
                         className="form__input"
                         placeholder=" "
-                        required
                       />
                       <label htmlFor="password" className="form__label">
                         Bank Account
@@ -254,6 +262,7 @@ const Funds = () => {
                           <button
                             type="submit"
                             className="btn w-100 addfund-btn"
+                            onClick={(e) => openPayModal(e)}
                           >
                             <img src="images/add.svg" height="15" /> Add Funds
                           </button>

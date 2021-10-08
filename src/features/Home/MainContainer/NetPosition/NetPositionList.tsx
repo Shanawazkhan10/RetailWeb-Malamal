@@ -96,14 +96,14 @@ const NetPositionList = () => {
           <h2>Positions ({NetpositionList.netposition.length})</h2>
         </div>
         <div className="col-md-8 text-right" id="searhnbtn">
-          <div className="input-group slideInDown-element m-0" id="search">
+          {/* <div className="input-group slideInDown-element m-0" id="search">
             <div>
               <span>
                 <img src="images/search.svg" />
               </span>
             </div>
             <input type="text" placeholder="Search E.g. INFY" />
-          </div>
+          </div> */}
           <div className="btnalign">
             <a href="#">
               <img
@@ -181,14 +181,14 @@ const NetPositionList = () => {
           <h2>Day's History ({NetpositionList.netposition.length})</h2>
         </div>
         <div className="col-md-8 text-right">
-          <div className="input-group slideInDown-element m-0" id="search">
+          {/* <div className="input-group slideInDown-element m-0" id="search">
             <div>
               <span>
                 <img src="images/search.svg" />
               </span>
             </div>
             <input type="text" placeholder="Search E.g. INFY" />
-          </div>
+          </div> */}
           <a href="#">
             <img src="images/positions/download.svg" /> Download
           </a>
