@@ -60,7 +60,7 @@ const MarketWatchItem = (props: {
   useEffect(() => {
     setTimeout(function () {
       getSymbol();
-    }, 100);
+    }, 500);
   }, []);
 
   const OrderEntryProp = {
@@ -310,7 +310,7 @@ const MarketWatchItem = (props: {
                       title="Delete"
                       onClick={() => RemoveSymbol(symbolInfo)}
                     ></button>
-                    <button
+                    {/* <button
                       type="button"
                       className="btn btn-primary wmore dropdown-toggle"
                       id="dropdownMenuButton"
@@ -323,7 +323,7 @@ const MarketWatchItem = (props: {
                           ? dispatch(hideMore(nIncreament))
                           : dispatch(showMore(nIncreament));
                       }}
-                    ></button>
+                    ></button> */}
                     <div
                       className={
                         "dropdown-menu" + (symbolInfo.showMore ? " show" : "")
