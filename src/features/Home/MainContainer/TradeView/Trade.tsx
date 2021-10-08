@@ -87,7 +87,7 @@ const TradeView = (props: { trade: ITrade }) => {
             </div>
           </div>
         </td>
-        <td>{trade.prod}</td>
+        <td>{trade.prod == "I" ? "MIS" : trade.prod.toUpperCase()}</td>
         <td>{trade.fldQty}</td>
         <td>{trade.avgPrc}</td>
       </tr>

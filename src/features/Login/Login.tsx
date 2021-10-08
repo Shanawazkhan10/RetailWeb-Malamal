@@ -63,6 +63,10 @@ const Login = () => {
     setPasswordShown(passwordShown ? false : true);
   };
 
+  function onInput(event: any) {
+    event.target.value = event.target.value.toLocaleUpperCase();
+  }
+
   if (user.isAuthenticated) {
     history.push("/home");
   }
@@ -89,6 +93,8 @@ const Login = () => {
                       name="clientid"
                       placeholder=" "
                       type="text"
+                      autoFocus
+                      onInput={(e) => onInput(e)}
                     />
                     <label htmlFor="clientid" className="form__label">
                       User ID
