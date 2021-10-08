@@ -292,22 +292,29 @@ const SmartSearch = (props: { Type: Number }) => {
                     className={
                       "slideInDown-element" +
                       (scriptList != undefined &&
-                      scriptList.indexOf(
-                        String(result.exseg + "|" + result.omtkn)
-                      ) < 0
-                        ? ""
-                        : " watchlistadded")
+                      scriptList
+                        .split(",")
+                        .some(
+                          (row) =>
+                            row === String(result.exseg + "|" + result.omtkn)
+                        )
+                        ? " watchlistadded"
+                        : "")
                     }
                     onClick={(e) => {
                       onAddClick(
                         result,
                         e,
                         scriptList != undefined &&
-                          scriptList.indexOf(
-                            result.exseg + "|" + result.omtkn
-                          ) < 0
-                          ? 1 //New Entry
-                          : 2
+                          scriptList
+                            .split(",")
+                            .some(
+                              (row) =>
+                                row ===
+                                String(result.exseg + "|" + result.omtkn)
+                            )
+                          ? 2
+                          : 1 //New Entry
                       ); //Already Added);
                     }}
                     // style={{ cursor: "pointer" }}
@@ -384,11 +391,15 @@ const SmartSearch = (props: { Type: Number }) => {
                             className={
                               "btn btn-primary" +
                               (scriptList != undefined &&
-                              scriptList.indexOf(
-                                String(result.exseg + "|" + result.omtkn)
-                              ) < 0
-                                ? " searchadd"
-                                : " searchadded")
+                              scriptList
+                                .split(",")
+                                .some(
+                                  (row) =>
+                                    row ===
+                                    String(result.exseg + "|" + result.omtkn)
+                                )
+                                ? " searchadded"
+                                : " searchadd")
                             }
                             // style={{
                             //   backgroundImage:

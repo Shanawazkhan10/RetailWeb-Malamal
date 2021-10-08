@@ -75,6 +75,8 @@ export const orderEntrySlice = createSlice({
         state.on = action.payload.on;
         state.vd = action.payload.vd;
         state.typeofOrder = action.payload.typeofOrder;
+      } else {
+        state.typeofOrder = 1;
       }
     },
     openBuyOrderEntry: (state) => {
