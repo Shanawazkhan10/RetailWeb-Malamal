@@ -253,7 +253,14 @@ const SmartSearch = (props: { Type: Number }) => {
           //onBlur={(e) => ClearResult(e)}
         />
         <div className="listingnum">
-          <span>{Result.length}</span>/<span>50</span>
+          <span>
+            {selectedList != undefined &&
+            WatchList.MarketWatchList[selectedList] != undefined &&
+            WatchList.MarketWatchList[selectedList].SymbolList != undefined
+              ? WatchList.MarketWatchList[selectedList].SymbolList.length
+              : "0"}
+          </span>
+          /<span>50</span>
         </div>
       </div>
       {/* if the search input value is not empty show the clear button */}{" "}
@@ -285,7 +292,9 @@ const SmartSearch = (props: { Type: Number }) => {
                     className={
                       "slideInDown-element" +
                       (scriptList != undefined &&
-                      scriptList.indexOf(result.exseg + "|" + result.omtkn) < 0
+                      scriptList.indexOf(
+                        String(result.exseg + "|" + result.omtkn)
+                      ) < 0
                         ? ""
                         : " watchlistadded")
                     }
@@ -372,30 +381,38 @@ const SmartSearch = (props: { Type: Number }) => {
                           ></button>
                           <button
                             type="button"
-                            className="btn btn-primary searchadd"
-                            style={{
-                              backgroundImage:
-                                scriptList != undefined &&
-                                scriptList.indexOf(
-                                  result.exseg + "|" + result.omtkn
-                                ) < 0
-                                  ? "url(../images/add.svg) center center no-repeat #ffffff"
-                                  : "url(../images/tick.svg) center center no-repeat #ffffff",
-                              backgroundColor:
-                                scriptList != undefined &&
-                                scriptList.indexOf(
-                                  result.exseg + "|" + result.omtkn
-                                ) < 0
-                                  ? "#00c707"
-                                  : "#9e9e9e",
-                            }}
+                            className={
+                              "btn btn-primary" +
+                              (scriptList != undefined &&
+                              scriptList.indexOf(
+                                String(result.exseg + "|" + result.omtkn)
+                              ) < 0
+                                ? " searchadd"
+                                : " searchadded")
+                            }
+                            // style={{
+                            //   backgroundImage:
+                            //     scriptList != undefined &&
+                            //     scriptList.indexOf(
+                            //       String(result.exseg + "|" + result.omtkn)
+                            //     ) < 0
+                            //       ? `url("../images/add.svg") center center no-repeat #ffffff`
+                            //       : `url("../images/tick.svg") center center no-repeat #ffffff`,
+                            //   backgroundColor:
+                            //     scriptList != undefined &&
+                            //     scriptList.indexOf(
+                            //       String(result.exseg + "|" + result.omtkn)
+                            //     ) < 0
+                            //       ? "#00c707"
+                            //       : "#9e9e9e",
+                            // }}
                             onClick={(e) =>
                               onAddClick(
                                 result,
                                 e,
                                 scriptList != undefined &&
                                   scriptList.indexOf(
-                                    result.exseg + "|" + result.omtkn
+                                    String(result.exseg + "|" + result.omtkn)
                                   ) < 0
                                   ? 1 //New Entry
                                   : 2 //Already Added
