@@ -62,6 +62,7 @@ const MPIN = () => {
           name="PIN"
           placeholder=" "
           id="userIDFP"
+          autoFocus
         />
         <label htmlFor="userIDFP" className="form__label">
           PIN

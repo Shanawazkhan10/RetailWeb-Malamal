@@ -65,120 +65,212 @@ const Funds = () => {
   }, []);
 
   return (
-    <div className="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-      <div className="fund-equityplate fadeIn-element">
-        <div className="row slideInDown-element">
-          <div className="col-md-12 equitysummarymenu">
-            <img src="images/equity.svg" /> <span>Equity</span>
-            <div className="float-right">
-              <div className="btnalign">
-                <a href="#" className="mx-2">
-                  <img
-                    src=""
-                    style={{
-                      width: "15px",
-                      height: "15px",
-                      background: "rgba(106, 78, 238, 0.2)",
-                      borderRadius: "3px",
-                    }}
-                  />
-                  View Statement
-                </a>
-                <a href="#">
-                  <img src="images/positions/download.svg" /> Help
-                </a>
+    <div className="row">
+      <div className="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div className="fund-equityplate fadeIn-element">
+          <div className="row slideInDown-element">
+            <div className="col-md-12 equitysummarymenu">
+              <img src="images/equity.svg" /> <span>Equity</span>
+              <div className="float-right">
+                <div className="btnalign">
+                  <a href="#" className="mx-2">
+                    <img
+                      src=""
+                      style={{
+                        width: "15px",
+                        height: "15px",
+                        background: "rgba(106, 78, 238, 0.2)",
+                        borderRadius: "3px",
+                      }}
+                    />
+                    View Statement
+                  </a>
+                  <a href="#">
+                    <img src="images/positions/download.svg" /> Help
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-
-          <button
-            type="button"
-            className="button-green"
-            onClick={() => openPayModal()}
-          >
-            Add funds
-          </button>
-
-          <a target="_blank" className="button button-blue">
-            Withdraw
-          </a>
-        </div>
-        <div className="row slideInDown-element">
-          <div className="six columns">
-            <h3 className="title">
-              <span className="icon icon-pie-chart"></span>
-              <span className="name">equity</span>
-            </h3>
-            <div className="data-table">
-              <table className="table">
-                <tbody>
-                  <tr>
-                    <td>
-                      <div>Available margin</div>
-                    </td>
-                    <td>
-                      <h1 className="value text-blue">
-                        {Number(marginState.marginData.CollateralValue) +
-                          Number(marginState.marginData.AuxAdhocMargin) +
-                          Number(marginState.marginData.AdhocMargin) +
-                          Number(marginState.marginData.RmsCollateral) -
-                          Number(marginState.marginData.MarginUsed)}
-                      </h1>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Used margin</td>
-                    <td>
-                      <h1>{Number(marginState.marginData.MarginUsed)}</h1>
-                    </td>
-                  </tr>
-                  <tr className="seperator">
-                    <td>Available cash</td>
-                    <td>
-                      <h1>
+          <div className="row slideInDown-element">
+            <div className="col-md-5 my-4">
+              <div className="funds-equity">
+                <div id="box1" className="table border-bottom">
+                  <div className="table-cell">
+                    <h3>Available margin</h3>
+                  </div>
+                  <div className="table-cell text-right">
+                    <span>
+                      {Number(marginState.marginData.CollateralValue) +
+                        Number(marginState.marginData.AuxAdhocMargin) +
+                        Number(marginState.marginData.AdhocMargin) +
+                        Number(marginState.marginData.RmsCollateral) -
+                        Number(marginState.marginData.MarginUsed)}
+                    </span>
+                  </div>
+                  <div className="table-row">
+                    <div className="table-cell">
+                      <h3>Used margin</h3>
+                    </div>
+                    <div className="table-cell text-right">
+                      <span>{Number(marginState.marginData.MarginUsed)}</span>
+                    </div>
+                  </div>
+                  <div className="table-row">
+                    <div className="table-cell">
+                      <h3>Available cash</h3>
+                    </div>
+                    <div className="table-cell text-right">
+                      <span>
                         {Number(marginState.marginData.CollateralValue) +
                           Number(marginState.marginData.AuxAdhocMargin) +
                           Number(marginState.marginData.AdhocMargin) -
                           Number(marginState.marginData.MarginUsed)}
-                      </h1>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Opening balance</td>
-                    <td>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div id="box2" className="table mt-4 border-bottom">
+                  <div className="table-cell">
+                    <h6>Opening balance</h6>
+                  </div>
+                  <div className="table-cell text-right">
+                    <h6>
                       {Number(marginState.marginData.CollateralValue) +
                         Number(marginState.marginData.AuxAdhocMargin) +
                         Number(marginState.marginData.AdhocMargin)}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Payin</td> <td>0.00</td>
-                  </tr>
-                  <tr>
-                    <td>SPAN</td> <td>0.00</td>
-                  </tr>
-                  <tr>
-                    <td>Delivery margin</td> <td>0.00</td>
-                  </tr>
-                  <tr>
-                    <td>Exposure</td> <td>0.00</td>
-                  </tr>
-                  <tr className="seperator">
-                    <td>Options premium</td> <td>0.00</td>
-                  </tr>
-                  <tr>
-                    <td>Collateral (Liquid funds)</td> <td>0.00</td>
-                  </tr>
-                  <tr>
-                    <td>Collateral (Equity)</td>
-                    <td>{marginState.marginData.RmsCollateral}</td>
-                  </tr>
-                  <tr>
-                    <td>Total collateral</td>
-                    <td>{marginState.marginData.RmsCollateral} </td>
-                  </tr>
-                </tbody>
-              </table>
+                    </h6>
+                  </div>
+                  <div className="table-row">
+                    <div className="table-cell">
+                      <h6>Payin</h6>
+                    </div>
+                    <div className="table-cell text-right">
+                      <h6>0.00</h6>
+                    </div>
+                  </div>
+                  <div className="table-row">
+                    <div className="table-cell">
+                      <h6>SPAN</h6>
+                    </div>
+                    <div className="table-cell text-right">
+                      <h6>0.00</h6>
+                    </div>
+                  </div>
+                  <div className="table-row">
+                    <div className="table-cell">
+                      <h6>Delivery margin</h6>
+                    </div>
+                    <div className="table-cell text-right">
+                      <h6>0.00</h6>
+                    </div>
+                  </div>
+                  <div className="table-row">
+                    <div className="table-cell">
+                      <h6>Exposure</h6>
+                    </div>
+                    <div className="table-cell text-right">
+                      <h6>0.00</h6>
+                    </div>
+                  </div>
+                  <div className="table-row">
+                    <div className="table-cell">
+                      <h6>Options premium</h6>
+                    </div>
+                    <div className="table-cell text-right">
+                      <h6>0.00</h6>
+                    </div>
+                  </div>
+                </div>
+                <div id="box3" className="table mt-4">
+                  <div className="table-cell">
+                    <h6>Collateral (Liquid funds)</h6>
+                  </div>
+                  <div className="table-cell text-right">
+                    <h6>0.00</h6>
+                  </div>
+                  <div className="table-row">
+                    <div className="table-cell">
+                      <h6>Collateral (Equity)</h6>
+                    </div>
+                    <div className="table-cell text-right">
+                      <h6>{marginState.marginData.RmsCollateral}</h6>
+                    </div>
+                  </div>
+                  <div className="table-row">
+                    <div className="table-cell">
+                      <h6>Total Collateral</h6>
+                    </div>
+                    <div className="table-cell text-right">
+                      <h6>{marginState.marginData.RmsCollateral}</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-md-5">
+              <div className="funds-deposit">
+                <div className="text-center">
+                  <span className="dfundshead">Deposit funds</span>
+                </div>
+                <div className="dfundsbox">
+                  <p className="text-left">{userState.UserId}</p>
+                  <form>
+                    <div className="form">
+                      <input
+                        type="text"
+                        id="Amount"
+                        className="form__input"
+                        data-autocomplete="off"
+                        placeholder=" "
+                        required
+                      />
+                      <label htmlFor="userid" className="form__label">
+                        Amount
+                      </label>
+                      <span className="icon-inside">
+                        <i className="far fa-envelope"></i>
+                      </span>
+                    </div>
+                    <div className="form">
+                      <input
+                        type="password"
+                        id="password"
+                        className="form__input"
+                        placeholder=" "
+                        required
+                      />
+                      <label htmlFor="password" className="form__label">
+                        Bank Account
+                      </label>
+                      <span className="icon-inside">
+                        <i className="far fa-envelope"></i>
+                      </span>
+                    </div>
+                    <div className="form">
+                      <div className="row">
+                        <div className="col-md-6 py-0">
+                          <button
+                            type="submit"
+                            className="btn w-100 addfund-btn"
+                          >
+                            <img src="images/add.svg" height="15" /> Add Funds
+                          </button>
+                        </div>
+                        <div className="col-md-6 pl-0">
+                          <button
+                            type="submit"
+                            className="btn w-100 withdfund-btn"
+                          >
+                            <img src="images/add.svg" height="15" /> Withdraw
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>

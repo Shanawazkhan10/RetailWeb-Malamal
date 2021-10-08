@@ -3,6 +3,11 @@ import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import { IHolding } from "../../../../types/Holding/IHolding";
+import { SubUnsubReq, userWS } from "../../../WebSocket/HSSocket";
+import {
+  sendUnsubReq,
+  waitForSocketConnection,
+} from "../../../WebSocket/HSSocket1";
 import { fetchHolding } from "../Holding/HoldingSlice";
 import { holdingContainer } from "../mainContainerSlice";
 import PieChart from "../PieChart/PieChart";
@@ -14,7 +19,28 @@ const Holdings = () => {
   const HoldingList = useSelector((state: RootState) => state.holding);
   useEffect(() => {
     dispatch(fetchHolding(user.sessionKey));
+    getSymbol();
   }, []);
+
+  function getSymbol() {
+    if (
+      HoldingList.holding != undefined &&
+      HoldingList.holding.holdinglist != undefined
+    ) {
+      //subscribe Script API Call
+      const subUnsubReq: SubUnsubReq = {
+        type: "mws",
+        scrips: HoldingList.holding.holdinglist
+          .map((x) => x.ex1 + "|" + x.tok1)
+          .join("&"),
+        channelnum: 1,
+      };
+
+      waitForSocketConnection(userWS, function () {
+        sendUnsubReq(subUnsubReq);
+      });
+    }
+  }
 
   function OpenHolding(e: any) {
     e.preventDefault();

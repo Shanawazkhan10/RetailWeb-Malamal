@@ -243,7 +243,6 @@ const MarketWatchItem = (props: {
                     //   effect="blur"
                     // />
                     <div
-                      className="avatar"
                       style={{
                         width: "50px",
                         height: "50px",

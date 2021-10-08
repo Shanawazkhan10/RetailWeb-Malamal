@@ -123,6 +123,7 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
               )
             }
             position="top left"
+            onOpen={() => setShowMenu(false)}
           >
             <AddWatchListItem
               index={Number(WatchListData.length + 1)}

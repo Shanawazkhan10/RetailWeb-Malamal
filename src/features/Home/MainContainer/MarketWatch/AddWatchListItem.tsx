@@ -39,6 +39,7 @@ const AddWatchListItem = (index: any) => {
       scrips: "nse_cm|11536,nse_cm|1330,nse_cm|22",
     };
     dispatch(UpdateWatchlist(updateWatchlist, user.sessionKey, 3));
+    dispatch(ShowNewWatchlist(false));
   }
 
   function setCloseButton() {
