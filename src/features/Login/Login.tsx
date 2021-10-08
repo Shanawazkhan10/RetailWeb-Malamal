@@ -135,7 +135,7 @@ const Login = () => {
                       type="submit"
                       className="btn btn-primary login-main-form-btn"
                     >
-                      Sign In
+                      SIGN IN
                     </button>
                   </div>
                   <div className="text-right w-full">

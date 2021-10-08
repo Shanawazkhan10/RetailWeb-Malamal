@@ -222,9 +222,9 @@ const MarketWatchItem = (props: {
               <tr
                 className="slideInDown-element"
                 key={nIncreament}
-                onMouseLeave={() => {
-                  dispatch(hideMore(nIncreament));
-                }}
+                // onMouseLeave={() => {
+                //   dispatch(hideMore(nIncreament));
+                // }}
               >
                 <td>
                   {symbolInfo.isin != "NA" && symbolInfo.isin != "--" ? (
