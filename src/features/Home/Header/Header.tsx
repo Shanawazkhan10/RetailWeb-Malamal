@@ -231,7 +231,7 @@ const Header = () => {
               <span className="d-none d-sm-inline">funds</span>
             </a>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <a
               href="#"
               className={
@@ -248,7 +248,7 @@ const Header = () => {
               />
               <span className="d-none d-sm-inline">account</span>
             </a>
-          </li>
+          </li> */}
           <li className="nav-item">
             <a
               href="#"
