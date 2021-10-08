@@ -136,11 +136,11 @@ const MarketDepth = (props: any) => {
             <div className="table-cell">Total</div>
             <div className="table-cell"></div>
             <div className="table-cell">
-              {(Depth.bno1 !== undefined ? Number(Depth.bno1) : 0) +
-                (Depth.bno2 !== undefined ? Number(Depth.bno2) : 0) +
-                (Depth.bno3 !== undefined ? Number(Depth.bno3) : 0) +
-                (Depth.bno4 !== undefined ? Number(Depth.bno4) : 0) +
-                (Depth.bno5 !== undefined ? Number(Depth.bno5) : 0)}
+              {(Depth.bq !== undefined ? Number(Depth.bq) : 0) +
+                (Depth.bq1 !== undefined ? Number(Depth.bq1) : 0) +
+                (Depth.bq2 !== undefined ? Number(Depth.bq2) : 0) +
+                (Depth.bq3 !== undefined ? Number(Depth.bq3) : 0) +
+                (Depth.bq4 !== undefined ? Number(Depth.bq4) : 0)}
             </div>
           </a>
         </div>
@@ -236,18 +236,18 @@ const MarketDepth = (props: any) => {
             <div className="table-cell">Total</div>
             <div className="table-cell"></div>
             <div className="table-cell">
-              {(Depth.sno1 !== undefined ? Number(Depth.sno1) : 0) +
-                (Depth.sno2 !== undefined ? Number(Depth.sno2) : 0) +
-                (Depth.sno3 !== undefined ? Number(Depth.sno3) : 0) +
-                (Depth.sno4 !== undefined ? Number(Depth.sno4) : 0) +
-                (Depth.sno5 !== undefined ? Number(Depth.sno5) : 0)}
+              {(Depth.bs !== undefined ? Number(Depth.bs) : 0) +
+                (Depth.bs1 !== undefined ? Number(Depth.bs1) : 0) +
+                (Depth.bs2 !== undefined ? Number(Depth.bs2) : 0) +
+                (Depth.bs3 !== undefined ? Number(Depth.bs3) : 0) +
+                (Depth.bs4 !== undefined ? Number(Depth.bs4) : 0)}
             </div>
           </a>
         </div>
       </td>
     </>
   ) : (
-    <div> asa </div>
+    <></>
   );
 };
 
