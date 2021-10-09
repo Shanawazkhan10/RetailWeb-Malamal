@@ -615,7 +615,7 @@ a.navbar-brand span {
   text-align: center;
 }
 .b-listing #watchlistinner .table-row .table-cell:nth-child(3) {
-  text-align: right;
+  text-align: center;
 }
 
 .modal-body #watchlistinner .table-cell:nth-child(2) {
