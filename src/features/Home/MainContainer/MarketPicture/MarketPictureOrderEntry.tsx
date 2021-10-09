@@ -142,7 +142,7 @@ const MarketPictureOrderEntry = (props: {
           sell
         </button>
       </div>
-      <div className="col-md-4 pl-0">
+      {/* <div className="col-md-4 pl-0">
         <button
           type="submit"
           className="btn w-100 modal-gtt"
@@ -150,9 +150,9 @@ const MarketPictureOrderEntry = (props: {
         >
           Create GTT
         </button>
-      </div>
+      </div> */}
 
-      {/* <div className="col-md-4">
+      <div className="col-md-4">
         <button
           type="submit"
           className="btn w-100 modal-gtt"
@@ -160,7 +160,7 @@ const MarketPictureOrderEntry = (props: {
         >
           Close
         </button>
-      </div> */}
+      </div>
     </div>
   );
 };

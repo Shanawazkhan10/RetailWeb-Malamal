@@ -40,7 +40,7 @@ const RightContainer = () => {
           <Header></Header>
 
           <PortfolioView activetab="H"></PortfolioView>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       );
     case 3:
@@ -48,7 +48,7 @@ const RightContainer = () => {
         <div className="col-md-6 col-lg-8 col-xl-9">
           <Header></Header>
           <PortfolioView activetab="P"></PortfolioView>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       );
     case 4:
@@ -63,7 +63,7 @@ const RightContainer = () => {
               <OrderList></OrderList>
             </div>
           </div>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       );
     case 5:
@@ -71,7 +71,7 @@ const RightContainer = () => {
         <div className="col-md-6 col-lg-8 col-xl-9">
           <Header></Header>
           <Funds></Funds>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       );
     case 6:

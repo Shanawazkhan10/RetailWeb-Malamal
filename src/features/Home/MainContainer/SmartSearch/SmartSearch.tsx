@@ -72,18 +72,25 @@ const SmartSearch = (props: { Type: Number }) => {
   function onBuyOrderEntryClick(e: any, result: any) {
     e.preventDefault();
     e.stopPropagation();
-    OrderEntryProp.token = result.tk;
-    OrderEntryProp.price = result.last;
+    OrderEntryProp.token = result.omtkn;
+    OrderEntryProp.price = String(result.last);
     OrderEntryProp.quantity = 1;
-    OrderEntryProp.symbol = result.ts;
-    OrderEntryProp.exchange = result.e;
-    OrderEntryProp.ltp = "0";
+    OrderEntryProp.symbol = result.tsym;
+    OrderEntryProp.exchange = result.exseg;
+    OrderEntryProp.ltp = String(result.last);
     dispatch(setOrderEntryProps(OrderEntryProp));
     dispatch(openBuyOrderEntry());
   }
-  function onSellOrderEntryClick(e: any) {
+  function onSellOrderEntryClick(e: any, result: any) {
     e.preventDefault();
     e.stopPropagation();
+    OrderEntryProp.token = result.omtkn;
+    OrderEntryProp.price = String(result.last);
+    OrderEntryProp.quantity = 1;
+    OrderEntryProp.symbol = result.tsym;
+    OrderEntryProp.exchange = result.exseg;
+    OrderEntryProp.ltp = String(result.last);
+    dispatch(setOrderEntryProps(OrderEntryProp));
     dispatch(openSellOrderEntry());
   }
   function onChartClick(e: any) {
@@ -345,7 +352,7 @@ const SmartSearch = (props: { Type: Number }) => {
                           <button
                             type="button"
                             className="btn btn-primary wsell"
-                            onClick={(e) => onSellOrderEntryClick(e)}
+                            onClick={(e) => onSellOrderEntryClick(e, result)}
                           >
                             S
                           </button>

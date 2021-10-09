@@ -161,13 +161,13 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
         }}
         onClick={(e) => closeBottomMenu(e)}
       >
-        <p className="mb-3">Sort By:</p>
+        {/* <p className="mb-3">Sort By:</p>
         <div className="my-2">
           <button onClick={(e) => sortList(1)}>A-Z</button>
           <button onClick={(e) => sortList(2)}>%</button>
           <button onClick={(e) => sortList(3)}>LTP</button>
           <button onClick={(e) => sortList(3)}>EXG</button>
-        </div>
+        </div> */}
 
         <Popup
           trigger={
