@@ -27,8 +27,8 @@ const RightContainer = () => {
           {/* <AdvancedChart></AdvancedChart> */}
           <TradingViewWidget
             symbol="NASDAQ:AAPL"
-            width={900}
-            height={610}
+            width={1400}
+            height={750}
             theme="Light"
           />
         </div>
