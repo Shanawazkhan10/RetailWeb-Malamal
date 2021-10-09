@@ -21,15 +21,14 @@ textarea {
   height: 3rem;
 }
 .order_window {
-  background: white;
+  background: #ffffff;
   z-index: 99;
   top: auto;
   bottom: 0px;
   margin-top: 0em;
   width: 500px;
   position: fixed;
-  left: calc(50% - 275px);
-  padding: 20px;
+  left: calc(50% - 275px); /*padding: 20px;*/
   border: 1px solid #d2d0e1;
 }
 
@@ -40,15 +39,18 @@ textarea {
 
 .order_window.buy .header {
   /*color: #fff;background-color: #4184f3;border-radius: 3px 3px 0 0;*/
-  padding: 6px 15px 3px 15px;
   border-bottom: 1px solid #eeeeee;
+  background: #1964e4;
+  color: #ffffff;
+  padding: 12px 40px;
+  border-radius: 10px 10px 0px 0px;
 }
 
 .order_window.sell .header {
-  /* color: #fff; */
-  /* background-color: #fd2e3f; */
-  padding: 6px 15px 3px 15px;
-  border-bottom: 1px solid #eeeeee;
+  color: #fff;
+  background-color: #fd2e3f;
+  border-radius: 3px 3px 0 0;
+  padding: 15px 20px;
 }
 .transaction-type.buy {
   font-weight: 500;
@@ -158,6 +160,7 @@ label {
 
 .order_window .wrap {
   margin: 0;
+  padding: 10px 20px;
 }
 
 .order_window .wrap .variety {

@@ -227,53 +227,20 @@ const MarketWatchItem = (props: {
                 // }}
               >
                 <td>
-                  {symbolInfo.isin != "NA" && symbolInfo.isin != "--" ? (
-                    // <img
-                    //   src={MarketWatchItemImagePath + symbolInfo.isin + ".png"}
-                    // />
-                    <img src={"images/logos/" + symbolInfo.isin + ".png"} />
-                  ) : (
-                    // <LazyLoadImage
-                    //   src={
-                    //     "http://img.tecxlabs.com.s3-website.ap-south-1.amazonaws.com/stock/" +
-                    //     symbolInfo.isin +
-                    //     ".png"
-                    //   }
-                    //   alt=""
-                    //   effect="blur"
-                    // />
-                    <div
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        borderRadius: "50%",
-                        textAlign: "center",
-                        verticalAlign: "middle",
-                        backgroundColor: "rgba(156,39,176,0.1)",
-                        fontSize: "15px",
-                        fontWeight: 300,
-                        color: "rgb(156,39,176)",
-                        lineHeight: "50px",
-                        float: "left",
-                        clear: "none",
-                        marginRight: "15px",
-                      }}
-                    >
+                  <div className="companylogo">
+                    {symbolInfo.isin != "NA" && symbolInfo.isin != "--" ? (
+                      // <img
+                      //   src={MarketWatchItemImagePath + symbolInfo.isin + ".png"}
+                      // />
+                      <img src={"images/logos/" + symbolInfo.isin + ".png"} />
+                    ) : (
                       <span>{symbolInfo.sym.charAt(0).toUpperCase()}</span>
-                    </div>
-                  )}
-
-                  <span>{symbolInfo.sym}</span>
-                  <span
-                    style={{
-                      fontSize: "8px",
-                      fontWeight: "normal",
-                      color: "#a5a7a4",
-                      paddingLeft: "3px",
-                    }}
-                  >
-                    {symbolInfo.exSeg.split("_")[0]}
-                  </span>
+                    )}
+                  </div>
+                  <div className="companyname">
+                    <h4>{symbolInfo.sym}</h4>
+                    <p>{symbolInfo.exSeg.split("_")[0]}</p>
+                  </div>
                 </td>
                 <td className="price-box">
                   <div className="watchlistbox">
