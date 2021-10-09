@@ -10,12 +10,12 @@ const Payment = () => {
     description: "Deposit Funds",
     image: "https://cdn.razorpay.com/logos/7K3b6d18wHwKzL_medium.png",
     handler: function (response: any) {
-      alert(response.razorpay_payment_id);
-      console.log(response.razorpay_payment_id);
-      alert(response.razorpay_order_id);
-      console.log(response.razorpay_order_id);
-      alert(response.razorpay_signature);
-      console.log(response.razorpay_signature);
+      // alert(response.razorpay_payment_id);
+      // console.log(response.razorpay_payment_id);
+      // alert(response.razorpay_order_id);
+      // console.log(response.razorpay_order_id);
+      // alert(response.razorpay_signature);
+      // console.log(response.razorpay_signature);
     },
     prefill: {
       name: "Gaurav",

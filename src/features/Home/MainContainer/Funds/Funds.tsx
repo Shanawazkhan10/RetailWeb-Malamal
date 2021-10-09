@@ -19,18 +19,19 @@ const Funds = () => {
   const options = {
     key: "rzp_live_q8gUCOxfHIbCkb",
     //key: "rzp_test_3ItfhafvOz0Kkx",
-    amount: amount, //  = INR 1
-    name: "Nuniyo ",
+    amount: Number(amount) * 100, //  = INR 1
+    name: "Nuvester ",
     description: "Deposit Funds",
     order_id: payment.payment.orderId,
     image: "https://cdn.razorpay.com/logos/7K3b6d18wHwKzL_medium.png",
     handler: function (response: any) {
-      alert(response.razorpay_payment_id);
-      console.log(response.razorpay_payment_id);
-      alert(response.razorpay_order_id);
-      console.log(response.razorpay_order_id);
-      alert(response.razorpay_signature);
-      console.log(response.razorpay_signature);
+      // alert(response.razorpay_payment_id);
+      // console.log(response.razorpay_payment_id);
+      // alert(response.razorpay_order_id);
+      // console.log(response.razorpay_order_id);
+      // alert(response.razorpay_signature);
+      // console.log(response.razorpay_signature);
+      alert("Success");
     },
     prefill: {
       name: "Gaurav",
@@ -244,8 +245,8 @@ const Funds = () => {
                     </div>
                     <div className="form">
                       <input
-                        type="password"
-                        id="password"
+                        type="text"
+                        id="bankaccount"
                         className="form__input"
                         placeholder=" "
                       />

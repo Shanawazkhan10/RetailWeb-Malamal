@@ -12,6 +12,7 @@ import OrderList from "./OrderView/OrderList";
 import PortfolioView from "./PortfolioView/PortfolioView";
 import Header from "./../Header/Header";
 import TradingViewWidget from "react-tradingview-widget";
+import Footer from "../Footer/Footer";
 
 const RightContainer = () => {
   const mainContainer = useAppSelector((state) => state.mainContainer);
@@ -39,6 +40,7 @@ const RightContainer = () => {
           <Header></Header>
 
           <PortfolioView activetab="H"></PortfolioView>
+          <Footer />
         </div>
       );
     case 3:
@@ -46,6 +48,7 @@ const RightContainer = () => {
         <div className="col-md-6 col-lg-8 col-xl-9">
           <Header></Header>
           <PortfolioView activetab="P"></PortfolioView>
+          <Footer />
         </div>
       );
     case 4:
@@ -60,6 +63,7 @@ const RightContainer = () => {
               <OrderList></OrderList>
             </div>
           </div>
+          <Footer />
         </div>
       );
     case 5:
@@ -67,6 +71,7 @@ const RightContainer = () => {
         <div className="col-md-6 col-lg-8 col-xl-9">
           <Header></Header>
           <Funds></Funds>
+          <Footer />
         </div>
       );
     case 6:
