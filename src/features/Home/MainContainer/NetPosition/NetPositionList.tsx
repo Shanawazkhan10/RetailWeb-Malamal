@@ -192,11 +192,12 @@ const NetPositionList = () => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+
                 <td>
                   <h4>Total</h4>
                 </td>
+                <td></td>
+                <td></td>
                 <td>
                   <h4>
                     {NetpositionList.netposition?.map(
