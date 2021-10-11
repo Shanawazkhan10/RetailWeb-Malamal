@@ -21,4 +21,5 @@ export interface INetPosition {
   ltp: string;
   AvgPrice: number;
   PnL: number;
+  NetQty: number;
 }

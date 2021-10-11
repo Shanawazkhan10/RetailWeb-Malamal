@@ -196,7 +196,7 @@ const NetPositionList = () => {
                   <h4>Total</h4>
                 </td>
                 <td>
-                  <h4>{getTotal}</h4>
+                  {/* <h4>{getTotal}</h4> */}
                   <h4>
                     {NetpositionList.netposition?.map(
                       (netposition: INetPosition) => {
@@ -367,15 +367,15 @@ const NetPositionList = () => {
                           Number(netposition.buyAmt) /
                             Number(netposition.flBuyQty)
                         ).toFixed(2)} */}
+                    {netposition.AvgPrice != undefined
+                      ? netposition.AvgPrice.toFixed(2)
+                      : 0}
                   </td>
                   <td>{netposition.ltp}</td>
                   <td>
-                    {netposition.ltp != undefined
-                      ? Math.fround(
-                          parseFloat(netposition.ltp) -
-                            parseFloat(netposition.buyAmt)
-                        ).toFixed(2)
-                      : "0.00"}
+                    {netposition.PnL != undefined
+                      ? netposition.PnL.toFixed(2)
+                      : 0}
                   </td>
                   <td>
                     {netposition.ltp != undefined
@@ -397,7 +397,9 @@ const NetPositionList = () => {
                 <td></td>
                 <td></td>
                 <td>Total</td>
-                <td>0.00</td>
+                <td>
+                  <h4>{currentValue.toFixed(2)}</h4>
+                </td>
                 <td></td>
               </tr>
             </tfoot>

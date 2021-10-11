@@ -41,21 +41,21 @@ const netposition = createSlice({
           if (netposition.tok == depth.tk && depth.name == "sf") {
             if (depth.ltp != undefined) {
               netposition.ltp = depth.ltp;
-              const NetQty =
+              netposition.NetQty =
                 Number(netposition.flBuyQty) - Number(netposition.flSellQty);
 
               netposition.AvgPrice =
-                NetQty > 0
+                netposition.NetQty > 0
                   ? Math.abs(
                       Number(netposition.buyAmt) - Number(netposition.sellAmt)
-                    ) / Math.abs(NetQty)
+                    ) / Math.abs(netposition.NetQty)
                   : Math.abs(
                       Number(netposition.sellAmt) - Number(netposition.buyAmt)
-                    ) / Math.abs(NetQty);
+                    ) / Math.abs(netposition.NetQty);
 
               netposition.PnL =
                 (Number(netposition.ltp) - Number(netposition.AvgPrice)) *
-                NetQty;
+                netposition.NetQty;
             }
           }
         });
