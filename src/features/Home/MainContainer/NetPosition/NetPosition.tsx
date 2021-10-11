@@ -201,22 +201,26 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
           : netposition.flBuyQty}
       </td>
       <td>
-        {Number(netposition.flBuyQty) == 0
+        {/* {Number(netposition.flBuyQty) == 0
           ? Math.fround(
               Number(netposition.sellAmt) / Number(netposition.flSellQty)
             ).toFixed(2)
           : Math.fround(
               Number(netposition.buyAmt) / Number(netposition.flBuyQty)
-            ).toFixed(2)}
+            ).toFixed(2)} */}
+        {netposition.AvgPrice != undefined
+          ? netposition.AvgPrice.toFixed(2)
+          : 0}
       </td>
 
       <td>{netposition.ltp}</td>
       <td>
-        {netposition.ltp != undefined
+        {/* {netposition.ltp != undefined
           ? Math.fround(
               parseFloat(netposition.ltp) - parseFloat(netposition.buyAmt)
             ).toFixed(2)
-          : "0.00"}
+          : "0.00"} */}
+        {netposition.PnL != undefined ? netposition.PnL.toFixed(2) : 0}
       </td>
       <td>
         {netposition.ltp != undefined

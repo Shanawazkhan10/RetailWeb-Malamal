@@ -5,11 +5,11 @@ const Footer = () => {
   const NetpositionList = useAppSelector((state) => state.netposition);
 
   function getPositionPandL() {
-    var amt = 0;
-    NetpositionList.netposition?.map(
-      (x) => amt + Number(x.ltp) - Number(x.buyAmt)
-    );
-    return amt;
+    var M2M: number = 0;
+    NetpositionList.netposition?.map((x) => {
+      M2M = M2M + x.PnL;
+    });
+    return M2M.toFixed(2);
   }
 
   function getHolding() {

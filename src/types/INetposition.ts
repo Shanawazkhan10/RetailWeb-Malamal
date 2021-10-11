@@ -19,4 +19,6 @@ export interface INetPosition {
   type: String;
   sym: String;
   ltp: string;
+  AvgPrice: number;
+  PnL: number;
 }

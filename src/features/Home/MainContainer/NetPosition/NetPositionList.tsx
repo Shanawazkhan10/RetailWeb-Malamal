@@ -82,12 +82,12 @@ const NetPositionList = () => {
     }
   }
 
-  // function getTotal() {
-  //   NetpositionList.netposition.map(
-  //     (x) => (currentValue = currentValue + Number(x.ltp))
-  //   );
-  //   return currentValue;
-  // }
+  function getTotal() {
+    NetpositionList.netposition.map(
+      (x) => (currentValue = currentValue + Number(x.ltp))
+    );
+    return currentValue;
+  }
 
   function renderSwitch(product: String) {
     switch (product) {
@@ -200,8 +200,7 @@ const NetPositionList = () => {
                   <h4>
                     {NetpositionList.netposition?.map(
                       (netposition: INetPosition) => {
-                        currentValue =
-                          currentValue + Number(netposition.sellAmt);
+                        currentValue = currentValue + Number(netposition.PnL);
                       }
                     )}
                     {currentValue.toFixed(2)}
