@@ -45,8 +45,8 @@ const Margin = () => {
       result = inputCalc / 100000;
       return result.toFixed(2) + " lac";
     } else if (inputCalc >= 1000000 && inputCalc < 9999999) {
-      result = inputCalc / 1000000;
-      return result + " M";
+      result = inputCalc / 100000;
+      return result.toFixed(2) + " lac";
     } else if (inputCalc >= 10000000) {
       result = inputCalc / 10000000;
       return result + " cr. ";
