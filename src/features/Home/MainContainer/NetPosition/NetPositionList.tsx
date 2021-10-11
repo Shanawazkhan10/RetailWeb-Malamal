@@ -20,6 +20,7 @@ import { fetchNetposition } from "./NetPositionSlice";
 
 const NetPositionList = () => {
   //let NetpositionList: any[];
+  var currentValue = 0;
   const NetpositionList = useSelector((state: RootState) => state.netposition);
   const user = useSelector((state: RootState) => state.user);
   //NetpositionList = Netposition.netposition;
@@ -44,6 +45,26 @@ const NetPositionList = () => {
     getSymbol();
   }, []);
 
+  function getSegmentName(seg: String) {
+    switch (seg) {
+      case "nse_cm":
+        return "NSE";
+        break;
+      case "nse_fo":
+        return "NFO";
+        break;
+      case "bse_cm":
+        return "BSE";
+        break;
+      case "bse_fo":
+        return "BFO";
+        break;
+
+      default:
+        break;
+    }
+  }
+
   function getSymbol() {
     if (NetpositionList.netposition != undefined) {
       //subscribe Script API Call
@@ -61,11 +82,12 @@ const NetPositionList = () => {
     }
   }
 
-  function getTotal() {
-    var currentValue = 0;
-    NetpositionList.netposition.map((x) => currentValue + x.ltp);
-    return currentValue;
-  }
+  // function getTotal() {
+  //   NetpositionList.netposition.map(
+  //     (x) => (currentValue = currentValue + Number(x.ltp))
+  //   );
+  //   return currentValue;
+  // }
 
   function renderSwitch(product: String) {
     switch (product) {
@@ -175,6 +197,15 @@ const NetPositionList = () => {
                 </td>
                 <td>
                   <h4>{getTotal}</h4>
+                  <h4>
+                    {NetpositionList.netposition?.map(
+                      (netposition: INetPosition) => {
+                        currentValue =
+                          currentValue + Number(netposition.sellAmt);
+                      }
+                    )}
+                    {currentValue.toFixed(2)}
+                  </h4>
                 </td>
                 <td></td>
               </tr>
@@ -219,7 +250,7 @@ const NetPositionList = () => {
 
             {/* Temporary bindng to netposition */}
             <tbody>
-              {NetpositionList.netposition.map((netposition: any) => (
+              {NetpositionList.netposition.map((netposition: INetPosition) => (
                 <tr className="odd_col">
                   <td>
                     <input
@@ -243,10 +274,8 @@ const NetPositionList = () => {
                   </td>
                   <td>
                     <h3>
-                      {netposition.sym}
-                      <span>
-                        {netposition.exSeg.split("_")[0].toUpperCase()}
-                      </span>
+                      {netposition.trdSym}
+                      <span>{getSegmentName(netposition.exSeg)}</span>
                     </h3>
                     <div className="watchlistbox">
                       <button
@@ -324,13 +353,22 @@ const NetPositionList = () => {
                     </div>
                   </td>
 
-                  <td>{netposition.flBuyQty}</td>
                   <td>
-                    {Math.fround(
-                      Number(netposition.buyAmt) / Number(netposition.flBuyQty)
-                    ).toFixed(2)}
+                    {Number(netposition.flBuyQty) == 0
+                      ? netposition.flSellQty
+                      : netposition.flBuyQty}
                   </td>
-
+                  <td>
+                    {/* {Number(netposition.flBuyQty) == 0
+                      ? Math.fround(
+                          Number(netposition.sellAmt) /
+                            Number(netposition.flSellQty)
+                        ).toFixed(2)
+                      : Math.fround(
+                          Number(netposition.buyAmt) /
+                            Number(netposition.flBuyQty)
+                        ).toFixed(2)} */}
+                  </td>
                   <td>{netposition.ltp}</td>
                   <td>
                     {netposition.ltp != undefined
