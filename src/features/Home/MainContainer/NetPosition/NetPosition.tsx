@@ -195,9 +195,7 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
         </div>
       </td>
 
-      <td>
-        <td>{netposition.NetQty}</td>
-      </td>
+      <td>{netposition.NetQty}</td>
       <td>
         {/* {Number(netposition.flBuyQty) == 0
           ? Math.fround(
