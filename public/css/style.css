@@ -101,9 +101,12 @@ a.navbar-brand span {
   border: none;
   color: #ffffff;
   margin-right: 3px;
+  border: 1px solid #6a4eee;
 }
 .btn-primary:hover {
-  background-color: #6a4eee;
+  color: #6a4eee;
+  background-color: transparent;
+  border-radius: 3px;
 }
 .btn-primary:not(:disabled):not(.disabled):active,
 .btn-primary:not(:disabled):not(.disabled).active,
@@ -535,6 +538,10 @@ a.navbar-brand span {
   width: fit-content;
   width: 100%;
 }
+.b-listing #mainwatchlist tbody {
+  width: 100%;
+  display: inline-table;
+}
 .b-listing #mainwatchlist tbody tr:hover {
   background: #efefef;
 }
@@ -784,9 +791,9 @@ a.navbar-brand span {
   background: #ffffff;
   padding: 18px;
   border: 1px solid #d2d0e1;
-  height: 85vh;
+  height: 81vh;
   overflow: hidden;
-  margin-bottom: 10px;
+  /*margin-bottom: 10px;*/
 }
 .equityplate span {
   font-size: 20px;
@@ -804,9 +811,9 @@ a.navbar-brand span {
   background: #ffffff;
   padding: 18px;
   border: 1px solid #d2d0e1;
-  height: 85vh;
+  height: 81vh;
   overflow: auto;
-  margin-bottom: 10px;
+  /*margin-bottom: 10px;*/
 }
 
 #holdingbox {
@@ -1016,9 +1023,13 @@ div.watchlistbox .btn-primary:not(:disabled):not(.disabled):active:focus,
 }
 div.watchlistbox .wbuy {
   background-color: #1964e4;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
 }
 div.watchlistbox .wsell {
   background-color: #f31813;
+  border-radius: 6px;
 }
 div.watchlistbox .wmarketdepth {
   background: url(../images/watchlist/market-depth.svg) center center no-repeat
@@ -1697,12 +1708,11 @@ tr[disabled] {
   text-transform: none;
 }
 .dfundsbox form button.addfund-btn {
-  background: #6a4eee;
-  color: #ffffff;
   font-size: 18px;
   padding: 18px 25px;
 }
 .dfundsbox form button.withdfund-btn {
+  border-color: #ff6872;
   background: #ff6872;
   color: #ffffff;
   font-size: 18px;
@@ -1713,15 +1723,54 @@ tr[disabled] {
   background: #ffffff;
   padding: 18px;
   border: 1px solid #d2d0e1;
-  height: 87vh;
+  height: 81vh;
   overflow: hidden;
-  margin-bottom: 10px;
+  /*margin-bottom: 10px;*/
 }
 /*funds*/
 
 .funds-deposit form .form {
   height: 3rem;
 }
+
+/*footer*/
+.footer-logo{display: inline-block;}
+.footer-bottom{
+  /*position: absolute;*/
+  bottom: 0;
+  background: #ffffff;
+  width:100%;
+  border-left: 1px solid #d2d0e1;
+  border-right: 1px solid #d2d0e1;
+  border-bottom: 1px solid #d2d0e1;
+  padding: 12px 30px;
+  left: 18px;
+}
+.name-logo{
+  display: inline-block;
+  margin-right: 12px;
+}
+.footer-bottom h6{
+  font-weight: 400;
+  margin: 12px 10px;
+  display: inline-block;
+}
+.footer-content{
+  display: inline;
+  float: right;}
+.footer-content h6{
+  margin: 12px 5px;
+}
+.fname{
+  display: inline;
+  padding: 0 10px;
+}
+.fname h6{
+  display: inline-block;
+}
+.border-right{border-right:1px solid #d2d0e1; }
+.color-grey{color: #a5a7a4;}
+/*footer*/
 
 /*Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {
@@ -1889,12 +1938,15 @@ tr[disabled] {
     width: 49%;
   }
   .fund-equityplate {
-    height: 80vh;
+    height: 70vh;
     overflow: auto;
   }
   #BuyWModal {
     width: 36%;
   }
+  .portfolioplate{height: 70vh;}
+  .equityplate{height: 70vh;}
+  .footer-bottom{padding: 12px 15px;}
 }
 
 @media (min-width: 1400px) {
@@ -2060,14 +2112,13 @@ tr[disabled] {
 
 @media (min-width: 1600px) {
   .plate {
-    height: 32vh;
+    height: 38vh;
     padding: 30px;
   }
   .plate-2 {
     height: 96vh;
   }
   .equityplate {
-    height: 87vh;
     padding: 30px;
   }
   .equityplate span {
@@ -2075,7 +2126,6 @@ tr[disabled] {
     font-weight: 600;
   }
   .portfolioplate {
-    height: 87vh;
     padding: 30px;
   }
   .b-listing #mainwatchlist {
@@ -2084,7 +2134,7 @@ tr[disabled] {
     display: block;
   }
   .b-listing #mainwatchlist tr td {
-    width: 100%;
+    width: 50%;
     padding: 10px 18px 10px 30px;
   }
   .b-listing #watchlistinner tr th {

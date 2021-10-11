@@ -25,7 +25,7 @@ const OrderEntryHeader = () => {
               {orderEntryState.isBuy ? "BUY" : "SELL"}
             </span>
             <span className="tradingsymbol">
-              <span className="name mr-1">
+              <span className="name">
                 {orderEntryState.symbol?.split("-")[0].toUpperCase()}
               </span>
               <span className="exchange">

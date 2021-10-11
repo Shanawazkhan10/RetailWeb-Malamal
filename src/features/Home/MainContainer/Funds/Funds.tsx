@@ -94,7 +94,7 @@ const Funds = () => {
                     View Statement
                   </a>
                   <a href="#">
-                    <img src="images/positions/download.svg" /> Help
+                    <img src="images/positions/info.svg" /> Help
                   </a>
                 </div>
               </div>
@@ -223,7 +223,7 @@ const Funds = () => {
                   <span className="dfundshead">Deposit funds</span>
                 </div>
                 <div className="dfundsbox">
-                  <p className="text-left">{userState.UserId}</p>
+                  <p className="text-left">{userState.UserId.split("-")[0]}</p>
                   <form>
                     <div className="form">
                       <input

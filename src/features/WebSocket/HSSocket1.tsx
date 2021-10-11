@@ -114,7 +114,7 @@ export function displayMessage(data: any) {
 
 export function waitForSocketConnection(socket: any, callback: any) {
   setTimeout(function () {
-    if (socket.readyState === 1) {
+    if (socket != null && socket.readyState === 1) {
       if (callback !== undefined) {
         callback();
       }

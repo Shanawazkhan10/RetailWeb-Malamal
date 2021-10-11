@@ -46,6 +46,7 @@ const MPIN = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="text-center">
         <img src="../images/logo.svg" className="mb-2" />
+        <span>NUVESTER</span>
       </div>
 
       <h3 className="login-main-form-title">{user.UserId}</h3>

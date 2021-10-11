@@ -155,6 +155,7 @@ const Header = () => {
     <nav className="navbar navbar-dark navbar-expand justify-content-center">
       <a className="navbar-brand" href="#">
         <img src="images/logo.svg" alt="logo" />
+        <span>NUVESTER</span>
       </a>
       <div className="container-fluid">
         <ul className="navbar-nav nav-justified text-center" id="menutxt">

@@ -184,82 +184,82 @@ const OrderEntryComp = () => {
               )}
               {/* </div> */}
             </div>
-            <div className="fields">
-              <div className="row">
-                <div className="col-md-4">
-                  <div className="form">
-                    <input
-                      type="text"
-                      placeholder=""
-                      className="form__input"
-                      name="quantity"
-                      step="1"
-                      min="1"
-                      value={orderEntryState.quantity}
-                      required={true}
-                      onChange={(e) => {
-                        onQtyChange(e);
-                      }}
-                      id="quantity"
-                    />
-                    <label htmlFor="quantity" className="form__label">
-                      Qty.
-                    </label>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="form">
-                    <input
-                      type="text"
-                      placeholder=""
-                      min="0.05"
-                      step="0.05"
-                      size={8}
-                      name="price"
-                      disabled={!orderEntryState.isPriceEnabled}
-                      value={orderEntryState.price}
-                      onChange={(e) => {
-                        onPriceChange(e);
-                      }}
-                      required={true}
-                      className="form__input"
-                      id="price"
-                    />
-                    <label htmlFor="price" className="form__label">
-                      Price
-                    </label>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="form">
-                    <input
-                      type="text"
-                      placeholder=""
-                      data-autocorrect="off"
-                      min="0"
-                      step="0.05"
-                      name="triggerprice"
-                      size={8}
-                      disabled={!orderEntryState.isTriggerPriceEnabled}
-                      value={orderEntryState.triggerprice}
-                      onChange={(e) => {
-                        onTriggerPriceChange(e);
-                      }}
-                      required={true}
-                      className="form__input"
-                      id="trigprice"
-                    />
-                    <label htmlFor="trigprice" className="form__label">
-                      Trigger price
-                    </label>
-                  </div>
+          </div>
+          <div className="fields">
+            <div className="row">
+              <div className="col-md-4">
+                <div className="form">
+                  <input
+                    type="text"
+                    placeholder=""
+                    className="form__input"
+                    name="quantity"
+                    step="1"
+                    min="1"
+                    value={orderEntryState.quantity}
+                    required={true}
+                    onChange={(e) => {
+                      onQtyChange(e);
+                    }}
+                    id="quantity"
+                  />
+                  <label htmlFor="quantity" className="form__label">
+                    Qty.
+                  </label>
                 </div>
               </div>
-
-              <OrderEntryType />
+              <div className="col-md-4">
+                <div className="form">
+                  <input
+                    type="text"
+                    placeholder=""
+                    min="0.05"
+                    step="0.05"
+                    size={8}
+                    name="price"
+                    disabled={!orderEntryState.isPriceEnabled}
+                    value={orderEntryState.price}
+                    onChange={(e) => {
+                      onPriceChange(e);
+                    }}
+                    required={true}
+                    className="form__input"
+                    id="price"
+                  />
+                  <label htmlFor="price" className="form__label">
+                    Price
+                  </label>
+                </div>
+              </div>
+              <div className="col-md-4">
+                <div className="form">
+                  <input
+                    type="text"
+                    placeholder=""
+                    data-autocorrect="off"
+                    min="0"
+                    step="0.05"
+                    name="triggerprice"
+                    size={8}
+                    disabled={!orderEntryState.isTriggerPriceEnabled}
+                    value={orderEntryState.triggerprice}
+                    onChange={(e) => {
+                      onTriggerPriceChange(e);
+                    }}
+                    required={true}
+                    className="form__input"
+                    id="trigprice"
+                  />
+                  <label htmlFor="trigprice" className="form__label">
+                    Trigger price
+                  </label>
+                </div>
+              </div>
             </div>
-            {orderEntryState.isValidityOpen && <OrderEntryValidity />}
+
+            <OrderEntryType />
           </div>
+          {orderEntryState.isValidityOpen && <OrderEntryValidity />}
         </div>
         <div className="row pt-3">
           <div className="col-md-6">
