@@ -177,7 +177,7 @@ const Funds = () => {
                       </h6>
                     </div>
                     <div className="table-cell text-right">
-                      <h6>0.00</h6>
+                      <h6>{marginState.marginData.SpanMarginPrsnt}</h6>
                     </div>
                   </div>
                   <div className="table-row">
@@ -196,7 +196,7 @@ const Funds = () => {
                       </h6>
                     </div>
                     <div className="table-cell text-right">
-                      <h6>0.00</h6>
+                      <h6>{marginState.marginData.DeliveryMarginPresent}</h6>
                     </div>
                   </div>
                   <div className="table-row">
@@ -215,7 +215,7 @@ const Funds = () => {
                       </h6>
                     </div>
                     <div className="table-cell text-right">
-                      <h6>0.00</h6>
+                      <h6>{marginState.marginData.ExposureMarginPrsnt}</h6>
                     </div>
                   </div>
                   <div className="table-row">
@@ -234,7 +234,7 @@ const Funds = () => {
                       </h6>
                     </div>
                     <div className="table-cell text-right">
-                      <h6>0.00</h6>
+                      <h6>{marginState.marginData.PremiumPrsnt}</h6>
                     </div>
                   </div>
                 </div>
@@ -254,7 +254,7 @@ const Funds = () => {
                     </h6>
                   </div>
                   <div className="table-cell text-right">
-                    <h6>0.00</h6>
+                    <h6>{marginState.marginData.CollateralValue}</h6>
                   </div>
                   <div className="table-row">
                     <div className="table-cell">
@@ -272,7 +272,7 @@ const Funds = () => {
                       </h6>
                     </div>
                     <div className="table-cell text-right">
-                      <h6>{marginState.marginData.RmsCollateral}</h6>
+                      <h6>{marginState.marginData.CollateralValue}</h6>
                     </div>
                   </div>
                   <div className="table-row">
@@ -280,7 +280,7 @@ const Funds = () => {
                       <h6>Total Collateral</h6>
                     </div>
                     <div className="table-cell text-right">
-                      <h6>{marginState.marginData.RmsCollateral}</h6>
+                      <h6>{marginState.marginData.CollateralValue}</h6>
                     </div>
                   </div>
                 </div>
