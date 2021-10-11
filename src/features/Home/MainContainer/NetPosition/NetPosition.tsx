@@ -41,6 +41,26 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
     }
   }
 
+  function getSegmentName(seg: String) {
+    switch (seg) {
+      case "nse_cm":
+        return "NSE";
+        break;
+      case "nse_fo":
+        return "NFO";
+        break;
+      case "bse_cm":
+        return "BSE";
+        break;
+      case "bse_fo":
+        return "BFO";
+        break;
+
+      default:
+        break;
+    }
+  }
+
   function onBuyOrderEntryClick(
     e: any,
     symbolInfo: IOrderResponse,
@@ -102,8 +122,8 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
       </td>
       <td>
         <h3>
-          {netposition.sym}
-          <span>{netposition.exSeg.split("_")[0].toUpperCase()}</span>
+          {netposition.trdSym}
+          <span>{getSegmentName(netposition.exSeg)}</span>
         </h3>
         <div className="watchlistbox">
           <button

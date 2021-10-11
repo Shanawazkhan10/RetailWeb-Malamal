@@ -61,6 +61,12 @@ const NetPositionList = () => {
     }
   }
 
+  function getTotal() {
+    var currentValue = 0;
+    NetpositionList.netposition.map((x) => currentValue + x.ltp);
+    return currentValue;
+  }
+
   function renderSwitch(product: String) {
     switch (product) {
       case "CNC":
@@ -168,7 +174,7 @@ const NetPositionList = () => {
                   <h4>Total</h4>
                 </td>
                 <td>
-                  <h4>0.00</h4>
+                  <h4>{getTotal}</h4>
                 </td>
                 <td></td>
               </tr>

@@ -103,8 +103,8 @@ const MainSummary = () => {
                 <p>{ActiveText}</p>
               </div>
               <table
+                id="equitytable"
                 className="table table-responsive table-borderless"
-                style={{ height: "700px", overflowY: "scroll" }}
               >
                 <thead>
                   <tr>
