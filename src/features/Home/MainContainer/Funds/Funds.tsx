@@ -332,7 +332,7 @@ const Funds = () => {
                         <div className="col-md-6 py-0">
                           <button
                             type="submit"
-                            className="btn w-100 addfund-btn"
+                            className="btn btn-primary w-100 addfund-btn"
                             onClick={(e) => openPayModal(e)}
                           >
                             <img src="images/add.svg" height="15" /> Add Funds
