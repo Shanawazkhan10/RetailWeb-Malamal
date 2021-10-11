@@ -196,9 +196,7 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
       </td>
 
       <td>
-        {Number(netposition.flBuyQty) == 0
-          ? netposition.flSellQty
-          : netposition.flBuyQty}
+        <td>{netposition.NetQty}</td>
       </td>
       <td>
         {/* {Number(netposition.flBuyQty) == 0
