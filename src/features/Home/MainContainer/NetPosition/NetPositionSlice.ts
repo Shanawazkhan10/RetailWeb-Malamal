@@ -44,18 +44,23 @@ const netposition = createSlice({
               netposition.NetQty =
                 Number(netposition.flBuyQty) - Number(netposition.flSellQty);
 
-              netposition.AvgPrice =
-                netposition.NetQty > 0
-                  ? Math.abs(
-                      Number(netposition.buyAmt) - Number(netposition.sellAmt)
-                    ) / Math.abs(netposition.NetQty)
-                  : Math.abs(
-                      Number(netposition.sellAmt) - Number(netposition.buyAmt)
-                    ) / Math.abs(netposition.NetQty);
+              if (netposition.NetQty != 0) {
+                netposition.AvgPrice =
+                  netposition.NetQty > 0
+                    ? Math.abs(
+                        Number(netposition.buyAmt) - Number(netposition.sellAmt)
+                      ) / Math.abs(netposition.NetQty)
+                    : Math.abs(
+                        Number(netposition.sellAmt) - Number(netposition.buyAmt)
+                      ) / Math.abs(netposition.NetQty);
 
-              netposition.PnL =
-                (Number(netposition.ltp) - Number(netposition.AvgPrice)) *
-                netposition.NetQty;
+                netposition.PnL =
+                  (Number(netposition.ltp) - Number(netposition.AvgPrice)) *
+                  netposition.NetQty;
+              } else {
+                netposition.AvgPrice = 0;
+                netposition.PnL = 0;
+              }
             }
           }
         });

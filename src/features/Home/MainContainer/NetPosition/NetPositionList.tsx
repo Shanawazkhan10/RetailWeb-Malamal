@@ -192,11 +192,12 @@ const NetPositionList = () => {
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
+                <td></td>
                 <td>
                   <h4>Total</h4>
                 </td>
                 <td>
-                  {/* <h4>{getTotal}</h4> */}
                   <h4>
                     {NetpositionList.netposition?.map(
                       (netposition: INetPosition) => {
@@ -273,7 +274,7 @@ const NetPositionList = () => {
                   </td>
                   <td>
                     <h3>
-                      {netposition.trdSym}
+                      {netposition.trdSym.split("-")[0]}
                       <span>{getSegmentName(netposition.exSeg)}</span>
                     </h3>
                     <div className="watchlistbox">
