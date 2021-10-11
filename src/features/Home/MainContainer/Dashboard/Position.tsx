@@ -111,14 +111,14 @@ const Position = () => {
               )
             ) : (
               <div className="fadeIn-element">
-                <div className="row slideInDown-element">
+                <div className="slideInDown-element text-center pt-4">
                   <div>
                     <p>You don't have any positions yet</p>
                   </div>
 
                   <button
                     type="button"
-                    className="button-blue"
+                    className="btn btn-primary button-blue"
                     onClick={OpenDepth}
                   >
                     Get started
