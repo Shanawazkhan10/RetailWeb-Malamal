@@ -441,9 +441,12 @@ export async function GetTradeBook(sessionKey: string): Promise<any> {
 export async function getNetposition(sessionKey: string): Promise<any> {
   //const params = new URLSearchParams();
   //params.append("jData", JSON.stringify(scriptInfo));
+  const params = new URLSearchParams();
+  params.append("jKey", sessionKey);
+  params.append("jData", JSON.stringify({ reload: "Y" }));
   return await api
 
-    .post("https://uathsint.hypertrade.in/quick/user/positions", "", {
+    .post("https://uathsint.hypertrade.in/quick/user/positions", params, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         "x-access-token": sessionKey,
@@ -504,28 +507,33 @@ export async function getSummaryData(
     .catch((error) => error);
 }
 
-export async function getPaymentOrderId(SessionKey: string):Promise<any> {
-  const GetOrderId={
-    "accHolder_name": "Sanjay Pawar",
-    "acc_num": "060101001122",
-    "amount": 1000,
-    "bank_name": "ICICI Bank",
-    "enterprise_id": "99991",
-    "ex_segment": "EQUITY",
-    "exchange": "NSE",
-    "ifsc_code": "ICIC0000602",
-    "paymentType": "netbanking",
-    "product": "MIS",
-    "uid": "SANJAY-99991"
-  }
-  
-  return await api.post("https://uathtrack.hypertrade.in/api/payment/getorderid",GetOrderId,{
-    headers:{
-      "x-access-token": SessionKey    
-    }
-  })
-  .then((response)=>response.data)
-  .catch((error)=>error)
+export async function getPaymentOrderId(SessionKey: string): Promise<any> {
+  const GetOrderId = {
+    accHolder_name: "Sanjay Pawar",
+    acc_num: "060101001122",
+    amount: 1000,
+    bank_name: "ICICI Bank",
+    enterprise_id: "99991",
+    ex_segment: "EQUITY",
+    exchange: "NSE",
+    ifsc_code: "ICIC0000602",
+    paymentType: "netbanking",
+    product: "MIS",
+    uid: "SANJAY-99991",
+  };
+
+  return await api
+    .post(
+      "https://uathtrack.hypertrade.in/api/payment/getorderid",
+      GetOrderId,
+      {
+        headers: {
+          "x-access-token": SessionKey,
+        },
+      }
+    )
+    .then((response) => response.data)
+    .catch((error) => error);
 }
 export async function getUserMargin(SessionKey: string): Promise<any> {
   const RequestData = {
