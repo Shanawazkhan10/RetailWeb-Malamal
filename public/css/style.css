@@ -95,6 +95,14 @@ a.navbar-brand span {
   color: #ffffff;
   border-color: #ffffff;
 }
+.logo span {
+  color: #6344f2;
+  margin-left: 8px;
+  vertical-align: middle;
+  font-weight: 700;
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+}
 .btn-primary {
   background-color: #6a4eee;
   border-radius: 4px;
@@ -1734,42 +1742,53 @@ tr[disabled] {
 }
 
 /*footer*/
-.footer-logo{display: inline-block;}
-.footer-bottom{
+.footer-logo {
+  display: inline-block;
+}
+.footer-bottom {
   /*position: absolute;*/
   bottom: 0;
   background: #ffffff;
-  width:100%;
+  width: 100%;
   border-left: 1px solid #d2d0e1;
   border-right: 1px solid #d2d0e1;
   border-bottom: 1px solid #d2d0e1;
   padding: 12px 30px;
   left: 18px;
 }
-.name-logo{
+.name-logo {
   display: inline-block;
   margin-right: 12px;
 }
-.footer-bottom h6{
+.footer-bottom h6 {
   font-weight: 400;
   margin: 12px 10px;
   display: inline-block;
 }
-.footer-content{
+.footer-content {
   display: inline;
-  float: right;}
-.footer-content h6{
+  float: right;
+}
+.footer-content h6 {
   margin: 12px 5px;
 }
-.fname{
+.footer-content h6:nth-child(2) {
+  width: 120px;
+  text-align: left;
+}
+.fname {
   display: inline;
   padding: 0 10px;
 }
-.fname h6{
+.fname h6 {
   display: inline-block;
 }
-.border-right{border-right:1px solid #d2d0e1; }
-.color-grey{color: #a5a7a4;}
+.border-right {
+  border-right: 1px solid #d2d0e1;
+}
+.color-grey {
+  color: #a5a7a4;
+}
 /*footer*/
 
 /*Extra small devices (portrait phones, less than 576px)*/
@@ -1944,9 +1963,15 @@ tr[disabled] {
   #BuyWModal {
     width: 36%;
   }
-  .portfolioplate{height: 70vh;}
-  .equityplate{height: 70vh;}
-  .footer-bottom{padding: 12px 15px;}
+  .portfolioplate {
+    height: 70vh;
+  }
+  .equityplate {
+    height: 70vh;
+  }
+  .footer-bottom {
+    padding: 12px 15px;
+  }
 }
 
 @media (min-width: 1400px) {

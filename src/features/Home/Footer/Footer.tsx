@@ -15,11 +15,10 @@ const Footer = () => {
   function getHolding() {
     var currentValue = 0;
     // {
-    //   HoldingList.holding.holdinglist?.map((holding) => {
-    //     if (holding.curval != undefined)
-    currentValue =
-      HoldingList.holding.currentValue - HoldingList.holding.totalInvestMent;
-    //});
+    HoldingList.holding.holdinglist?.map((holding) => {
+      if (holding.curval != undefined)
+        currentValue = currentValue + Number(holding.curval);
+    });
     //}
 
     return currentValue;
@@ -52,7 +51,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="footer-content">
-            <div className="fname border-right">
+            <div className="fname">
               <h6 className="color-grey">Holdings M2M</h6>
               <h6>{getHolding()}</h6>
             </div>

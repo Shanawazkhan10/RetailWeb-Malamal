@@ -78,7 +78,7 @@ const Login = () => {
             <div className="loginform">
               {user.isPasswordCheked === false ? (
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className="text-center">
+                  <div className="text-center logo">
                     <img src="../images/logo.svg" />
                     <span>NUVESTER</span>
                   </div>

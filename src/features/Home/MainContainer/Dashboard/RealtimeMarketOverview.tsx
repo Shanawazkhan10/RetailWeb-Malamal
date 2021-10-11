@@ -8,8 +8,8 @@ const RealTimeMarketOverview = () => {
           <img src="images/market-overview.svg" />
           <span>Market Overview</span>
           <div className="col-md-12 mt-4">
-            {/* <img src="images/graph.png" className="img-fluid" /> */}
-            <Chart
+            <img src="images/graph.png" className="img-fluid" />
+            {/* <Chart
               chartType="LineChart"
               loader={<div>Loading Chart</div>}
               data={[
@@ -301,7 +301,7 @@ const RealTimeMarketOverview = () => {
                 height: 400,
               }}
               rootProps={{ "data-testid": "1" }}
-            />
+            /> */}
           </div>
         </div>
       </div>

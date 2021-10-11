@@ -31,7 +31,7 @@ const HoldingView = (props: { holding: IHolding }) => {
     <tr className="odd_col">
       <td>
         <h3>{String(holding.nseTrdSym).split("-")[0]}</h3>
-        <div className={"watchlistbox" + (showMenu ? " show" : "")}>
+        {/* <div className={"watchlistbox" + (showMenu ? " show" : "")}>
           <button
             type="button"
             className="btn btn-primary wmore dropdown-toggle"
@@ -75,38 +75,9 @@ const HoldingView = (props: { holding: IHolding }) => {
             <a className="dropdown-item" href="#">
               <img src="images/positions/watchlist.svg" /> Add to marketwatch
             </a>
-            {/* <a className="dropdown-item" href="#">
-              <img
-                src=""
-                style={{
-                  width: "15px",
-                  height: "15px",
-                  background: "rgba(106, 78, 238, 0.2)",
-                  borderRadius: "3px",
-                }}
-              />
-              Fundamentals
-            </a>
-            <a className="dropdown-item" href="#">
-              <img
-                src=""
-                style={{
-                  width: "15px",
-                  height: "15px",
-                  background: "rgba(106, 78, 238, 0.2)",
-                  borderRadius: "3px",
-                }}
-              />
-              Technicals
-            </a> */}
-            {/* <a className="dropdown-item" href="#">
-              <img src="images/positions/alert.svg" /> Set Alerts
-            </a> */}
           </div>
-        </div>
+        </div> */}
       </td>
-      {/* <td>{holding.exSeg1}</td>
-      <td>{holding.prod}</td> */}
       <td>{holding.hldQty}</td>
       <td>{holding.prc}</td>
       <td>{holding.ltp}</td>
@@ -115,7 +86,7 @@ const HoldingView = (props: { holding: IHolding }) => {
       <td className={"c-" + getColour(holding.netchg)}>
         {holding.netchg == undefined ? 0 : holding.netchg + "%"}
       </td>
-      <td>{holding.daychg}%</td>
+      <td>{holding.daychg}</td>
     </tr>
   );
 };

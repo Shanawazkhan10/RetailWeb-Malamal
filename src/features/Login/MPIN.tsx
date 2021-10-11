@@ -44,12 +44,12 @@ const MPIN = () => {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="text-center">
+      <div className="text-center logo">
         <img src="../images/logo.svg" className="mb-2" />
         <span>NUVESTER</span>
       </div>
 
-      <h3 className="login-main-form-title">{user.UserId}</h3>
+      <h3 className="login-main-form-title">{user.UserId.split("-")[0]}</h3>
       <div className="form m-b-20">
         <span className="icon-inside">
           <img src="../images/pswd-ico.png" />

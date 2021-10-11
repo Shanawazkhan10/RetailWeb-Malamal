@@ -159,7 +159,17 @@ const Funds = () => {
                   </div>
                   <div className="table-row">
                     <div className="table-cell">
-                      <h6>SPAN</h6>
+                      <h6>
+                        SPAN
+                        <a
+                          data-toggle="tooltip"
+                          data-placement="right"
+                          title="SPAN Margin is the minimum requisite margins blocked for futures and option writing positions as per the exchange’s mandate."
+                          href=""
+                        >
+                          <img className="ml-2" src="images/info.svg" />
+                        </a>
+                      </h6>
                     </div>
                     <div className="table-cell text-right">
                       <h6>0.00</h6>
@@ -167,7 +177,17 @@ const Funds = () => {
                   </div>
                   <div className="table-row">
                     <div className="table-cell">
-                      <h6>Delivery margin</h6>
+                      <h6>
+                        Delivery margin
+                        <a
+                          data-toggle="tooltip"
+                          data-placement="right"
+                          title="The delivery margin is blocked when you sell securities (20% of the value of stocks sold) from your demat or T1 holdings. As per SEBI's new peak margin norms, only 80% of credit from selling your holdings will be available for new trades. The funds blocked under this field will be available from the next trading day."
+                          href="#"
+                        >
+                          <img className="ml-2" src="images/info.svg" />
+                        </a>
+                      </h6>
                     </div>
                     <div className="table-cell text-right">
                       <h6>0.00</h6>
@@ -175,7 +195,17 @@ const Funds = () => {
                   </div>
                   <div className="table-row">
                     <div className="table-cell">
-                      <h6>Exposure</h6>
+                      <h6>
+                        Exposure
+                        <a
+                          data-toggle="tooltip"
+                          data-placement="right"
+                          title="The ‘Exposure Margin’ is the margin blocked over and above the SPAN to cushion for any MTM losses. Both the SPAN and Exposure margins are specified by the exchange. So at the time of initiating a futures  trade, the client has to adhere to the initial margin requirement. The entire initial margin (SPAN + Exposure) is blocked by the exchange."
+                          href="#"
+                        >
+                          <img className="ml-2" src="images/info.svg" />
+                        </a>
+                      </h6>
                     </div>
                     <div className="table-cell text-right">
                       <h6>0.00</h6>
@@ -183,7 +213,17 @@ const Funds = () => {
                   </div>
                   <div className="table-row">
                     <div className="table-cell">
-                      <h6>Options premium</h6>
+                      <h6>
+                        Options premium
+                        <a
+                          data-toggle="tooltip"
+                          data-placement="right"
+                          title="The total premium received from shorting/writing options. The Cash margin available is inclusive of this amount, but the breakdown is provided as option premium here."
+                          href="#"
+                        >
+                          <img className="ml-2" src="images/info.svg" />
+                        </a>
+                      </h6>
                     </div>
                     <div className="table-cell text-right">
                       <h6>0.00</h6>
@@ -192,14 +232,34 @@ const Funds = () => {
                 </div>
                 <div id="box3" className="table mt-4">
                   <div className="table-cell">
-                    <h6>Collateral (Liquid funds)</h6>
+                    <h6>
+                      Collateral (Liquid funds){" "}
+                      <a
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        title="Total collateral is the sum of the collateral amount received from pledging liquid funds. Collateral from liquid funds is considered as 100% cash when used to take any positions."
+                        href="#"
+                      >
+                        <img className="ml-2" src="images/info.svg" />
+                      </a>
+                    </h6>
                   </div>
                   <div className="table-cell text-right">
                     <h6>0.00</h6>
                   </div>
                   <div className="table-row">
                     <div className="table-cell">
-                      <h6>Collateral (Equity)</h6>
+                      <h6>
+                        Collateral (Equity)
+                        <a
+                          data-toggle="tooltip"
+                          data-placement="right"
+                          title="Total collateral is the sum of the collateral amount received from pledging equity holdings."
+                          href="#"
+                        >
+                          <img className="ml-2" src="images/info.svg" />
+                        </a>
+                      </h6>
                     </div>
                     <div className="table-cell text-right">
                       <h6>{marginState.marginData.RmsCollateral}</h6>
