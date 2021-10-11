@@ -16,6 +16,10 @@ const Funds = () => {
     SetAmount(e.target.value);
   }
 
+  function onAnchorClick(e: any) {
+    e.preventDefault();
+  }
+
   const options = {
     key: "rzp_live_q8gUCOxfHIbCkb",
     //key: "rzp_test_3ItfhafvOz0Kkx",
@@ -166,6 +170,7 @@ const Funds = () => {
                           data-placement="right"
                           title="SPAN Margin is the minimum requisite margins blocked for futures and option writing positions as per the exchange’s mandate."
                           href=""
+                          onClick={(e) => onAnchorClick(e)}
                         >
                           <img className="ml-2" src="images/info.svg" />
                         </a>
@@ -184,6 +189,7 @@ const Funds = () => {
                           data-placement="right"
                           title="The delivery margin is blocked when you sell securities (20% of the value of stocks sold) from your demat or T1 holdings. As per SEBI's new peak margin norms, only 80% of credit from selling your holdings will be available for new trades. The funds blocked under this field will be available from the next trading day."
                           href="#"
+                          onClick={(e) => onAnchorClick(e)}
                         >
                           <img className="ml-2" src="images/info.svg" />
                         </a>
@@ -202,6 +208,7 @@ const Funds = () => {
                           data-placement="right"
                           title="The ‘Exposure Margin’ is the margin blocked over and above the SPAN to cushion for any MTM losses. Both the SPAN and Exposure margins are specified by the exchange. So at the time of initiating a futures  trade, the client has to adhere to the initial margin requirement. The entire initial margin (SPAN + Exposure) is blocked by the exchange."
                           href="#"
+                          onClick={(e) => onAnchorClick(e)}
                         >
                           <img className="ml-2" src="images/info.svg" />
                         </a>
@@ -220,6 +227,7 @@ const Funds = () => {
                           data-placement="right"
                           title="The total premium received from shorting/writing options. The Cash margin available is inclusive of this amount, but the breakdown is provided as option premium here."
                           href="#"
+                          onClick={(e) => onAnchorClick(e)}
                         >
                           <img className="ml-2" src="images/info.svg" />
                         </a>
@@ -239,6 +247,7 @@ const Funds = () => {
                         data-placement="right"
                         title="Total collateral is the sum of the collateral amount received from pledging liquid funds. Collateral from liquid funds is considered as 100% cash when used to take any positions."
                         href="#"
+                        onClick={(e) => onAnchorClick(e)}
                       >
                         <img className="ml-2" src="images/info.svg" />
                       </a>
@@ -256,6 +265,7 @@ const Funds = () => {
                           data-placement="right"
                           title="Total collateral is the sum of the collateral amount received from pledging equity holdings."
                           href="#"
+                          onClick={(e) => onAnchorClick(e)}
                         >
                           <img className="ml-2" src="images/info.svg" />
                         </a>
