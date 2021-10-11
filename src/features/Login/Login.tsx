@@ -80,7 +80,7 @@ const Login = () => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="text-center logo">
                     <img src="../images/logo.svg" />
-                    <span>NUVESTER</span>
+                    <span>MALAMAAL</span>
                   </div>
                   <h3 className="login-main-form-title">Sign in</h3>
 

@@ -46,7 +46,7 @@ const MPIN = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="text-center logo">
         <img src="../images/logo.svg" className="mb-2" />
-        <span>NUVESTER</span>
+        <span>MALAMAAL</span>
       </div>
 
       <h3 className="login-main-form-title">{user.UserId.split("-")[0]}</h3>
