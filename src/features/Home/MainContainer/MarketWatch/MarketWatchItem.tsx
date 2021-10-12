@@ -239,7 +239,12 @@ const MarketWatchItem = (props: {
                     )}
                   </div>
                   <div className="companyname">
-                    <h4>{symbolInfo.sym}</h4>
+                    <h4>
+                      {" "}
+                      {symbolInfo.exSeg === "nse_cm"
+                        ? symbolInfo.sym
+                        : symbolInfo.trdSym}
+                    </h4>
                     <p>{symbolInfo.exSeg.split("_")[0]}</p>
                   </div>
                 </td>
