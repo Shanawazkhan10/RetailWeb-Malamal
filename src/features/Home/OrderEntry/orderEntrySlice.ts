@@ -188,7 +188,7 @@ export const orderEntrySlice = createSlice({
       //state.isOrderEntryOpen = false;
       toastNotification(
         "success",
-        "Order Cancelled : " + action.payload.nOrdNo
+        "Order Cancelled : " + action.payload.result
       );
     },
     onOrderCancelRejected: (state, action: PayloadAction<any>) => {
