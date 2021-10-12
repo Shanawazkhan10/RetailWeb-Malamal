@@ -219,11 +219,8 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
         {netposition.PnL != undefined ? netposition.PnL.toFixed(2) : 0}
       </td>
       <td>
-        {netposition.ltp != undefined
-          ? Math.fround(
-              parseFloat(netposition.buyAmt) /
-                (parseFloat(netposition.ltp) - parseFloat(netposition.buyAmt))
-            ).toFixed(2)
+        {netposition.Change != undefined
+          ? netposition.Change.toFixed(2)
           : "0.00"}
         %
       </td>

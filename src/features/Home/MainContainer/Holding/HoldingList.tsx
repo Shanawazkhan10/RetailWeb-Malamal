@@ -114,7 +114,9 @@ const HoldingList = () => {
         </div>
         <div className="col-md-3 holdingleft mt-4">
           <div>
-            <h3 className="c-purple">{HoldingList.holding.totalInvestMent}</h3>
+            <h3 className="c-purple">
+              {HoldingList.holding.totalInvestMent.toFixed(2)}
+            </h3>
             <p>Total Investment</p>
           </div>
           <div>
@@ -123,7 +125,7 @@ const HoldingList = () => {
                 if (holding.curval != undefined)
                   currentValue = currentValue + Number(holding.curval);
               })}
-              {currentValue}
+              {currentValue.toFixed(2)}
             </h3>
             <p>Current Value</p>
           </div>

@@ -57,6 +57,18 @@ const netposition = createSlice({
                 netposition.PnL =
                   (Number(netposition.ltp) - Number(netposition.AvgPrice)) *
                   netposition.NetQty;
+
+                //netposition.Change = depth.cng;
+                netposition.Change =
+                  netposition.NetQty > 0
+                    ? ((Number(netposition.ltp) -
+                        Number(netposition.AvgPrice)) /
+                        Number(netposition.AvgPrice)) *
+                      100
+                    : ((Number(netposition.AvgPrice) -
+                        Number(netposition.ltp)) /
+                        Number(netposition.AvgPrice)) *
+                      100;
               } else {
                 netposition.AvgPrice = 0;
                 netposition.PnL = 0;

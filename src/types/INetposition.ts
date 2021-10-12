@@ -22,4 +22,5 @@ export interface INetPosition {
   AvgPrice: number;
   PnL: number;
   NetQty: number;
+  Change: number;
 }
