@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import HSSocket from "../WebSocket/HSSocket";
 import Header from "./Header/Header";
 import MainContainer from "./MainContainer/MainContainer";
@@ -9,6 +9,11 @@ import Menu from "./Menu/Menu";
 import OrderEntryComp from "./OrderEntry/OrderEntry";
 import GttOrderEntry from "./GTTOrderEntry/GttOrderEntry";
 import { useHistory } from "react-router";
+import { fetchHolding } from "./MainContainer/Holding/HoldingSlice";
+import { fetchNetposition } from "./MainContainer/NetPosition/NetPositionSlice";
+import { fetchOrderView } from "./MainContainer/OrderView/OrderViewSlice";
+import { fetchTradeView } from "./MainContainer/TradeView/TradeVIewSlice";
+import { FetchMargin } from "./MainContainer/Dashboard/MarginSlice";
 
 var url = "wss://uathsmkt.hypertrade.in";
 const script = document.createElement("script");
@@ -23,6 +28,7 @@ document.body.removeChild(script);
 
 //export let userWS: any = new window.HSWebSocket(url);
 const Home = () => {
+  const dispatch = useAppDispatch();
   const orderEntryState = useAppSelector((state) => state.orderEntry);
   const marketPictureState = useAppSelector((state) => state.marketpicture);
   const gttEntryState = useAppSelector((state) => state.gttEntry);
@@ -44,6 +50,13 @@ const Home = () => {
     document.body.appendChild(script);
     //init();
     //connect();
+
+    dispatch(fetchHolding(user.sessionKey));
+    dispatch(fetchNetposition(user.sessionKey));
+    dispatch(fetchOrderView(user.sessionKey));
+    dispatch(fetchTradeView(user.sessionKey));
+    dispatch(FetchMargin(user.sessionKey));
+
     var url = "wss://uathsmkt.hypertrade.in";
     return () => {
       document.body.removeChild(script);
