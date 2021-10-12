@@ -82,6 +82,7 @@ const holding = createSlice({
               state.holding.totalPandL = 0;
               //state.holding.totalPandL + Number(holding.pnl);
               state.holding.totalPandLPercent = 0;
+              holding.daysPL = depth.c - depth.ltp;
               //state.holding.totalPandLPercent + Number(holding.netchg);
             }
             //  else {

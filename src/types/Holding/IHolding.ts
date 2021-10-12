@@ -40,6 +40,7 @@ export interface IHolding {
   avg: string;
   daychg: string;
   daychgperc: string;
+  daysPL: number;
 }
 
 export interface IHoldingSate {

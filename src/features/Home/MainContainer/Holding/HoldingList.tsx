@@ -16,6 +16,7 @@ const HoldingList = () => {
   const HoldingList = useSelector((state: RootState) => state.holding);
   const user = useSelector((state: RootState) => state.user);
   var currentValue = 0;
+  var daysPnL = 0;
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -124,6 +125,7 @@ const HoldingList = () => {
               {HoldingList.holding.holdinglist?.map((holding) => {
                 if (holding.curval != undefined)
                   currentValue = currentValue + Number(holding.curval);
+                daysPnL = daysPnL + holding.daysPL;
               })}
               {currentValue.toFixed(2)}
             </h3>
@@ -132,7 +134,8 @@ const HoldingList = () => {
           <div>
             <div className="mb-2 c-orange">
               <h3 className="d-inline">
-                {HoldingList.holding.daysPandL.toFixed(2)}
+                {/* {HoldingList.holding.daysPandL.toFixed(2)} */}
+                {daysPnL.toFixed(2)}
               </h3>
               <span>({HoldingList.holding.daysPandLPercent.toFixed(2)}%)</span>
             </div>

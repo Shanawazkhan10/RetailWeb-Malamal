@@ -15,6 +15,7 @@ import PieChart from "../PieChart/PieChart";
 const Holdings = () => {
   const dispatch = useAppDispatch();
   var currentValue = 0;
+  var daysPnL = 0;
   const user = useSelector((state: RootState) => state.user);
   const HoldingList = useSelector((state: RootState) => state.holding);
   useEffect(() => {
@@ -82,8 +83,10 @@ const Holdings = () => {
             <div>
               <h3 className="c-black">
                 {HoldingList.holding.holdinglist?.map((holding: IHolding) => {
-                  if (holding.curval != undefined)
+                  if (holding.curval != undefined) {
                     currentValue = currentValue + Number(holding.curval);
+                    daysPnL = daysPnL + holding.daysPL;
+                  }
                 })}
                 {currentValue.toFixed(2)}
               </h3>
@@ -92,7 +95,8 @@ const Holdings = () => {
             <div>
               <div className="c-orange">
                 <h3 className="d-inline">
-                  {HoldingList.holding.daysPandL.toFixed(2)}
+                  {/* {HoldingList.holding.daysPandL.toFixed(2)} */}
+                  {daysPnL.toFixed(2)}
                 </h3>
                 <span>
                   ({HoldingList.holding.daysPandLPercent.toFixed(2)}%)
