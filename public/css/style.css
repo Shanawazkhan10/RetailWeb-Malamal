@@ -628,9 +628,11 @@ a.navbar-brand span {
 }
 .b-listing #watchlistinner .table-row .table-cell:nth-child(2) {
   text-align: center;
+  width: 30%;
 }
 .b-listing #watchlistinner .table-row .table-cell:nth-child(3) {
   text-align: center;
+  width: 35%;
 }
 
 .modal-body #watchlistinner .table-cell:nth-child(2) {
@@ -1775,6 +1777,10 @@ tr[disabled] {
 .footer-content h6:nth-child(2) {
   width: 120px;
   text-align: left;
+}
+
+.footer-content .d-inline-block img {
+  width: 27px;
 }
 .fname {
   display: inline;

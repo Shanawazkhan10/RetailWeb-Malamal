@@ -49,11 +49,12 @@ const Holdings = () => {
   }
 
   function getColour(pnl: number) {
-    if (pnl > 0) {
-      return "green";
-    } else {
-      return "red";
-    }
+    if (pnl != undefined)
+      if (pnl > 0) {
+        return "green";
+      } else {
+        return "red";
+      }
   }
 
   return (
@@ -100,7 +101,11 @@ const Holdings = () => {
               <p>Day's P&L</p>
             </div>
             <div>
-              <div className={"c-" + getColour(HoldingList.holding.totalPandL)}>
+              <div
+                className={
+                  HoldingList.holding.totalPandL > 0 ? "c-green" : "c-red"
+                }
+              >
                 <h3 className="d-inline">
                   {(currentValue - HoldingList.holding.totalInvestMent).toFixed(
                     2
