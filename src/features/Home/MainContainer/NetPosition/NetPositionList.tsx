@@ -389,8 +389,8 @@ const NetPositionList = () => {
                 <td data-colspan="2"></td>
                 <td></td>
                 <td></td>
-                <td></td>
                 <td>Total</td>
+                <td></td>
                 <td>
                   <h4>{currentValue.toFixed(2)}</h4>
                 </td>
