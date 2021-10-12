@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import ReactTooltip from "react-tooltip";
 import Popup from "reactjs-popup";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
@@ -67,11 +68,20 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
         <ul className="pagination">
           {WatchListData.map((WatchList: any) => (
             <li
+              data-tip
+              data-for={"registerTip" + String(WatchList.id)}
               className={
                 "page-item" + (WatchList.id === selectedList ? " active" : "")
               }
               key={WatchList.id}
             >
+              <ReactTooltip
+                id={"registerTip" + String(WatchList.id)}
+                place="top"
+                effect="solid"
+              >
+                {WatchList.mwName}
+              </ReactTooltip>
               <a
                 className="page-link"
                 href=""
@@ -79,7 +89,7 @@ const MarketWatchPortfolio = (props: IWatchListProps) => {
                 onClick={(e) => handleChange(e, WatchList.mwName)}
               >
                 <span
-                  aria-label={WatchList.mwName}
+                  // aria-label={WatchList.mwName}
                   data-balloon-pos="up"
                   data-balloon
                 >
