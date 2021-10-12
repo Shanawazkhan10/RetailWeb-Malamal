@@ -87,10 +87,12 @@ const OrderView = (props: { order: IOrderResponse }) => {
     OrderEntryProp.token = symbolInfo.tok;
     if (actiontype == "Repeat") {
       OrderEntryProp.price = symbolInfo.prc;
+      OrderEntryProp.quantity = symbolInfo.qty;
     } else if (actiontype == "Buy") {
       OrderEntryProp.price = symbolInfo.ltp;
+      OrderEntryProp.quantity = 1; //symbolInfo.fldQty;
     }
-    OrderEntryProp.quantity = 1; //symbolInfo.fldQty;
+
     OrderEntryProp.symbol = symbolInfo.trdSym;
     OrderEntryProp.exchange = symbolInfo.exSeg;
     //OrderEntryProp.ltp = symbolInfo.ltp;
@@ -98,11 +100,21 @@ const OrderView = (props: { order: IOrderResponse }) => {
     dispatch(openBuyOrderEntry());
   }
 
-  function onSellOrderEntryClick(e: any, symbolInfo: IOrderResponse) {
+  function onSellOrderEntryClick(
+    e: any,
+    symbolInfo: IOrderResponse,
+    actiontype: string
+  ) {
     e.preventDefault();
     OrderEntryProp.token = symbolInfo.tok;
-    //OrderEntryProp.price = symbolInfo.ltp;
-    OrderEntryProp.quantity = 1; // symbolInfo.fldQty;
+    if (actiontype == "Repeat") {
+      OrderEntryProp.price = symbolInfo.prc;
+      OrderEntryProp.quantity = symbolInfo.qty;
+    } else if (actiontype == "Buy") {
+      OrderEntryProp.price = symbolInfo.ltp;
+      OrderEntryProp.quantity = 1; // symbolInfo.fldQty;
+    }
+
     OrderEntryProp.symbol = symbolInfo.trdSym;
     OrderEntryProp.exchange = symbolInfo.exSeg;
     //OrderEntryProp.ltp = symbolInfo.ltp;
@@ -199,14 +211,18 @@ const OrderView = (props: { order: IOrderResponse }) => {
               <a
                 className="dropdown-item"
                 href="#"
-                onClick={(e) => onSellOrderEntryClick(e, order)}
+                onClick={(e) => onSellOrderEntryClick(e, order, "Sell")}
               >
                 <img src="images/positions/exit.svg" /> Sell
               </a>
               <a
                 className="dropdown-item"
                 href="#"
-                onClick={(e) => onBuyOrderEntryClick(e, order, "Repeat")}
+                onClick={
+                  order.trnsTp === "B"
+                    ? (e) => onBuyOrderEntryClick(e, order, "Repeat")
+                    : (e) => onSellOrderEntryClick(e, order, "Repeat")
+                }
               >
                 <img src="images/positions/convert.svg" /> Repeat
               </a>
@@ -288,7 +304,7 @@ const OrderView = (props: { order: IOrderResponse }) => {
           <div className="nbox">
             <p
               className={renderOrderStatus(order.ordSt)}
-              title={order.rejRsn.split(": ")[1]}
+              title={order.rejRsn.replace("RED:", "")}
             >
               {order.ordSt.toUpperCase()}
             </p>

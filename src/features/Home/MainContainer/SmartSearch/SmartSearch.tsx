@@ -108,6 +108,9 @@ const SmartSearch = (props: { Type: Number }) => {
     }
 
     if (props.Type == 1) {
+      if (WatchList.MarketWatchList[selectedList].SymbolList.length >= 50) {
+        return;
+      }
       let newscript: string[] = []; // DM: To fetch[TODO]
       let newscrips: string = "";
       newscript.push(data.exseg + "|" + data.omtkn);
