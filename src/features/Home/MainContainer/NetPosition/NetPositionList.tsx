@@ -354,11 +354,7 @@ const NetPositionList = () => {
                     </div>
                   </td>
 
-                  <td>
-                    {Number(netposition.flBuyQty) == 0
-                      ? netposition.flSellQty
-                      : netposition.flBuyQty}
-                  </td>
+                  <td>{netposition.NetQty}</td>
                   <td>
                     {/* {Number(netposition.flBuyQty) == 0
                       ? Math.fround(
