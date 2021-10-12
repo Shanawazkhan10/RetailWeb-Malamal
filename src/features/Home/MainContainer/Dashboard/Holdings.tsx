@@ -96,7 +96,7 @@ const Holdings = () => {
               <div className="c-orange">
                 <h3 className="d-inline">
                   {/* {HoldingList.holding.daysPandL.toFixed(2)} */}
-                  {daysPnL.toFixed(2)}
+                  {HoldingList.holding.daysPandL.toFixed(2)}
                 </h3>
                 <span>
                   ({HoldingList.holding.daysPandLPercent.toFixed(2)}%)

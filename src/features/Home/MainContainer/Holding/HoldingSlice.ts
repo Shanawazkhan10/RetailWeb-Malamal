@@ -92,6 +92,13 @@ const holding = createSlice({
             // }
           }
         });
+
+        if (depth.ltp != undefined) {
+          state.holding.daysPandL = state.holding.holdinglist.reduce(
+            (total, currentValue) => (total = total + currentValue.daysPL),
+            0
+          );
+        }
       }
     },
     HoldingError: (state, action) => {
