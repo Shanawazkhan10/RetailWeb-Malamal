@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import ReactTooltip from "react-tooltip";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { MarketWatchItemImagePath } from "../../../../constants/HSConstants";
 import { IDepthReq } from "../../../../types/IDepthReq";
@@ -251,6 +252,8 @@ const MarketWatchItem = (props: {
                       onClick={() => onBuyOrderEntryClick(symbolInfo)}
                       data-toggle="modal"
                       data-target="#BuyWMModal"
+                      data-tip="Buy"
+                      data-for="getContent"
                     >
                       B
                     </button>
@@ -259,6 +262,8 @@ const MarketWatchItem = (props: {
                       className="btn btn-primary wsell"
                       title="SELL"
                       onClick={() => onSellOrderEntryClick(symbolInfo)}
+                      data-tip="Sell"
+                      data-for="getContent"
                     >
                       S
                     </button>
@@ -272,6 +277,8 @@ const MarketWatchItem = (props: {
                           aria-controls="collapseOne"
                           title="Depth"
                           onClick={() => onDepthClick(nIncreament, symbolInfo)}
+                          data-tip="Depth"
+                          data-for="getContent"
                         ></button>
                       </div>
                     </div>
@@ -280,13 +287,23 @@ const MarketWatchItem = (props: {
                       className="btn btn-primary wchart"
                       title="Chart(C )"
                       onClick={onChartClick}
+                      data-tip="Chart"
+                      data-for="getContent"
                     ></button>
                     <button
                       type="button"
                       className="btn btn-primary wdelete"
                       title="Delete"
                       onClick={() => RemoveSymbol(symbolInfo)}
+                      data-tip="Delete"
+                      data-for="getContent"
                     ></button>
+                    <ReactTooltip
+                      id="getContent"
+                      place="top"
+                      effect="solid"
+                      getContent={(datatip) => `${datatip}`}
+                    />
                     {/* <button
                       type="button"
                       className="btn btn-primary wmore dropdown-toggle"
