@@ -260,7 +260,13 @@ const SmartSearch = (props: { Type: Number }) => {
           onChange={(e) => handleSearchChange(e)}
           onKeyDown={handleSearchKeyDowns}
           style={{ color: "black" }}
+          //tabIndex={0}
           //onBlur={(e) => ClearResult(e)}
+          onBlur={(e) =>
+            setTimeout(function () {
+              ClearResult(e);
+            }, 200)
+          }
         />
         <div className="listingnum">
           <span>
