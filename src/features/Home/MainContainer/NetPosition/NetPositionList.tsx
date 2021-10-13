@@ -66,7 +66,10 @@ const NetPositionList = () => {
   }
 
   function getSymbol() {
-    if (NetpositionList.netposition != undefined) {
+    if (
+      NetpositionList.netposition != undefined &&
+      NetpositionList.netposition.netpositionList != undefined
+    ) {
       //subscribe Script API Call
       const subUnsubReq: SubUnsubReq = {
         type: "mws",
@@ -115,6 +118,7 @@ const NetPositionList = () => {
   }
 
   return NetpositionList.netposition &&
+    NetpositionList.netposition.netpositionList != undefined &&
     NetpositionList.netposition.netpositionList.length > 0 ? (
     // <div className="tab-label-content" id="tab1-content">
     //   <label data-for="tab1">Positions</label>

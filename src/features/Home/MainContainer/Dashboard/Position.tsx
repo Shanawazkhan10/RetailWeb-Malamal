@@ -42,18 +42,23 @@ const Position = () => {
   }
 
   function getSymbol() {
-    //subscribe Script API Call
-    const subUnsubReq: SubUnsubReq = {
-      type: "mws",
-      scrips: NetpositionList.netposition.netpositionList
-        .map((x) => x.trdSym)
-        .join("&"),
-      channelnum: 1,
-    };
+    if (
+      NetpositionList.netposition != undefined &&
+      NetpositionList.netposition.netpositionList != undefined
+    ) {
+      //subscribe Script API Call
+      const subUnsubReq: SubUnsubReq = {
+        type: "mws",
+        scrips: NetpositionList.netposition.netpositionList
+          .map((x) => x.trdSym)
+          .join("&"),
+        channelnum: 1,
+      };
 
-    waitForSocketConnection(userWS, function () {
-      sendUnsubReq(subUnsubReq);
-    });
+      waitForSocketConnection(userWS, function () {
+        sendUnsubReq(subUnsubReq);
+      });
+    }
   }
 
   return (
@@ -66,6 +71,7 @@ const Position = () => {
 
           <div className="col-md-12 positions mt-4" id="bar-graph">
             {NetpositionList.netposition &&
+            NetpositionList.netposition.netpositionList != undefined &&
             NetpositionList.netposition.netpositionList.length > 0 ? (
               NetpositionList.netposition.netpositionList.map(
                 (netposition: INetPosition, increment: number) =>

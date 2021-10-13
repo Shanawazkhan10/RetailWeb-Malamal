@@ -39,7 +39,11 @@ const netposition = createSlice({
     },
     NetpositionUpdate(state, action) {
       const depth = action.payload;
-      if (state.netposition !== undefined) {
+      if (
+        state.netposition !== undefined &&
+        state.netposition.netpositionList != undefined &&
+        state.netposition.netpositionList.length > 0
+      ) {
         state.netposition.netpositionList.forEach(
           (netposition: INetPosition) => {
             if (netposition.tok == depth.tk && depth.name == "sf") {
