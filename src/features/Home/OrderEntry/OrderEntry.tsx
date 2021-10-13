@@ -23,6 +23,7 @@ import {
   IOrderModifyRequest,
 } from "../../../types/Request/IOrderEntryRequest";
 import { displayMessage } from "../../WebSocket/HSSocket1";
+import { toastNotification } from "../../../app/Notification";
 
 const OrderEntryComp = () => {
   const dispatch = useAppDispatch();
@@ -32,6 +33,11 @@ const OrderEntryComp = () => {
   const orderEntryState = useAppSelector((state) => state.orderEntry);
   const userState = useAppSelector((state) => state.user);
   function onFormSubmit() {
+    if (orderEntryState.quantity == 0) {
+      toastNotification("error", "Quantitiy cannot be  zero.");
+      return;
+    }
+
     if (orderEntryState.typeofOrder === 1) {
       const Jdata: IjData = {
         am: orderEntryState.variety === 2 ? "YES" : "NO",

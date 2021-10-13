@@ -253,7 +253,6 @@ const MarketWatchItem = (props: {
                     <button
                       type="button"
                       className="btn btn-primary wbuy"
-                      title="BUY"
                       onClick={() => onBuyOrderEntryClick(symbolInfo)}
                       data-toggle="modal"
                       data-target="#BuyWMModal"
@@ -265,7 +264,6 @@ const MarketWatchItem = (props: {
                     <button
                       type="button"
                       className="btn btn-primary wsell"
-                      title="SELL"
                       onClick={() => onSellOrderEntryClick(symbolInfo)}
                       data-tip="Sell"
                       data-for="getContent"
@@ -280,7 +278,6 @@ const MarketWatchItem = (props: {
                           data-target="#collapseOne"
                           aria-expanded="true"
                           aria-controls="collapseOne"
-                          title="Depth"
                           onClick={() => onDepthClick(nIncreament, symbolInfo)}
                           data-tip="Depth"
                           data-for="getContent"
@@ -290,7 +287,6 @@ const MarketWatchItem = (props: {
                     <button
                       type="button"
                       className="btn btn-primary wchart"
-                      title="Chart(C )"
                       onClick={onChartClick}
                       data-tip="Chart"
                       data-for="getContent"
@@ -298,7 +294,6 @@ const MarketWatchItem = (props: {
                     <button
                       type="button"
                       className="btn btn-primary wdelete"
-                      title="Delete"
                       onClick={() => RemoveSymbol(symbolInfo)}
                       data-tip="Delete"
                       data-for="getContent"

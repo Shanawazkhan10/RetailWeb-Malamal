@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactTooltip from "react-tooltip";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IOrderResponse } from "../../../../types/Order/IOrderResponse";
 import { ICancelOrderProps } from "../../../../types/OrderEntry/ICancelOrderProps";
@@ -304,8 +305,12 @@ const OrderView = (props: { order: IOrderResponse }) => {
           <div className="nbox">
             <p
               className={renderOrderStatus(order.ordSt)}
-              title={order.rejRsn.replace("RED:", "")}
+              data-tip
+              data-for="RejOrderStatus"
             >
+              <ReactTooltip id="RejOrderStatus" place="top" effect="solid">
+                {order.rejRsn.replace("RED:", "")}
+              </ReactTooltip>
               {order.ordSt.toUpperCase()}
             </p>
           </div>
