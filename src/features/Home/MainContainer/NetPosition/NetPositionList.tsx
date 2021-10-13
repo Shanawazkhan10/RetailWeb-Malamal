@@ -215,7 +215,7 @@ const NetPositionList = () => {
                     )}
                     {currentValue.toFixed(2)} */}
                     {NetpositionList.netposition != undefined
-                      ? NetpositionList.netposition.currentValue
+                      ? NetpositionList.netposition.currentValue.toFixed(2)
                       : "0.00"}
                   </h4>
                 </td>

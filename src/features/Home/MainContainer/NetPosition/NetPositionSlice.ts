@@ -35,7 +35,7 @@ const netposition = createSlice({
   },
   reducers: {
     NetpositionSuccess: (state, action) => {
-      state.netposition = action.payload.data;
+      state.netposition.netpositionList = action.payload.data;
     },
     NetpositionUpdate(state, action) {
       const depth = action.payload;
