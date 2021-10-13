@@ -112,6 +112,8 @@ const holding = createSlice({
 
           state.holding.totalPandL =
             state.holding.currentValue - state.holding.totalInvestMent;
+          state.holding.totalPandLPercent =
+            (state.holding.totalPandL / state.holding.totalInvestMent) * 100;
         }
       }
     },

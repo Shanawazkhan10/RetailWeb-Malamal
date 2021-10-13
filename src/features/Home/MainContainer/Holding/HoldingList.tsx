@@ -150,8 +150,9 @@ const HoldingList = () => {
           <div>
             <div
               className={
-                "mb-2 c-" +
-                getColour(currentValue - HoldingList.holding.totalInvestMent)
+                HoldingList.holding.totalPandL > 0
+                  ? "mb-2 c-green"
+                  : "mb-2 c-red"
               }
             >
               <h3 className="d-inline">
