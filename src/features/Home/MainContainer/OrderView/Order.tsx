@@ -306,9 +306,13 @@ const OrderView = (props: { order: IOrderResponse }) => {
             <p
               className={renderOrderStatus(order.ordSt)}
               data-tip
-              data-for="RejOrderStatus"
+              data-for={"RejOrderStatus" + order.nOrdNo}
             >
-              <ReactTooltip id="RejOrderStatus" place="top" effect="solid">
+              <ReactTooltip
+                id={"RejOrderStatus" + order.nOrdNo}
+                place="top"
+                effect="solid"
+              >
                 {order.rejRsn.replace("RED:", "")}
               </ReactTooltip>
               {order.ordSt.toUpperCase()}
