@@ -4,18 +4,18 @@ const Footer = () => {
   const HoldingList = useAppSelector((state) => state.holding);
   const NetpositionList = useAppSelector((state) => state.netposition);
 
-  function getPositionPandL() {
-    var M2M: number = 0;
-    NetpositionList.netposition?.map((x) => {
-      M2M = M2M + x.PnL;
-    });
-    return M2M.toFixed(2);
-  }
+  // function getPositionPandL() {
+  //   var M2M: number = 0;
+  //   NetpositionList.netposition?.map((x) => {
+  //     M2M = M2M + x.PnL;
+  //   });
+  //   return M2M.toFixed(2);
+  // }
 
   function getHolding() {
     var currentValue = 0;
     // {
-    HoldingList.holding.holdinglist?.map((holding) => {
+    HoldingList?.holding.holdinglist?.map((holding) => {
       if (holding.curval != undefined)
         currentValue = currentValue + Number(holding.curval);
     });
@@ -52,12 +52,17 @@ const Footer = () => {
           </div>
           <div className="footer-content">
             <div className="fname">
-              <h6 className="color-grey">Holdings M2M</h6>
-              <h6>{getHolding()}</h6>
+              <h6 className="color-grey">Holdings MTM</h6>
+              <h6>{HoldingList.holding.currentValue}</h6>
             </div>
             <div className="fname">
-              <h6 className="color-grey">Positions M2M</h6>
-              <h6> {getPositionPandL()}</h6>
+              <h6 className="color-grey">Positions MTM</h6>
+              {/* <h6> {getPositionPandL()}</h6> */}
+              <h6>
+                {NetpositionList.netposition != undefined
+                  ? NetpositionList.netposition.currentValue
+                  : "0.00"}
+              </h6>
             </div>
             <div className="d-inline-block">
               <a href="#">

@@ -70,7 +70,7 @@ const NetPositionList = () => {
       //subscribe Script API Call
       const subUnsubReq: SubUnsubReq = {
         type: "mws",
-        scrips: NetpositionList.netposition
+        scrips: NetpositionList.netposition.netpositionList
           .map((x) => x.exSeg + "|" + x.tok)
           .join("&"),
         channelnum: 1,
@@ -83,7 +83,7 @@ const NetPositionList = () => {
   }
 
   function getTotal() {
-    NetpositionList.netposition.map(
+    NetpositionList.netposition.netpositionList.map(
       (x) => (currentValue = currentValue + Number(x.ltp))
     );
     return currentValue;
@@ -115,13 +115,15 @@ const NetPositionList = () => {
   }
 
   return NetpositionList.netposition &&
-    NetpositionList.netposition.length > 0 ? (
+    NetpositionList.netposition.netpositionList.length > 0 ? (
     // <div className="tab-label-content" id="tab1-content">
     //   <label data-for="tab1">Positions</label>
     <div className="tab-content">
       <div className="row mb-4">
         <div className="col-md-4">
-          <h2>Positions ({NetpositionList.netposition.length})</h2>
+          <h2>
+            Positions ({NetpositionList.netposition.netpositionList.length})
+          </h2>
         </div>
         <div className="col-md-8 text-right" id="searhnbtn">
           {/* <div className="input-group slideInDown-element m-0" id="search">
@@ -177,12 +179,14 @@ const NetPositionList = () => {
               </tr>
             </thead>
             <tbody>
-              {NetpositionList.netposition.map((netposition: any) => (
-                <NetPosition
-                  key={netposition.Token}
-                  netposition={netposition}
-                />
-              ))}
+              {NetpositionList.netposition.netpositionList.map(
+                (netposition: any) => (
+                  <NetPosition
+                    key={netposition.Token}
+                    netposition={netposition}
+                  />
+                )
+              )}
             </tbody>
             <tfoot>
               <tr className="odd_col">
@@ -200,12 +204,15 @@ const NetPositionList = () => {
                 <td></td>
                 <td>
                   <h4>
-                    {NetpositionList.netposition?.map(
+                    {/* {NetpositionList.netposition?.netpositionList.map(
                       (netposition: INetPosition) => {
                         currentValue = currentValue + Number(netposition.PnL);
                       }
                     )}
-                    {currentValue.toFixed(2)}
+                    {currentValue.toFixed(2)} */}
+                    {NetpositionList.netposition != undefined
+                      ? NetpositionList.netposition.currentValue
+                      : "0.00"}
                   </h4>
                 </td>
                 <td></td>
@@ -216,7 +223,10 @@ const NetPositionList = () => {
       </div>
       <div className="row my-5">
         <div className="col-md-4">
-          <h2>Day's History ({NetpositionList.netposition.length})</h2>
+          <h2>
+            Day's History ({NetpositionList.netposition.currentValue.toFixed(2)}
+            )
+          </h2>
         </div>
         <div className="col-md-8 text-right">
           {/* <div className="input-group slideInDown-element m-0" id="search">
@@ -251,112 +261,115 @@ const NetPositionList = () => {
 
             {/* Temporary bindng to netposition */}
             <tbody>
-              {NetpositionList.netposition.map((netposition: INetPosition) => (
-                <tr className="odd_col">
-                  <td>
-                    <input
-                      className="regular-checkbox"
-                      type="checkbox"
-                      name="row-check"
-                      value="1"
-                      id="one"
-                    />
-                    <label data-for="one"></label>
-                  </td>
+              {NetpositionList.netposition.netpositionList.map(
+                (netposition: INetPosition) => (
+                  <tr className="odd_col">
+                    <td>
+                      <input
+                        className="regular-checkbox"
+                        type="checkbox"
+                        name="row-check"
+                        value="1"
+                        id="one"
+                      />
+                      <label data-for="one"></label>
+                    </td>
 
-                  <td>
-                    <div className="nbox">
-                      <p className={renderSwitch(netposition.prod)}>
-                        {netposition.prod == "I"
-                          ? "MIS"
-                          : netposition.prod.toUpperCase()}
-                      </p>
-                    </div>
-                  </td>
-                  <td>
-                    <h3>
-                      {netposition.trdSym.split("-")[0]}
-                      <span>{getSegmentName(netposition.exSeg)}</span>
-                    </h3>
-                    <div className="watchlistbox">
-                      <button
-                        type="button"
-                        className="btn btn-primary wmore dropdown-toggle"
-                        id="dropdownMenuButton"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      ></button>
-                      <div
-                        className="dropdown-menu"
-                        aria-labelledby="dropdownMenuButton"
-                      >
-                        <a
-                          className="dropdown-item"
-                          href="#"
-                          onClick={(e) => onSellOrderEntryClick(e, netposition)}
-                        >
-                          <img src="images/positions/exit.svg" /> Exit
-                        </a>
-                        <a className="dropdown-item" href="#">
-                          <img src="images/positions/add.svg" /> Add
-                        </a>
-                        <a className="dropdown-item" href="#">
-                          <img src="images/positions/convert.svg" /> Convert
-                        </a>
-                        <a className="dropdown-item" href="#">
-                          <img src="images/positions/info.svg" /> Info
-                        </a>
-                        <a className="dropdown-item" href="#">
-                          <img src="images/positions/create-gtt.svg" /> Create
-                          GTT
-                          <span>/ GTC</span>
-                        </a>
-                        <a className="dropdown-item" href="#">
-                          <img src="images/positions/market-depth.svg" /> Market
-                          depth
-                        </a>
-                        <a className="dropdown-item" href="#">
-                          <img src="images/positions/chart.svg" /> Chart
-                        </a>
-                        <a className="dropdown-item" href="#">
-                          <img src="images/positions/watchlist.svg" /> Add to
-                          marketwatch
-                        </a>
-                        <a className="dropdown-item" href="#">
-                          <img
-                            src=""
-                            style={{
-                              width: "15px",
-                              height: "15px",
-                              background: "rgba(106, 78, 238, 0.2)",
-                              borderRadius: "3px",
-                            }}
-                          />
-                          Fundamentals
-                        </a>
-                        <a className="dropdown-item" href="#">
-                          <img
-                            src=""
-                            style={{
-                              width: "15px",
-                              height: "15px",
-                              background: "rgba(106, 78, 238, 0.2)",
-                              borderRadius: "3px",
-                            }}
-                          />
-                          Technicals
-                        </a>
-                        <a className="dropdown-item" href="#">
-                          <img src="images/positions/alert.svg" /> Set Alerts
-                        </a>
+                    <td>
+                      <div className="nbox">
+                        <p className={renderSwitch(netposition.prod)}>
+                          {netposition.prod == "I"
+                            ? "MIS"
+                            : netposition.prod.toUpperCase()}
+                        </p>
                       </div>
-                    </div>
-                  </td>
+                    </td>
+                    <td>
+                      <h3>
+                        {netposition.trdSym.split("-")[0]}
+                        <span>{getSegmentName(netposition.exSeg)}</span>
+                      </h3>
+                      <div className="watchlistbox">
+                        <button
+                          type="button"
+                          className="btn btn-primary wmore dropdown-toggle"
+                          id="dropdownMenuButton"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        ></button>
+                        <div
+                          className="dropdown-menu"
+                          aria-labelledby="dropdownMenuButton"
+                        >
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={(e) =>
+                              onSellOrderEntryClick(e, netposition)
+                            }
+                          >
+                            <img src="images/positions/exit.svg" /> Exit
+                          </a>
+                          <a className="dropdown-item" href="#">
+                            <img src="images/positions/add.svg" /> Add
+                          </a>
+                          <a className="dropdown-item" href="#">
+                            <img src="images/positions/convert.svg" /> Convert
+                          </a>
+                          <a className="dropdown-item" href="#">
+                            <img src="images/positions/info.svg" /> Info
+                          </a>
+                          <a className="dropdown-item" href="#">
+                            <img src="images/positions/create-gtt.svg" /> Create
+                            GTT
+                            <span>/ GTC</span>
+                          </a>
+                          <a className="dropdown-item" href="#">
+                            <img src="images/positions/market-depth.svg" />{" "}
+                            Market depth
+                          </a>
+                          <a className="dropdown-item" href="#">
+                            <img src="images/positions/chart.svg" /> Chart
+                          </a>
+                          <a className="dropdown-item" href="#">
+                            <img src="images/positions/watchlist.svg" /> Add to
+                            marketwatch
+                          </a>
+                          <a className="dropdown-item" href="#">
+                            <img
+                              src=""
+                              style={{
+                                width: "15px",
+                                height: "15px",
+                                background: "rgba(106, 78, 238, 0.2)",
+                                borderRadius: "3px",
+                              }}
+                            />
+                            Fundamentals
+                          </a>
+                          <a className="dropdown-item" href="#">
+                            <img
+                              src=""
+                              style={{
+                                width: "15px",
+                                height: "15px",
+                                background: "rgba(106, 78, 238, 0.2)",
+                                borderRadius: "3px",
+                              }}
+                            />
+                            Technicals
+                          </a>
+                          <a className="dropdown-item" href="#">
+                            <img src="images/positions/alert.svg" /> Set Alerts
+                          </a>
+                        </div>
+                      </div>
+                    </td>
 
-                  <td>{netposition.NetQty}</td>
-                  <td>
-                    {/* {Number(netposition.flBuyQty) == 0
+                    <td>{netposition.NetQty}</td>
+                    <td>
+                      {/* {Number(netposition.flBuyQty) == 0
                       ? Math.fround(
                           Number(netposition.sellAmt) /
                             Number(netposition.flSellQty)
@@ -365,24 +378,25 @@ const NetPositionList = () => {
                           Number(netposition.buyAmt) /
                             Number(netposition.flBuyQty)
                         ).toFixed(2)} */}
-                    {netposition.AvgPrice != undefined
-                      ? netposition.AvgPrice.toFixed(2)
-                      : 0}
-                  </td>
-                  <td>{netposition.ltp}</td>
-                  <td>
-                    {netposition.PnL != undefined
-                      ? netposition.PnL.toFixed(2)
-                      : 0}
-                  </td>
-                  <td>
-                    {netposition.Change != undefined
-                      ? netposition.Change.toFixed(2)
-                      : "0.00"}
-                    %
-                  </td>
-                </tr>
-              ))}
+                      {netposition.AvgPrice != undefined
+                        ? netposition.AvgPrice.toFixed(2)
+                        : 0}
+                    </td>
+                    <td>{netposition.ltp}</td>
+                    <td>
+                      {netposition.PnL != undefined
+                        ? netposition.PnL.toFixed(2)
+                        : 0}
+                    </td>
+                    <td>
+                      {netposition.Change != undefined
+                        ? netposition.Change.toFixed(2)
+                        : "0.00"}
+                      %
+                    </td>
+                  </tr>
+                )
+              )}
             </tbody>
             <tfoot>
               <tr className="odd_col">

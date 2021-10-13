@@ -24,3 +24,8 @@ export interface INetPosition {
   NetQty: number;
   Change: number;
 }
+
+export interface INetpositionSate {
+  netpositionList: INetPosition[];
+  currentValue: number;
+}

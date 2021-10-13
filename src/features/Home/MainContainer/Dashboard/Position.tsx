@@ -45,7 +45,9 @@ const Position = () => {
     //subscribe Script API Call
     const subUnsubReq: SubUnsubReq = {
       type: "mws",
-      scrips: NetpositionList.netposition.map((x) => x.trdSym).join("&"),
+      scrips: NetpositionList.netposition.netpositionList
+        .map((x) => x.trdSym)
+        .join("&"),
       channelnum: 1,
     };
 
@@ -64,8 +66,8 @@ const Position = () => {
 
           <div className="col-md-12 positions mt-4" id="bar-graph">
             {NetpositionList.netposition &&
-            NetpositionList.netposition.length > 0 ? (
-              NetpositionList.netposition.map(
+            NetpositionList.netposition.netpositionList.length > 0 ? (
+              NetpositionList.netposition.netpositionList.map(
                 (netposition: INetPosition, increment: number) =>
                   Math.ceil(
                     Number(netposition.ltp) - Number(netposition.buyAmt)

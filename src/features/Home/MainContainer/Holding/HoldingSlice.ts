@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { stat } from "fs";
 import { api, getHolding } from "../../../../app/api";
 import { AppThunk } from "../../../../store/store";
 import { IHolding, IHoldingSate } from "../../../../types/Holding/IHolding";
@@ -75,14 +76,19 @@ const holding = createSlice({
               state.holding.currentValue = 0;
               state.holding.currentValue =
                 state.holding.currentValue + Number(holding.curval);
-              state.holding.daysPandL = 0;
+              //state.holding.daysPandL = 0;
               //                state.holding.daysPandL - Number(holding.daychg);
-              state.holding.daysPandLPercent = 0;
+              //state.holding.daysPandLPercent = 0;
               //state.holding.daysPandLPercent + Number(holding.daychgperc);
               state.holding.totalPandL = 0;
               //state.holding.totalPandL + Number(holding.pnl);
               state.holding.totalPandLPercent = 0;
-              holding.daysPL = depth.c - depth.ltp;
+              if (depth.c != undefined) {
+                holding.closePrice = depth.c;
+              }
+              if (holding.closePrice != undefined) {
+                holding.daysPL = Number(holding.ltp) - holding.closePrice;
+              }
               //state.holding.totalPandLPercent + Number(holding.netchg);
             }
             //  else {
@@ -95,9 +101,17 @@ const holding = createSlice({
 
         if (depth.ltp != undefined) {
           state.holding.daysPandL = state.holding.holdinglist.reduce(
-            (total, currentValue) => (total = total + currentValue.daysPL),
+            (total, currentData) => (total = total + currentData.daysPL),
             0
           );
+          state.holding.currentValue = state.holding.holdinglist.reduce(
+            (total, currentData) =>
+              (total = total + Number(currentData.curval)),
+            0
+          );
+
+          state.holding.totalPandL =
+            state.holding.currentValue - state.holding.totalInvestMent;
         }
       }
     },

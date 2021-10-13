@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
-import { IHolding } from "../../../../types/Holding/IHolding";
 import { SubUnsubReq, userWS } from "../../../WebSocket/HSSocket";
 import {
   sendUnsubReq,
@@ -82,25 +81,30 @@ const Holdings = () => {
             </div>
             <div>
               <h3 className="c-black">
-                {HoldingList.holding.holdinglist?.map((holding: IHolding) => {
+                {/* {HoldingList.holding.holdinglist?.map((holding: IHolding) => {
                   if (holding.curval != undefined) {
                     currentValue = currentValue + Number(holding.curval);
                     daysPnL = daysPnL + holding.daysPL;
                   }
                 })}
-                {currentValue.toFixed(2)}
+                {currentValue.toFixed(2)} */}
+                {HoldingList.holding.currentValue.toFixed(2)}
               </h3>
               <p>Current Value</p>
             </div>
             <div>
-              <div className="c-orange">
+              <div
+                className={
+                  HoldingList.holding.daysPandL > 0 ? "c-green" : "c-red"
+                }
+              >
                 <h3 className="d-inline">
                   {/* {HoldingList.holding.daysPandL.toFixed(2)} */}
                   {HoldingList.holding.daysPandL.toFixed(2)}
                 </h3>
-                <span>
+                {/* <span>
                   ({HoldingList.holding.daysPandLPercent.toFixed(2)}%)
-                </span>
+                </span> */}
               </div>
               <p>Day's P&L</p>
             </div>
@@ -111,9 +115,7 @@ const Holdings = () => {
                 }
               >
                 <h3 className="d-inline">
-                  {(currentValue - HoldingList.holding.totalInvestMent).toFixed(
-                    2
-                  )}
+                  {HoldingList.holding.totalPandL.toFixed(2)}
                 </h3>
                 <span>
                   ({HoldingList.holding.totalPandLPercent.toFixed(2)}%)

@@ -41,6 +41,7 @@ export interface IHolding {
   daychg: string;
   daychgperc: string;
   daysPL: number;
+  closePrice: number;
 }
 
 export interface IHoldingSate {
