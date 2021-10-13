@@ -144,7 +144,7 @@ const OrderEntryComp = () => {
       onKeyDown={(e) => console.log(e.key)}
     >
       <div className="drag-handle"></div>
-      <OrderEntryHeader isbuyorSell={orderEntryState.isBuy} />
+      <OrderEntryHeader />
 
       <section className="wrap">
         <OrderEntryVariety />

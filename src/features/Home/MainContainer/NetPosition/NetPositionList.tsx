@@ -228,8 +228,7 @@ const NetPositionList = () => {
       <div className="row my-5">
         <div className="col-md-4">
           <h2>
-            Day's History ({NetpositionList.netposition.currentValue.toFixed(2)}
-            )
+            Day's History ({NetpositionList.netposition.netpositionList.length})
           </h2>
         </div>
         <div className="col-md-8 text-right">

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ReactTooltip from "react-tooltip";
+import Popup from "reactjs-popup";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IOrderResponse } from "../../../../types/Order/IOrderResponse";
 import { ICancelOrderProps } from "../../../../types/OrderEntry/ICancelOrderProps";
@@ -15,6 +16,7 @@ import {
   openSellOrderEntry,
   setOrderEntryProps,
 } from "../../OrderEntry/orderEntrySlice";
+import CancelOrderComp from "./CancelOrder";
 
 const OrderView = (props: { order: IOrderResponse }) => {
   const { order } = props;
@@ -240,13 +242,19 @@ const OrderView = (props: { order: IOrderResponse }) => {
               )}
 
               {order.ordSt.toUpperCase() == "OPEN" ? (
-                <a
-                  className="dropdown-item"
-                  href="#"
-                  onClick={(e) => onCancelOrderClick(e, order)}
+                <Popup
+                  trigger={
+                    <a
+                      className="dropdown-item"
+                      href="#"
+                      //onClick={(e) => onCancelOrderClick(e, order)}
+                    >
+                      <img src="images/positions/exit.svg" /> Cancel
+                    </a>
+                  }
                 >
-                  <img src="images/positions/exit.svg" /> Cancel
-                </a>
+                  <CancelOrderComp symbolInfo={order}></CancelOrderComp>
+                </Popup>
               ) : (
                 <></>
               )}
@@ -306,7 +314,9 @@ const OrderView = (props: { order: IOrderResponse }) => {
             <p
               className={renderOrderStatus(order.ordSt)}
               data-tip
-              data-for={"RejOrderStatus" + order.nOrdNo}
+              data-for={
+                order.ordSt == "rejected" ? "RejOrderStatus" + order.nOrdNo : ""
+              }
             >
               <ReactTooltip
                 id={"RejOrderStatus" + order.nOrdNo}

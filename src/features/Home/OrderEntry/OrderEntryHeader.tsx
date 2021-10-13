@@ -2,14 +2,14 @@ import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import { openBuyOrderEntry, openSellOrderEntry } from "./orderEntrySlice";
 
-const OrderEntryHeader = (props: { isbuyorSell: boolean }) => {
-  const { isbuyorSell } = props;
+const OrderEntryHeader = () => {
   const orderEntryState = useAppSelector((state) => state.orderEntry);
-  const [isBuyorSell, setBuySellTogle] = useState(isbuyorSell);
+
   //const [buysellToggle, setBuySellToggle] = useState(orderEntryState.isBuy ? false : true);
   function toggleBuySell() {
-    setBuySellTogle(!isBuyorSell);
-    dispatch(isBuyorSell ? openSellOrderEntry() : openBuyOrderEntry());
+    dispatch(
+      orderEntryState.isBuy ? openSellOrderEntry() : openBuyOrderEntry()
+    );
   }
   // const toggleBuySell = () => {
   //   //setBuySellToggle(buysellToggle ? false : true);

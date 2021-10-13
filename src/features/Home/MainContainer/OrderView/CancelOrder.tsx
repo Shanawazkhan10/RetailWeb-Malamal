@@ -9,7 +9,8 @@ import {
 } from "../../../../types/Request/IOrderEntryRequest";
 import { cancelOrder } from "../../OrderEntry/orderEntrySlice";
 
-const CancelOrderComp = () => {
+const CancelOrderComp = (props: { symbolInfo: IOrderResponse }) => {
+  const { symbolInfo } = props;
   const dispatch = useAppDispatch();
   const [showList, setList] = useState(true);
   const userState = useAppSelector((state) => state.user);
@@ -17,9 +18,8 @@ const CancelOrderComp = () => {
   const sSelectedWatchList = useSelector(
     (state: RootState) => state.marketwatch.marketWatch.sSelectedWatchList
   );
-  function onCancelOrderClick(e: any, symbolInfo: IOrderResponse) {
-    e.preventDefault();
-
+  function onCancelOrderClick() {
+    ClosePopup();
     const JModdata: ICanceljData = {
       am: orderEntryState.variety === 2 ? "YES" : "NO",
       on: symbolInfo.nOrdNo,
@@ -51,9 +51,10 @@ const CancelOrderComp = () => {
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalLabel">
-              Delete Confirmation
-            </h5>
+            <h4 className="modal-title" id="exampleModalLabel">
+              Cancel Order
+            </h4>
+
             <button
               type="button"
               className="close"
@@ -66,11 +67,11 @@ const CancelOrderComp = () => {
           </div>
           <div className="modal-body">
             <div className="text-center">
-              <p>Are you sure you want to delete this watchlist?</p>
+              <p className="mb-3">Are you sure you want to cancel the order?</p>
               <button
                 type="submit"
                 className="btn btn-primary w-100 submitbtn"
-                //onClick={onCancelOrderClick()}
+                onClick={() => onCancelOrderClick()}
               >
                 Yes
               </button>
