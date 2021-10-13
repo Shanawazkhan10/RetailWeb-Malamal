@@ -24,6 +24,7 @@ import {
 } from "../../../types/Request/IOrderEntryRequest";
 import { displayMessage } from "../../WebSocket/HSSocket1";
 import { toastNotification } from "../../../app/Notification";
+import { useCallback, useEffect } from "react";
 
 const OrderEntryComp = () => {
   const dispatch = useAppDispatch();
@@ -32,6 +33,21 @@ const OrderEntryComp = () => {
   }
   const orderEntryState = useAppSelector((state) => state.orderEntry);
   const userState = useAppSelector((state) => state.user);
+
+  const escFunction = useCallback((event) => {
+    if (event.keyCode === 27) {
+      dispatch(closeOrderEntry()); //Do whatever when esc is pressed
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("keydown", escFunction, false);
+
+    return () => {
+      document.removeEventListener("keydown", escFunction, false);
+    };
+  }, []);
+
   function onFormSubmit() {
     if (orderEntryState.quantity == 0) {
       toastNotification("error", "Quantitiy cannot be  zero.");
@@ -125,9 +141,10 @@ const OrderEntryComp = () => {
       className={"order_window " + (orderEntryState.isBuy ? "buy" : "sell")}
       id="popUpBox"
       style={{ display: "block" }}
+      onKeyDown={(e) => console.log(e.key)}
     >
       <div className="drag-handle"></div>
-      <OrderEntryHeader />
+      <OrderEntryHeader isbuyorSell={orderEntryState.isBuy} />
 
       <section className="wrap">
         <OrderEntryVariety />

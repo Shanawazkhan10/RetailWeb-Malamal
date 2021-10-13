@@ -2,15 +2,20 @@ import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import { openBuyOrderEntry, openSellOrderEntry } from "./orderEntrySlice";
 
-const OrderEntryHeader = () => {
+const OrderEntryHeader = (props: { isbuyorSell: boolean }) => {
+  const { isbuyorSell } = props;
   const orderEntryState = useAppSelector((state) => state.orderEntry);
+  const [isBuyorSell, setBuySellTogle] = useState(isbuyorSell);
   //const [buysellToggle, setBuySellToggle] = useState(orderEntryState.isBuy ? false : true);
-  const toggleBuySell = () => {
-    //setBuySellToggle(buysellToggle ? false : true);
-    dispatch(
-      orderEntryState.isBuy ? openSellOrderEntry() : openBuyOrderEntry()
-    );
-  };
+  function toggleBuySell() {
+    setBuySellTogle(!isBuyorSell);
+    dispatch(isBuyorSell ? openSellOrderEntry() : openBuyOrderEntry());
+  }
+  // const toggleBuySell = () => {
+  //   //setBuySellToggle(buysellToggle ? false : true);
+  //   setBuySellTogle(!isBuyorSell);
+  //   dispatch(isBuyorSell ? openSellOrderEntry() : openBuyOrderEntry());
+  // };
   const dispatch = useAppDispatch();
   return (
     <div className="header">
@@ -52,10 +57,7 @@ const OrderEntryHeader = () => {
             <div className="nudge"></div>
             <div>
               <span data-balloon="Toggle Buy / Sell" data-balloon-pos="up">
-                <div
-                  className="su-switch-group tx-toggle"
-                  onClick={toggleBuySell}
-                >
+                <div className="su-switch-group tx-toggle">
                   <input
                     id="switch-197"
                     type="checkbox"
@@ -63,6 +65,7 @@ const OrderEntryHeader = () => {
                     value={orderEntryState.isBuy ? "Buy" : "Sell"}
                     checked={!orderEntryState.isBuy}
                     onChange={() => {}}
+                    onClick={() => toggleBuySell()}
                   />
                   <label
                     htmlFor="switch-197"
