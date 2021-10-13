@@ -1,12 +1,13 @@
 import { input } from "@aws-amplify/ui";
 import { useEffect } from "react";
+import NumberFormat from "react-number-format";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IMargin } from "../../../../types/IMargin";
 import { FetchMargin } from "./MarginSlice";
 
 const Margin = () => {
   const dispatch = useAppDispatch();
-
+  var SI_SYMBOL = ["", "k", "lac", "cr."];
   const userState = useAppSelector((state) => state.user);
   const marginState = useAppSelector((state) => state.margin);
 
@@ -36,20 +37,39 @@ const Margin = () => {
       return 0;
     }
 
-    if (inputCalc < 9999) {
-      return inputCalc;
-    } else if (inputCalc >= 10000 && inputCalc < 99999) {
-      result = inputCalc / 10000;
-      return result.toFixed(2) + " k";
-    } else if (inputCalc >= 100000 && inputCalc < 999999) {
+    // if (inputCalc < 9999) {
+    //   return inputCalc.toLocaleString(navigator.language, {
+    //     minimumFractionDigits: 2,
+    //   });
+    // } else
+    if (inputCalc >= 1000 && inputCalc <= 99999) {
+      result = inputCalc / 1000;
+      return (
+        result.toLocaleString(navigator.language, {
+          minimumFractionDigits: 2,
+        }) + " k"
+      );
+    } else if (inputCalc >= 100000 && inputCalc <= 999999) {
       result = inputCalc / 100000;
-      return result.toFixed(2) + " lac";
-    } else if (inputCalc >= 1000000 && inputCalc < 9999999) {
+      return (
+        result.toLocaleString(navigator.language, {
+          minimumFractionDigits: 2,
+        }) + " lac"
+      );
+    } else if (inputCalc >= 1000000 && inputCalc <= 9999999) {
       result = inputCalc / 100000;
-      return result.toFixed(2) + " lac";
+      return (
+        result.toLocaleString(navigator.language, {
+          minimumFractionDigits: 2,
+        }) + " lac"
+      );
     } else if (inputCalc >= 10000000) {
       result = inputCalc / 10000000;
-      return result.toFixed(2) + " cr. ";
+      return (
+        result.toLocaleString(navigator.language, {
+          minimumFractionDigits: 2,
+        }) + " cr. "
+      );
     }
   }
 
@@ -79,7 +99,13 @@ const Margin = () => {
           <div className="equitytxt">
             <p>Margin Available</p>
             <p>
-              Margin Used <span>{marginState.marginData.MarginUsed}</span>
+              Margin Used{" "}
+              <span>
+                {Number(marginState.marginData.MarginUsed).toLocaleString(
+                  navigator.language,
+                  { minimumFractionDigits: 2 }
+                )}
+              </span>
             </p>
             <p>
               Opening Balance

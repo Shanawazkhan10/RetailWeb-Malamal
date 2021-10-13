@@ -46,7 +46,7 @@ export interface IMargin {
   FoSpanrgnNrmlPrsnt: String;
   FoUnRlsMtomPrsnt: String;
   MarginScripBasketPrsnt: String;
-  MarginUsed: String;
+  MarginUsed: string;
   MarginUsedPrsnt: String;
   MarginVarPrsnt: String;
   MarginWarningPrcntPrsnt: String;
