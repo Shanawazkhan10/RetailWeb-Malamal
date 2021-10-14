@@ -12,6 +12,7 @@ const InitialHolding = {
   daysPandLPercent: 0.0,
   totalPandL: 0.0,
   totalPandLPercent: 0.0,
+  isLoad: false,
 } as IHoldingSate;
 
 const holding = createSlice({
@@ -21,6 +22,9 @@ const holding = createSlice({
   },
   reducers: {
     HoldingSuccess: (state, action) => {
+      if (!state.holding.isLoad) {
+        state.holding.isLoad = true;
+      }
       state.holding.holdinglist = action.payload.hldVal;
       {
         state.holding.totalInvestMent = 0;
@@ -120,12 +124,16 @@ const holding = createSlice({
     HoldingError: (state, action) => {
       state.holding = action.payload;
     },
+    SetLoad: (state, action) => {
+      state.holding.isLoad = true;
+    },
   },
 });
 
 export default holding.reducer;
 
-export const { HoldingSuccess, HoldingError, HoldingUpdate } = holding.actions;
+export const { HoldingSuccess, HoldingError, HoldingUpdate, SetLoad } =
+  holding.actions;
 
 export const fetchHolding =
   (sessionKey: string): AppThunk =>

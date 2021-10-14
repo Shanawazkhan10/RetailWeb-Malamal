@@ -53,12 +53,26 @@ const Footer = () => {
           <div className="footer-content">
             <div className="fname">
               <h6 className="color-grey">Holdings MTM</h6>
-              <h6>{HoldingList.holding.currentValue.toFixed(2)}</h6>
+              <h6
+                className={
+                  HoldingList.holding.currentValue > 0 ? "c-green" : "c-red"
+                }
+              >
+                {HoldingList.holding.currentValue.toFixed(2)}
+              </h6>
             </div>
             <div className="fname">
               <h6 className="color-grey">Positions MTM</h6>
               {/* <h6> {getPositionPandL()}</h6> */}
-              <h6>
+              <h6
+                className={
+                  NetpositionList.netposition != undefined &&
+                  NetpositionList.netposition.currentValue != undefined &&
+                  NetpositionList.netposition.currentValue > 0
+                    ? "c-green"
+                    : "c-red"
+                }
+              >
                 {NetpositionList.netposition != undefined &&
                 NetpositionList.netposition.currentValue != undefined
                   ? NetpositionList.netposition.currentValue.toFixed(2)

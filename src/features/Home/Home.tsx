@@ -2,18 +2,25 @@ import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import HSSocket from "../WebSocket/HSSocket";
+import HSSocket, { userWS } from "../WebSocket/HSSocket";
 import Header from "./Header/Header";
 import MainContainer from "./MainContainer/MainContainer";
 import Menu from "./Menu/Menu";
 import OrderEntryComp from "./OrderEntry/OrderEntry";
 import GttOrderEntry from "./GTTOrderEntry/GttOrderEntry";
 import { useHistory } from "react-router";
-import { fetchHolding } from "./MainContainer/Holding/HoldingSlice";
+import { fetchHolding, SetLoad } from "./MainContainer/Holding/HoldingSlice";
 import { fetchNetposition } from "./MainContainer/NetPosition/NetPositionSlice";
 import { fetchOrderView } from "./MainContainer/OrderView/OrderViewSlice";
 import { fetchTradeView } from "./MainContainer/TradeView/TradeVIewSlice";
 import { FetchMargin } from "./MainContainer/Dashboard/MarginSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import {
+  sendUnsubReq,
+  SubUnsubReq,
+  waitForSocketConnection,
+} from "../WebSocket/HSSocket1";
 
 var url = "wss://uathsmkt.hypertrade.in";
 const script = document.createElement("script");
@@ -34,15 +41,7 @@ const Home = () => {
   const gttEntryState = useAppSelector((state) => state.gttEntry);
   const user = useAppSelector((state) => state.user);
   const history = useHistory();
-  useEffect(() => {
-    //init();
-    //connect();
-    // const authReq: authReq = {
-    //   sessionid: "S101",
-    //   type: "cn",
-    // };
-    // sendReq(authReq);
-  }, []);
+  const HoldingList = useAppSelector((state: RootState) => state.holding);
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "../hslibo.js";
@@ -62,6 +61,36 @@ const Home = () => {
       document.body.removeChild(script);
     };
   }, []);
+
+  useEffect(() => {
+    setTimeout(function () {
+      getSymbol();
+    }, 1000);
+  }, [HoldingList.holding.isLoad]);
+
+  function getSymbol() {
+    if (
+      HoldingList.holding != undefined &&
+      HoldingList.holding.holdinglist != undefined &&
+      HoldingList.holding.holdinglist.length > 0
+      //!HoldingList.holding.isLoad
+    ) {
+      //subscribe Script API Call
+      const subUnsubReq: SubUnsubReq = {
+        type: "mws",
+        scrips: HoldingList.holding.holdinglist
+          .map((x) => x.ex1 + "|" + x.tok1)
+          .join("&"),
+        channelnum: 1,
+      };
+
+      waitForSocketConnection(userWS, function () {
+        sendUnsubReq(subUnsubReq);
+      });
+
+      //dispatch(SetLoad(true));
+    }
+  }
 
   // if (!user.isAuthenticated) {
   //   history.push("/login");

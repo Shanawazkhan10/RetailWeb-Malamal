@@ -7,7 +7,7 @@ export function socket1() {
   let ws = new WebSocket("wss://uathsmkt.hypertrade.in");
 
   ws.onmessage = (e) => {
-    console.log(JSON.parse(e.data));
+    //console.log(JSON.parse(e.data));
   };
 
   ws.onopen = (e) => {

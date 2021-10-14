@@ -52,4 +52,5 @@ export interface IHoldingSate {
   daysPandLPercent: number;
   totalPandL: number;
   totalPandLPercent: number;
+  isLoad: boolean;
 }
