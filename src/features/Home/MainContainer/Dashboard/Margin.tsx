@@ -46,6 +46,7 @@ const Margin = () => {
       return (
         result.toLocaleString(navigator.language, {
           minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
         }) + " k"
       );
     } else if (inputCalc >= 100000 && inputCalc <= 999999) {
@@ -53,6 +54,7 @@ const Margin = () => {
       return (
         result.toLocaleString(navigator.language, {
           minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
         }) + " lac"
       );
     } else if (inputCalc >= 1000000 && inputCalc <= 9999999) {
@@ -60,6 +62,7 @@ const Margin = () => {
       return (
         result.toLocaleString(navigator.language, {
           minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
         }) + " lac"
       );
     } else if (inputCalc >= 10000000) {
