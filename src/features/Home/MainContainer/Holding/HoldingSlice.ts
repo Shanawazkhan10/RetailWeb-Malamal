@@ -91,7 +91,9 @@ const holding = createSlice({
                 holding.closePrice = depth.c;
               }
               if (holding.closePrice != undefined) {
-                holding.daysPL = Number(holding.ltp) - holding.closePrice;
+                holding.daysPL =
+                  (Number(holding.ltp) - holding.closePrice) *
+                  Number(holding.hldQty);
               }
               //state.holding.totalPandLPercent + Number(holding.netchg);
             }
