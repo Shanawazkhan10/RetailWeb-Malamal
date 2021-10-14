@@ -408,6 +408,7 @@ const NetPositionList = () => {
                 <td></td>
                 <td>Total</td>
                 <td></td>
+                <td></td>
                 <td>
                   <h4>
                     {NetpositionList.netposition != undefined
