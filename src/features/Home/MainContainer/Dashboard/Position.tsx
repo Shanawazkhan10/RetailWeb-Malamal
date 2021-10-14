@@ -17,7 +17,7 @@ import { fetchNetposition } from "../NetPosition/NetPositionSlice";
 const Position = () => {
   function onprogress(netposition: INetPosition) {
     let pnl = Math.ceil(Number(netposition.ltp) - Number(netposition.buyAmt));
-    console.log(netposition.ltp + "  " + pnl);
+    //console.log(netposition.ltp + "  " + pnl);
     return String(pnl);
   }
 

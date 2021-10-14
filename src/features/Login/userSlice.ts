@@ -76,7 +76,7 @@ export const userSlice = createSlice({
       toastNotification("error", action.payload.message);
     },
     loggedout: (state) => {
-      console.log("Logged Out called");
+      //console.log("Logged Out called");
       localStorage.removeItem("userkey");
       localStorage.removeItem("userID");
       cookies.remove("userkey");

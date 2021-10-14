@@ -139,6 +139,7 @@ const SmartSearch = (props: { Type: Number }) => {
       let req = JSON.stringify(subUnsubReq);
       waitForSocketConnection(userWS, function () {
         sendUnsubReq(subUnsubReq);
+        console.log(subUnsubReq.scrips.toString());
       });
     } else if (props.Type == 2) {
       dispatch(

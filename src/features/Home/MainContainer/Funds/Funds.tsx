@@ -7,7 +7,7 @@ import { getsPaymentsOrderIds } from "./PaymentSlice";
 const Funds = () => {
   const dispatch = useAppDispatch();
   const payment = useAppSelector((state) => state.payment);
-  console.log("payment object", payment.payment);
+  //console.log("payment object", payment.payment);
   const userState = useAppSelector((state) => state.user);
   const marginState = useAppSelector((state) => state.margin);
   const [amount, SetAmount] = useState("0");
@@ -51,7 +51,7 @@ const Funds = () => {
     },
     modal: {
       ondismiss: function () {
-        console.log("Checkout form closed");
+        //console.log("Checkout form closed");
         dispatch(PaymentOrderIdCancel(userState));
       },
     },
@@ -62,7 +62,7 @@ const Funds = () => {
 
     //var rzp1 = new window.Razorpay(options);
     var rzp1 = new (window as any).Razorpay(options);
-    console.log("razer pay", rzp1);
+    //console.log("razer pay", rzp1);
 
     rzp1.open();
     dispatch(getsPaymentsOrderIds(userState.sessionKey));

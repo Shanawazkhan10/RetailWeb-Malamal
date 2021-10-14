@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import {changePasswordSucess} from "./forgotpasswordSlice";
+import { changePasswordSucess } from "./forgotpasswordSlice";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { useHistory } from "react-router-dom";
 
@@ -23,12 +23,12 @@ export const ChangePassword = () => {
   const password = React.useRef({});
   password.current = watch("newpassword", "");
   const pin = React.useRef({});
-  pin.current = watch("newpin","");
+  pin.current = watch("newpin", "");
   const onSubmit: SubmitHandler<IChangePasswordInput> = (data) => {
     //Make Web call for Change Passwoed Here
-    console.log(data);
+    //console.log(data);
     dispatch(changePasswordSucess("Change Password Success"));
-    history.push("\login");
+    history.push("login");
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -39,11 +39,12 @@ export const ChangePassword = () => {
             required: "Password is required",
             minLength: {
               value: 8,
-              message: "Password is too short.",              
+              message: "Password is too short.",
             },
-            pattern:{
-              value:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-              message:"Invalid password",
+            pattern: {
+              value:
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+              message: "Invalid password",
             },
           })}
           className="input100 txtLofinPasss"

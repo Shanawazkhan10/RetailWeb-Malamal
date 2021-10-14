@@ -47,7 +47,7 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<ILoginInput> = (data) => {
     dispatch(logging(data.clientid + "-TECXLABS"));
-    console.log(data);
+    //console.log(data);
     //dispatch(loggedInSuccess("User"));
     const loginRequest: ILoginRequest = {
       uid: data.clientid.toLocaleUpperCase() + "-TECXLABS",

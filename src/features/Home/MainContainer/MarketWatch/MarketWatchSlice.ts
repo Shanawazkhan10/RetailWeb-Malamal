@@ -199,10 +199,10 @@ const marketwatchSlice = createSlice({
         state.marketWatch.nSelectedWatchList
       ].SymbolList.slice().sort((token: any) => token.sym);
 
-      console.log(
-        state.marketWatch.MarketWatchList[state.marketWatch.nSelectedWatchList]
-          .SymbolList
-      );
+      // console.log(
+      //   state.marketWatch.MarketWatchList[state.marketWatch.nSelectedWatchList]
+      //     .SymbolList
+      // );
       // switch (action.payload) {
       //   case 1:
       //     state.marketWatch.MarketWatchList[
@@ -364,7 +364,7 @@ const marketwatchSlice = createSlice({
       var MarketWatchlist = action.payload;
       if (MarketWatchlist.data != undefined) {
         MarketWatchlist.data.map((data: any) => {
-          console.log(data);
+          //console.log(data);
           var scrips: string = data.scrips;
           scrips.split(",").map((scripname: string) => {
             if (localStorage.getItem(scripname) == null) {
@@ -471,7 +471,7 @@ export const DeleteWatchlist =
   async (dispatch) => {
     try {
       const deleteWatchlistResponse = await deleteWatchList(DelReq, sessionkey);
-      console.log(deleteWatchlistResponse);
+      // console.log(deleteWatchlistResponse);
       dispatch(DeleteWatchList(deleteWatchlistResponse));
     } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));
@@ -536,7 +536,7 @@ export const UpdateWatchlist =
           );
         }
       } else {
-        console.log(updateWatchlistResponse.message);
+        //console.log(updateWatchlistResponse.message);
       }
     } catch (err: any) {
       dispatch(onMarketWatchFailure(err.toString()));

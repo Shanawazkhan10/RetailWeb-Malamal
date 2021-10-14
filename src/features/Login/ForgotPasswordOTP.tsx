@@ -17,7 +17,7 @@ export const ForgotPasswordOTP = () => {
   } = useForm<IForgotPasswordOTPInput>();
   const onSubmit: SubmitHandler<IForgotPasswordOTPInput> = (data) => {
     //Make Web call for Fogot Passwoed Here
-    console.log(data);
+    //console.log(data);
     dispatch(otpVerificationSuccess("OTP Verified"));
   };
   return (
