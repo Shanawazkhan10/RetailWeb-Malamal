@@ -15,12 +15,6 @@ import { ShowDepthFromSearch } from "../MarketPicture/MarketPictureSlice";
 import { fetchNetposition } from "../NetPosition/NetPositionSlice";
 
 const Position = () => {
-  function onprogress(netposition: INetPosition) {
-    let pnl = Math.ceil(Number(netposition.ltp) - Number(netposition.buyAmt));
-    //console.log(netposition.ltp + "  " + pnl);
-    return String(pnl);
-  }
-
   const dispatch = useAppDispatch();
 
   const user = useSelector((state: RootState) => state.user);
@@ -75,19 +69,13 @@ const Position = () => {
             NetpositionList.netposition.netpositionList.length > 0 ? (
               NetpositionList.netposition.netpositionList.map(
                 (netposition: INetPosition, increment: number) =>
-                  Math.ceil(
-                    Number(netposition.ltp) - Number(netposition.buyAmt)
-                  ) > 0 ? (
+                  Math.ceil(netposition.PnL) > 0 ? (
                     <div className="row" onClick={RedirecttoPosition}>
                       <div className="col-md-6">
                         <Progress
                           id="progress"
                           className="flex-row-reverse"
-                          value={Math.ceil(
-                            Number(netposition.ltp) - Number(netposition.buyAmt)
-                          )}
-                          min="0"
-                          max={Math.ceil(Number(netposition.ltp) % 100)}
+                          value={Math.abs(netposition.PnL)}
                           // aria-label={netposition.ltp}
                         ></Progress>
                       </div>
@@ -103,14 +91,9 @@ const Position = () => {
                       <div className="col-md-6 c-red">
                         <Progress
                           id="progress"
-                          value={Math.abs(
-                            Math.ceil(
-                              Number(netposition.ltp) -
-                                Number(netposition.buyAmt)
-                            )
-                          )}
-                          min="0"
-                          max={Math.ceil(Number(netposition.ltp) % 100)}
+                          value={Math.abs(netposition.PnL)}
+                          //min="0"
+                          //max={Math.ceil(Number(netposition.ltp) % 100)}
                           // aria-label={netposition.ltp}
                         ></Progress>
                       </div>
