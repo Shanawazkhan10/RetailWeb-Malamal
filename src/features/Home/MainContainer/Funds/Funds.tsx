@@ -60,12 +60,13 @@ const Funds = () => {
   const openPayModal = (e: any) => {
     e.preventDefault();
 
-    //var rzp1 = new window.Razorpay(options);
-    var rzp1 = new (window as any).Razorpay(options);
-    //console.log("razer pay", rzp1);
-
-    rzp1.open();
     dispatch(getsPaymentsOrderIds(userState.sessionKey));
+
+    //var rzp1 = new window.Razorpay(options);
+    setTimeout(function () {
+      var rzp1 = new (window as any).Razorpay(options);
+      rzp1.open();
+    }, 100);
   };
 
   useEffect(() => {

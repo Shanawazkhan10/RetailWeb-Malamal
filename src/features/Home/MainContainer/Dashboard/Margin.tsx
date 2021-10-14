@@ -102,7 +102,17 @@ const Margin = () => {
           <div className="equitytxt">
             <p>Margin Available</p>
             <p>
-              Margin Used <span>{marginState.marginData.MarginUsed}</span>
+              Margin Used
+              <span>
+                {Number(
+                  marginState.marginData.MarginUsed != undefined
+                    ? marginState.marginData.MarginUsed
+                    : 0
+                ).toLocaleString(navigator.language, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </span>
             </p>
             <p>
               Opening Balance
