@@ -75,7 +75,13 @@ const Holdings = () => {
           <div className="col-md-6 holdingleft mt-4">
             <div>
               <h3 className="c-blue">
-                {HoldingList.holding.totalInvestMent.toFixed(2)}
+                {HoldingList.holding.totalInvestMent.toLocaleString(
+                  navigator.language,
+                  {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }
+                )}
               </h3>
               <p>Total Investment</p>
             </div>
@@ -88,7 +94,13 @@ const Holdings = () => {
                   }
                 })}
                 {currentValue.toFixed(2)} */}
-                {HoldingList.holding.currentValue.toFixed(2)}
+                {HoldingList.holding.currentValue.toLocaleString(
+                  navigator.language,
+                  {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }
+                )}
               </h3>
               <p>Current Value</p>
             </div>
@@ -100,7 +112,13 @@ const Holdings = () => {
               >
                 <h3 className="d-inline">
                   {/* {HoldingList.holding.daysPandL.toFixed(2)} */}
-                  {HoldingList.holding.daysPandL.toFixed(2)}
+                  {HoldingList.holding.daysPandL.toLocaleString(
+                    navigator.language,
+                    {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    }
+                  )}
                 </h3>
                 {/* <span>
                   ({HoldingList.holding.daysPandLPercent.toFixed(2)}%)
@@ -115,10 +133,24 @@ const Holdings = () => {
                 }
               >
                 <h3 className="d-inline">
-                  {HoldingList.holding.totalPandL.toFixed(2)}
+                  {HoldingList.holding.totalPandL.toLocaleString(
+                    navigator.language,
+                    {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    }
+                  )}
                 </h3>
                 <span>
-                  ({HoldingList.holding.totalPandLPercent.toFixed(2)}%)
+                  (
+                  {HoldingList.holding.totalPandLPercent.toLocaleString(
+                    navigator.language,
+                    {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    }
+                  )}
+                  %)
                 </span>
               </div>
               <p>Total P&L</p>
