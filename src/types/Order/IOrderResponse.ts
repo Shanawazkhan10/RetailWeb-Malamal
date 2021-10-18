@@ -54,4 +54,7 @@ export interface IOrderResponse {
   usrId: string;
   vldt: string;
   ltp: string;
+  hprcChg: string;
+  lprcChg: string;
+  lotSz: string;
 }

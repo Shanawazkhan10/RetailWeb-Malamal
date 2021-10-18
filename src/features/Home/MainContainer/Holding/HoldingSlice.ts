@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { stat } from "fs";
-import { api, getHolding } from "../../../../app/api";
+import { api, getHolding, PostScritInfo } from "../../../../app/api";
 import { AppThunk } from "../../../../store/store";
 import { IHolding, IHoldingSate } from "../../../../types/Holding/IHolding";
 
@@ -129,13 +129,25 @@ const holding = createSlice({
     SetLoad: (state, action) => {
       state.holding.isLoad = true;
     },
+    HoldingUpdateSetScripInfo: (state, action) => {
+      state.holding.holdinglist.map((holding: IHolding) => {
+        if (holding.nseTrdSym == action.payload.data[0].sym) {
+          holding.lotSz = action.payload.data[0].lotSz;
+        }
+      });
+    },
   },
 });
 
 export default holding.reducer;
 
-export const { HoldingSuccess, HoldingError, HoldingUpdate, SetLoad } =
-  holding.actions;
+export const {
+  HoldingSuccess,
+  HoldingError,
+  HoldingUpdate,
+  SetLoad,
+  HoldingUpdateSetScripInfo,
+} = holding.actions;
 
 export const fetchHolding =
   (sessionKey: string): AppThunk =>
@@ -143,6 +155,18 @@ export const fetchHolding =
     try {
       const holdingResponse = await getHolding(sessionKey);
       dispatch(HoldingSuccess(holdingResponse));
+    } catch (err: any) {
+      dispatch(HoldingError(err.toString()));
+    }
+  };
+
+export const FetchSymbol =
+  (scriptInfoReq: string[], sessionkey: string): AppThunk =>
+  async (dispatch) => {
+    try {
+      const scriptInfoResponse = await PostScritInfo(scriptInfoReq, sessionkey);
+
+      dispatch(HoldingUpdateSetScripInfo(scriptInfoResponse));
     } catch (err: any) {
       dispatch(HoldingError(err.toString()));
     }

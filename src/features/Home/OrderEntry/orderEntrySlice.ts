@@ -32,6 +32,9 @@ const initialState = {
   typeofOrder: 1, //1:Order Entry 2:Modify,
   on: "",
   vd: "",
+  lprcchg: "",
+  hprcchg: "",
+  lotSz: "",
 } as IOrderEntry;
 
 // PRODUCT TYPE
@@ -199,7 +202,12 @@ export const orderEntrySlice = createSlice({
         "Order Cancellation Rejected : " + action.payload.comment
       );
     },
-    onSetScripInfo: (state, action: PayloadAction<any>) => {},
+    onSetScripInfo: (state, action: PayloadAction<any>) => {
+      state.symbol = action.payload.data[0].sym;
+      state.hprcchg = action.payload.data[0].hPrcRng;
+      state.lprcchg = action.payload.data[0].lPrcRng;
+      state.lotSz = action.payload.data[0].lotSz;
+    },
   },
 });
 
@@ -253,7 +261,8 @@ export const FetchSymbol =
   async (dispatch) => {
     try {
       const scriptInfoResponse = await PostScritInfo(scriptInfoReq, sessionkey);
-      return scriptInfoResponse;
+      console.log(scriptInfoResponse);
+      dispatch(onSetScripInfo(scriptInfoResponse));
     } catch (err: any) {
       dispatch(onOrderEntryError(err.toString()));
     }

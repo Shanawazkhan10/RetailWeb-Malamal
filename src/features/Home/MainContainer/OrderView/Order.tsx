@@ -95,19 +95,20 @@ const OrderView = (props: { order: IOrderResponse }) => {
         userState.sessionKey
       )
     );
-
     OrderEntryProp.token = symbolInfo.tok;
     if (actiontype == "Repeat") {
       OrderEntryProp.price = symbolInfo.prc;
       OrderEntryProp.quantity = symbolInfo.qty;
     } else if (actiontype == "Buy") {
       OrderEntryProp.price = symbolInfo.ltp;
-      OrderEntryProp.quantity = 1; //symbolInfo.fldQty;
+      //OrderEntryProp.quantity = Number(symbolInfo.lotSz); //symbolInfo.fldQty;
+      OrderEntryProp.quantity = 1;
     }
 
     OrderEntryProp.symbol = symbolInfo.trdSym;
     OrderEntryProp.exchange = symbolInfo.exSeg;
     //OrderEntryProp.ltp = symbolInfo.ltp;
+
     dispatch(setOrderEntryProps(OrderEntryProp));
     dispatch(openBuyOrderEntry());
   }
@@ -118,18 +119,31 @@ const OrderView = (props: { order: IOrderResponse }) => {
     actiontype: string
   ) {
     e.preventDefault();
+
+    dispatch(
+      FetchSymbol(
+        (symbolInfo.exSeg + "|" + symbolInfo.tok).split(","),
+        userState.sessionKey
+      )
+    );
     OrderEntryProp.token = symbolInfo.tok;
     if (actiontype == "Repeat") {
       OrderEntryProp.price = symbolInfo.prc;
       OrderEntryProp.quantity = symbolInfo.qty;
-    } else if (actiontype == "Buy") {
+    } else if (actiontype == "Sell") {
       OrderEntryProp.price = symbolInfo.ltp;
-      OrderEntryProp.quantity = 1; // symbolInfo.fldQty;
+      OrderEntryProp.quantity = Number(symbolInfo.lotSz); // symbolInfo.fldQty;
     }
 
     OrderEntryProp.symbol = symbolInfo.trdSym;
     OrderEntryProp.exchange = symbolInfo.exSeg;
     //OrderEntryProp.ltp = symbolInfo.ltp;
+    dispatch(
+      FetchSymbol(
+        (symbolInfo.exSeg + "|" + symbolInfo.tok).split(","),
+        userState.sessionKey
+      )
+    );
     dispatch(setOrderEntryProps(OrderEntryProp));
     dispatch(openSellOrderEntry());
   }

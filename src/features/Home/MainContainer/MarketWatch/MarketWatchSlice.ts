@@ -72,6 +72,7 @@ const marketwatchSlice = createSlice({
       state.marketWatch.nSelectedWatchList = 0;
     },
     AddToWatchList: (state, action) => {
+      console.log(action.payload.data);
       state.marketWatch.MarketWatchList[
         state.marketWatch.nSelectedWatchList
       ].SymbolList.push(action.payload.data[0]);
