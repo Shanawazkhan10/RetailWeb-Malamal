@@ -194,19 +194,21 @@ const NetPositionList = () => {
             </tbody>
             <tfoot>
               <tr className="odd_col">
-                <td data-colspan="2">
+                <td data-colspan="3">
                   <button className="btn btn-primary">Exit Position</button>
                 </td>
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
+                <td></td>
 
-                <td>
+                <td style={{ textAlign: "center" }}>
                   <h4>Total</h4>
                 </td>
-                <td></td>
-                <td></td>
-                <td>
+                {/* <td ></td>
+                <td></td> */}
+                <td style={{ textAlign: "center" }}>
                   <h4>
                     {/* {NetpositionList.netposition?.netpositionList.map(
                       (netposition: INetPosition) => {
@@ -403,13 +405,18 @@ const NetPositionList = () => {
             </tbody>
             <tfoot>
               <tr className="odd_col">
-                <td data-colspan="2"></td>
+                <td data-colspan="3"></td>
                 <td></td>
                 <td></td>
-                <td>Total</td>
                 <td></td>
                 <td></td>
-                <td>
+
+                <td style={{ textAlign: "center" }}>
+                  <h4>Total</h4>
+                </td>
+                {/* <td></td>
+                <td></td> */}
+                <td style={{ textAlign: "center" }}>
                   <h4>
                     {NetpositionList.netposition != undefined
                       ? NetpositionList.netposition.currentValue.toFixed(2)

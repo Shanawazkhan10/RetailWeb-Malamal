@@ -1476,7 +1476,7 @@ table#PortfolioTable {
 }
 #PortfolioTable thead tr th {
   font-size: 16px;
-  font-weight: 400;
+  /* font-weight: 400; */
   color: #a5a7a4;
   padding: 14px 15px;
 }
