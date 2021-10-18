@@ -12,6 +12,7 @@ import {
 } from "../../../../types/Request/IOrderEntryRequest";
 import {
   cancelOrder,
+  FetchSymbol,
   openBuyOrderEntry,
   openSellOrderEntry,
   setOrderEntryProps,
@@ -87,6 +88,14 @@ const OrderView = (props: { order: IOrderResponse }) => {
   ) {
     e.preventDefault();
     ShowMenu(!Menuflag);
+
+    dispatch(
+      FetchSymbol(
+        (symbolInfo.exSeg + "|" + symbolInfo.tok).split(","),
+        userState.sessionKey
+      )
+    );
+
     OrderEntryProp.token = symbolInfo.tok;
     if (actiontype == "Repeat") {
       OrderEntryProp.price = symbolInfo.prc;

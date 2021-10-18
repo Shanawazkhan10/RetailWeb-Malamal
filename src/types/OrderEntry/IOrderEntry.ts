@@ -16,4 +16,7 @@ export interface IOrderEntry extends IOrderEntryProps {
   typeofOrder: number;
   on: string;
   vd: string;
+  lprcchg: string;
+  hprcchg: string;
+  lotSz: string;
 }

@@ -72,13 +72,14 @@ const HeaderIndices = () => {
                   {idicesState.IndicesList[0].last}
                 </h4>
               </div>
-              <div className="table-row nsebse">
+              <div className="table-row nsebse  ">
                 <div className="table-cell">
-                  <h6>NSE INDEX</h6>
+                  <h6>NSE</h6>
                 </div>
                 <div className="table-cell">
                   <h6 className="mpercent">
-                    {idicesState.IndicesList[0].netchg}%
+                    {idicesState.IndicesList[0].chg}(
+                    {idicesState.IndicesList[0].netchg})%
                   </h6>
                 </div>
               </div>
@@ -102,11 +103,12 @@ const HeaderIndices = () => {
               </div>
               <div className="table-row nsebse">
                 <div className="table-cell">
-                  <h6>NSE INDEX</h6>
+                  <h6>NSE</h6>
                 </div>
                 <div className="table-cell">
                   <h6 className="mpercent">
-                    {idicesState.IndicesList[1].netchg}%
+                    {idicesState.IndicesList[1].chg}(
+                    {idicesState.IndicesList[1].netchg})%
                   </h6>
                 </div>
               </div>

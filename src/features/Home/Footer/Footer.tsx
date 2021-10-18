@@ -58,7 +58,13 @@ const Footer = () => {
                   HoldingList.holding.currentValue > 0 ? "c-green" : "c-red"
                 }
               >
-                {HoldingList.holding.currentValue.toFixed(2)}
+                {HoldingList.holding.currentValue.toLocaleString(
+                  navigator.language,
+                  {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }
+                )}
               </h6>
             </div>
             <div className="fname">
@@ -75,7 +81,13 @@ const Footer = () => {
               >
                 {NetpositionList.netposition != undefined &&
                 NetpositionList.netposition.currentValue != undefined
-                  ? NetpositionList.netposition.currentValue.toFixed(2)
+                  ? NetpositionList.netposition.currentValue.toLocaleString(
+                      navigator.language,
+                      {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }
+                    )
                   : "0.00"}
               </h6>
             </div>

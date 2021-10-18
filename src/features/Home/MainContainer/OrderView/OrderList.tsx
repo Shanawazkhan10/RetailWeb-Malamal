@@ -60,7 +60,7 @@ const OrderList = () => {
                         </h2>
                       </div>
                       <div className="col-md-8 text-right" id="searhnbtn">
-                        {/* <div
+                        <div
                           className="input-group slideInDown-element m-0"
                           id="search"
                         >
@@ -70,7 +70,7 @@ const OrderList = () => {
                             </span>
                           </div>
                           <input type="text" placeholder="Search E.g. INFY" />
-                        </div> */}
+                        </div>
                         <div className="btnalign">
                           <a href="#">
                             <img
@@ -106,8 +106,8 @@ const OrderList = () => {
                               <th style={{ width: "40%" }}>Instrument</th>
                               <th style={{ width: "10%" }}>Product</th>
                               <th style={{ width: "10%" }}>Qty.</th>
-                              <th style={{ width: "5%" }}>Avg. price</th>
-                              <th style={{ width: "15%" }}>Status</th>
+                              <th style={{ width: "10%" }}>Avg. price</th>
+                              <th style={{ width: "10%" }}>Status</th>
                             </tr>
                           </thead>
 

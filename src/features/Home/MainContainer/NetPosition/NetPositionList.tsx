@@ -194,20 +194,18 @@ const NetPositionList = () => {
             </tbody>
             <tfoot>
               <tr className="odd_col">
-                <td data-colspan="3">
+                <td colSpan={3}>
                   <button className="btn btn-primary">Exit Position</button>
                 </td>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-
                 <td style={{ textAlign: "center" }}>
                   <h4>Total</h4>
                 </td>
                 {/* <td ></td>
                 <td></td> */}
+
                 <td style={{ textAlign: "center" }}>
                   <h4>
                     {/* {NetpositionList.netposition?.netpositionList.map(
@@ -217,11 +215,16 @@ const NetPositionList = () => {
                     )}
                     {currentValue.toFixed(2)} */}
                     {NetpositionList.netposition != undefined
-                      ? NetpositionList.netposition.currentValue.toFixed(2)
+                      ? NetpositionList.netposition.currentValue.toLocaleString(
+                          navigator.language,
+                          {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          }
+                        )
                       : "0.00"}
                   </h4>
                 </td>
-                <td></td>
               </tr>
             </tfoot>
           </table>
@@ -294,82 +297,6 @@ const NetPositionList = () => {
                         {netposition.trdSym.split("-")[0]}
                         <span>{getSegmentName(netposition.exSeg)}</span>
                       </h3>
-                      <div className="watchlistbox">
-                        <button
-                          type="button"
-                          className="btn btn-primary wmore dropdown-toggle"
-                          id="dropdownMenuButton"
-                          data-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                        ></button>
-                        <div
-                          className="dropdown-menu"
-                          aria-labelledby="dropdownMenuButton"
-                        >
-                          <a
-                            className="dropdown-item"
-                            href="#"
-                            onClick={(e) =>
-                              onSellOrderEntryClick(e, netposition)
-                            }
-                          >
-                            <img src="images/positions/exit.svg" /> Exit
-                          </a>
-                          <a className="dropdown-item" href="#">
-                            <img src="images/positions/add.svg" /> Add
-                          </a>
-                          <a className="dropdown-item" href="#">
-                            <img src="images/positions/convert.svg" /> Convert
-                          </a>
-                          <a className="dropdown-item" href="#">
-                            <img src="images/positions/info.svg" /> Info
-                          </a>
-                          <a className="dropdown-item" href="#">
-                            <img src="images/positions/create-gtt.svg" /> Create
-                            GTT
-                            <span>/ GTC</span>
-                          </a>
-                          <a className="dropdown-item" href="#">
-                            <img src="images/positions/market-depth.svg" />{" "}
-                            Market depth
-                          </a>
-                          <a className="dropdown-item" href="#">
-                            <img src="images/positions/chart.svg" /> Chart
-                          </a>
-                          <a className="dropdown-item" href="#">
-                            <img src="images/positions/watchlist.svg" /> Add to
-                            marketwatch
-                          </a>
-                          <a className="dropdown-item" href="#">
-                            <img
-                              src=""
-                              style={{
-                                width: "15px",
-                                height: "15px",
-                                background: "rgba(106, 78, 238, 0.2)",
-                                borderRadius: "3px",
-                              }}
-                            />
-                            Fundamentals
-                          </a>
-                          <a className="dropdown-item" href="#">
-                            <img
-                              src=""
-                              style={{
-                                width: "15px",
-                                height: "15px",
-                                background: "rgba(106, 78, 238, 0.2)",
-                                borderRadius: "3px",
-                              }}
-                            />
-                            Technicals
-                          </a>
-                          <a className="dropdown-item" href="#">
-                            <img src="images/positions/alert.svg" /> Set Alerts
-                          </a>
-                        </div>
-                      </div>
                     </td>
 
                     <td>{netposition.NetQty}</td>
@@ -405,7 +332,7 @@ const NetPositionList = () => {
             </tbody>
             <tfoot>
               <tr className="odd_col">
-                <td data-colspan="3"></td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -414,6 +341,7 @@ const NetPositionList = () => {
                 <td style={{ textAlign: "center" }}>
                   <h4>Total</h4>
                 </td>
+
                 {/* <td></td>
                 <td></td> */}
                 <td style={{ textAlign: "center" }}>
@@ -423,7 +351,6 @@ const NetPositionList = () => {
                       : "0.00"}
                   </h4>
                 </td>
-                <td></td>
               </tr>
             </tfoot>
           </table>

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
+  PostScritInfo,
   sendCancelOrderRequest,
   sendModifyOrderRequest,
   sendOrderEntryRequest,
@@ -198,6 +199,7 @@ export const orderEntrySlice = createSlice({
         "Order Cancellation Rejected : " + action.payload.comment
       );
     },
+    onSetScripInfo: (state, action: PayloadAction<any>) => {},
   },
 });
 
@@ -246,6 +248,17 @@ export const cancelOrder =
     }
   };
 
+export const FetchSymbol =
+  (scriptInfoReq: string[], sessionkey: string): AppThunk =>
+  async (dispatch) => {
+    try {
+      const scriptInfoResponse = await PostScritInfo(scriptInfoReq, sessionkey);
+      return scriptInfoResponse;
+    } catch (err: any) {
+      dispatch(onOrderEntryError(err.toString()));
+    }
+  };
+
 export const {
   openBuyOrderEntry,
   openSellOrderEntry,
@@ -273,9 +286,7 @@ export const {
   onOrderModifyRejected,
   onOrderCancelSuccess,
   onOrderCancelRejected,
+  onSetScripInfo,
 } = orderEntrySlice.actions;
 
 export default orderEntrySlice.reducer;
-function dispatch(arg0: { payload: any; type: string }) {
-  throw new Error("Function not implemented.");
-}
