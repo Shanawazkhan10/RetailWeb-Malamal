@@ -10,12 +10,36 @@ import { fetchOrderView } from "./OrderViewSlice";
 const OrderList = () => {
   const OrderList = useSelector((state: RootState) => state.OrderView);
   const user = useSelector((state: RootState) => state.user);
+
+  const [searchvalue, setSearchValue] = useState("");
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     //dispatch(OrderViewSuccess(getOrderData()));
     dispatch(fetchOrderView(user.sessionKey));
   }, []);
+
+  const filteredOrders = React.useMemo(
+    () =>
+      OrderList.OrderViewData?.filter((x) => {
+        return (
+          x.trdSym.includes(searchvalue.toUpperCase()) ||
+          x.trnsTp ==
+            ((searchvalue.toUpperCase() == "BUY" ? "B" : "") ||
+              (searchvalue.toUpperCase() == "SELL" ? "S" : "")) ||
+          x.prod.includes(searchvalue.toUpperCase())
+        );
+      }),
+    [searchvalue]
+  );
+
+  function getFilter(e: any) {
+    if (e.target.value == "") {
+      setSearchValue("");
+      return;
+    }
+    setSearchValue(e.target.value);
+  }
 
   return (
     <div className="portfolioplate fadeIn-element">
