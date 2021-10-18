@@ -63,6 +63,7 @@ const OrderList = () => {
                         <div
                           className="input-group slideInDown-element m-0"
                           id="search"
+                          onChange={(e) => getFilter(e)}
                         >
                           <div>
                             <span>
@@ -111,7 +112,7 @@ const OrderList = () => {
                             </tr>
                           </thead>
 
-                          {OrderList?.OrderViewData.map((Order: any) => (
+                          {filteredOrders.map((Order: any) => (
                             <OrderView
                               key={Order.Token}
                               order={Order}
