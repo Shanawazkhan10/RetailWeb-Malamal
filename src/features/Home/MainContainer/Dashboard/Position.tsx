@@ -12,7 +12,10 @@ import {
 } from "../../../WebSocket/HSSocket1";
 import { positionContainer } from "../mainContainerSlice";
 import { ShowDepthFromSearch } from "../MarketPicture/MarketPictureSlice";
-import { fetchNetposition } from "../NetPosition/NetPositionSlice";
+import {
+  fetchContractDetails,
+  fetchNetposition,
+} from "../NetPosition/NetPositionSlice";
 
 const Position = () => {
   const dispatch = useAppDispatch();
@@ -23,8 +26,21 @@ const Position = () => {
 
   useEffect(() => {
     dispatch(fetchNetposition(user.sessionKey));
-    if (NetpositionList.netposition != undefined) getSymbol();
+
+    if (NetpositionList.netposition != undefined) {
+      getSymbol();
+      getContractDetails();
+    }
   }, []);
+
+  function getContractDetails() {
+    if (NetpositionList.netposition != undefined) {
+      var positionArr = NetpositionList.netposition.netpositionList.map(
+        (position) => position.exSeg + "|" + position.tok
+      );
+      dispatch(fetchContractDetails(positionArr, user.sessionKey));
+    }
+  }
 
   function OpenDepth() {
     dispatch(ShowDepthFromSearch(""));

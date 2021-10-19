@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { api } from "../../../../app/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IContractSearch } from "../../../../types/IContractSearch";
@@ -24,6 +24,7 @@ import {
   setNewWatchlistSymbol,
   UpdateWatchlist,
 } from "../MarketWatch/MarketWatchSlice";
+import { FetchSymbol, SearchContractSuccess } from "./SmartSearchSlice";
 
 const SmartSearch = (props: { Type: Number }) => {
   const dispatch = useAppDispatch();
@@ -69,24 +70,47 @@ const SmartSearch = (props: { Type: Number }) => {
     //dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
   };
 
-  function onBuyOrderEntryClick(e: any, result: any) {
+  async function OpenOrderEntry(e: any, result: any, ordertype: string) {
     e.preventDefault();
     e.stopPropagation();
-    OrderEntryProp.token = result.omtkn;
-    OrderEntryProp.price = String(result.last);
-    OrderEntryProp.quantity = 1;
-    OrderEntryProp.symbol = result.tsym;
-    OrderEntryProp.exchange = result.exseg;
-    OrderEntryProp.ltp = String(result.last);
-    dispatch(setOrderEntryProps(OrderEntryProp));
-    dispatch(openBuyOrderEntry());
+    console.log(result.exseg + "|" + result.omtkn + "ordertype" + ordertype);
+    await FetchSymbol(
+      (result.exseg + "|" + result.omtkn).split(","),
+      user.sessionKey
+    ).then((contractinfo) => {
+      if (ordertype == "B") {
+        onBuyOrderEntryClick(result, contractinfo);
+      } else if (ordertype == "S") {
+        onSellOrderEntryClick(result, contractinfo);
+      }
+    });
   }
-  function onSellOrderEntryClick(e: any, result: any) {
-    e.preventDefault();
-    e.stopPropagation();
+
+  function onBuyOrderEntryClick(result: any, contractInfo: any) {
+    if (result != null) {
+      OrderEntryProp.token = result.omtkn;
+      OrderEntryProp.price = String(result.last);
+      if (String(result.exseg).includes("fo")) {
+        OrderEntryProp.quantity = contractInfo?.brdLtQty;
+      } else {
+        OrderEntryProp.quantity = 1;
+      }
+      OrderEntryProp.symbol = result.tsym;
+      OrderEntryProp.exchange = result.exseg;
+      OrderEntryProp.ltp = String(result.last);
+      dispatch(setOrderEntryProps(OrderEntryProp));
+      dispatch(openBuyOrderEntry());
+    }
+  }
+
+  function onSellOrderEntryClick(result: any, contractInfo: any) {
     OrderEntryProp.token = result.omtkn;
     OrderEntryProp.price = String(result.last);
-    OrderEntryProp.quantity = 1;
+    if (String(result.exseg).includes("fo")) {
+      OrderEntryProp.quantity = contractInfo?.brdLtQty;
+    } else {
+      OrderEntryProp.quantity = 1;
+    }
     OrderEntryProp.symbol = result.tsym;
     OrderEntryProp.exchange = result.exseg;
     OrderEntryProp.ltp = String(result.last);
@@ -202,9 +226,9 @@ const SmartSearch = (props: { Type: Number }) => {
           },
         }
       )
-      .then((response) => setResult(response.data.data))
-
-      .catch((error) => error);
+      .then((response) => {
+        setResult(response.data.data);
+      });
   };
 
   // handles changes to the search input
@@ -358,14 +382,14 @@ const SmartSearch = (props: { Type: Number }) => {
                           <button
                             type="button"
                             className="btn btn-primary wbuy"
-                            onClick={(e) => onBuyOrderEntryClick(e, result)}
+                            onClick={(e) => OpenOrderEntry(e, result, "B")}
                           >
                             B
                           </button>
                           <button
                             type="button"
                             className="btn btn-primary wsell"
-                            onClick={(e) => onSellOrderEntryClick(e, result)}
+                            onClick={(e) => OpenOrderEntry(e, result, "S")}
                           >
                             S
                           </button>

@@ -261,7 +261,7 @@ export const FetchSymbol =
   async (dispatch) => {
     try {
       const scriptInfoResponse = await PostScritInfo(scriptInfoReq, sessionkey);
-      console.log(scriptInfoResponse);
+
       dispatch(onSetScripInfo(scriptInfoResponse));
     } catch (err: any) {
       dispatch(onOrderEntryError(err.toString()));

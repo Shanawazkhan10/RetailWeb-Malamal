@@ -36,4 +36,9 @@ export interface IContractSearch {
   time: String;
 
   vol: String;
+
+  lotSz: string;
+
+  hprcchg: string;
+  lprcchg: string;
 }

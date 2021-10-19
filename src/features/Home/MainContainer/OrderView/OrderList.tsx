@@ -112,12 +112,13 @@ const OrderList = () => {
                             </tr>
                           </thead>
 
-                          {filteredOrders.map((Order: any) => (
-                            <OrderView
-                              key={Order.Token}
-                              order={Order}
-                            ></OrderView>
-                          ))}
+                          {filteredOrders != undefined &&
+                            filteredOrders.map((Order: any) => (
+                              <OrderView
+                                key={Order.Token}
+                                order={Order}
+                              ></OrderView>
+                            ))}
                         </table>
                       </div>
                     </div>

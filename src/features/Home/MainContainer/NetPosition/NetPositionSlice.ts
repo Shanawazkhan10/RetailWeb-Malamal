@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { api, getNetposition } from "../../../../app/api";
+import { act } from "react-dom/test-utils";
+import { api, getNetposition, PostScritInfo } from "../../../../app/api";
 import { AppThunk } from "../../../../store/store";
 import { NetpositionSummary } from "../../../../types/INetpositionSummary";
 import {
@@ -97,12 +98,24 @@ const netposition = createSlice({
         }
       }
     },
+    BindContractDetails(state, action) {
+      if (action.payload.data != undefined) {
+        action.payload.data.map((data: INetPosition) =>
+          state.netposition.netpositionList.map((position) => {
+            //if (position.sym == data.sym) {
+            //position.brdLtQty = data.brdLtQty;
+            //}
+          })
+        );
+      }
+    },
   },
 });
 
 export default netposition.reducer;
 
-export const { NetpositionSuccess, NetpositionUpdate } = netposition.actions;
+export const { NetpositionSuccess, NetpositionUpdate, BindContractDetails } =
+  netposition.actions;
 
 export const fetchNetposition =
   (sessionKey: string): AppThunk =>
@@ -114,3 +127,15 @@ export const fetchNetposition =
       //dispatch(TradeError(err.toString()));
     }
   };
+
+export const fetchContractDetails =
+  (scriptInfoReq: string[], sessionkey: string): AppThunk =>
+  async (dispatch) => {
+    try {
+      const scriptInfoResponse = await PostScritInfo(scriptInfoReq, sessionkey);
+      dispatch(BindContractDetails(scriptInfoResponse));
+    } catch (err: any) {}
+  };
+function data(data: any, arg1: (INetPosition: any) => void[]) {
+  throw new Error("Function not implemented.");
+}
