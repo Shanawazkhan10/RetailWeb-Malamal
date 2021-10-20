@@ -84,17 +84,26 @@ const MarketWatchItem = (props: {
   function onBuyOrderEntryClick(symbolInfo: IMarketWatchTokenInfo) {
     OrderEntryProp.token = symbolInfo.tok;
     OrderEntryProp.price = symbolInfo.ltp;
+
     OrderEntryProp.quantity = Number(symbolInfo.lotSz);
+
+    OrderEntryProp.quantity = 1;
+
     OrderEntryProp.symbol = symbolInfo.trdSym;
     OrderEntryProp.exchange = symbolInfo.exSeg;
     OrderEntryProp.ltp = symbolInfo.ltp;
+
     dispatch(setOrderEntryProps(OrderEntryProp));
     dispatch(openBuyOrderEntry());
   }
   function onSellOrderEntryClick(symbolInfo: IMarketWatchTokenInfo) {
     OrderEntryProp.token = symbolInfo.tok;
     OrderEntryProp.price = symbolInfo.ltp;
-    OrderEntryProp.quantity = Number(symbolInfo.lotSz);
+    if (symbolInfo.exSeg.includes("fo")) {
+      OrderEntryProp.quantity = Number(symbolInfo.lotSz);
+    } else {
+      OrderEntryProp.quantity = 1;
+    }
     OrderEntryProp.symbol = symbolInfo.trdSym;
     OrderEntryProp.exchange = symbolInfo.exSeg;
     OrderEntryProp.ltp = symbolInfo.ltp;

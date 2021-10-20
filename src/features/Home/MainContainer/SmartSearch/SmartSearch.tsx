@@ -24,7 +24,7 @@ import {
   setNewWatchlistSymbol,
   UpdateWatchlist,
 } from "../MarketWatch/MarketWatchSlice";
-import { FetchSymbol, SearchContractSuccess } from "./SmartSearchSlice";
+import { FetchSymbol } from "../../OrderEntry/orderEntrySlice";
 
 const SmartSearch = (props: { Type: Number }) => {
   const dispatch = useAppDispatch();
@@ -70,52 +70,61 @@ const SmartSearch = (props: { Type: Number }) => {
     //dispatch(updateMarketDepth(SubscribeMarketDepth(0, 0)));
   };
 
-  async function OpenOrderEntry(e: any, result: any, ordertype: string) {
+  // async function OpenOrderEntry(e: any, result: any, ordertype: string) {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   console.log(result.exseg + "|" + result.omtkn + "ordertype" + ordertype);
+  //   await FetchSymbol(
+  //     (result.exseg + "|" + result.omtkn).split(","),
+  //     user.sessionKey
+  //   ).then((contractinfo) => {
+  //     if (ordertype == "B") {
+  //       onBuyOrderEntryClick(result, contractinfo);
+  //     } else if (ordertype == "S") {
+  //       onSellOrderEntryClick(result, contractinfo);
+  //     }
+  //   });
+  // }
+
+  function onBuyOrderEntryClick(e: any, result: any) {
     e.preventDefault();
     e.stopPropagation();
-    console.log(result.exseg + "|" + result.omtkn + "ordertype" + ordertype);
-    await FetchSymbol(
-      (result.exseg + "|" + result.omtkn).split(","),
-      user.sessionKey
-    ).then((contractinfo) => {
-      if (ordertype == "B") {
-        onBuyOrderEntryClick(result, contractinfo);
-      } else if (ordertype == "S") {
-        onSellOrderEntryClick(result, contractinfo);
-      }
-    });
-  }
-
-  function onBuyOrderEntryClick(result: any, contractInfo: any) {
     if (result != null) {
+      var scripInfo = result.exseg + "|" + result.omtkn;
       OrderEntryProp.token = result.omtkn;
       OrderEntryProp.price = String(result.last);
-      if (String(result.exseg).includes("fo")) {
-        OrderEntryProp.quantity = contractInfo?.brdLtQty;
-      } else {
-        OrderEntryProp.quantity = 1;
-      }
+      //OrderEntryProp.quantity = 1;
       OrderEntryProp.symbol = result.tsym;
       OrderEntryProp.exchange = result.exseg;
       OrderEntryProp.ltp = String(result.last);
-      dispatch(setOrderEntryProps(OrderEntryProp));
-      dispatch(openBuyOrderEntry());
+
+      dispatch(FetchSymbol(scripInfo.split(","), user.sessionKey));
+
+      setTimeout(function () {
+        dispatch(setOrderEntryProps(OrderEntryProp));
+
+        dispatch(openBuyOrderEntry());
+      }, 500);
     }
   }
 
-  function onSellOrderEntryClick(result: any, contractInfo: any) {
-    OrderEntryProp.token = result.omtkn;
-    OrderEntryProp.price = String(result.last);
-    if (String(result.exseg).includes("fo")) {
-      OrderEntryProp.quantity = contractInfo?.brdLtQty;
-    } else {
-      OrderEntryProp.quantity = 1;
+  function onSellOrderEntryClick(e: any, result: any) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (result != null) {
+      var scripInfo = result.exseg + "|" + result.omtkn;
+      OrderEntryProp.token = result.omtkn;
+      OrderEntryProp.price = String(result.last);
+      OrderEntryProp.quantity = 1; //
+      OrderEntryProp.symbol = result.tsym;
+      OrderEntryProp.exchange = result.exseg;
+      OrderEntryProp.ltp = String(result.last);
+      dispatch(FetchSymbol(scripInfo.split(","), user.sessionKey));
+      setTimeout(function () {
+        dispatch(setOrderEntryProps(OrderEntryProp));
+        dispatch(openSellOrderEntry());
+      }, 500);
     }
-    OrderEntryProp.symbol = result.tsym;
-    OrderEntryProp.exchange = result.exseg;
-    OrderEntryProp.ltp = String(result.last);
-    dispatch(setOrderEntryProps(OrderEntryProp));
-    dispatch(openSellOrderEntry());
   }
   function onChartClick(e: any) {
     e.preventDefault();
@@ -382,14 +391,14 @@ const SmartSearch = (props: { Type: Number }) => {
                           <button
                             type="button"
                             className="btn btn-primary wbuy"
-                            onClick={(e) => OpenOrderEntry(e, result, "B")}
+                            onClick={(e) => onBuyOrderEntryClick(e, result)}
                           >
                             B
                           </button>
                           <button
                             type="button"
                             className="btn btn-primary wsell"
-                            onClick={(e) => OpenOrderEntry(e, result, "S")}
+                            onClick={(e) => onSellOrderEntryClick(e, result)}
                           >
                             S
                           </button>

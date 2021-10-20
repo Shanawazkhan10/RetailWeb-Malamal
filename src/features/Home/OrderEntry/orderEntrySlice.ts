@@ -66,7 +66,15 @@ export const orderEntrySlice = createSlice({
         state.orderType = "L";
         state.isPriceEnabled = true;
       }
-      state.quantity = action.payload.quantity;
+      if (action.payload.exchange.includes("fo")) {
+        if (state.lotSz == undefined) {
+          state.quantity = Number(action.payload.lotSz);
+        } else {
+          state.quantity = Number(state.lotSz);
+        }
+      } else {
+        state.quantity = Number(action.payload.quantity);
+      }
       state.symbol = action.payload.symbol;
       state.exchange = action.payload.exchange;
       state.ltp = action.payload.ltp;
@@ -261,7 +269,6 @@ export const FetchSymbol =
   async (dispatch) => {
     try {
       const scriptInfoResponse = await PostScritInfo(scriptInfoReq, sessionkey);
-
       dispatch(onSetScripInfo(scriptInfoResponse));
     } catch (err: any) {
       dispatch(onOrderEntryError(err.toString()));
