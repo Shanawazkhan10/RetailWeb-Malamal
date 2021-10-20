@@ -75,13 +75,15 @@ const Holdings = () => {
           <div className="col-md-6 holdingleft mt-4">
             <div>
               <h3 className="c-blue">
-                {HoldingList.holding.totalInvestMent.toLocaleString(
-                  navigator.language,
-                  {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  }
-                )}
+                {isNaN(HoldingList.holding.totalInvestMent)
+                  ? 0.0
+                  : HoldingList.holding.totalInvestMent.toLocaleString(
+                      navigator.language,
+                      {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }
+                    )}
               </h3>
               <p>Total Investment</p>
             </div>
@@ -94,13 +96,23 @@ const Holdings = () => {
                   }
                 })}
                 {currentValue.toFixed(2)} */}
-                {HoldingList.holding.currentValue.toLocaleString(
+                {/* {HoldingList.holding.currentValue.toLocaleString(
                   navigator.language,
                   {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   }
-                )}
+                )} */}
+
+                {isNaN(HoldingList.holding.currentValue)
+                  ? 0.0
+                  : HoldingList.holding.currentValue.toLocaleString(
+                      navigator.language,
+                      {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }
+                    )}
               </h3>
               <p>Current Value</p>
             </div>
@@ -112,13 +124,15 @@ const Holdings = () => {
               >
                 <h3 className="d-inline">
                   {/* {HoldingList.holding.daysPandL.toFixed(2)} */}
-                  {HoldingList.holding.daysPandL.toLocaleString(
-                    navigator.language,
-                    {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    }
-                  )}
+                  {isNaN(HoldingList.holding.daysPandL)
+                    ? 0.0
+                    : HoldingList.holding.daysPandL.toLocaleString(
+                        navigator.language,
+                        {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        }
+                      )}
                 </h3>
                 {/* <span>
                   ({HoldingList.holding.daysPandLPercent.toFixed(2)}%)
@@ -133,13 +147,15 @@ const Holdings = () => {
                 }
               >
                 <h3 className="d-inline">
-                  {HoldingList.holding.totalPandL.toLocaleString(
-                    navigator.language,
-                    {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    }
-                  )}
+                  {isNaN(HoldingList.holding.totalPandL)
+                    ? 0.0
+                    : HoldingList.holding.totalPandL.toLocaleString(
+                        navigator.language,
+                        {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        }
+                      )}
                 </h3>
                 <span>
                   (
