@@ -19,7 +19,7 @@ import {
 } from "./PersonalDetailsSlice";
 import { RootState } from "../../../store/store";
 import { useEffect } from "react";
-import { getProfileSummary } from "../../../app/api";
+// import { getProfileSummary } from "../../../app/api";
 import DematDetails from "../Account/DematDetails";
 import DocumentDetails from "../Account/DocumentDetails";
 

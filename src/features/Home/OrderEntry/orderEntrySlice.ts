@@ -66,15 +66,15 @@ export const orderEntrySlice = createSlice({
         state.orderType = "L";
         state.isPriceEnabled = true;
       }
-      if (action.payload.exchange.includes("fo")) {
-        if (state.lotSz == undefined) {
-          state.quantity = Number(action.payload.lotSz);
-        } else {
-          state.quantity = Number(state.lotSz);
-        }
-      } else {
-        state.quantity = Number(action.payload.quantity);
-      }
+      // if (action.payload.exchange.includes("fo")) {
+      //   if (state.lotSz == "") {
+      //     state.quantity = action.payload.quantity;
+      // } else {
+      state.quantity = Number(state.lotSz);
+      //   }
+      // } else {
+      //   state.quantity = Number(action.payload.quantity);
+      // }
       state.symbol = action.payload.symbol;
       state.exchange = action.payload.exchange;
       state.ltp = action.payload.ltp;
@@ -211,7 +211,6 @@ export const orderEntrySlice = createSlice({
       );
     },
     onSetScripInfo: (state, action: PayloadAction<any>) => {
-      state.symbol = action.payload.data[0].sym;
       state.hprcchg = action.payload.data[0].hPrcRng;
       state.lprcchg = action.payload.data[0].lPrcRng;
       state.lotSz = action.payload.data[0].lotSz;

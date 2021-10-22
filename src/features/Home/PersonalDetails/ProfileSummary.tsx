@@ -1,30 +1,34 @@
+import { useState } from "react";
 import ProfiePhoto from "./ProflePhoto";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { dashboardContainer } from "../MainContainer/mainContainerSlice";
 import {
   accountmanageContainer,
-  OnProfileSummarySuccess,
+  // OnProfileSummarySuccess,
 } from "./PersonalDetailsSlice";
+
 import {
   BankContainer,
   DematDetailsContainer,
   SegmentContainer,
 } from "../Account/AccountSummaryDetailsSlice";
-import { getProfileSummary } from "../../../app/api";
+// import { getProfileSummary } from "../../../app/api";
 import backImage from "../../../assets/back reverse.png";
 import { useEffect } from "react";
 import { RootState } from "../../../store/store";
-
+import { fetchPersonal } from "./PersonalDetailsSlice";
 const ProfileSummaryOld = () => {
   const dispatch = useAppDispatch();
-
+  const user = useAppSelector((state) => state.user);
+  const OptionList = useAppSelector((state) => state.personalContainer);
+  const [data, setData] = useState("");
   const UserDetails = useAppSelector(
     (state: RootState) => state.personalContainer
   );
 
-  useEffect(() => {
-    dispatch(OnProfileSummarySuccess(getProfileSummary()));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(OnProfileSummarySuccess(getProfileSummary()));
+  // }, []);
 
   function onDematClick() {
     dispatch(accountmanageContainer());
@@ -48,7 +52,13 @@ const ProfileSummaryOld = () => {
     dispatch(accountmanageContainer());
     dispatch(BankContainer());
   }
-
+  useEffect(() => {
+    console.log("PROFILE RENDER");
+    dispatch(fetchPersonal(user.sessionKey));
+  }, []);
+  useEffect(() => {
+    console.log("FROM API", OptionList);
+  }, [OptionList]);
   return (
     <div
       className="Profile-Summary"
@@ -140,7 +150,8 @@ const ProfileSummaryOld = () => {
                   marginBottom: 10,
                 }}
               >
-                {UserDetails.userDetailsState.Email}
+                {OptionList.userDetailsState.Email &&
+                  OptionList.userDetailsState.Email}
               </div>
             </div>
             <div className="row">

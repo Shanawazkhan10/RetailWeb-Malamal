@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IPersonalDetails } from "../../../types/IPersonalDetails";
-
+import { AppThunk } from "../../../store/store";
+import { GetProfileData } from "../../../app/api";
 interface IMainContainer {
   rightContainer: number;
 }
@@ -50,6 +51,9 @@ const personalContainerSlice = createSlice({
     OnProfileSummarySuccess: (state, action) => {
       state.userDetailsState = action.payload;
     },
+    // HoldingError: (state, action) => {
+    //   state.userDetailsState = action.payload;
+    // },
   },
 });
 
@@ -61,5 +65,15 @@ export const {
   OnProfileSummarySuccess,
   updatemobileContainer,
 } = personalContainerSlice.actions;
+export const fetchPersonal =
+  (sessionKey: string): AppThunk =>
+  async (dispatch) => {
+    try {
+      const holdingResponse = await GetProfileData(sessionKey);
 
+      dispatch(OnProfileSummarySuccess(holdingResponse));
+    } catch (err: any) {
+      // dispatch(HoldingError(err.toString()));
+    }
+  };
 export default personalContainerSlice.reducer;

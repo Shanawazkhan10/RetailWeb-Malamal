@@ -1,7 +1,7 @@
 import { parse } from "querystring";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { RootState } from "../../../../store/store";
 import { INetPosition } from "../../../../types/INetposition";
 import { NetpositionSummary } from "../../../../types/INetpositionSummary";
@@ -9,6 +9,7 @@ import { IOrderResponse } from "../../../../types/Order/IOrderResponse";
 import { IOrderEntryProps } from "../../../../types/OrderEntry/IOrderEntryProps";
 import { IPosition } from "../../../../types/Position/IPosition";
 import {
+  FetchSymbol,
   openBuyOrderEntry,
   openSellOrderEntry,
   setOrderEntryProps,
@@ -16,7 +17,10 @@ import {
 
 const NetPositionV = (props: { netposition: INetPosition }) => {
   const { netposition } = props;
+  const [Menuflag, ShowMenu] = useState(false);
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user);
+
   const OrderEntryProp = {
     token: "",
     exchange: "",
@@ -61,36 +65,70 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
     }
   }
 
-  function onBuyOrderEntryClick(
+  function OpenOrderEntry(
     e: any,
-    symbolInfo: IOrderResponse,
-    actiontype: string
+    symbolInfo: INetPosition,
+    Actiontype: string
   ) {
     e.preventDefault();
-    OrderEntryProp.token = symbolInfo.tok;
-    if (actiontype == "Repeat") {
-      OrderEntryProp.price = symbolInfo.prc;
-    } else if (actiontype == "Buy") {
-      OrderEntryProp.price = symbolInfo.ltp;
+
+    if (Actiontype == "E") {
+      if (symbolInfo.NetQty > 0) {
+        onSellOrderEntryClick(symbolInfo);
+      } else {
+        onBuyOrderEntryClick(symbolInfo);
+      }
+    } else {
+      if (symbolInfo.NetQty > 0) {
+        onBuyOrderEntryClick(symbolInfo);
+      } else {
+        onSellOrderEntryClick(symbolInfo);
+      }
     }
-    OrderEntryProp.quantity = 1; //symbolInfo.fldQty;
-    OrderEntryProp.symbol = symbolInfo.trdSym;
-    OrderEntryProp.exchange = symbolInfo.exSeg;
-    //OrderEntryProp.ltp = symbolInfo.ltp;
-    dispatch(setOrderEntryProps(OrderEntryProp));
-    dispatch(openBuyOrderEntry());
   }
 
-  function onSellOrderEntryClick(e: any, netposition: INetPosition) {
-    e.preventDefault();
+  function onBuyOrderEntryClick(netposition: INetPosition) {
+    var scripInfo = netposition.exSeg + "|" + netposition.tok;
     OrderEntryProp.token = netposition.tok;
-    //OrderEntryProp.price = symbolInfo.ltp;
+
+    OrderEntryProp.price = netposition.ltp;
+
+    OrderEntryProp.quantity = 1; //symbolInfo.fldQty;
+    OrderEntryProp.symbol = netposition.trdSym;
+    OrderEntryProp.exchange = netposition.exSeg;
+    //OrderEntryProp.ltp = symbolInfo.ltp;
+
+    dispatch(FetchSymbol(scripInfo.split(","), user.sessionKey));
+    setTimeout(function () {
+      dispatch(setOrderEntryProps(OrderEntryProp));
+      dispatch(openBuyOrderEntry());
+    }, 300);
+  }
+
+  function onSellOrderEntryClick(netposition: INetPosition) {
+    var scripInfo = netposition.exSeg + "|" + netposition.tok;
+    OrderEntryProp.token = netposition.tok;
+    OrderEntryProp.price = netposition.ltp;
     OrderEntryProp.quantity = Number(netposition.cfBuyQty); // symbolInfo.fldQty;
     OrderEntryProp.symbol = netposition.trdSym;
     OrderEntryProp.exchange = netposition.exSeg;
     //OrderEntryProp.ltp = symbolInfo.ltp;
-    dispatch(setOrderEntryProps(OrderEntryProp));
-    dispatch(openSellOrderEntry());
+    dispatch(FetchSymbol(scripInfo.split(","), user.sessionKey));
+    setTimeout(function () {
+      dispatch(setOrderEntryProps(OrderEntryProp));
+      dispatch(openSellOrderEntry());
+    }, 300);
+  }
+
+  function SetMenuflag(e: any) {
+    e.preventDefault();
+    if (e._reactName == "onMouseOver") {
+      if (Menuflag == true) {
+        ShowMenu(false);
+      }
+    } else {
+      ShowMenu(!Menuflag);
+    }
   }
 
   return (
@@ -117,7 +155,7 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
         <button
           type="button"
           className="btn btn-primary exitbtn"
-          onClick={(e) => onSellOrderEntryClick(e, netposition)}
+          onClick={(e) => OpenOrderEntry(e, netposition, "E")}
         ></button>
       </td>
       <td>
@@ -125,7 +163,7 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
           {netposition.trdSym}
           <span>{getSegmentName(netposition.exSeg)}</span>
         </h3>
-        <div className="watchlistbox">
+        <div className={"watchlistbox" + (Menuflag ? " show" : "")}>
           <button
             type="button"
             className="btn btn-primary wmore dropdown-toggle"
@@ -133,22 +171,31 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
+            onClick={(e) => SetMenuflag(e)}
+            onMouseOver={(e) => SetMenuflag(e)}
           ></button>
-          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <div
+            className={"dropdown-menu" + (Menuflag ? " show" : "")}
+            aria-labelledby="dropdownMenuButton"
+          >
             <a
               className="dropdown-item"
               href="#"
-              onClick={(e) => onSellOrderEntryClick(e, netposition)}
+              onClick={(e) => OpenOrderEntry(e, netposition, "E")}
             >
               <img src="images/positions/exit.svg" /> Exit
             </a>
-            <a className="dropdown-item" href="#">
+            <a
+              className="dropdown-item"
+              href="#"
+              onClick={(e) => OpenOrderEntry(e, netposition, "A")}
+            >
               <img src="images/positions/add.svg" /> Add
             </a>
             <a className="dropdown-item" href="#">
               <img src="images/positions/convert.svg" /> Convert
             </a>
-            <a className="dropdown-item" href="#">
+            {/*<a className="dropdown-item" href="#">
               <img src="images/positions/info.svg" /> Info
             </a>
             <a className="dropdown-item" href="#">
@@ -190,12 +237,12 @@ const NetPositionV = (props: { netposition: INetPosition }) => {
             </a>
             <a className="dropdown-item" href="#">
               <img src="images/positions/alert.svg" /> Set Alerts
-            </a>
+            </a> */}
           </div>
         </div>
       </td>
 
-      <td>{netposition.NetQty}</td>
+      <td>{Math.abs(netposition.NetQty)}</td>
       <td>
         {/* {Number(netposition.flBuyQty) == 0
           ? Math.fround(

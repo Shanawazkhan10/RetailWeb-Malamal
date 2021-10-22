@@ -55,6 +55,7 @@ const Home = () => {
     dispatch(fetchOrderView(user.sessionKey));
     dispatch(fetchTradeView(user.sessionKey));
     dispatch(FetchMargin(user.sessionKey));
+    
 
     var url = "wss://uathsmkt.hypertrade.in";
     return () => {

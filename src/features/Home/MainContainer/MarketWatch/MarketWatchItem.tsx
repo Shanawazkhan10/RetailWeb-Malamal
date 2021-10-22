@@ -20,6 +20,7 @@ import {
   setGTTEntryProps,
 } from "../../GTTOrderEntry/gttEntrySlice";
 import {
+  FetchSymbol,
   openBuyOrderEntry,
   openSellOrderEntry,
   setOrderEntryProps,
@@ -82,21 +83,23 @@ const MarketWatchItem = (props: {
     symbol: "",
   } as IGTTEntryProps;
   function onBuyOrderEntryClick(symbolInfo: IMarketWatchTokenInfo) {
+    var scripInfo = symbolInfo.exSeg + "|" + symbolInfo.tok;
     OrderEntryProp.token = symbolInfo.tok;
     OrderEntryProp.price = symbolInfo.ltp;
-
-    OrderEntryProp.quantity = Number(symbolInfo.lotSz);
 
     OrderEntryProp.quantity = 1;
 
     OrderEntryProp.symbol = symbolInfo.trdSym;
     OrderEntryProp.exchange = symbolInfo.exSeg;
     OrderEntryProp.ltp = symbolInfo.ltp;
-
-    dispatch(setOrderEntryProps(OrderEntryProp));
-    dispatch(openBuyOrderEntry());
+    dispatch(FetchSymbol(scripInfo.split(","), user.sessionKey));
+    setTimeout(function () {
+      dispatch(setOrderEntryProps(OrderEntryProp));
+      dispatch(openBuyOrderEntry());
+    }, 300);
   }
   function onSellOrderEntryClick(symbolInfo: IMarketWatchTokenInfo) {
+    var scripInfo = symbolInfo.exSeg + "|" + symbolInfo.tok;
     OrderEntryProp.token = symbolInfo.tok;
     OrderEntryProp.price = symbolInfo.ltp;
     if (symbolInfo.exSeg.includes("fo")) {
@@ -107,8 +110,11 @@ const MarketWatchItem = (props: {
     OrderEntryProp.symbol = symbolInfo.trdSym;
     OrderEntryProp.exchange = symbolInfo.exSeg;
     OrderEntryProp.ltp = symbolInfo.ltp;
-    dispatch(setOrderEntryProps(OrderEntryProp));
-    dispatch(openSellOrderEntry());
+    dispatch(FetchSymbol(scripInfo.split(","), user.sessionKey));
+    setTimeout(function () {
+      dispatch(setOrderEntryProps(OrderEntryProp));
+      dispatch(openSellOrderEntry());
+    }, 300);
   }
   function onChartClick() {
     dispatch(chartContainer());

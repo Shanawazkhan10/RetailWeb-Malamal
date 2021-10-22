@@ -22,6 +22,7 @@ const holding = createSlice({
   },
   reducers: {
     HoldingSuccess: (state, action) => {
+      
       if (!state.holding.isLoad) {
         state.holding.isLoad = true;
       }

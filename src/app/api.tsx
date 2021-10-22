@@ -601,3 +601,43 @@ export async function Getallindicesdata(
     .then((response) => response.data)
     .catch((error) => error);
 }
+export async function GetProfileData(SessionKey: string): Promise<any> {
+  return await api
+    .get("https://uathsint.hypertrade.in/quick/user/details", {
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+        "x-access-token": SessionKey,
+      },
+    })
+
+    .then((response) => response.data)
+
+    .catch((error) => error);
+}
+//OPTIONCHAIN MASTER API
+export async function optionChain(SessionKey: string): Promise<any> {
+  var myHeaders = new Headers();
+  myHeaders.append("api-key", "UzL0HZiHPTc1rNVr");
+  myHeaders.append("x-access-token", SessionKey);
+  myHeaders.append("Content-Type", "application/json");
+
+  var raw = JSON.stringify({
+    exchange_seg: "nse_fo",
+  });
+
+  var requestOptions: any = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
+
+  const rawResponse = await fetch(
+    "https://uathsdiscovery.hypertrade.in/api/content/search/getoptionchaindata",
+    requestOptions
+  );
+  const content = await rawResponse.json();
+
+  //console.log(content);
+  return content;
+}

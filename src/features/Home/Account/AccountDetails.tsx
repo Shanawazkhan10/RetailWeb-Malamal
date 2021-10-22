@@ -3,7 +3,7 @@ import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import { OnProfileSummarySuccess } from "../PersonalDetails/PersonalDetailsSlice";
 import { RootState } from "../../../store/store";
 import { useEffect } from "react";
-import { getProfileSummary } from "../../../app/api";
+// import { getProfileSummary } from "../../../app/api";
 import Popup from "reactjs-popup";
 import UpdateMobileEmail from "./UpdateMobileEmail";
 import UpdateSegment from "./UpdateSegment";

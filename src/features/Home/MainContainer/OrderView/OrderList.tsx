@@ -111,7 +111,6 @@ const OrderList = () => {
                               <th style={{ width: "10%" }}>Status</th>
                             </tr>
                           </thead>
-
                           {filteredOrders != undefined &&
                             filteredOrders.map((Order: any) => (
                               <OrderView

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { loggedout } from "../../Login/userSlice";
+import { fetchOptionMaster } from "../MainContainer/OptionChain/OptionChainslice";
 import {
   dashboardContainer,
   fundContainer,
@@ -10,14 +11,17 @@ import {
   orderContainer,
   positionContainer,
 } from "../MainContainer/mainContainerSlice";
+import { IoptionMater } from "../../../types/OptionMaster/IOptionMaster";
 import { ToggleMenuContainer } from "../Menu/MenuBarSlice";
-
+import { optionChain } from "../../../app/api";
 const Header = () => {
   const dispatch = useAppDispatch();
   const maincontainerState = useAppSelector((state) => state.mainContainer);
+  const OptionList = useAppSelector((state) => state.optionMaster);
+  const user = useAppSelector((state) => state.user);
   const [flag, SetMenuflag] = useState(false);
   const history = useHistory();
-
+  const [data, setdata] = useState("");
   dispatch(ToggleMenuContainer(flag));
 
   function onDashBoard(e: any) {
@@ -55,7 +59,17 @@ const Header = () => {
     dispatch(loggedout());
     history.push("/login");
   }
-
+  function handleProfile(e: any) {
+    e.preventDefault();
+    dispatch(myprofileContainer());
+    // optionChain(user.sessionKey);
+  }
+  useEffect(() => {
+    dispatch(fetchOptionMaster(user.sessionKey));
+  }, []);
+  useEffect(() => {
+    console.log(OptionList.optionMaster);
+  }, [OptionList]);
   return (
     // <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top d-flex flex-row">
     //   <a className="navbar-brand" href="/Home">
@@ -250,6 +264,24 @@ const Header = () => {
               <span className="d-none d-sm-inline">account</span>
             </a>
           </li> */}
+          <li className="nav-item">
+            <a
+              href="#"
+              className={
+                maincontainerState.rightContainer === 6
+                  ? "active "
+                  : "" + "nav-link d-flex flex-column"
+              }
+              onClick={handleProfile}
+            >
+              <img
+                className="d-block d-sm-none"
+                src="images/close.svg"
+                width="20"
+              />
+              <span className="d-none d-sm-inline">Profile</span>
+            </a>
+          </li>
           <li className="nav-item">
             <a
               href="#"

@@ -34,7 +34,10 @@ const Position = () => {
   }, []);
 
   function getContractDetails() {
-    if (NetpositionList.netposition != undefined) {
+    if (
+      NetpositionList.netposition != undefined &&
+      NetpositionList.netposition.netpositionList != undefined
+    ) {
       var positionArr = NetpositionList.netposition.netpositionList?.map(
         (position) => position.exSeg + "|" + position.tok
       );

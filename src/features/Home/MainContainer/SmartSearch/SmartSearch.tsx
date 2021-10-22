@@ -93,7 +93,7 @@ const SmartSearch = (props: { Type: Number }) => {
       var scripInfo = result.exseg + "|" + result.omtkn;
       OrderEntryProp.token = result.omtkn;
       OrderEntryProp.price = String(result.last);
-      //OrderEntryProp.quantity = 1;
+      OrderEntryProp.quantity = 1;
       OrderEntryProp.symbol = result.tsym;
       OrderEntryProp.exchange = result.exseg;
       OrderEntryProp.ltp = String(result.last);
@@ -104,7 +104,7 @@ const SmartSearch = (props: { Type: Number }) => {
         dispatch(setOrderEntryProps(OrderEntryProp));
 
         dispatch(openBuyOrderEntry());
-      }, 500);
+      }, 300);
     }
   }
 
@@ -123,7 +123,7 @@ const SmartSearch = (props: { Type: Number }) => {
       setTimeout(function () {
         dispatch(setOrderEntryProps(OrderEntryProp));
         dispatch(openSellOrderEntry());
-      }, 500);
+      }, 300);
     }
   }
   function onChartClick(e: any) {
@@ -236,7 +236,7 @@ const SmartSearch = (props: { Type: Number }) => {
         }
       )
       .then((response) => {
-        setResult(response.data.data);
+        // setResult(response.data.data);
       });
   };
 

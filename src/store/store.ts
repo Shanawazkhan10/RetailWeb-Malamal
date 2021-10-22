@@ -23,6 +23,7 @@ import MarginSlice from "../features/Home/MainContainer/Dashboard/MarginSlice";
 import indicesSlice from "../features/Home/Header/IndicesSlice";
 import AddWatchListSlice from "../features/Home/MainContainer/MarketWatch/AddWatchListSlice";
 import PaymentSlice from "./../features/Home/MainContainer/Funds/PaymentSlice";
+import OptionChainslice from "../features/Home/MainContainer/OptionChain/OptionChainslice";
 
 const store = configureStore({
   reducer: {
@@ -49,6 +50,7 @@ const store = configureStore({
     indices: indicesSlice,
     addwatch: AddWatchListSlice,
     payment: PaymentSlice,
+    optionMaster: OptionChainslice,   
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
