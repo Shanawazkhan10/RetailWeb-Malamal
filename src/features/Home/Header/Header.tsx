@@ -18,6 +18,7 @@ const Header = () => {
   const dispatch = useAppDispatch();
   const maincontainerState = useAppSelector((state) => state.mainContainer);
   const OptionList = useAppSelector((state) => state.optionMaster);
+  const key = useAppSelector((state) => state.optionMaster.optionMaster.symbol);
   const user = useAppSelector((state) => state.user);
   const [flag, SetMenuflag] = useState(false);
   const history = useHistory();
@@ -67,9 +68,9 @@ const Header = () => {
   useEffect(() => {
     dispatch(fetchOptionMaster(user.sessionKey));
   }, []);
-  useEffect(() => {
-    console.log(OptionList.optionMaster);
-  }, [OptionList]);
+  // useEffect(() => {
+  //   console.log("useEffect", key);
+  // }, [key]);
   return (
     // <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top d-flex flex-row">
     //   <a className="navbar-brand" href="/Home">
